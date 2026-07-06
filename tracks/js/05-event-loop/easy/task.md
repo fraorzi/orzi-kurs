@@ -1,0 +1,23 @@
+# Easy — zaplanuj kolejność
+
+## `scheduleLogs(log)`
+
+Funkcja dostaje `log` i ma wywołać:
+
+- `log("sync")` — synchronicznie, w trakcie wywołania `scheduleLogs`,
+- `log("micro")` — z **mikrotaska**,
+- `log("macro")` — z **makrotaska**.
+
+Testy sprawdzają stan po każdej fazie event loopa osobno:
+
+```js
+const order = [];
+scheduleLogs((label) => order.push(label));
+// w tym momencie: ["sync"]           — nic asynchronicznego jeszcze nie ruszyło
+// po mikrotaskach: ["sync", "micro"] — mikrotaski przed makrotaskami
+// po makrotaskach: ["sync", "micro", "macro"]
+```
+
+Do zaplanowania mikrotaska użyj `queueMicrotask(fn)` albo `Promise.resolve().then(fn)`;
+makrotaska — `setTimeout(fn)`. Kolejność wywołań w kodzie jest dowolna — liczy się
+kolejność WYKONANIA.

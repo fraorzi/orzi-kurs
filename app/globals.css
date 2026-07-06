@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0d1117;
+  --bg-raised: #11161d;
+  --bg-inset: #080a0d;
+  --border: #2a323c;
+  --border-strong: #3d4753;
+  --fg: #d7dce2;
+  --fg-dim: #8b95a1;
+  --fg-faint: #5b6472;
+  --accent: #4fa8ff;
+  --accent-dim: #2c6199;
+
+  --pass: #3fb950;
+  --pass-bg: #0f2416;
+  --pass-border: #1e4b2a;
+
+  --fail: #f85149;
+  --fail-bg: #2a1113;
+  --fail-border: #55201f;
+
+  --pending: #8b95a1;
+  --pending-bg: #171b21;
+  --pending-border: #2a323c;
+
+  --warn: #d29922;
+  --warn-bg: #2b2110;
+  --warn-border: #4a3814;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-raised: var(--bg-raised);
+  --color-bg-inset: var(--bg-inset);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-fg-dim: var(--fg-dim);
+  --color-fg-faint: var(--fg-faint);
+  --color-accent: var(--accent);
+  --color-pass: var(--pass);
+  --color-pass-bg: var(--pass-bg);
+  --color-pass-border: var(--pass-border);
+  --color-fail: var(--fail);
+  --color-fail-bg: var(--fail-bg);
+  --color-fail-border: var(--fail-border);
+  --color-pending: var(--pending);
+  --color-pending-bg: var(--pending-bg);
+  --color-pending-border: var(--pending-border);
+  --color-warn: var(--warn);
+  --color-warn-bg: var(--warn-bg);
+  --color-warn-border: var(--warn-border);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+::selection {
+  background: var(--accent-dim);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fg-faint);
+}
+
+/* Renderowany markdown (README / task.md) */
+.prose-doc {
+  max-width: 78ch;
+  color: var(--fg);
+}
+
+.prose-doc h1 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--fg);
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 10px;
+  margin: 0 0 20px;
+  letter-spacing: 0.01em;
+}
+
+.prose-doc h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--fg);
+  margin: 32px 0 12px;
+  padding-left: 10px;
+  border-left: 3px solid var(--accent);
+}
+
+.prose-doc h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--fg-dim);
+  margin: 20px 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.prose-doc p {
+  margin: 12px 0;
+  color: var(--fg);
+}
+
+.prose-doc strong {
+  color: var(--fg);
+  font-weight: 800;
+}
+
+.prose-doc a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose-doc ul,
+.prose-doc ol {
+  margin: 12px 0;
+  padding-left: 22px;
+}
+
+.prose-doc li {
+  margin: 4px 0;
+}
+
+.prose-doc ul li {
+  list-style-type: none;
+  position: relative;
+}
+
+.prose-doc ul li::before {
+  content: "-";
+  position: absolute;
+  left: -16px;
+  color: var(--fg-faint);
+}
+
+.prose-doc ol li {
+  list-style: decimal;
+}
+
+.prose-doc blockquote {
+  margin: 16px 0;
+  padding: 8px 14px;
+  border-left: 3px solid var(--warn);
+  background: var(--warn-bg);
+  color: var(--fg-dim);
+}
+
+.prose-doc code {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  padding: 1px 5px;
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.prose-doc pre {
+  margin: 16px 0;
+  padding: 14px 16px;
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  overflow-x: auto;
+}
+
+.prose-doc pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--fg);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.prose-doc table {
+  border-collapse: collapse;
+  margin: 16px 0;
+  width: 100%;
+}
+
+.prose-doc th,
+.prose-doc td {
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  text-align: left;
+}
+
+.prose-doc th {
+  background: var(--bg-raised);
+  color: var(--fg-dim);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+}
+
+.prose-doc hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 24px 0;
+}
