@@ -4,9 +4,13 @@
 
 - **Kiedy:** po zamknięciu MVP (pierwszy commit repo). Wcześniej nie — sesje opierają
   się na SPEC/curriculum/wzorcu js/01-05, które muszą być scommitowane.
-- **Jak:** nowe okno Claude Code w katalogu `orzi-kurs`, model **Fable**, wklej prompt.
+- **Jak:** nowe okno Claude Code w katalogu `orzi-kurs`, wklej prompt.
   Jedna sesja = jeden moduł. **Nie odpalaj dwóch sesji treści naraz** (konflikt na
   harness/package.json przy rozszerzeniach).
+- **Modele (oszczędność usage):** Prompt 1 (treść) → **Opus** — wystarcza, bo jakość
+  trzymają bramki (kuracja ze źródeł, wzorzec js/08-12, verify:solutions, wytyczne
+  testów niżej). Prompt 2 (audyt) → **Fable** — mocny model czyta i poprawia, co jest
+  wielokrotnie tańsze niż generowanie. Prompty 3-4 → Opus/Sonnet.
 - **Cykl na moduł:** Prompt 1 (treść) → Prompt 2 (audyt, świeże okno) → Ty rozwiązujesz
   → Prompt 3 (review Twoich rozwiązań). Prompt 4 (powiadomienia) — raz, na sam koniec.
 - **Kolejność modułów:** js (dokończenie) → ts → react → node → next → mysql → strapi
@@ -50,12 +54,22 @@ Dokończ kolejny moduł treści w orzi-kurs.
    nazwami i custom komunikatami asercji tłumaczącymi przyczynę; benchmarki
    (@harness/bench) wszędzie tam, gdzie temat ma wymiar wydajnościowy.
    Zadania WYŁĄCZNIE kurowane ze sprawdzonych źródeł — nigdy wymyślone od zera.
-   Zagadnienia [D] = debug: starter to kompletny zepsuty/nieoptymalny kod.
+   Zagadnienia [D] = debug: starter to kompletny ZEPSUTY kod, uczeń go naprawia.
+   Zagadnienia [O] = optymalizacja: starter to kompletny kod, który DZIAŁA POPRAWNIE,
+   ale jest nieoptymalny (zła złożoność, powtórzona praca, zła struktura danych, zbędne
+   kopie, brak memoizacji) — uczeń go przepisuje bez zmiany kontraktu. Chcę OBU typów,
+   nie tylko debugowania: optymalizacja działającego kodu to codzienna robota.
+   Definicje i bramki: SPEC.md → „Typy zagadnień".
 6. Bramka jakości: pnpm verify:solutions <moduł> musi być 100% green. Sprawdź też,
    że każdy starter w stanie wyjściowym OBLEWA testy (zadanie nie może być
-   „zaliczone od urodzenia").
+   „zaliczone od urodzenia"):
+   - zwykłe i [D]: starter oblewa testy poprawności;
+   - [O]: starter PRZECHODZI testy poprawności i OBLEWA test wydajności.
+   Uwaga na expectScaling: mierzy najpierw mały rozmiar (JIT na zimno), więc zaniża
+   ratio — zbyt małe `sizes` nie złapią O(n²). Dla tanich operacji użyj [2000, 20000]
+   i sprawdź oba kierunki na kilku przebiegach.
 7. Odhacz zrobione pozycje w tasks/curriculum.md.
-8. ŻADNYCH commitów git — na koniec zaproponuj commit message i czekaj na moją zgodę.
+8. ŻADNYCH commitów git i żadnych propozycji commitów — commituję sam.
 9. Raport: co powstało, co dopisałeś do curriculum, wyniki verify, ograniczenia.
 ```
 
@@ -97,7 +111,12 @@ C. KOMPLETNOŚĆ I GŁĘBIA
 
 D. MECHANIKA
    - pnpm verify:solutions <NAZWA> → musi być 100% green.
+   - Sprawdź też pokrycie typów zagadnień: czy moduł ma zarówno [D] (debug), jak i [O]
+     (optymalizacja działającego kodu)? Jeśli brakuje [O] — dopisz propozycje do
+     curriculum.md z dopiskiem „(audyt)".
    - Każdy starter w stanie wyjściowym musi OBLEWAĆ swoje testy — sprawdź to
+     (wyjątek: w zagadnieniach [O] starter ma PRZECHODZIĆ testy poprawności i oblewać
+     wyłącznie test wydajności)
      (pnpm submit na próbce lub vitest bezpośrednio; NIE nadpisuj progress.json:
      jeśli coś w nim zmienisz, przywróć na koniec).
 
@@ -105,7 +124,7 @@ E. WYNIK
    - Błędy merytoryczne i mechaniczne POPRAW od razu w plikach (po poprawce
      verify:solutions znowu green).
    - Braki zakresu → curriculum.md z dopiskiem „(audyt)".
-   - ŻADNYCH commitów git.
+   - ŻADNYCH commitów git i żadnych propozycji commitów — commituję sam.
    - Raport końcowy: co sprawdzone, co poprawione (plik po pliku), co dopisane
      do curriculum, co przetestowałeś eksperymentalnie w scratchpadzie i z jakim
      wynikiem, czego nie dało się zweryfikować i dlaczego.
@@ -135,6 +154,26 @@ instrukcję krok po kroku, co zainstalować i skonfigurować na iPhonie.
 ```
 
 ---
+
+## Wytyczne projektowania testów (obowiązkowe dla Promptu 1)
+
+- Jeden test = jedno wymaganie; nazwa po polsku opisuje wymaganie („zwraca nową
+  tablicę zamiast mutować wejście"), custom komunikat asercji tłumaczy PRZYCZYNĘ
+  i kierunek naprawy. Wzorzec: tracks/js/10-promises i 12-event-loop.
+- Determinizm: zero sieci i losowości; timery krótkie (≤80ms) z tolerancją
+  (elapsed ≥ ms-5, nie ==); asercje czasowe tylko z szerokim marginesem.
+- Współbieżność: instrumentuj licznikami w domknięciu (active/maxActive), nie
+  czasami; kolejność sprawdzaj tablicą zdarzeń (push etykiet), nie sleep-ami.
+- Event loop: asercje fazowe — stan po sync, po `await Promise.resolve()`,
+  po `setTimeout(0)` osobno.
+- Zadania składniowe („przepisz na X", „nie używaj Y"): dodatkowo test źródła
+  (readFileSync startera + regex) z komunikatem, czemu ograniczenie istnieje.
+- Wydajność wyłącznie przez `expectScaling` z `@harness/bench` (progi luźne — klasy
+  złożoności, nie mikro-optymalizacje). Żadnych własnych benchmarków ad hoc.
+- Zakazy: snapshot testy, testowanie szczegółów implementacji zamiast kontraktu,
+  zależność testów od siebie, asercje bez komunikatu w miejscach nieoczywistych.
+- Po napisaniu wzorca: uruchom testy przeciw _solution (verify) ORAZ przeciw
+  starterowi (musi oblewać) — oba wyniki wklej do raportu.
 
 ## Wymagania harnessu per moduł (dla Promptu 1, krok 4)
 

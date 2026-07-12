@@ -3,34 +3,131 @@
 Kontrakt treści: każda przyszła sesja tworząca zadania realizuje kolejne pozycje z tej
 listy wg konwencji ze SPEC.md, wzorując się na `tracks/js/01-05`. Każde zagadnienie =
 README (teoria + „kiedy używać / kiedy unikać / pułapki") + easy/medium/hard.
-`[D]` = zagadnienie debugowe (naprawa zepsutego/nieoptymalnego kodu).
+`[D]` = zagadnienie debugowe: starter to kompletny **zepsuty** kod, uczeń go naprawia
+(starter oblewa testy poprawności).
+`[O]` = zagadnienie optymalizacyjne: starter to kompletny kod, który **działa poprawnie**,
+ale jest nieoptymalny — uczeń go przepisuje bez zmiany kontraktu (starter przechodzi testy
+poprawności, oblewa tylko bramkę wydajności: `expectScaling` albo licznik pracy).
+Szczegóły i bramki obu typów: SPEC.md → „Typy zagadnień".
 `module-NN` = wieloplikowy mini-projekt łączący poprzednie ~10 zagadnień.
+
+Zasada: każdy track ma dostać zarówno `[D]`, jak i `[O]` — samo debugowanie nie uczy
+optymalizacji działającego kodu, a to codzienna robota (profilowanie, dobór struktury
+danych, unikanie powtórzonej pracy).
 
 Zasada objętości: liczy się pokrycie materiału, nie liczba pozycji — jeśli temat jest
 szeroki (np. useEffect), dostaje kilka zagadnień. Lista może rosnąć, nie maleć.
 
-## js (~21 pozycji ≈ 63 zadania) — 01–05 gotowe
+Zasada progresji: KAŻDY track zaczyna od bloku podstaw do aktywnego pisania —
+czytać kod ≠ pisać z głowy, więc nawet „znane" konstrukcje (składnia funkcji, pętle,
+typy) mają swoje zadania. Trudność rośnie z numerami zagadnień; wewnątrz zagadnienia
+easy → medium → hard.
 
-- [x] 01 domknięcia
-- [x] 02 metody tablic
-- [x] 03 promisy
-- [x] 04 async/await
-- [x] 05 event loop
-- [ ] 06 `this`, call/apply/bind, metody obiektów
-- [ ] 07 prototypy i klasy (dziedziczenie, statyki, pola prywatne)
-- [ ] 08 obsługa błędów (throw, custom errors, finally, error cause)
-- [ ] 09 destructuring, spread/rest, parametry domyślne
-- [ ] 10 Map/Set/WeakMap (i kiedy obiekt nie wystarcza)
-- [ ] module-01 (mini-projekt: np. in-memory store z eventami)
-- [ ] 11 [D] debug: subtelne błędy logiczne (mutacje, off-by-one, stale closure)
-- [ ] 12 iteratory i generatory (protokoły, lazy sequences)
-- [ ] 13 immutability w praktyce (structuredClone, freeze, wzorce update)
-- [ ] 14 własny EventEmitter (on/off/once/emit)
-- [ ] 15 debounce i throttle (implementacje + różnice)
-- [ ] 16 rekurencja (drzewa, spłaszczanie, limity stosu)
-- [ ] 17 fetch, AbortController, obsługa JSON i błędów HTTP
-- [ ] 18 [D] debug: wydajność i pamięć (łapane benchmarkiem, leaki przez domknięcia)
-- [ ] module-02 (mini-projekt: klient API z retry/timeout/kolejką)
+## js (01–37 gotowe: numerowane + pierwsze [O] optymalizacyjne)
+(verify:solutions js = 111/111; zostają module-01/02 + pozycje z audytu)
+
+- [x] 01 funkcje: deklaracja vs wyrażenie vs arrow (this/arguments/hoisting),
+      parametry domyślne i rest, funkcje jako wartości
+- [x] 02 zmienne i zakresy: let/const/var, hoisting, TDZ, shadowing, bloki
+- [x] 03 typy i konwersje: === vs ==, truthy/falsy, NaN, konwersje jawne/niejawne
+- [x] 04 pętle i iteracja: for, for..of, for..in, while, break/continue
+- [x] 05 stringi: template literals, najważniejsze metody, split/join
+- [ ] 05b Unicode w stringach: jednostki UTF-16 vs code points, [...str] vs split(""),
+      normalize w praktyce, Intl.Segmenter dla grafemów (emoji ze ZWJ)
+      (audyt: MDN — pułapki length/emoji z README 05 zasługują na własne zadania)
+- [x] 06 obiekty podstawy: literały, dynamiczne klucze, Object.keys/values/entries,
+      kopiowanie płytkie, opcjonalne łańcuchowanie ?. i ??
+- [x] 07 destructuring, spread/rest w obiektach i tablicach
+- [x] 08 domknięcia
+- [x] 09 metody tablic
+- [x] 10 promisy
+- [ ] 10b Promise.withResolvers (ES2024) i wzorzec deferred: most callback→promise,
+      ręczne rozstrzyganie z zewnątrz, kolejki zadań
+      (audyt: MDN — dostępne w Node 22, upraszcza wzorce z 10/12-hard)
+- [x] 11 async/await
+- [x] 12 event loop
+- [ ] module-01 (mini-projekt: in-memory store z eventami, wieloplikowy)
+- [x] 13 `this`, call/apply/bind, metody obiektów
+- [x] 14 prototypy: łańcuch prototypów, Object.create, F.prototype, natywne prototypy
+      (rozbite z „prototypy i klasy" — audyt: javascript.info ma osobną sekcję)
+- [x] 15 klasy: składnia, dziedziczenie, statyki, pola prywatne, rozszerzanie wbudowanych
+      (rozbite z „prototypy i klasy" — audyt)
+- [x] 16 obsługa błędów (throw, custom errors, finally, error cause)
+- [ ] 16b błędy asynchroniczne: try/catch wokół await, throw w obietnicach,
+      Promise.allSettled przy częściowych błędach, unhandledrejection
+      (audyt: osobny wymiar od 16 — sync try/catch nie łapie async; MDN + javascript.info)
+- [x] 17 Map i Set (i kiedy obiekt nie wystarcza)
+      (rozbite z „Map/Set/WeakMap" — audyt: osobne rozdziały javascript.info)
+- [ ] 17b operacje na zbiorach: union/intersection/difference/isSubsetOf
+      (natywne Set methods ES2025 w Node 22 vs ręczne implementacje)
+      (audyt: MDN Set methods — realny wariant implementacyjny + wydajnościowy)
+- [ ] 17c grupowanie i indeksowanie: Object.groupBy / Map.groupBy (ES2024),
+      Map jako indeks/cache zamiast wielokrotnego .find()
+      (audyt: MDN Object.groupBy — nowość w Node 22, praktyczny wzorzec mid)
+- [x] 18 WeakMap/WeakSet: cache per obiekt, dane prywatne, pamięć
+      (rozbite z „Map/Set/WeakMap" — audyt)
+- [ ] 18b WeakRef i FinalizationRegistry (zaawansowane zarządzanie pamięcią,
+      kiedy NIE używać) (audyt: MDN — dopełnienie tematu słabych referencji)
+- [x] 19 [D] debug: subtelne błędy logiczne (mutacje, off-by-one, stale closure)
+- [x] 20 iteratory i iterables (protokół iteratora, Symbol.iterator, lazy bez generatorów)
+      (rozbite z „iteratory i generatory" — audyt)
+- [ ] 20b iterator helpers (ES2025, Node 22+): .map/.filter/.take/.drop/.toArray
+      na iteratorach — leniwe pipeline'y bez generatorów i bez tablic pośrednich
+      (audyt: MDN Iterator helpers — naturalny wariant implementacyjny do 20/21,
+      też wymiar wydajnościowy [O]: lazy vs materializacja)
+- [x] 21 generatory (yield*, delegacja, leniwe sekwencje, next(arg))
+      (rozbite z „iteratory i generatory" — audyt)
+- [ ] 21b async generatory i for await...of (strumienie async, paginacja)
+      (audyt: javascript.info „Async iteration and generators" — osobny wymiar od sync)
+- [x] 22 deskryptory właściwości, gettery/settery (defineProperty, wzorzec observe)
+      (dopisane — audyt: javascript.info „Object properties configuration")
+- [ ] 22b Proxy i Reflect (przechwytywanie operacji, walidacja, reaktywność)
+      (audyt: javascript.info „Proxy and Reflect" — meta-programowanie, dopełnienie 22)
+- [x] 23 immutability w praktyce (structuredClone, freeze, wzorce update)
+- [x] 24 własny EventEmitter (on/off/once/emit, semantyka Node)
+- [x] 25 debounce i throttle (implementacje + różnice)
+- [ ] 25b warianty debounce/throttle: leading/trailing, cancel/flush, throttle na rAF
+      (audyt: lodash docs — realne opcje produkcyjne, osobny poziom trudności)
+- [x] 26 [D] debug: asynchroniczność (brakujący await, forEach+async, sekwencyjne await)
+      (dopisane — audyt: kanon błędów async)
+- [x] 27 rekurencja (drzewa, spłaszczanie, limity stosu)
+- [ ] 27b trampolina i iteracyjne alternatywy rekurencji (unikanie przepełnienia stosu)
+      (audyt: kanon — dopełnienie „limity stosu" z 27)
+- [x] 28 JSON i serializacja (replacer/reviver, toJSON, cykle)
+      (dopisane — audyt: javascript.info „JSON methods")
+- [x] 29 liczby i precyzja (IEEE-754, EPSILON, zaokrąglanie, losowość)
+      (dopisane — audyt: javascript.info „Numbers")
+- [ ] 29b BigInt: literały n, arytmetyka, zakaz mieszania z number (TypeError),
+      konwersje, kiedy używać (id, kwoty, > MAX_SAFE_INTEGER), czego brakuje (Math.*)
+      (audyt: MDN BigInt — jedyny typ liczbowy nieobecny w tracku; domyka też
+      uproszczenie looseEq z 03-hard)
+- [x] 30 Date i czas (tworzenie, arytmetyka dat, formatowanie względne)
+      (dopisane — audyt: javascript.info „Date and time")
+- [x] 31 wyrażenia regularne: podstawy praktyczne (grupy, flagi, replace z funkcją)
+      (dopisane — audyt: javascript.info RegExp + MDN)
+- [ ] 31b regex zaawansowany: lookbehind (?<=)/(?<!), flaga y (sticky, tokenizacja),
+      flaga v (unicode sets, ES2024), $<name> w replace, escapowanie danych do wzorca
+      (audyt: MDN — dopełnienie 31; censor z 31-medium zakłada brak metaznaków,
+      tu wariant z escapowaniem)
+- [x] 32 fetch, AbortController, obsługa JSON i błędów HTTP
+- [x] 33 [D] debug: wydajność i pamięć (łapane benchmarkiem, leaki przez domknięcia)
+      (uwaga: easy/hard tego zagadnienia są de facto w duchu [O] — kod poprawny, ale wolny;
+      medium to prawdziwy bug (wyciek). Kolejne zadania optymalizacyjne robimy jako [O])
+- [x] 34 [O] optymalizacja: dobór struktury danych — indeks Map/Set zamiast skanowania,
+      `has` w O(1) zamiast `includes`, kiedy tablica jest lepsza od Map
+- [x] 35 [O] optymalizacja: unikanie powtórzonej pracy — memoizacja, wyciąganie obliczeń
+      i regexów poza pętlę, jedno przejście zamiast kilku `filter().map().reduce()`
+- [x] 36 [O] optymalizacja: alokacje i kopie — spread w pętli (O(n²)) vs push,
+      budowanie stringów, mutacja lokalnego bufora i niemutowalny wynik na końcu
+- [x] 37 [O] optymalizacja async: sekwencyjnie vs `Promise.all`, batching żądań,
+      limit współbieżności (pool) — mierzone licznikiem maxActive, nie czasem
+- [ ] module-02 (mini-projekt: klient API z retry/timeout/kolejką, wieloplikowy)
+- [ ] module-03 (feature: paginowany klient listy — fetch + cache Map + AbortController
+      przy zmianie zapytania + debounce wyszukiwania; skleja 17/25/32/35) (audyt)
+- [ ] module-04 (feature: mini state manager — pub/sub + niemutowalne aktualizacje
+      + undo/redo na historii stanów; skleja 22/23/24) (audyt)
+- [ ] module-05 (feature: rate limiter + kolejka zadań — throttle, pool współbieżności,
+      batching, backoff przy retry; skleja 25/10/37/32) (audyt)
 
 ## ts (~16 pozycji ≈ 48 zadań)
 
@@ -74,6 +171,8 @@ szeroki (np. useEffect), dostaje kilka zagadnień. Lista może rosnąć, nie mal
 - [ ] 17 useSyncExternalStore (stores zewnętrzne)
 - [ ] 18 useTransition/useDeferredValue (współbieżny React)
 - [ ] 19 [D] debug: nadmiarowe re-rendery i zepsute zależności (Profiler + lint)
+- [ ] 19b [O] optymalizacja komponentu: działający, ale wolny widok — memo/useMemo tam,
+      gdzie trzeba, podnoszenie stanu, rozbicie komponentu (mierzone licznikiem renderów)
 - [ ] 20 wzorce testowania komponentów (Testing Library idiomatycznie)
 - [ ] 21 wydajność list (klucze, memo, koncepcja windowing)
 - [ ] 22 style w JS/React (obiekt style, CSS variables z JS — wyjątek od Tailwinda)
@@ -105,6 +204,8 @@ szeroki (np. useEffect), dostaje kilka zagadnień. Lista może rosnąć, nie mal
 - [ ] 07 child_process i worker_threads (kiedy co)
 - [ ] 08 timery node'owe, setImmediate vs nextTick (event loop node)
 - [ ] 09 [D] debug: blokowanie event loopa, leaki
+- [ ] 09b [O] optymalizacja: wczytanie całego pliku do pamięci → strumień; synchroniczne
+      fs w pętli → równoległe/asynchroniczne (kod działa, ale nie skaluje się)
 - [ ] 10 budowa CLI (argumenty, exit codes, stdin/stdout)
 - [ ] module-01 (CLI tool wieloplikowy, np. analizator logów)
 
@@ -132,6 +233,8 @@ szeroki (np. useEffect), dostaje kilka zagadnień. Lista może rosnąć, nie mal
 - [ ] 09 widoki i procedury (podstawy)
 - [ ] 10 projektowanie schematu, normalizacja
 - [ ] 11 [D] debug: slow query, N+1, brakujący indeks
+- [ ] 11b [O] optymalizacja zapytań: poprawne zapytanie zwracające dobry wynik, ale wolne
+      — przepisz (indeks, JOIN zamiast podzapytania, LIMIT/paginacja); bramka: EXPLAIN
 - [ ] 12 mysql2 z Node (parametryzacja, pooling, SQL injection)
 - [ ] module-01 (schemat + zapytania pod realną aplikację)
 
@@ -146,4 +249,6 @@ szeroki (np. useEffect), dostaje kilka zagadnień. Lista może rosnąć, nie mal
 - [ ] node-mysql-01: warstwa danych z transakcjami
 - [ ] full-01: kapston — feature przez wszystkie warstwy
 
-**Suma: ~105 zagadnień ≈ 340–360 zadań + 10 testów modułowych.**
+**Suma (minimum, nie limit): ~112 zagadnień ≈ 360–390 zadań + 10 testów modułowych.**
+Sesje treści i audyty (tasks/prompts.md) mają obowiązek dopisywać pozycje, gdy źródła
+pokazują więcej wariantów.

@@ -115,12 +115,42 @@ Dowodzi, że każdy wzorzec przechodzi swoje testy. Musi być zielone przed doda
 - `pnpm submit <taskId>` — pipeline z CLI (ten sam kod co API)
 - `pnpm verify:solutions [trackId]`
 
-## Zagadnienia debugowe i wieloplikowe
+## Typy zagadnień: zwykłe, `[D]` debug, `[O]` optymalizacja
 
-- Zagadnienia `[D]` (debug): starter zawiera KOMPLETNY, zepsuty lub nieoptymalny kod
-  z realnego kanonu błędów; easy = bug oczywisty, medium = subtelny błąd logiczny,
-  hard = problem wydajnościowy/pamięciowy łapany benchmarkiem. Rozmieszczenie wg
-  tasks/curriculum.md (co ~5 zagadnień), dodatkowo zwykłe zadania mogą być typu „napraw".
+Starter zwykłego zagadnienia to szkielet z `// TODO` — uczeń pisze kod od zera.
+Dwa typy specjalne dają uczniowi KOMPLETNY, działający plik i inne zadanie:
+
+- Zagadnienia `[D]` (debug): starter zawiera kompletny, **zepsuty** kod z realnego kanonu
+  błędów; uczeń go naprawia. easy = bug oczywisty, medium = subtelny błąd logiczny,
+  hard = problem wydajnościowy/pamięciowy łapany benchmarkiem. Starter **oblewa testy
+  poprawności**.
+- Zagadnienia `[O]` (optymalizacja): starter zawiera kompletny kod, który **jest poprawny**
+  — przechodzi wszystkie testy poprawności — ale jest nieoptymalny (zła złożoność,
+  powtórzona praca, zła struktura danych, zbędne alokacje/kopie, brak memoizacji).
+  Uczeń go przepisuje, **nie zmieniając kontraktu**. Starter oblewa wyłącznie bramkę
+  jakościową: `expectScaling` z `@harness/bench` albo licznik pracy/współbieżności
+  w domknięciu. To jest „refaktor pod wydajność", nie „napraw buga".
+
+Oba typy: `_solution` = wersja poprawiona; treść `task.md` mówi wprost, że kod jest
+kompletny i czego dotyczy zadanie. Rozmieszczenie wg tasks/curriculum.md — `[D]` co
+~5 zagadnień, `[O]` tam, gdzie temat ma wymiar wydajnościowy (kolekcje, pętle, async,
+rendering, zapytania SQL).
+
+### Bramka dla `[D]` i `[O]` (obowiązkowa)
+
+- `[D]`: starter **oblewa** testy poprawności; `_solution` przechodzi wszystko.
+- `[O]`: starter **przechodzi** testy poprawności i **oblewa** test wydajności;
+  `_solution` przechodzi wszystko.
+- Startery `[D]`/`[O]` muszą być **lint-clean** (kod jest kompletny, brak `TODO`) —
+  jedynym powodem porażki ma być logika/wydajność, nie lint.
+- Pułapka `expectScaling`: mierzy najpierw mały rozmiar, więc ten przebieg łapie JIT
+  na zimno i **zaniża ratio**. Zbyt małe `sizes` nie złapią O(n²) (realny przypadek:
+  `find` w pętli przy `[1000, 10000]` dał 13.7× przy progu 40 — starter przechodził
+  „od urodzenia"). Dla tanich operacji wewnętrznych używaj `sizes: [2000, 20000]`
+  i zawsze sprawdź OBA kierunki na kilku przebiegach.
+
+## Zadania wieloplikowe
+
 - Zadania hard i module-NN mogą być wieloplikowe: starter to wtedy katalog `src/`
   (testy importują z `./src/index.js`), wzorzec to `_solution/` (katalog o tej samej
   strukturze). Lint obejmuje wtedy cały `src/`. Pełny zakres: tasks/curriculum.md.
