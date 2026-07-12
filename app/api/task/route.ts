@@ -1,7 +1,12 @@
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import type { NextRequest } from "next/server";
-import { resolveTaskDir, findStarter, findSolution } from "@/harness/paths";
+import {
+  resolveTaskDir,
+  findStarter,
+  findSolution,
+  readSolutionText,
+} from "@/harness/paths";
 import { parseHints } from "@/harness/hints";
 import { readProgress } from "@/harness/progress";
 
@@ -36,7 +41,7 @@ export async function GET(req: NextRequest) {
   const passed = readProgress()[id]?.status === "passed";
   const solutionPath = findSolution(taskDir);
   const solution =
-    passed && solutionPath ? readFileSync(solutionPath, "utf8") : null;
+    passed && solutionPath ? readSolutionText(solutionPath) : null;
 
   return Response.json({ readme, taskMd, hintsTotal, starterPath, solution });
 }

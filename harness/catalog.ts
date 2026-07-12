@@ -42,6 +42,7 @@ function h1Title(readmePath: string, fallback: string): string {
 
 function isTaskDir(path: string): boolean {
   return existsSync(join(path, "task.md")) ||
+    existsSync(join(path, "src")) ||
     ["js", "ts"].some((ext) => existsSync(join(path, `starter.${ext}`)));
 }
 

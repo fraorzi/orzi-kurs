@@ -1,6 +1,6 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { readFileSync, existsSync, mkdtempSync, rmSync } from "node:fs";
+import { readFileSync, existsSync, mkdtempSync, rmSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, relative } from "node:path";
 import { ESLint } from "eslint";
@@ -107,8 +107,14 @@ async function runLint(
   const warnings: LintIssue[] = [];
   if (!starter) return { errors, warnings };
 
+  // Multi-file tasks lint every source file under src/; single-file tasks
+  // lint just starter.{js,ts}.
+  const target = statSync(starter).isDirectory()
+    ? join(starter, "**/*.{js,ts}")
+    : starter;
+
   const eslint = new ESLint({ cwd: REPO_ROOT });
-  const results = await eslint.lintFiles([starter]);
+  const results = await eslint.lintFiles([target]);
   for (const res of results) {
     for (const m of res.messages) {
       const issue: LintIssue = {

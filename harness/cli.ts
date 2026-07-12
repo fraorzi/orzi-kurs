@@ -1,4 +1,11 @@
-import { readdirSync, existsSync, copyFileSync, rmSync, statSync } from "node:fs";
+import {
+  readdirSync,
+  existsSync,
+  copyFileSync,
+  cpSync,
+  rmSync,
+  statSync,
+} from "node:fs";
 import { join, relative } from "node:path";
 import { runTask } from "./runner";
 import { resolveTaskDir, findStarter, findSolution, TRACKS_ROOT } from "./paths";
@@ -66,12 +73,38 @@ function collectTaskDirs(root: string, acc: string[] = []): string[] {
 async function verifyOne(taskDir: string): Promise<boolean> {
   const starter = findStarter(taskDir)!;
   const solution = findSolution(taskDir)!;
+  const isDir = statSync(starter).isDirectory();
   const backup = starter + ".verify-backup";
   const taskId = relative(TRACKS_ROOT, taskDir).split("\\").join("/");
 
-  copyFileSync(starter, backup);
+  // Multi-file: backup the whole src/ dir, swap in _solution/ recursively
+  // (dropping any files not present in the solution). Single-file: copy files.
+  const swapIn = () => {
+    if (isDir) {
+      rmSync(starter, { recursive: true, force: true });
+      cpSync(solution, starter, { recursive: true });
+    } else {
+      copyFileSync(solution, starter);
+    }
+  };
+  const backupOriginal = () => {
+    if (isDir) cpSync(starter, backup, { recursive: true });
+    else copyFileSync(starter, backup);
+  };
+  const restoreOriginal = () => {
+    if (isDir) {
+      rmSync(starter, { recursive: true, force: true });
+      cpSync(backup, starter, { recursive: true });
+      rmSync(backup, { recursive: true, force: true });
+    } else {
+      copyFileSync(backup, starter);
+      rmSync(backup, { force: true });
+    }
+  };
+
+  backupOriginal();
   try {
-    copyFileSync(solution, starter);
+    swapIn();
     const res = await runTask(taskId, { recordProgress: false, autoCommit: false });
     if (res.passed) {
       console.log(`  ${GREEN}✓${RESET} ${taskId} ${DIM}(${res.durationMs}ms)${RESET}`);
@@ -87,8 +120,7 @@ async function verifyOne(taskDir: string): Promise<boolean> {
     }
     return res.passed;
   } finally {
-    copyFileSync(backup, starter);
-    rmSync(backup, { force: true });
+    restoreOriginal();
   }
 }
 
