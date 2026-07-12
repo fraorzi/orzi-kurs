@@ -5,7 +5,14 @@ import Link from "next/link";
 import { buildCatalog } from "@/harness/catalog";
 import { TRACKS_ROOT } from "@/harness/paths";
 import Markdown from "@/app/components/Markdown";
-import StatusBadge from "@/app/components/StatusBadge";
+import SearchButton from "@/app/components/SearchButton";
+import {
+  trackMeta,
+  topicNumber,
+  topicTag,
+  LEVEL_DESC,
+  STATUS_LABEL,
+} from "@/app/lib/tracks";
 
 export default async function TopicPage({
   params,
@@ -13,42 +20,54 @@ export default async function TopicPage({
   params: Promise<{ track: string; topic: string }>;
 }) {
   const { track, topic } = await params;
-  const catalog = buildCatalog();
-  const trackData = catalog.tracks.find((t) => t.id === track);
+  const trackData = buildCatalog().tracks.find((t) => t.id === track);
   const topicData = trackData?.topics.find((t) => t.id === `${track}/${topic}`);
-
   if (!topicData) notFound();
 
   const readmePath = join(TRACKS_ROOT, track, topic, "README.md");
   const readme = existsSync(readmePath) ? readFileSync(readmePath, "utf8") : "";
+  const meta = trackMeta(track);
+  const tag = topicTag(topicData.id);
 
   return (
-    <main className="p-10 max-w-4xl">
-      <div className="text-xs text-fg-faint mb-4">
-        <Link href="/" className="hover:text-accent">
-          orzi-kurs
-        </Link>{" "}
-        / {track} / {topic}
+    <>
+      <div className="topbar">
+        <nav className="crumbs">
+          <Link href="/">orzi-kurs</Link>
+          <span className="sep">/</span>
+          <Link href={`/track/${track}`}>{meta.name}</Link>
+          <span className="sep">/</span>
+          <span className="cur">
+            {topicNumber(topicData.id)} {topicData.title}
+          </span>
+        </nav>
+        <span className="grow" />
+        <SearchButton />
       </div>
 
-      <Markdown content={readme} />
+      <div className="wrap wrap-read">
+        {readme ? <Markdown content={readme} /> : <h1 className="title">{topicData.title}</h1>}
 
-      <h2 className="text-[11px] uppercase tracking-widest text-fg-faint mt-10 mb-3">
-        poziomy
-      </h2>
-
-      <div className="flex flex-col gap-2 max-w-md">
-        {topicData.levels.map((level) => (
-          <Link
-            key={level.id}
-            href={`/track/${track}/${topic}/${level.id}`}
-            className="flex items-center justify-between border border-border bg-bg-raised px-4 py-3 hover:border-border-strong"
-          >
-            <span className="font-bold">{level.id}</span>
-            <StatusBadge status={level.status} />
-          </Link>
-        ))}
+        <h2 className="sec">
+          Poziomy {tag && <span className={`tag ${tag.toLowerCase()}`}>{tag}</span>}
+        </h2>
+        <div className="lvls">
+          {topicData.levels.map((level) => (
+            <Link
+              key={level.id}
+              className="lcard"
+              href={`/track/${track}/${topic}/${level.id}`}
+            >
+              <span className={`sdot ${level.status}`} style={{ width: 11, height: 11 }} />
+              <div>
+                <div className="lname">{level.id}</div>
+                <div className="ldesc">{LEVEL_DESC[level.id] ?? ""}</div>
+              </div>
+              <span className={`pill ${level.status}`}>{STATUS_LABEL[level.status]}</span>
+            </Link>
+          ))}
+        </div>
       </div>
-    </main>
+    </>
   );
 }

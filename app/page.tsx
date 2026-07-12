@@ -1,84 +1,142 @@
 import Link from "next/link";
 import { buildCatalog } from "@/harness/catalog";
-import StatusBadge from "./components/StatusBadge";
+import SearchButton from "@/app/components/SearchButton";
+import {
+  IconArrowRight,
+  IconCode,
+  IconLayers,
+  IconDatabase,
+  IconBoxes,
+} from "@/app/components/icons";
+import {
+  CATEGORIES,
+  TRACK_META,
+  trackMeta,
+  trackProgress,
+  pct,
+  topicSlug,
+  topicNumber,
+  nextTopic,
+  type Category,
+} from "@/app/lib/tracks";
+
+const CAT_ICON: Record<Category, typeof IconCode> = {
+  Języki: IconCode,
+  Frameworki: IconLayers,
+  "Backend & DB": IconDatabase,
+  Projekty: IconBoxes,
+};
 
 export default function Home() {
   const catalog = buildCatalog();
-
-  const allLevels = catalog.tracks.flatMap((t) =>
-    t.topics.flatMap((topic) => topic.levels),
-  );
-  const passed = allLevels.filter((l) => l.status === "passed").length;
-  const total = allLevels.length;
+  const activeIds = new Set(catalog.tracks.map((t) => t.id));
+  const upcoming = TRACK_META.filter((m) => !activeIds.has(m.id));
 
   return (
-    <main className="p-10 max-w-4xl">
-      <h1 className="text-2xl font-extrabold tracking-tight mb-1">orzi-kurs</h1>
-      <p className="text-fg-dim mb-8">
-        lokalny dashboard do nauki programowania — teoria, zadania, testy
-      </p>
-
-      <div className="border border-border bg-bg-raised px-5 py-4 mb-10 inline-block">
-        <div className="text-[11px] uppercase tracking-widest text-fg-faint mb-1">
-          postęp ogólny
-        </div>
-        <div className="text-xl font-extrabold">
-          <span className="text-pass">{passed}</span>
-          <span className="text-fg-faint"> / {total}</span>
-          <span className="text-fg-dim text-sm font-normal ml-2">zadań zaliczonych</span>
-        </div>
+    <>
+      <div className="topbar">
+        <nav className="crumbs">
+          <span className="cur">orzi-kurs</span>
+        </nav>
+        <span className="grow" />
+        <SearchButton />
       </div>
 
-      <h2 className="text-[11px] uppercase tracking-widest text-fg-faint mb-3">
-        tracki
-      </h2>
+      <div className="wrap">
+        <h1 className="title">Czego się dziś uczysz?</h1>
+        <p className="lede">
+          Wybierz ścieżkę. Każde zagadnienie ma teorię i zadania easy / medium / hard,
+          sprawdzane lokalnie testami i lintem.
+        </p>
 
-      <div className="flex flex-col gap-6">
         {catalog.tracks.map((track) => {
-          const trackLevels = track.topics.flatMap((t) => t.levels);
-          const trackPassed = trackLevels.filter((l) => l.status === "passed").length;
+          const meta = trackMeta(track.id);
+          const prog = trackProgress(track);
+          const p = pct(prog);
+          const next = nextTopic(track);
+          const nextLevel = next?.levels.find((l) => l.status !== "passed") ?? next?.levels[0];
+          const startIdx = next ? track.topics.indexOf(next) : 0;
+          const peek = track.topics.slice(startIdx, startIdx + 3);
 
           return (
-            <section key={track.id} className="border border-border bg-bg-raised">
-              <header className="flex items-baseline justify-between px-5 py-3 border-b border-border">
-                <span className="font-extrabold text-lg">{track.id}</span>
-                <span className="text-sm text-fg-dim">
-                  {trackPassed} / {trackLevels.length}
-                </span>
-              </header>
+            <section className="active-track" key={track.id}>
+              <div className="top">
+                <div className="idw">
+                  <span className="dot" style={{ background: meta.color }} />
+                  <div>
+                    <div className="name">{meta.name}</div>
+                    <div className="of num">
+                      {prog.passed} z {prog.total} poziomów zaliczonych
+                    </div>
+                  </div>
+                </div>
+                <div className="ring" style={{ ["--sz"]: "52px", ["--p"]: p } as React.CSSProperties}>
+                  <b className="num">{p}%</b>
+                </div>
+              </div>
 
-              <ul>
-                {track.topics.map((topic) => {
-                  const topicSlug = topic.id.split("/")[1];
-                  return (
-                    <li
-                      key={topic.id}
-                      className="flex items-center justify-between px-5 py-2.5 border-b border-border last:border-b-0"
-                    >
-                      <Link
-                        href={`/track/${track.id}/${topicSlug}`}
-                        className="text-fg hover:text-accent font-bold"
-                      >
-                        {topic.title}
-                      </Link>
-                      <div className="flex gap-2">
-                        {topic.levels.map((level) => (
-                          <Link
-                            key={level.id}
-                            href={`/track/${track.id}/${topicSlug}/${level.id}`}
-                          >
-                            <StatusBadge status={level.status} />
-                          </Link>
-                        ))}
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
+              <div className="progressbar">
+                <i style={{ transform: `scaleX(${p / 100})` }} />
+              </div>
+
+              {next && nextLevel && (
+                <div className="cont">
+                  <span className="lbl">Kontynuuj:</span>
+                  <span className="where">
+                    {topicNumber(next.id)} {next.title} · {nextLevel.id}
+                  </span>
+                  <Link className="cta" href={`/track/${track.id}/${topicSlug(next.id)}/${nextLevel.id}`}>
+                    Wznów <IconArrowRight />
+                  </Link>
+                </div>
+              )}
+
+              {peek.length > 0 && (
+                <div className="peek">
+                  {peek.map((t) => (
+                    <Link className="pk" key={t.id} href={`/track/${track.id}/${topicSlug(t.id)}`}>
+                      <span className="mono">{topicNumber(t.id)}</span>
+                      {t.title}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </section>
           );
         })}
+
+        {upcoming.length > 0 && (
+          <>
+            <h2 className="sec">
+              Wkrótce <span className="n num">{upcoming.length} tracków</span>
+            </h2>
+            <div className="soon">
+              {CATEGORIES.map((cat) => {
+                const items = upcoming.filter((m) => m.category === cat);
+                if (items.length === 0) return null;
+                const CatIcon = CAT_ICON[cat];
+                return (
+                  <div className="soon-group" key={cat}>
+                    <div className="soon-cat">
+                      <CatIcon />
+                      {cat}
+                    </div>
+                    <div className="soon-items">
+                      {items.map((m) => (
+                        <span className="soon-item" key={m.id}>
+                          <span className="dot" style={{ background: m.color }} />
+                          {m.name}
+                          <span className="st">wkrótce</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
-    </main>
+    </>
   );
 }

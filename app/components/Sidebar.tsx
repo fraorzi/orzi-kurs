@@ -1,98 +1,119 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import type { Catalog } from "@/app/lib/types";
-import { statusGlyph } from "./StatusBadge";
+import { topicSlug, topicNumber, topicTag, trackMeta } from "@/app/lib/tracks";
 
-const STATUS_COLOR: Record<string, string> = {
-  passed: "text-pass",
-  failed: "text-fail",
-  "not-started": "text-fg-faint",
-};
+interface Props {
+  catalog: Catalog | null;
+  collapsed: boolean;
+  onToggle: () => void;
+}
 
-export default function Sidebar() {
-  const [catalog, setCatalog] = useState<Catalog | null>(null);
+export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
   const pathname = usePathname();
+  const router = useRouter();
+  const seg = pathname.split("/").filter(Boolean);
+  const inTrack = seg[0] === "track";
+  const curTrackId = inTrack ? seg[1] : undefined;
+  const curTopicSlug = inTrack ? seg[2] : undefined;
+  const curLevel = inTrack ? seg[3] : undefined;
 
-  useEffect(() => {
-    let cancelled = false;
-    fetch("/api/catalog")
-      .then((r) => r.json())
-      .then((data: Catalog) => {
-        if (!cancelled) setCatalog(data);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [pathname]);
+  // Which topic is expanded. Follows the route when you navigate into a topic,
+  // but a click on an already-open topic collapses it in place.
+  const [openSlug, setOpenSlug] = useState<string | undefined>(curTopicSlug);
+  const [prevSlug, setPrevSlug] = useState(curTopicSlug);
+  if (curTopicSlug !== prevSlug) {
+    setPrevSlug(curTopicSlug);
+    setOpenSlug(curTopicSlug);
+  }
+
+  const track =
+    catalog?.tracks.find((t) => t.id === curTrackId) ?? catalog?.tracks[0] ?? null;
+  const meta = track ? trackMeta(track.id) : null;
+
+  function toggleTopic(slug: string, href: string) {
+    if (openSlug === slug) {
+      setOpenSlug(undefined);
+    } else {
+      setOpenSlug(slug);
+      router.push(href);
+    }
+  }
 
   return (
-    <nav className="w-72 shrink-0 h-full overflow-y-auto bg-bg-raised border-r border-border flex flex-col">
-      <Link
-        href="/"
-        className="block px-4 py-4 border-b border-border text-[15px] font-extrabold tracking-tight text-fg hover:bg-bg-inset"
-      >
-        orzi-kurs
-      </Link>
+    <nav className="rail" aria-label="Nawigacja kursu">
+      <div className="rail-head">
+        <button
+          className="icon-btn"
+          onClick={onToggle}
+          aria-label={collapsed ? "Rozwiń panel" : "Zwiń panel"}
+          title="Panel  [ ]"
+        >
+          {collapsed ? "›" : "‹"}
+        </button>
+        <span className="brand">
+          orzi<span className="d">·</span>kurs
+        </span>
+      </div>
 
-      <div className="flex-1 py-2">
-        {!catalog && (
-          <div className="px-4 py-3 text-fg-faint text-xs">ladowanie katalogu…</div>
+      <div className="rail-scroll">
+        {meta && (
+          <Link className="trackswitch" href="/">
+            <span className="dot" style={{ background: meta.color }} />
+            <span>{meta.name}</span>
+            <span className="sw">zmień ›</span>
+          </Link>
         )}
 
-        {catalog?.tracks.map((track) => (
-          <div key={track.id} className="mb-3">
-            <div className="px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-fg-faint">
-              track: {track.id}
-            </div>
+        {!catalog && <div className="rail-cap">ładowanie…</div>}
 
+        {track && (
+          <>
+            <div className="rail-cap">Zagadnienia · {track.topics.length}</div>
             {track.topics.map((topic) => {
-              const topicSlug = topic.id.split("/")[1];
-              const topicHref = `/track/${track.id}/${topicSlug}`;
-              const topicActive = pathname === topicHref;
-
+              const slug = topicSlug(topic.id);
+              const open = slug === openSlug;
+              const tag = topicTag(topic.id);
+              const topicHref = `/track/${track.id}/${slug}`;
               return (
-                <div key={topic.id} className="mb-1">
-                  <Link
-                    href={topicHref}
-                    className={`flex items-center gap-2 px-4 py-1.5 text-[13px] border-l-2 ${
-                      topicActive
-                        ? "border-accent bg-bg-inset text-fg font-bold"
-                        : "border-transparent text-fg-dim hover:bg-bg-inset hover:text-fg"
-                    }`}
+                <div key={topic.id} className={`topic${open ? " open" : ""}`}>
+                  <button
+                    className="topic-btn"
+                    aria-expanded={open}
+                    onClick={() => toggleTopic(slug, topicHref)}
                   >
-                    <span className="truncate">{topic.title}</span>
-                  </Link>
-
-                  <div className="ml-4 border-l border-border">
-                    {topic.levels.map((level) => {
-                      const levelHref = `/track/${track.id}/${topicSlug}/${level.id}`;
-                      const active = pathname === levelHref;
-                      return (
-                        <Link
-                          key={level.id}
-                          href={levelHref}
-                          className={`flex items-center gap-2 pl-4 pr-3 py-1 text-[12px] ${
-                            active
-                              ? "bg-bg-inset text-fg font-bold"
-                              : "text-fg-dim hover:bg-bg-inset hover:text-fg"
-                          }`}
-                        >
-                          <span className={`font-bold ${STATUS_COLOR[level.status]}`}>
-                            {statusGlyph(level.status)}
-                          </span>
-                          <span>{level.id}</span>
-                        </Link>
-                      );
-                    })}
+                    <span className="topic-num mono">{topicNumber(topic.id)}</span>
+                    <span className="topic-title">{topic.title}</span>
+                    {tag && <span className={`tag ${tag.toLowerCase()}`}>{tag}</span>}
+                    <span className="caret">▶</span>
+                  </button>
+                  <div className="levels">
+                    <div>
+                      {topic.levels.map((level) => {
+                        const active =
+                          slug === curTopicSlug && level.id === curLevel;
+                        return (
+                          <Link
+                            key={level.id}
+                            className={`lvl${active ? " active" : ""}`}
+                            href={`${topicHref}/${level.id}`}
+                            aria-current={active}
+                          >
+                            <span className={`sdot ${level.status}`} />
+                            <span>{level.id}</span>
+                          </Link>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               );
             })}
-          </div>
-        ))}
+          </>
+        )}
       </div>
     </nav>
   );

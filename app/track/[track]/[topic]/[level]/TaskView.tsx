@@ -3,16 +3,22 @@
 import { useState } from "react";
 import Link from "next/link";
 import Markdown from "@/app/components/Markdown";
+import SearchButton from "@/app/components/SearchButton";
+import { IconCopy, IconCheck, IconExternal, IconPlay } from "@/app/components/icons";
 import type { SubmitResult } from "@/app/lib/types";
+import { trackMeta, topicNumber } from "@/app/lib/tracks";
 
 interface Props {
   taskId: string;
   track: string;
   topic: string;
+  topicTitle: string;
   level: string;
   taskMd: string;
   hintsTotal: number;
   starterPath: string | null;
+  starterRel: string | null;
+  projectName: string;
   initialSolution: string | null;
 }
 
@@ -20,10 +26,13 @@ export default function TaskView({
   taskId,
   track,
   topic,
+  topicTitle,
   level,
   taskMd,
   hintsTotal,
   starterPath,
+  starterRel,
+  projectName,
   initialSolution,
 }: Props) {
   const [submitting, setSubmitting] = useState(false);
@@ -69,7 +78,7 @@ export default function TaskView({
       const res = await fetch(`/api/hint?id=${encodeURIComponent(taskId)}&n=${n}`);
       const data = await res.json();
       if (!res.ok) {
-        setHintError(data.error ?? "nie udalo sie pobrac hinta");
+        setHintError(data.error ?? "nie udało się pobrać hinta");
         return;
       }
       setHints((prev) => {
@@ -83,178 +92,155 @@ export default function TaskView({
   }
 
   const nextHintIndex = hints.length;
+  const ideUrl = starterRel
+    ? `jetbrains://web-storm/navigate/reference?project=${encodeURIComponent(
+        projectName,
+      )}&path=${starterRel.split("/").map(encodeURIComponent).join("/")}`
+    : null;
 
   return (
-    <main className="p-10 max-w-4xl">
-      <div className="text-xs text-fg-faint mb-4">
-        <Link href="/" className="hover:text-accent">
-          orzi-kurs
-        </Link>{" "}
-        /{" "}
-        <Link href={`/track/${track}/${topic}`} className="hover:text-accent">
-          {track} / {topic}
-        </Link>{" "}
-        / {level}
+    <>
+      <div className="topbar">
+        <nav className="crumbs">
+          <Link href="/">orzi-kurs</Link>
+          <span className="sep">/</span>
+          <Link href={`/track/${track}`}>{trackMeta(track).name}</Link>
+          <span className="sep">/</span>
+          <Link href={`/track/${track}/${topic}`}>
+            {topicNumber(`${track}/${topic}`)} {topicTitle}
+          </Link>
+          <span className="sep">/</span>
+          <span className="cur">{level}</span>
+        </nav>
+        <span className="grow" />
+        <SearchButton />
       </div>
 
-      <Markdown content={taskMd} />
+      <div className="wrap wrap-read">
+        <Markdown content={taskMd} />
 
-      <section className="mt-8 border border-border bg-bg-raised px-5 py-4">
-        <div className="text-[11px] uppercase tracking-widest text-fg-faint mb-2">
-          plik startera
+        <div className="row-card">
+          <div className="lbl">Plik startera</div>
+          {starterPath ? (
+            <div className="starter">
+              <code>{starterPath}</code>
+              {ideUrl && (
+                <a className="btn-ghost" href={ideUrl} title="Otwórz plik w WebStorm">
+                  <IconExternal />
+                  WebStorm
+                </a>
+              )}
+              <button className="btn-ghost" onClick={handleCopyPath}>
+                {copied ? <IconCheck /> : <IconCopy />}
+                {copied ? "skopiowano" : "Kopiuj ścieżkę"}
+              </button>
+            </div>
+          ) : (
+            <span style={{ color: "var(--bad)" }}>brak pliku startera</span>
+          )}
         </div>
-        {starterPath ? (
-          <div className="flex items-center gap-3">
-            <code className="text-[13px] text-accent break-all">{starterPath}</code>
-            <button
-              onClick={handleCopyPath}
-              className="shrink-0 border border-border-strong px-2 py-1 text-[11px] uppercase tracking-wide text-fg-dim hover:text-fg hover:bg-bg-inset"
-            >
-              {copied ? "skopiowano" : "kopiuj"}
-            </button>
-          </div>
-        ) : (
-          <span className="text-fail text-sm">brak pliku startera</span>
+
+        <div className="actions">
+          <button className="submit" onClick={handleSubmit} disabled={submitting}>
+            <IconPlay />
+            {submitting ? "Sprawdzam…" : "Submit"}
+          </button>
+          {submitting && (
+            <span style={{ color: "var(--faint)", fontSize: "12.5px" }}>sprawdzanie w toku…</span>
+          )}
+        </div>
+
+        {result && <ResultPanel result={result} />}
+
+        {solution && (
+          <section className="solution">
+            <h2 className="sec" style={{ marginTop: 0, color: "var(--good)" }}>
+              Rozwiązanie wzorcowe
+            </h2>
+            <pre>
+              <code>{solution}</code>
+            </pre>
+          </section>
         )}
-      </section>
 
-      <div className="mt-6 flex items-center gap-4">
-        <button
-          onClick={handleSubmit}
-          disabled={submitting}
-          className="border border-accent bg-bg-inset px-5 py-2 font-bold text-accent disabled:opacity-50 disabled:cursor-not-allowed hover:bg-accent hover:text-bg disabled:hover:bg-bg-inset disabled:hover:text-accent"
-        >
-          Submit
-        </button>
-        {submitting && (
-          <span className="text-fg-dim text-sm">sprawdzanie w toku…</span>
-        )}
-      </div>
-
-      {result && <ResultPanel result={result} />}
-
-      {solution && (
-        <section className="mt-8 border border-pass-border bg-pass-bg px-5 py-4">
-          <div className="text-[11px] uppercase tracking-widest text-pass mb-3">
-            rozwiazanie wzorcowe
-          </div>
-          <pre className="bg-bg-inset border border-border p-4 overflow-x-auto text-[13px]">
-            <code>{solution}</code>
-          </pre>
-        </section>
-      )}
-
-      {hintsTotal > 0 && (
-        <section className="mt-8">
-          <div className="text-[11px] uppercase tracking-widest text-fg-faint mb-3">
-            hinty
-          </div>
-          <div className="flex flex-col gap-3">
+        {hintsTotal > 0 && (
+          <section className="hints">
+            <h2 className="sec" style={{ marginTop: 0 }}>
+              Hinty <span className="n num">{hintsTotal}</span>
+            </h2>
             {hints.map((hint, i) => (
-              <div key={i} className="border border-border bg-bg-raised px-4 py-3">
-                <div className="text-[11px] uppercase tracking-widest text-fg-faint mb-2">
-                  hint {i + 1}
-                </div>
+              <div key={i} className="hint">
+                <div className="hn">Hint {i + 1}</div>
                 <Markdown content={hint} />
               </div>
             ))}
-
             {nextHintIndex < hintsTotal && (
               <button
+                className="btn-ghost"
+                style={{ marginTop: 10 }}
                 onClick={() => handleRevealHint(nextHintIndex + 1)}
                 disabled={loadingHint}
-                className="self-start border border-border-strong px-4 py-2 text-sm text-fg-dim hover:text-fg hover:bg-bg-inset disabled:opacity-50"
               >
-                Hint {nextHintIndex + 1}
+                Odkryj Hint {nextHintIndex + 1}
               </button>
             )}
-          </div>
-          {hintError && <div className="text-fail text-sm mt-2">{hintError}</div>}
-        </section>
-      )}
-    </main>
+            {hintError && (
+              <div style={{ color: "var(--bad)", fontSize: "13px", marginTop: 8 }}>{hintError}</div>
+            )}
+          </section>
+        )}
+      </div>
+    </>
   );
 }
 
 function ResultPanel({ result }: { result: SubmitResult }) {
   return (
-    <section className="mt-8">
-      <div
-        className={`border px-5 py-3 mb-4 font-extrabold ${
-          result.passed
-            ? "border-pass-border bg-pass-bg text-pass"
-            : "border-fail-border bg-fail-bg text-fail"
-        }`}
-      >
+    <section>
+      <div className={`result ${result.passed ? "ok" : "no"}`}>
         {result.passed ? "ZALICZONE" : "NIEZALICZONE"}
-        <span className="ml-3 text-xs font-normal text-fg-dim">
-          {result.durationMs}ms
-        </span>
+        <span className="ms num">{result.durationMs} ms</span>
       </div>
 
       {result.error && (
-        <div className="border border-fail-border bg-fail-bg px-4 py-3 mb-4 text-sm text-fail whitespace-pre-wrap">
+        <div
+          className="hint"
+          style={{ borderColor: "var(--bad-line)", color: "var(--bad)", whiteSpace: "pre-wrap" }}
+        >
           {result.error}
         </div>
       )}
 
       {result.tests.length > 0 && (
-        <div className="mb-4">
-          <div className="text-[11px] uppercase tracking-widest text-fg-faint mb-2">
-            testy ({result.tests.filter((t) => t.status === "pass").length}/
-            {result.tests.length})
-          </div>
-          <div className="border border-border divide-y divide-border">
-            {result.tests.map((t, i) => (
-              <div key={i} className="px-4 py-2 bg-bg-raised">
-                <div className="flex items-start gap-2">
-                  <span
-                    className={`font-bold ${t.status === "pass" ? "text-pass" : "text-fail"}`}
-                  >
-                    {t.status === "pass" ? "[PASS]" : "[FAIL]"}
-                  </span>
-                  <span className="text-sm">{t.name}</span>
-                </div>
-                {t.message && (
-                  <div className="mt-1 ml-[52px] text-xs text-fail">{t.message}</div>
-                )}
+        <div className="tests">
+          {result.tests.map((t, i) => (
+            <div key={i} className={`test ${t.status === "pass" ? "p" : "f"}`}>
+              <span className="st">{t.status === "pass" ? "PASS" : "FAIL"}</span>
+              <div>
+                {t.name}
+                {t.message && <div className="msg">{t.message}</div>}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       )}
 
       {(result.lint.errors.length > 0 || result.lint.warnings.length > 0) && (
-        <div>
-          <div className="text-[11px] uppercase tracking-widest text-fg-faint mb-2">
-            lint
-          </div>
-
-          {result.lint.errors.length > 0 && (
-            <div className="border border-fail-border divide-y divide-fail-border mb-2">
-              {result.lint.errors.map((issue, i) => (
-                <div key={i} className="px-4 py-2 bg-fail-bg text-sm">
-                  <span className="font-bold text-fail">error</span>{" "}
-                  <span className="text-fg-dim">L{issue.line}</span>{" "}
-                  <span className="text-fg-faint">{issue.ruleId}</span>
-                  <div className="text-fg">{issue.message}</div>
-                </div>
-              ))}
+        <div className="lint">
+          {result.lint.errors.map((issue, i) => (
+            <div key={`e${i}`} className="li err">
+              <span className="lv">error</span> <span className="loc">L{issue.line}</span>{" "}
+              <span className="loc">{issue.ruleId}</span>
+              <div>{issue.message}</div>
             </div>
-          )}
-
-          {result.lint.warnings.length > 0 && (
-            <div className="border border-warn-border divide-y divide-warn-border">
-              {result.lint.warnings.map((issue, i) => (
-                <div key={i} className="px-4 py-2 bg-warn-bg text-sm">
-                  <span className="font-bold text-warn">warning</span>{" "}
-                  <span className="text-fg-dim">L{issue.line}</span>{" "}
-                  <span className="text-fg-faint">{issue.ruleId}</span>
-                  <div className="text-fg">{issue.message}</div>
-                </div>
-              ))}
+          ))}
+          {result.lint.warnings.map((issue, i) => (
+            <div key={`w${i}`} className="li warnrow">
+              <span className="lv">warning</span> <span className="loc">L{issue.line}</span>{" "}
+              <span className="loc">{issue.ruleId}</span>
+              <div>{issue.message}</div>
             </div>
-          )}
+          ))}
         </div>
       )}
     </section>
