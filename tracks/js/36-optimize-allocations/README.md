@@ -1,4 +1,4 @@
-# [O] Optymalizacja: alokacje i kopie
+# Alokacje i kopie
 
 Zagadnienie **optymalizacyjne**: starter działa poprawnie, ale w każdej iteracji tworzy
 nową kopię rosnącej struktury — sumarycznie O(n²) kopiowania. Przepisz tak, by budować

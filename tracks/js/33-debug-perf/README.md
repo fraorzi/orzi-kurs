@@ -1,4 +1,4 @@
-# [D] Debug: wydajność i pamięć
+# Wydajność i pamięć
 
 Zagadnienie debugowe: startery zawierają kod **poprawny, ale zły** — wolny albo
 przeciekający pamięć. Zadanie: znaleźć przyczynę i naprawić, nie zmieniając kontraktu.

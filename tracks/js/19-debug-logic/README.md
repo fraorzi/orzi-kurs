@@ -1,4 +1,4 @@
-# [D] Debug: subtelne błędy logiczne
+# Subtelne błędy logiczne
 
 To zagadnienie **debugowe**: starter zawiera kompletny, ale **błędny** kod z realnego
 kanonu pomyłek. Twoim zadaniem jest znaleźć i naprawić błąd tak, by testy przeszły —

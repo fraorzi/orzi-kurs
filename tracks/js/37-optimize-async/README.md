@@ -1,4 +1,4 @@
-# [O] Optymalizacja: asynchroniczność
+# Asynchroniczność
 
 Zagadnienie **optymalizacyjne**: starter działa poprawnie, ale wykonuje niezależne
 operacje asynchroniczne nieefektywnie — sekwencyjnie zamiast równolegle, po jednym zamiast

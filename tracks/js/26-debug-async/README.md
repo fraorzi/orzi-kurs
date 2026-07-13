@@ -1,4 +1,4 @@
-# [D] Debug: błędy asynchroniczności
+# Błędy asynchroniczności
 
 Zagadnienie debugowe: startery zawierają kompletny, ale błędny kod asynchroniczny
 z kanonu najczęstszych pomyłek. Znajdź i napraw, aż testy przejdą.

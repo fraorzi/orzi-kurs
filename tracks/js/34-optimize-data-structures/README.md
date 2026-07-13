@@ -1,4 +1,4 @@
-# [O] Optymalizacja: dobór struktury danych
+# Dobór struktury danych
 
 Zagadnienie **optymalizacyjne**: starter zawiera kod, który **działa poprawnie** — przechodzi
 testy poprawności — ale jest wolny. Twoim zadaniem jest przepisać go szybciej, **nie

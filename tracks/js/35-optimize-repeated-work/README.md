@@ -1,4 +1,4 @@
-# [O] Optymalizacja: unikanie powtórzonej pracy
+# Unikanie powtórzonej pracy
 
 Zagadnienie **optymalizacyjne**: starter działa poprawnie, ale wykonuje tę samą pracę
 wielokrotnie. Przepisz go tak, by liczył każdą rzecz raz — nie zmieniając kontraktu.
