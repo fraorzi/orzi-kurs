@@ -5,6 +5,7 @@ import Link from "next/link";
 import Markdown from "@/app/components/Markdown";
 import SearchButton from "@/app/components/SearchButton";
 import { IconCopy, IconCheck, IconExternal, IconPlay } from "@/app/components/icons";
+import { openInEditor } from "@/app/lib/actions";
 import type { SubmitResult } from "@/app/lib/types";
 import { trackMeta, topicNumber } from "@/app/lib/tracks";
 
@@ -18,7 +19,6 @@ interface Props {
   hintsTotal: number;
   starterPath: string | null;
   starterRel: string | null;
-  projectName: string;
   initialSolution: string | null;
 }
 
@@ -32,7 +32,6 @@ export default function TaskView({
   hintsTotal,
   starterPath,
   starterRel,
-  projectName,
   initialSolution,
 }: Props) {
   const [submitting, setSubmitting] = useState(false);
@@ -42,6 +41,8 @@ export default function TaskView({
   const [hints, setHints] = useState<string[]>([]);
   const [hintError, setHintError] = useState<string | null>(null);
   const [loadingHint, setLoadingHint] = useState(false);
+  const [openingEditor, setOpeningEditor] = useState(false);
+  const [editorError, setEditorError] = useState<string | null>(null);
 
   async function handleSubmit() {
     setSubmitting(true);
@@ -71,6 +72,18 @@ export default function TaskView({
     setTimeout(() => setCopied(false), 1500);
   }
 
+  async function handleOpenEditor() {
+    if (!starterRel) return;
+    setOpeningEditor(true);
+    setEditorError(null);
+    try {
+      const res = await openInEditor(starterRel);
+      if (!res.ok) setEditorError(res.error ?? "nie udało się otworzyć WebStorm");
+    } finally {
+      setOpeningEditor(false);
+    }
+  }
+
   async function handleRevealHint(n: number) {
     setLoadingHint(true);
     setHintError(null);
@@ -92,11 +105,6 @@ export default function TaskView({
   }
 
   const nextHintIndex = hints.length;
-  const ideUrl = starterRel
-    ? `jetbrains://web-storm/navigate/reference?project=${encodeURIComponent(
-        projectName,
-      )}&path=${starterRel.split("/").map(encodeURIComponent).join("/")}`
-    : null;
 
   return (
     <>
@@ -122,19 +130,29 @@ export default function TaskView({
         <div className="row-card">
           <div className="lbl">Plik startera</div>
           {starterPath ? (
-            <div className="starter">
-              <code>{starterPath}</code>
-              {ideUrl && (
-                <a className="btn-ghost" href={ideUrl} title="Otwórz plik w WebStorm">
-                  <IconExternal />
-                  WebStorm
-                </a>
+            <>
+              <div className="starter">
+                <code>{starterPath}</code>
+                {starterRel && (
+                  <button
+                    className="btn-ghost"
+                    onClick={handleOpenEditor}
+                    disabled={openingEditor}
+                    title="Otwórz plik w WebStorm"
+                  >
+                    <IconExternal />
+                    {openingEditor ? "otwieram…" : "WebStorm"}
+                  </button>
+                )}
+                <button className="btn-ghost" onClick={handleCopyPath}>
+                  {copied ? <IconCheck /> : <IconCopy />}
+                  {copied ? "skopiowano" : "Kopiuj ścieżkę"}
+                </button>
+              </div>
+              {editorError && (
+                <div style={{ color: "var(--bad)", fontSize: "12px", marginTop: 8 }}>{editorError}</div>
               )}
-              <button className="btn-ghost" onClick={handleCopyPath}>
-                {copied ? <IconCheck /> : <IconCopy />}
-                {copied ? "skopiowano" : "Kopiuj ścieżkę"}
-              </button>
-            </div>
+            </>
           ) : (
             <span style={{ color: "var(--bad)" }}>brak pliku startera</span>
           )}

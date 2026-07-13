@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import SearchButton from "@/app/components/SearchButton";
+import TopicTag from "@/app/components/TopicTag";
 import type { CatalogTrack } from "@/app/lib/types";
 import { topicSlug, topicNumber, topicTag, trackProgress, STATUS_LABEL } from "@/app/lib/tracks";
 
@@ -72,7 +73,7 @@ export default function Roadmap({ track, name }: { track: CatalogTrack; name: st
                 <span className="rn">{topicNumber(topic.id)}</span>
                 <span className="rt">
                   <span>{topic.title}</span>
-                  {tag && <span className={`tag ${tag.toLowerCase()}`}>{tag}</span>}
+                  {tag && <TopicTag tag={tag} />}
                 </span>
                 <span className="dots">
                   {LEVELS.map((lv) => {

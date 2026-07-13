@@ -6,6 +6,7 @@ import { buildCatalog } from "@/harness/catalog";
 import { TRACKS_ROOT } from "@/harness/paths";
 import Markdown from "@/app/components/Markdown";
 import SearchButton from "@/app/components/SearchButton";
+import TopicTag from "@/app/components/TopicTag";
 import {
   trackMeta,
   topicNumber,
@@ -49,7 +50,7 @@ export default async function TopicPage({
         {readme ? <Markdown content={readme} /> : <h1 className="title">{topicData.title}</h1>}
 
         <h2 className="sec">
-          Poziomy {tag && <span className={`tag ${tag.toLowerCase()}`}>{tag}</span>}
+          Poziomy {tag && <TopicTag tag={tag} />}
         </h2>
         <div className="lvls">
           {topicData.levels.map((level) => (

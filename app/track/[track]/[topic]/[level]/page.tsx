@@ -1,5 +1,5 @@
 import { readFileSync, existsSync } from "node:fs";
-import { join, relative, basename } from "node:path";
+import { join, relative } from "node:path";
 import { notFound } from "next/navigation";
 import { parseHints } from "@/harness/hints";
 import { findStarter, findSolution, TRACKS_ROOT } from "@/harness/paths";
@@ -26,10 +26,7 @@ export default async function LevelPage({
   const passed = readProgress()[taskId]?.status === "passed";
   const solutionPath = findSolution(taskDir);
   const solution = passed && solutionPath ? readFileSync(solutionPath, "utf8") : null;
-
-  const projectRoot = process.cwd();
-  const projectName = basename(projectRoot);
-  const starterRel = starterPath ? relative(projectRoot, starterPath) : null;
+  const starterRel = starterPath ? relative(process.cwd(), starterPath) : null;
 
   const topicTitle =
     buildCatalog()
@@ -47,7 +44,6 @@ export default async function LevelPage({
       hintsTotal={hintsTotal}
       starterPath={starterPath}
       starterRel={starterRel}
-      projectName={projectName}
       initialSolution={solution}
     />
   );

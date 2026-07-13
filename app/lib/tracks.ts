@@ -1,26 +1,57 @@
+import type { ComponentType, SVGProps } from "react";
 import type { Catalog, CatalogTrack, TaskStatus } from "./types";
+import {
+  LogoJs,
+  LogoTs,
+  LogoJava,
+  LogoReact,
+  LogoNext,
+  LogoStrapi,
+  LogoMysql,
+  IconPuzzle,
+} from "@/app/components/icons";
 
 export type Category = "Języki" | "Frameworki" | "Backend & DB" | "Projekty";
 
 export const CATEGORIES: Category[] = ["Języki", "Frameworki", "Backend & DB", "Projekty"];
 
+type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
+
 export interface TrackMeta {
   id: string;
   name: string;
   category: Category;
+  /** Kolor logo marki — dobrany tak, by był czytelny na ciemnym tle (near-black loga → jasny ink). */
   color: string;
 }
 
-/** Pełna lista tracków (także jeszcze bez treści → „Wkrótce"). Kolory w OKLCH. */
+/** Pełna lista tracków (także jeszcze bez treści → „Wkrótce"). */
 export const TRACK_META: TrackMeta[] = [
-  { id: "js", name: "JavaScript", category: "Języki", color: "oklch(0.80 0.13 78)" },
-  { id: "ts", name: "TypeScript", category: "Języki", color: "oklch(0.72 0.14 268)" },
-  { id: "react", name: "React", category: "Frameworki", color: "oklch(0.78 0.11 200)" },
-  { id: "next", name: "Next.js", category: "Frameworki", color: "oklch(0.85 0.02 260)" },
-  { id: "strapi", name: "Strapi", category: "Backend & DB", color: "oklch(0.68 0.15 285)" },
-  { id: "mysql", name: "MySQL", category: "Backend & DB", color: "oklch(0.76 0.15 152)" },
-  { id: "combined", name: "Projekty łączone", category: "Projekty", color: "oklch(0.72 0.15 40)" },
+  { id: "js", name: "JavaScript", category: "Języki", color: "#F7DF1E" },
+  { id: "ts", name: "TypeScript", category: "Języki", color: "#4C93E8" },
+  { id: "java", name: "Java", category: "Języki", color: "#E8E6E1" },
+  { id: "react", name: "React", category: "Frameworki", color: "#61DAFB" },
+  { id: "next", name: "Next.js", category: "Frameworki", color: "#EDEBE7" },
+  { id: "strapi", name: "Strapi", category: "Backend & DB", color: "#8B88FF" },
+  { id: "mysql", name: "MySQL", category: "Backend & DB", color: "#7BB0CE" },
+  { id: "combined", name: "Projekty łączone", category: "Projekty", color: "#B7B0A6" },
 ];
+
+/** Oficjalne logo per track (simple-icons). */
+const TRACK_ICON: Record<string, IconComponent> = {
+  js: LogoJs,
+  ts: LogoTs,
+  java: LogoJava,
+  react: LogoReact,
+  next: LogoNext,
+  strapi: LogoStrapi,
+  mysql: LogoMysql,
+  combined: IconPuzzle,
+};
+
+export function trackIcon(id: string): IconComponent {
+  return TRACK_ICON[id] ?? IconPuzzle;
+}
 
 export function trackMeta(id: string): TrackMeta {
   return (

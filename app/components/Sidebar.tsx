@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import type { Catalog } from "@/app/lib/types";
-import { topicSlug, topicNumber, topicTag, trackMeta } from "@/app/lib/tracks";
+import { topicSlug, topicNumber, topicTag, trackMeta, TRACK_META } from "@/app/lib/tracks";
+import { IconCheck } from "./icons";
+import TrackBadge from "./TrackBadge";
+import TopicTag from "./TopicTag";
 
 interface Props {
   catalog: Catalog | null;
@@ -30,6 +33,65 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
     setOpenSlug(curTopicSlug);
   }
 
+  const [switcherOpen, setSwitcherOpen] = useState(false);
+  const [popPos, setPopPos] = useState<{ top: number; left: number } | null>(null);
+  const switcherRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setSwitcherOpen(false);
+  }
+
+  const positionPop = useCallback(() => {
+    const r = triggerRef.current?.getBoundingClientRect();
+    if (r) {
+      const top = Math.max(8, Math.min(r.top, window.innerHeight - 340));
+      setPopPos({ top, left: r.right + 8 });
+    }
+  }, []);
+
+  function openSwitcher() {
+    positionPop();
+    setSwitcherOpen(true);
+  }
+
+  useEffect(() => {
+    if (!switcherOpen) return;
+    function onDocClick(e: MouseEvent) {
+      if (
+        !switcherRef.current?.contains(e.target as Node) &&
+        !(e.target as HTMLElement).closest?.(".trackpop")
+      ) {
+        setSwitcherOpen(false);
+      }
+    }
+    function onEsc(e: KeyboardEvent) {
+      if (e.key === "Escape") setSwitcherOpen(false);
+    }
+    // Keep the popover glued to its trigger while scrolling instead of closing it.
+    let raf = 0;
+    function reposition() {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        positionPop();
+      });
+    }
+    document.addEventListener("mousedown", onDocClick);
+    document.addEventListener("keydown", onEsc);
+    window.addEventListener("scroll", reposition, true);
+    window.addEventListener("resize", reposition);
+    return () => {
+      document.removeEventListener("mousedown", onDocClick);
+      document.removeEventListener("keydown", onEsc);
+      window.removeEventListener("scroll", reposition, true);
+      window.removeEventListener("resize", reposition);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [switcherOpen, positionPop]);
+
   const track =
     catalog?.tracks.find((t) => t.id === curTrackId) ?? catalog?.tracks[0] ?? null;
   const meta = track ? trackMeta(track.id) : null;
@@ -54,18 +116,79 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
         >
           {collapsed ? "›" : "‹"}
         </button>
-        <span className="brand">
+        <Link className="brand" href="/">
           orzi<span className="d">·</span>kurs
-        </span>
+        </Link>
       </div>
 
       <div className="rail-scroll">
-        {meta && (
-          <Link className="trackswitch" href="/">
-            <span className="dot" style={{ background: meta.color }} />
-            <span>{meta.name}</span>
-            <span className="sw">zmień ›</span>
-          </Link>
+        {meta && track && (
+          <div className="trackswitch-wrap" ref={switcherRef}>
+            <button
+              ref={triggerRef}
+              className="trackswitch"
+              aria-expanded={switcherOpen}
+              onClick={() => (switcherOpen ? setSwitcherOpen(false) : openSwitcher())}
+            >
+              <TrackBadge id={track.id} />
+              <span>{meta.name}</span>
+              <span className="sw">zmień ›</span>
+            </button>
+
+            {switcherOpen && popPos && (
+              <div
+                className="trackpop"
+                role="listbox"
+                aria-label="Wybierz track"
+                style={{ top: popPos.top, left: popPos.left }}
+              >
+                {catalog?.tracks.map((t) => {
+                  const m = trackMeta(t.id);
+                  const isCurrent = t.id === track.id;
+                  return (
+                    <button
+                      key={t.id}
+                      className={`trackpop-item${isCurrent ? " on" : ""}`}
+                      role="option"
+                      aria-selected={isCurrent}
+                      onClick={() => {
+                        setSwitcherOpen(false);
+                        router.push(`/track/${t.id}`);
+                      }}
+                    >
+                      <TrackBadge id={t.id} size="sm" />
+                      <span>{m.name}</span>
+                      {isCurrent && <IconCheck className="ck" />}
+                    </button>
+                  );
+                })}
+                {(() => {
+                  const upcoming = TRACK_META.filter(
+                    (m) => !catalog?.tracks.some((t) => t.id === m.id),
+                  );
+                  if (upcoming.length === 0) return null;
+                  return (
+                    <>
+                      <div className="trackpop-sep" />
+                      {upcoming.map((m) => (
+                        <div
+                          key={m.id}
+                          className="trackpop-item is-soon"
+                          role="option"
+                          aria-disabled="true"
+                          aria-selected="false"
+                        >
+                          <TrackBadge id={m.id} size="sm" />
+                          <span>{m.name}</span>
+                          <span className="soonlbl">wkrótce</span>
+                        </div>
+                      ))}
+                    </>
+                  );
+                })()}
+              </div>
+            )}
+          </div>
         )}
 
         {!catalog && <div className="rail-cap">ładowanie…</div>}
@@ -87,7 +210,7 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
                   >
                     <span className="topic-num mono">{topicNumber(topic.id)}</span>
                     <span className="topic-title">{topic.title}</span>
-                    {tag && <span className={`tag ${tag.toLowerCase()}`}>{tag}</span>}
+                    {tag && <TopicTag tag={tag} />}
                     <span className="caret">▶</span>
                   </button>
                   <div className="levels">

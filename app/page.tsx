@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { buildCatalog } from "@/harness/catalog";
 import SearchButton from "@/app/components/SearchButton";
+import TrackBadge from "@/app/components/TrackBadge";
 import {
   IconArrowRight,
   IconCode,
@@ -62,7 +63,7 @@ export default function Home() {
             <section className="active-track" key={track.id}>
               <div className="top">
                 <div className="idw">
-                  <span className="dot" style={{ background: meta.color }} />
+                  <TrackBadge id={track.id} size="lg" />
                   <div>
                     <div className="name">{meta.name}</div>
                     <div className="of num">
@@ -124,7 +125,7 @@ export default function Home() {
                     <div className="soon-items">
                       {items.map((m) => (
                         <span className="soon-item" key={m.id}>
-                          <span className="dot" style={{ background: m.color }} />
+                          <TrackBadge id={m.id} size="sm" />
                           {m.name}
                           <span className="st">wkrótce</span>
                         </span>
