@@ -24,7 +24,9 @@ typy) mają swoje zadania. Trudność rośnie z numerami zagadnień; wewnątrz z
 easy → medium → hard.
 
 ## js (01–37 gotowe: numerowane + pierwsze [O] optymalizacyjne)
-(verify:solutions js = 111/111; zostają module-01/02 + pozycje z audytu)
+(verify:solutions js = 132/132; zrobiona 1. połowa pozycji audytowych b/c:
+05b, 10b, 16b, 17b, 17c, 18b, 20b. Zostają: 21b, 22b, 25b, 27b, 29b, 31b,
+05c (nowa, audyt) + module-01..05)
 
 - [x] 01 funkcje: deklaracja vs wyrażenie vs arrow (this/arguments/hoisting),
       parametry domyślne i rest, funkcje jako wartości
@@ -32,16 +34,19 @@ easy → medium → hard.
 - [x] 03 typy i konwersje: === vs ==, truthy/falsy, NaN, konwersje jawne/niejawne
 - [x] 04 pętle i iteracja: for, for..of, for..in, while, break/continue
 - [x] 05 stringi: template literals, najważniejsze metody, split/join
-- [ ] 05b Unicode w stringach: jednostki UTF-16 vs code points, [...str] vs split(""),
+- [x] 05b Unicode w stringach: jednostki UTF-16 vs code points, [...str] vs split(""),
       normalize w praktyce, Intl.Segmenter dla grafemów (emoji ze ZWJ)
       (audyt: MDN — pułapki length/emoji z README 05 zasługują na własne zadania)
+- [ ] 05c Intl.Segmenter — segmentacja słów i zdań (granularity "word"/"sentence"),
+      liczenie słów świadome lokalizacji, iteracja po zdaniach, pole isWordLike
+      (audyt: MDN Intl.Segmenter — wymiar słów/zdań odrębny od grafemów z 05b)
 - [x] 06 obiekty podstawy: literały, dynamiczne klucze, Object.keys/values/entries,
       kopiowanie płytkie, opcjonalne łańcuchowanie ?. i ??
 - [x] 07 destructuring, spread/rest w obiektach i tablicach
 - [x] 08 domknięcia
 - [x] 09 metody tablic
 - [x] 10 promisy
-- [ ] 10b Promise.withResolvers (ES2024) i wzorzec deferred: most callback→promise,
+- [x] 10b Promise.withResolvers (ES2024) i wzorzec deferred: most callback→promise,
       ręczne rozstrzyganie z zewnątrz, kolejki zadań
       (audyt: MDN — dostępne w Node 22, upraszcza wzorce z 10/12-hard)
 - [x] 11 async/await
@@ -53,25 +58,25 @@ easy → medium → hard.
 - [x] 15 klasy: składnia, dziedziczenie, statyki, pola prywatne, rozszerzanie wbudowanych
       (rozbite z „prototypy i klasy" — audyt)
 - [x] 16 obsługa błędów (throw, custom errors, finally, error cause)
-- [ ] 16b błędy asynchroniczne: try/catch wokół await, throw w obietnicach,
+- [x] 16b błędy asynchroniczne: try/catch wokół await, throw w obietnicach,
       Promise.allSettled przy częściowych błędach, unhandledrejection
       (audyt: osobny wymiar od 16 — sync try/catch nie łapie async; MDN + javascript.info)
 - [x] 17 Map i Set (i kiedy obiekt nie wystarcza)
       (rozbite z „Map/Set/WeakMap" — audyt: osobne rozdziały javascript.info)
-- [ ] 17b operacje na zbiorach: union/intersection/difference/isSubsetOf
+- [x] 17b operacje na zbiorach: union/intersection/difference/isSubsetOf
       (natywne Set methods ES2025 w Node 22 vs ręczne implementacje)
       (audyt: MDN Set methods — realny wariant implementacyjny + wydajnościowy)
-- [ ] 17c grupowanie i indeksowanie: Object.groupBy / Map.groupBy (ES2024),
+- [x] 17c grupowanie i indeksowanie: Object.groupBy / Map.groupBy (ES2024),
       Map jako indeks/cache zamiast wielokrotnego .find()
       (audyt: MDN Object.groupBy — nowość w Node 22, praktyczny wzorzec mid)
 - [x] 18 WeakMap/WeakSet: cache per obiekt, dane prywatne, pamięć
       (rozbite z „Map/Set/WeakMap" — audyt)
-- [ ] 18b WeakRef i FinalizationRegistry (zaawansowane zarządzanie pamięcią,
+- [x] 18b WeakRef i FinalizationRegistry (zaawansowane zarządzanie pamięcią,
       kiedy NIE używać) (audyt: MDN — dopełnienie tematu słabych referencji)
 - [x] 19 [D] debug: subtelne błędy logiczne (mutacje, off-by-one, stale closure)
 - [x] 20 iteratory i iterables (protokół iteratora, Symbol.iterator, lazy bez generatorów)
       (rozbite z „iteratory i generatory" — audyt)
-- [ ] 20b iterator helpers (ES2025, Node 22+): .map/.filter/.take/.drop/.toArray
+- [x] 20b iterator helpers (ES2025, Node 22+): .map/.filter/.take/.drop/.toArray
       na iteratorach — leniwe pipeline'y bez generatorów i bez tablic pośrednich
       (audyt: MDN Iterator helpers — naturalny wariant implementacyjny do 20/21,
       też wymiar wydajnościowy [O]: lazy vs materializacja)
