@@ -128,7 +128,7 @@ export default function TaskView({
         <Markdown content={taskMd} />
 
         <div className="row-card">
-          <div className="lbl">Plik startera</div>
+          <div className="lbl">{starterPath?.endsWith("/src") ? "Katalog startera" : "Plik startera"}</div>
           {starterPath ? (
             <>
               <div className="starter">

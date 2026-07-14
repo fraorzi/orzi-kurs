@@ -69,10 +69,13 @@ export function topicSlug(topicId: string): string {
   return topicId.split("/")[1] ?? topicId;
 }
 
-/** "21-generators" → "21" (numer z prefiksu katalogu). */
+/** "21-generators" → "21", "module-01" → "M1" (numer z prefiksu katalogu). */
 export function topicNumber(topicId: string): string {
-  const m = topicSlug(topicId).match(/^(\d+)/);
-  return m ? m[1] : "";
+  const slug = topicSlug(topicId);
+  const m = slug.match(/^(\d+)/);
+  if (m) return m[1];
+  const mod = slug.match(/^module-0*(\d+)/);
+  return mod ? `M${mod[1]}` : "";
 }
 
 /** Typ zagadnienia z nazwy katalogu: [D] debug, [O] optymalizacja. */
@@ -87,6 +90,7 @@ export const LEVEL_DESC: Record<string, string> = {
   easy: "prawie przepisanie z teorii",
   medium: "wariacja, trzeba zrozumieć",
   hard: "pełne zrozumienie tematu",
+  module: "projekt wieloplikowy — łączy poznane wzorce",
 };
 
 export const STATUS_LABEL: Record<TaskStatus, string> = {

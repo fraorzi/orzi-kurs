@@ -172,3 +172,48 @@ Bug złapany w trakcie: kolizja klasy `.active` (home-card) z `.lvl.active` (poz
 Uwaga cache: zmiany w `globals.css` wymagały `rm -rf .next` + restart (Turbopack trzymał stary chunk CSS).
 Znane do zrobienia: mobile (rail off-canvas bez hamburgera — desktop-first OK), StatusBadge usunięty.
 Efekt uboczny weryfikacji: testowy submit zapisał `js/08-closures/easy: failed` do progress.json.
+
+## Sesja: odblokowanie modułów wieloplikowych + js/module-01
+
+Blokada zdiagnozowana: harness JUŻ obsługiwał wieloplikowe (`paths.ts` swap `src/`↔`_solution/`,
+lint `src/**`, `readSolutionText`; `catalog.ts` `isTaskDir` akceptuje `src/`). Jedyny problem:
+`collectLevels` rozpoznawał poziomy tylko jako podkatalogi w LEVEL_ORDER lub `module-*` →
+moduł per SPEC (topic `module-01/` z plikami bezpośrednio w środku) dawał `levels.length===0`
+i znikał z katalogu. Routing sztywno `track/topic/level`.
+
+### Decyzje (zatwierdzone przez usera)
+- Układ: moduł = **topic** `tracks/js/module-01/` + jeden **poziom** `module/` w środku.
+  Trzyma uniform `track/topic/level`, zero zmian w routingu.
+- Zakres: tylko `module-01` referencyjny (wzorzec dla 02–05).
+
+### Zmiany
+- [x] `harness/catalog.ts` — `collectLevels`: `isLevel` rozpoznaje bare `module`
+      (oprócz `module-*` i LEVEL_ORDER). 1 linia.
+- [x] `app/lib/tracks.ts` — `LEVEL_DESC["module"]` = "projekt wieloplikowy — łączy poznane wzorce".
+- [x] `tracks/js/module-01/` — README (teoria warstwowa) + `module/{task.md, hints.md, run.test.js,
+      src/{events,store,index}.js, _solution/{...}}`. Skleja closures + Map/Set + immutability + pub/sub.
+
+### Weryfikacja
+- [x] Starter oblewa 12/12 (vitest, TypeError na undefined API).
+- [x] Lint startera: 2× sonarjs/todo-tag (error, zgodne — starter ma oblać) + 1 warn unused-vars.
+- [x] `verify:solutions js/module-01` → 1/1; pełny `verify:solutions js` → **154/154** (było 153).
+- [x] `buildCatalog()` pokazuje topic `js/module-01` (tytuł z README H1, poziom `module`), 52 topiki js.
+- [x] tsc + eslint (catalog.ts, tracks.ts) czyste.
+- [x] Dev server smoke: sidebar 52, strona topicu (README + poziom `module`), focus `/track/js/module-01/module`
+      renderuje task.md; starter path = KATALOG `.../module/src` (wieloplikowy).
+- [x] Realny submit przez UI → POST /api/submit 200, `passed:false`, 12/12 fail, lint todo-tag. Pipeline OK.
+- [x] progress.json przywrócony (submit zapisał `js/module-01/module: failed`).
+
+### Do zrobienia (przyszłe sesje)
+- js/module-02..05 (klient API, paginacja, state manager, rate limiter) — ten sam wzorzec układu.
+- module-01 dla innych tracków (ts, react, next, node, strapi, mysql) gdy ruszą.
+
+### Review (prompt 2) — bugi UI przy topikach 1-poziomowych, naprawione
+- [x] `Roadmap.tsx` zakładał sztywno 3 poziomy easy/medium/hard: moduł nigdy nie byłby „done"
+      (done===3), kropki pokazywały 3× not-started zamiast statusu `module`, ułamek „x/3".
+      Fix: iteracja po `topic.levels`, `done === topic.levels.length`, `{done}/{levels.length}`.
+- [x] `topicNumber("js/module-01")` zwracał "" → pusta kolumna numeru w sidebar/roadmap,
+      wiodąca spacja w breadcrumbach. Fix: `module-NN` → `M{N}` (2 znaki, mieści się w 19px).
+- [x] Nit z listy wyżej: TaskView pokazuje „Katalog startera", gdy `starterPath` kończy się `/src`.
+- [x] Weryfikacja: tsc + eslint czyste, `verify:solutions js` 154/154, browser smoke
+      (roadmap `M1 … 0/1` + 1 kropka `module: nie zaczęte`, topic page, obie labelki startera).

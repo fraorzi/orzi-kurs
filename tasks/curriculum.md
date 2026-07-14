@@ -51,7 +51,7 @@ Zostają wyłącznie: module-01..05)
       (audyt: MDN — dostępne w Node 22, upraszcza wzorce z 10/12-hard)
 - [x] 11 async/await
 - [x] 12 event loop
-- [ ] module-01 (mini-projekt: in-memory store z eventami, wieloplikowy)
+- [x] module-01 (mini-projekt: in-memory store z eventami, wieloplikowy) — pierwszy [O]dblokowany moduł
 - [x] 13 `this`, call/apply/bind, metody obiektów
 - [x] 14 prototypy: łańcuch prototypów, Object.create, F.prototype, natywne prototypy
       (rozbite z „prototypy i klasy" — audyt: javascript.info ma osobną sekcję)

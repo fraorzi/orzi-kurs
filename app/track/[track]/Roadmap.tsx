@@ -7,8 +7,6 @@ import TopicTag from "@/app/components/TopicTag";
 import type { CatalogTrack } from "@/app/lib/types";
 import { topicSlug, topicNumber, topicTag, trackProgress, STATUS_LABEL } from "@/app/lib/tracks";
 
-const LEVELS = ["easy", "medium", "hard"] as const;
-
 type Filter = "all" | "todo" | "wip" | "done" | "DO";
 const FILTERS: [Filter, string][] = [
   ["all", "Wszystkie"],
@@ -57,13 +55,12 @@ export default function Roadmap({ track, name }: { track: CatalogTrack; name: st
         <div className="road">
           {track.topics.map((topic) => {
             const done = topic.levels.filter((l) => l.status === "passed").length;
-            const grp = done === 3 ? "done" : done > 0 ? "wip" : "todo";
+            const grp = done === topic.levels.length ? "done" : done > 0 ? "wip" : "todo";
             const tag = topicTag(topic.id);
             const show =
               filter === "all" ? true : filter === "DO" ? tag !== null : grp === filter;
             if (!show) return null;
 
-            const byId = Object.fromEntries(topic.levels.map((l) => [l.id, l.status]));
             return (
               <Link
                 key={topic.id}
@@ -76,12 +73,17 @@ export default function Roadmap({ track, name }: { track: CatalogTrack; name: st
                   {tag && <TopicTag tag={tag} />}
                 </span>
                 <span className="dots">
-                  {LEVELS.map((lv) => {
-                    const st = byId[lv] ?? "not-started";
-                    return <span key={lv} className={`sdot ${st}`} title={`${lv}: ${STATUS_LABEL[st]}`} />;
-                  })}
+                  {topic.levels.map((level) => (
+                    <span
+                      key={level.id}
+                      className={`sdot ${level.status}`}
+                      title={`${level.id}: ${STATUS_LABEL[level.status]}`}
+                    />
+                  ))}
                 </span>
-                <span className="frac num">{done}/3</span>
+                <span className="frac num">
+                  {done}/{topic.levels.length}
+                </span>
               </Link>
             );
           })}

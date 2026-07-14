@@ -68,7 +68,8 @@ function collectLevels(topicDir: string, progress: Progress): CatalogLevel[] {
   });
 
   for (const sub of ordered) {
-    const isLevel = LEVEL_ORDER.includes(sub) || sub.startsWith("module-");
+    const isLevel =
+      LEVEL_ORDER.includes(sub) || sub === "module" || sub.startsWith("module-");
     if (!isLevel) continue;
     const dir = join(topicDir, sub);
     if (!isTaskDir(dir)) continue;
