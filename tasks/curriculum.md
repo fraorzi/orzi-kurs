@@ -24,9 +24,9 @@ typy) mają swoje zadania. Trudność rośnie z numerami zagadnień; wewnątrz z
 easy → medium → hard.
 
 ## js (01–37 gotowe: numerowane + pierwsze [O] optymalizacyjne)
-(verify:solutions js = 153/153; wszystkie pozycje audytowe b/c gotowe:
+(verify:solutions js = 158/158; wszystkie pozycje audytowe b/c gotowe:
 05b, 05c, 10b, 16b, 17b, 17c, 18b, 20b, 21b, 22b, 25b, 27b, 29b, 31b.
-Zostają wyłącznie: module-01..05)
+KOMPLET: module-01..05 gotowe — track js zamknięty)
 
 - [x] 01 funkcje: deklaracja vs wyrażenie vs arrow (this/arguments/hoisting),
       parametry domyślne i rest, funkcje jako wartości
@@ -126,12 +126,12 @@ Zostają wyłącznie: module-01..05)
       budowanie stringów, mutacja lokalnego bufora i niemutowalny wynik na końcu
 - [x] 37 [O] optymalizacja async: sekwencyjnie vs `Promise.all`, batching żądań,
       limit współbieżności (pool) — mierzone licznikiem maxActive, nie czasem
-- [ ] module-02 (mini-projekt: klient API z retry/timeout/kolejką, wieloplikowy)
-- [ ] module-03 (feature: paginowany klient listy — fetch + cache Map + AbortController
+- [x] module-02 (mini-projekt: klient API z retry/timeout/kolejką, wieloplikowy)
+- [x] module-03 (feature: paginowany klient listy — fetch + cache Map + AbortController
       przy zmianie zapytania + debounce wyszukiwania; skleja 17/25/32/35) (audyt)
-- [ ] module-04 (feature: mini state manager — pub/sub + niemutowalne aktualizacje
+- [x] module-04 (feature: mini state manager — pub/sub + niemutowalne aktualizacje
       + undo/redo na historii stanów; skleja 22/23/24) (audyt)
-- [ ] module-05 (feature: rate limiter + kolejka zadań — throttle, pool współbieżności,
+- [x] module-05 (feature: rate limiter + kolejka zadań — throttle, pool współbieżności,
       batching, backoff przy retry; skleja 25/10/37/32) (audyt)
 
 ## ts (~16 pozycji ≈ 48 zadań)

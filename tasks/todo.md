@@ -217,3 +217,38 @@ i znikał z katalogu. Routing sztywno `track/topic/level`.
 - [x] Nit z listy wyżej: TaskView pokazuje „Katalog startera", gdy `starterPath` kończy się `/src`.
 - [x] Weryfikacja: tsc + eslint czyste, `verify:solutions js` 154/154, browser smoke
       (roadmap `M1 … 0/1` + 1 kropka `module: nie zaczęte`, topic page, obie labelki startera).
+
+## Sesja treści: js module-02..05 (domknięcie tracku js) — wieloplikowe
+
+Cztery mini-projekty w konwencji module-01 (topic `module-NN/` + poziom `module/`,
+`src/` ↔ `_solution/`, test importuje z `./src/index.js`). Zero zmian w harness/app —
+`collectLevels` już rozpoznaje bare `module`.
+
+- [x] module-02 — klient API: `http.js` (requestJson + HttpError: timeout AbortController,
+      retry z backoffem, 4xx bez ponawiania / 5xx+sieć ponawia) + `queue.js` (pool
+      concurrency, pump) + `index.js` (createApiClient). Skleja 32/10/16/37.
+- [x] module-03 — paginowany klient listy: `cache.js` (Map po (query,page)) +
+      `debounce.js` + `index.js` (createListClient: search anuluje in-flight Abortem,
+      next dokłada stronę, cache omija fetch). Skleja 17/25/32/35.
+- [x] module-04 — mini state manager: `history.js` (past/present/future undo/redo,
+      push czyści future) + `store.js` (pub/sub Set + niemutowalny set/update, undo/redo
+      + canUndo/canRedo gettery) + `index.js`. Skleja 22/23/24.
+- [x] module-05 — harmonogram: `pool.js` (concurrency + maxActive) + `retry.js`
+      (withRetry backoff) + `batch.js` (createBatcher DataLoader-style, flush po maxSize)
+      + `index.js` (createScheduler: retry wewnątrz slotu poolu). Skleja 25/10/37/32.
+- [x] Bramka per moduł: solution przechodzi test+lint; starter oblewa oba
+      (10/6/11/9 failów testów + todo-tag errory). `verify:solutions js` = **158/158**.
+- [x] `buildCatalog()` pokazuje M1..M5 (poziom `module`, tytuły z README H1); js = 56 topików.
+
+### Ustalenia testowe (determinizm async)
+- Atrapa fetch przez wstrzykiwany `fetchImpl` (nie globalny swap) — czyste, testowalne.
+  `new Response(JSON.stringify(body), { status })` z Node 22; abort przez listener na `signal`.
+- Retry/backoff testowane LICZNIKIEM wywołań przy `backoffMs: 0` — zero zależności od czasu.
+- Współbieżność mierzona `maxActive` (deterministyczna: pool startuje dokładnie N zadań
+  synchronicznie zanim którekolwiek await ustąpi). Anulowanie przez `signal.aborted`
+  sprawdzane synchronicznie po drugim wywołaniu. Debounce: jedyny realny timer (20ms okno,
+  sprawdzenie po 50ms) — wg sprawdzonego wzorca z topicu 25.
+
+### STAN JS: KOMPLET (01–37 + audyt b/c + module-01..05)
+- `verify:solutions js` → **158/158**; track js domknięty.
+- Do zrobienia (inne tracki): ts/react/next/node/strapi/mysql — numerowane + własne module-NN.
