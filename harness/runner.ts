@@ -195,10 +195,6 @@ export async function runTask(
     result.progress = recordRun(taskId, {
       passed,
       usedHint,
-      durationMs: result.durationMs,
-      failedTests: tests.filter((test) => test.status === "fail").length,
-      lintErrors: lint.errors.length,
-      error,
     }).taskProgress;
   }
 

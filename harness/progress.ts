@@ -13,7 +13,16 @@ export function readProgress(): Progress {
   }
   const raw = readFileSync(PROGRESS_PATH, "utf8").trim();
   if (!raw) return {};
-  return JSON.parse(raw) as Progress;
+  const progress = JSON.parse(raw) as Record<string, Progress[string] & { history?: unknown }>;
+  let removedHistory = false;
+  for (const taskProgress of Object.values(progress)) {
+    if ("history" in taskProgress) {
+      delete taskProgress.history;
+      removedHistory = true;
+    }
+  }
+  if (removedHistory) writeProgress(progress);
+  return progress;
 }
 
 export function writeProgress(progress: Progress): void {

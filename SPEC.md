@@ -42,8 +42,8 @@ orzi-kurs/
 2. **ESLint** na `starter.js` (typescript-eslint + sonarjs). Errors blokują zaliczenie,
    warnings tylko raportowane.
 3. Zaliczenie = wszystkie testy green **i** zero lint errors.
-4. Po każdej próbie: zapis wyniku, czasu, użycia hinta, błędów, poziomu opanowania
-   i terminu powtórki do `progress.json`.
+4. Po każdej próbie: zapis bieżącego statusu, łącznego licznika prób, informacji
+   o użyciu hinta, poziomu opanowania i terminu powtórki do `progress.json`.
 5. Commit jest wyłącznie ręczny: `pnpm commit:task <taskId>` ponownie uruchamia
    pipeline i dopiero po sukcesie commituje starter oraz `progress.json` jako
    `solve: <taskId>`. Submit z UI i CLI nigdy nie wykonuje operacji git.
@@ -73,7 +73,6 @@ export interface SubmitResult {
 export interface TaskProgress {
   status: "passed" | "passed-with-hint" | "failed" | "not-started";
   attempts: number;
-  history?: AttemptRecord[];
   masteryScore?: number;       // 0..4
   cleanPassStreak?: number;
   nextReviewAt?: string;       // ISO
@@ -95,8 +94,8 @@ export interface TaskProgress {
   (`starter` i `solution` ≠ null tylko gdy zadanie zaliczone)
 - `GET /api/hint?id=<taskId>&n=1` → `{ hint: string }` (treść sekcji "## Hint n")
 - `POST /api/submit` body `{ taskId }` → `SubmitResult`
-- `DELETE /api/progress` body `{ taskId }` → reset aktywnego postępu bez kasowania
-  historii prób i bez modyfikowania startera
+- `DELETE /api/progress` body `{ taskId }` → reset aktywnego postępu bez
+  modyfikowania startera
 
 ## harness/bench.ts
 

@@ -22,20 +22,9 @@ export interface SubmitResult {
   error?: string;
 }
 
-export interface AttemptRecord {
-  at: string;
-  passed: boolean;
-  usedHint: boolean;
-  durationMs: number;
-  failedTests: number;
-  lintErrors: number;
-  error?: string;
-}
-
 export interface TaskProgress {
   status: "passed" | "passed-with-hint" | "failed" | "not-started";
   attempts: number;
-  history?: AttemptRecord[];
   masteryScore?: number;
   cleanPassStreak?: number;
   nextReviewAt?: string;

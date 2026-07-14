@@ -1,17 +1,18 @@
 import { describe, expect, it } from "vitest";
 import { evolveTaskProgress, resetTaskProgressState } from "./mastery";
+import type { TaskProgress } from "./types";
 
 describe("mastery", () => {
   it("schedules a clean first pass for the next day", () => {
     const progress = evolveTaskProgress(
       undefined,
-      { passed: true, usedHint: false, durationMs: 120, failedTests: 0, lintErrors: 0 },
+      { passed: true, usedHint: false },
       "2026-07-14T10:00:00.000Z",
     );
 
     expect(progress.masteryScore).toBe(1);
     expect(progress.nextReviewAt).toBe("2026-07-15T10:00:00.000Z");
-    expect(progress.history).toHaveLength(1);
+    expect(progress.attempts).toBe(1);
   });
 
   it("moves a hint-assisted pass back one mastery level", () => {
@@ -23,7 +24,7 @@ describe("mastery", () => {
         cleanPassStreak: 3,
         lastRunAt: "2026-07-10T10:00:00.000Z",
       },
-      { passed: true, usedHint: true, durationMs: 90, failedTests: 0, lintErrors: 0 },
+      { passed: true, usedHint: true },
       "2026-07-14T10:00:00.000Z",
     );
 
@@ -41,7 +42,7 @@ describe("mastery", () => {
         masteryScore: 2,
         lastRunAt: "2026-07-10T10:00:00.000Z",
       },
-      { passed: false, usedHint: false, durationMs: 95, failedTests: 1, lintErrors: 0 },
+      { passed: false, usedHint: false },
       "2026-07-14T10:00:00.000Z",
     );
 
@@ -51,28 +52,20 @@ describe("mastery", () => {
     expect(progress.nextReviewAt).toBe("2026-07-14T10:00:00.000Z");
   });
 
-  it("resets active progress without deleting attempt history", () => {
-    const progress = resetTaskProgressState({
+  it("resets active progress and removes legacy attempt history", () => {
+    const legacyProgress = {
       status: "failed",
       attempts: 2,
       masteryScore: 1,
-      history: [
-        {
-          at: "2026-07-14T09:00:00.000Z",
-          passed: false,
-          usedHint: false,
-          durationMs: 80,
-          failedTests: 1,
-          lintErrors: 0,
-        },
-      ],
+      history: [{ passed: false }],
       lastRunAt: "2026-07-14T09:00:00.000Z",
-    }, "2026-07-14T10:00:00.000Z");
+    } as TaskProgress & { history: unknown };
+    const progress = resetTaskProgressState(legacyProgress, "2026-07-14T10:00:00.000Z");
 
     expect(progress.status).toBe("not-started");
     expect(progress.masteryScore).toBe(0);
-    expect(progress.attempts).toBe(2);
-    expect(progress.history).toHaveLength(1);
+    expect(progress.attempts).toBe(0);
+    expect("history" in progress).toBe(false);
     expect(progress.resetCount).toBe(1);
   });
 });

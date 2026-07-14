@@ -1,14 +1,10 @@
-import type { AttemptRecord, TaskProgress } from "./types";
+import type { TaskProgress } from "./types";
 
 const REVIEW_DAYS = [0, 1, 3, 7, 21] as const;
 
 export interface RecordedAttempt {
   passed: boolean;
   usedHint: boolean;
-  durationMs: number;
-  failedTests: number;
-  lintErrors: number;
-  error?: string;
 }
 
 function addDays(iso: string, days: number): string {
@@ -35,8 +31,6 @@ export function evolveTaskProgress(
       ? Math.max(1, previousScore - 1)
       : Math.min(4, previousScore + 1)
     : Math.max(0, previousScore - 1);
-  const record: AttemptRecord = { at: now, ...attempt };
-
   return {
     status: attempt.passed
       ? attempt.usedHint
@@ -46,7 +40,6 @@ export function evolveTaskProgress(
         ? previous.status
         : "failed",
     attempts: (previous?.attempts ?? 0) + 1,
-    history: [...(previous?.history ?? []), record],
     masteryScore: score,
     cleanPassStreak:
       attempt.passed && !attempt.usedHint ? (previous?.cleanPassStreak ?? 0) + 1 : 0,
@@ -72,9 +65,12 @@ export function resetTaskProgressState(
   previous: TaskProgress,
   now = new Date().toISOString(),
 ): TaskProgress {
+  const cleanPrevious = { ...previous } as TaskProgress & { history?: unknown };
+  delete cleanPrevious.history;
   return {
-    ...previous,
+    ...cleanPrevious,
     status: "not-started",
+    attempts: 0,
     masteryScore: 0,
     cleanPassStreak: 0,
     nextReviewAt: undefined,

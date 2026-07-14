@@ -381,7 +381,6 @@ function ProgressPanel({
 }) {
   const score = Math.max(0, Math.min(4, Math.round(progress?.masteryScore ?? 0)));
   const attempts = progress?.attempts ?? 0;
-  const history = progress?.history ?? [];
 
   return (
     <section className="learning-progress" aria-labelledby="learning-progress-title">
@@ -413,40 +412,10 @@ function ProgressPanel({
       </div>
 
       {progress && (
-        <details className="attempt-history">
-          <summary>Historia prób</summary>
-          {history.length > 0 ? (
-            <ol>
-              {[...history].reverse().map((attempt, index) => (
-                <li key={`${attempt.at}-${index}`}>
-                  <span className={`attempt-mark ${attempt.passed ? "passed" : "failed"}`}>
-                    {attempt.passed ? "PASS" : "FAIL"}
-                  </span>
-                  <span>
-                    {formatProgressDate(attempt.at, {
-                      dateStyle: "short",
-                      timeStyle: "short",
-                    })}
-                  </span>
-                  <span>{attempt.usedHint ? "z hintem" : "bez hinta"}</span>
-                  <span className="num">{attempt.durationMs} ms</span>
-                  {!attempt.passed && (
-                    <small>
-                      {attempt.error
-                        ? "błąd runnera"
-                        : `${attempt.failedTests} testów i ${attempt.lintErrors} błędów lint`}
-                    </small>
-                  )}
-                </li>
-              ))}
-            </ol>
-          ) : (
-            <p>Starsze próby były zapisane tylko jako licznik. Nowe pojawią się tutaj.</p>
-          )}
-
+        <div className="progress-reset">
           {confirmReset ? (
             <div className="reset-confirm" role="group" aria-label="Potwierdź reset postępu">
-              <p>Postęp i poziom opanowania zaczną się od zera. Historia oraz Twój kod zostaną zachowane.</p>
+              <p>Postęp, licznik prób i poziom opanowania zaczną się od zera. Twój kod zostanie zachowany.</p>
               <div>
                 <button className="btn-danger" onClick={onReset} disabled={resetting}>
                   {resetting ? "Resetuję…" : "Potwierdź reset"}
@@ -457,7 +426,7 @@ function ProgressPanel({
           ) : (
             <button className="btn-ghost" onClick={onAskReset}>Resetuj postęp</button>
           )}
-        </details>
+        </div>
       )}
     </section>
   );

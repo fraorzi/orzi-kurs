@@ -18,16 +18,16 @@ pnpm dev          # dashboard na http://localhost:3000
    (ścieżka jest w widoku zadania).
 3. Kliknij **Submit** — wyniki testów, lint i ewentualne benchmarki pojawią się od razu.
 4. Utknąłeś? Odkrywaj hinty pojedynczo.
-5. Po zaliczeniu zobaczysz porównanie własnego kodu z rozwiązaniem wzorcowym. Próba,
-   użycie hinta, poziom opanowania i termin powtórki zapisują się w `progress.json`.
+5. Po zaliczeniu zobaczysz porównanie własnego kodu z rozwiązaniem wzorcowym. Licznik
+   prób, użycie hinta, poziom opanowania i termin powtórki zapisują się w `progress.json`.
 6. Jeśli chcesz utrwalić zaliczenie w gicie, uruchom świadomie
    `pnpm commit:task <taskId>`. Submit nigdy nie tworzy commita sam.
 
 Z terminala zamiast UI: `pnpm submit js/01-closures/easy`.
 
 Adaptacyjna kolejność proponuje najpierw błędne zadania, następnie rozwiązane z hintem,
-terminowe powtórki i dopiero potem nowy materiał. Reset postępu zachowuje historię prób
-oraz pliki rozwiązania.
+terminowe powtórki i dopiero potem nowy materiał. Reset postępu nie modyfikuje plików
+rozwiązania.
 
 ## Struktura zadania
 
