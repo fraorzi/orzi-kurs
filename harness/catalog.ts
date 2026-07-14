@@ -6,7 +6,7 @@ import { TRACKS_ROOT } from "./paths";
 
 export interface CatalogLevel {
   id: string;
-  status: "passed" | "failed" | "not-started";
+  status: "passed" | "passed-with-hint" | "failed" | "not-started";
 }
 
 export interface CatalogTopic {

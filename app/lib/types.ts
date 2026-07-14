@@ -1,5 +1,5 @@
 export type Level = "easy" | "medium" | "hard";
-export type TaskStatus = "passed" | "failed" | "not-started";
+export type TaskStatus = "passed" | "passed-with-hint" | "failed" | "not-started";
 
 export interface CatalogLevel {
   id: string;
@@ -21,6 +21,12 @@ export interface Catalog {
   tracks: CatalogTrack[];
 }
 
+export interface LearningResource {
+  title: string;
+  url: string;
+  description: string;
+}
+
 export interface TestResult {
   name: string;
   status: "pass" | "fail";
@@ -39,6 +45,7 @@ export interface SubmitResult {
   tests: TestResult[];
   lint: { errors: LintIssue[]; warnings: LintIssue[] };
   durationMs: number;
+  usedHint?: boolean;
   error?: string;
 }
 

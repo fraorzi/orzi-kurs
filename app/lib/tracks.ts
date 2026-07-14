@@ -95,6 +95,7 @@ export const LEVEL_DESC: Record<string, string> = {
 
 export const STATUS_LABEL: Record<TaskStatus, string> = {
   passed: "zaliczone",
+  "passed-with-hint": "zaliczone z hintem",
   failed: "próbowane",
   "not-started": "nie zaczęte",
 };

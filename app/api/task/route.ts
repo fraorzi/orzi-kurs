@@ -38,7 +38,8 @@ export async function GET(req: NextRequest) {
   const hintsTotal = parseHints(join(taskDir, "hints.md")).length;
   const starterPath = findStarter(taskDir);
 
-  const passed = readProgress()[id]?.status === "passed";
+  const status = readProgress()[id]?.status;
+  const passed = status === "passed" || status === "passed-with-hint";
   const solutionPath = findSolution(taskDir);
   const solution =
     passed && solutionPath ? readSolutionText(solutionPath) : null;

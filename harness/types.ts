@@ -22,9 +22,11 @@ export interface SubmitResult {
 }
 
 export interface TaskProgress {
-  status: "passed" | "failed";
+  status: "passed" | "passed-with-hint" | "failed";
   attempts: number;
   firstPassedAt?: string;
+  firstPassedWithHintAt?: string;
+  firstPassedWithoutHintAt?: string;
   lastRunAt: string;
 }
 

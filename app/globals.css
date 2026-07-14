@@ -138,6 +138,7 @@ a { color:inherit; text-decoration:none }
 
 .sdot { width:8px; height:8px; border-radius:50%; flex:none }
 .sdot.passed { background:var(--good) }
+.sdot.passed-with-hint { background:var(--warn); box-shadow:inset 0 0 0 2px var(--panel) }
 .sdot.failed { background:var(--warn) }
 .sdot.not-started { border:1.5px solid var(--line-2) }
 
@@ -231,10 +232,24 @@ a { color:inherit; text-decoration:none }
 .lcard .ldesc { font-size:12px; color:var(--faint) }
 .pill { margin-left:auto; font-size:11px; font-family:var(--mono); padding:3px 10px; border-radius:20px }
 .pill.passed { color:var(--good); background:var(--good-soft) }
+.pill.passed-with-hint { color:var(--warn); background:var(--warn-soft) }
 .pill.failed { color:var(--warn); background:var(--warn-soft) }
 .pill.not-started { color:var(--faint); background:var(--overlay) }
 
 /* task focus */
+.resources { margin-top:24px; padding:14px 16px; background:var(--panel); border:1px solid var(--line); border-radius:var(--r);
+  display:flex; align-items:flex-start; gap:18px }
+.resources > div:first-child { flex:1; min-width:180px }
+.resources h2 { margin:0; font-size:13px; font-weight:640 }
+.resources p { margin:3px 0 0; color:var(--faint); font-size:11.5px; text-wrap:pretty }
+.resource-links { width:min(100%, 380px); display:flex; flex-direction:column; gap:5px }
+.resource-links a { display:flex; align-items:center; gap:12px; padding:8px 10px; border-radius:var(--r-sm); color:var(--dim);
+  transition:background var(--dur), color var(--dur) }
+.resource-links a:hover { background:var(--raised); color:var(--ink) }
+.resource-links a > span { min-width:0; display:flex; flex-direction:column }
+.resource-links strong { color:var(--ink); font-size:12.5px; font-weight:620 }
+.resource-links small { color:var(--faint); font-size:11px; line-height:1.45; text-wrap:pretty }
+.resource-links svg { flex:none; color:var(--faint) }
 .row-card { background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:14px 16px; margin-top:24px }
 .row-card .lbl { font-size:12px; color:var(--faint); margin-bottom:9px }
 .starter { display:flex; align-items:center; gap:12px }
@@ -265,8 +280,17 @@ a { color:inherit; text-decoration:none }
 .hint { background:var(--panel); border:1px solid var(--line); border-radius:var(--r-sm); padding:12px 15px; margin-top:9px }
 .hint .hn { font-size:11px; color:var(--faint); margin-bottom:5px; font-weight:550 }
 .solution { margin-top:26px }
+.solution-heading { display:flex; align-items:center; gap:12px; flex-wrap:wrap }
+.solution-heading .sec { margin:0; color:var(--good) }
+.pass-kind { color:var(--warn); background:var(--warn-soft); border-radius:20px; padding:3px 9px; font-family:var(--mono);
+  font-size:10.5px; font-weight:650 }
 .solution pre { background:oklch(0.155 0.006 68); border:1px solid var(--good-line); border-radius:var(--r-sm); padding:14px 16px;
   overflow-x:auto; font-family:var(--mono); font-size:12.5px; line-height:1.65; margin-top:10px }
+.completion-actions { margin-top:14px; min-height:38px; display:flex; align-items:center; justify-content:space-between; gap:12px }
+.completion-actions-right { display:flex; align-items:center; justify-content:flex-end; gap:9px; margin-left:auto; flex-wrap:wrap }
+.next-task { display:inline-flex; align-items:center; gap:9px; background:var(--accent); color:var(--accent-ink); font-size:12.5px;
+  font-weight:650; padding:8px 13px; border-radius:var(--r-sm); transition:background var(--dur) }
+.next-task:hover { background:var(--accent-2) }
 
 /* command palette */
 .kmask { position:fixed; inset:0; background:oklch(0.12 0.005 68 / .6); backdrop-filter:blur(4px); display:flex;
@@ -293,6 +317,10 @@ a { color:inherit; text-decoration:none }
   .rail { position:absolute; z-index:var(--z-backdrop); height:100%; transform:translateX(-100%) }
   .shell.rail-open .rail { transform:none }
   .wrap { padding:26px 18px 64px }
+  .resources { flex-direction:column; gap:11px }
+  .resource-links { width:100% }
+  .completion-actions { align-items:flex-start; flex-direction:column }
+  .completion-actions-right { width:100%; margin-left:0; justify-content:space-between }
 }
 
 /* ===== rendered markdown (README / task.md) ===== */

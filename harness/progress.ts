@@ -19,7 +19,7 @@ export function writeProgress(progress: Progress): void {
   writeFileSync(PROGRESS_PATH, JSON.stringify(progress, null, 2) + "\n", "utf8");
 }
 
-export function recordRun(taskId: string, passed: boolean): {
+export function recordRun(taskId: string, passed: boolean, usedHint = false): {
   progress: Progress;
   wasFirstPass: boolean;
 } {
@@ -27,13 +27,25 @@ export function recordRun(taskId: string, passed: boolean): {
   const now = new Date().toISOString();
   const prev: TaskProgress | undefined = progress[taskId];
 
-  const alreadyPassed = prev?.status === "passed";
+  const alreadyPassed = prev?.status === "passed" || prev?.status === "passed-with-hint";
   const wasFirstPass = passed && !alreadyPassed;
 
+  const status = passed
+    ? usedHint && prev?.status !== "passed"
+      ? "passed-with-hint"
+      : "passed"
+    : alreadyPassed
+      ? prev.status
+      : "failed";
+
   progress[taskId] = {
-    status: passed ? "passed" : "failed",
+    status,
     attempts: (prev?.attempts ?? 0) + 1,
     firstPassedAt: passed ? (prev?.firstPassedAt ?? now) : prev?.firstPassedAt,
+    firstPassedWithHintAt:
+      passed && usedHint ? (prev?.firstPassedWithHintAt ?? now) : prev?.firstPassedWithHintAt,
+    firstPassedWithoutHintAt:
+      passed && !usedHint ? (prev?.firstPassedWithoutHintAt ?? now) : prev?.firstPassedWithoutHintAt,
     lastRunAt: now,
   };
 

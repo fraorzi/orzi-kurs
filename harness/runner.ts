@@ -152,13 +152,14 @@ async function autoCommit(taskDir: string, taskId: string): Promise<void> {
 export interface RunOptions {
   recordProgress?: boolean;
   autoCommit?: boolean;
+  usedHint?: boolean;
 }
 
 export async function runTask(
   taskId: string,
   opts: RunOptions = {},
 ): Promise<SubmitResult> {
-  const { recordProgress = true, autoCommit: allowCommit = true } = opts;
+  const { recordProgress = true, autoCommit: allowCommit = true, usedHint = false } = opts;
   const started = performance.now();
   let taskDir: string;
   try {
@@ -204,7 +205,7 @@ export async function runTask(
   };
 
   if (recordProgress) {
-    const { wasFirstPass } = recordRun(taskId, passed);
+    const { wasFirstPass } = recordRun(taskId, passed, usedHint);
     if (allowCommit && wasFirstPass && !isHiddenTrack(taskId)) {
       await autoCommit(taskDir, taskId);
     }

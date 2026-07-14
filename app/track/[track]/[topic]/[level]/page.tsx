@@ -5,6 +5,7 @@ import { parseHints } from "@/harness/hints";
 import { findStarter, findSolution, TRACKS_ROOT } from "@/harness/paths";
 import { readProgress } from "@/harness/progress";
 import { buildCatalog } from "@/harness/catalog";
+import { resourcesForTask } from "@/harness/resources";
 import TaskView from "./TaskView";
 
 export default async function LevelPage({
@@ -23,15 +24,21 @@ export default async function LevelPage({
     : "";
   const hintsTotal = parseHints(join(taskDir, "hints.md")).length;
   const starterPath = findStarter(taskDir);
-  const passed = readProgress()[taskId]?.status === "passed";
+  const progressStatus = readProgress()[taskId]?.status;
+  const passed = progressStatus === "passed" || progressStatus === "passed-with-hint";
   const solutionPath = findSolution(taskDir);
   const solution = passed && solutionPath ? readFileSync(solutionPath, "utf8") : null;
   const starterRel = starterPath ? relative(process.cwd(), starterPath) : null;
 
-  const topicTitle =
-    buildCatalog()
-      .tracks.find((t) => t.id === track)
-      ?.topics.find((t) => t.id === `${track}/${topic}`)?.title ?? topic;
+  const catalogTrack = buildCatalog().tracks.find((item) => item.id === track);
+  const topicTitle = catalogTrack?.topics.find((item) => item.id === `${track}/${topic}`)?.title ?? topic;
+  const tasks = catalogTrack?.topics.flatMap((item) =>
+    item.levels.map((catalogLevel) => ({
+      id: `${item.id}/${catalogLevel.id}`,
+      href: `/track/${item.id}/${catalogLevel.id}`,
+    })),
+  ) ?? [];
+  const nextTask = tasks[tasks.findIndex((task) => task.id === taskId) + 1] ?? null;
 
   return (
     <TaskView
@@ -45,6 +52,9 @@ export default async function LevelPage({
       starterPath={starterPath}
       starterRel={starterRel}
       initialSolution={solution}
+      initialPassKind={progressStatus === "passed-with-hint" ? "with-hint" : passed ? "without-hint" : null}
+      resources={resourcesForTask(taskId)}
+      nextTaskHref={nextTask?.href ?? null}
     />
   );
 }
