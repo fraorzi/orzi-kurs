@@ -5,6 +5,7 @@ import {
   resolveTaskDir,
   findStarter,
   findSolution,
+  readArtifactText,
   readSolutionText,
 } from "@/harness/paths";
 import { parseHints } from "@/harness/hints";
@@ -38,11 +39,13 @@ export async function GET(req: NextRequest) {
   const hintsTotal = parseHints(join(taskDir, "hints.md")).length;
   const starterPath = findStarter(taskDir);
 
-  const status = readProgress()[id]?.status;
+  const progress = readProgress()[id] ?? null;
+  const status = progress?.status;
   const passed = status === "passed" || status === "passed-with-hint";
   const solutionPath = findSolution(taskDir);
   const solution =
     passed && solutionPath ? readSolutionText(solutionPath) : null;
+  const starter = passed && starterPath ? readArtifactText(starterPath) : null;
 
-  return Response.json({ readme, taskMd, hintsTotal, starterPath, solution });
+  return Response.json({ readme, taskMd, hintsTotal, starterPath, starter, solution, progress });
 }

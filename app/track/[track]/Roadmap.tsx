@@ -7,16 +7,17 @@ import TopicTag from "@/app/components/TopicTag";
 import type { CatalogTrack } from "@/app/lib/types";
 import { topicSlug, topicNumber, topicTag, trackProgress, STATUS_LABEL } from "@/app/lib/tracks";
 
-type Filter = "all" | "todo" | "wip" | "done" | "DO";
+type Filter = "all" | "todo" | "wip" | "review" | "done" | "DO";
 const FILTERS: [Filter, string][] = [
   ["all", "Wszystkie"],
   ["todo", "Do zrobienia"],
   ["wip", "W toku"],
+  ["review", "Do powtórki"],
   ["done", "Zaliczone"],
   ["DO", "Debug i optym."],
 ];
 
-export default function Roadmap({ track, name }: { track: CatalogTrack; name: string }) {
+export default function Roadmap({ track, name, now }: { track: CatalogTrack; name: string; now: string }) {
   const [filter, setFilter] = useState<Filter>("all");
   const prog = trackProgress(track);
 
@@ -55,10 +56,20 @@ export default function Roadmap({ track, name }: { track: CatalogTrack; name: st
         <div className="road">
           {track.topics.map((topic) => {
             const done = topic.levels.filter((l) => l.status === "passed").length;
-            const grp = done === topic.levels.length ? "done" : done > 0 ? "wip" : "todo";
+            const started = topic.levels.filter((level) => level.status !== "not-started").length;
+            const grp = done === topic.levels.length ? "done" : started > 0 ? "wip" : "todo";
+            const reviewDue = topic.levels.some(
+              (level) => level.nextReviewAt && level.nextReviewAt <= now,
+            );
             const tag = topicTag(topic.id);
             const show =
-              filter === "all" ? true : filter === "DO" ? tag !== null : grp === filter;
+              filter === "all"
+                ? true
+                : filter === "DO"
+                  ? tag !== null
+                  : filter === "review"
+                    ? reviewDue
+                    : grp === filter;
             if (!show) return null;
 
             return (
@@ -76,8 +87,8 @@ export default function Roadmap({ track, name }: { track: CatalogTrack; name: st
                   {topic.levels.map((level) => (
                     <span
                       key={level.id}
-                      className={`sdot ${level.status}`}
-                      title={`${level.id}: ${STATUS_LABEL[level.status]}`}
+                      className={`sdot ${level.status}${level.nextReviewAt && level.nextReviewAt <= now ? " review-due" : ""}`}
+                      title={`${level.id}: ${STATUS_LABEL[level.status]} · opanowanie ${level.masteryScore}/4${level.nextReviewAt && level.nextReviewAt <= now ? " · powtórka gotowa" : ""}`}
                     />
                   ))}
                 </span>

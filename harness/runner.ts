@@ -2,7 +2,7 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { readFileSync, existsSync, mkdtempSync, rmSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join, relative } from "node:path";
+import { join } from "node:path";
 import { ESLint } from "eslint";
 import type { SubmitResult, TestResult, LintIssue } from "./types";
 import { REPO_ROOT } from "./progress";
@@ -31,7 +31,15 @@ interface VitestJson {
 
 function firstAssertionMessage(messages: string[]): string | undefined {
   if (!messages.length) return undefined;
-  return messages[0].split("\n")[0].trim();
+  const clean = messages[0]
+    .replace(/\u001b\[[0-9;]*m/g, "")
+    .split("\n")
+    .map((line) => line.trimEnd())
+    .filter((line) => !/^\s*at\s/.test(line) && !line.includes("node_modules/"))
+    .slice(0, 6)
+    .join("\n")
+    .trim();
+  return clean ? clean.slice(0, 1200) : undefined;
 }
 
 async function runVitest(
@@ -129,29 +137,8 @@ async function runLint(
   return { errors, warnings };
 }
 
-function isHiddenTrack(taskId: string): boolean {
-  return taskId
-    .split("/")
-    .some((seg) => seg.startsWith("_"));
-}
-
-async function autoCommit(taskDir: string, taskId: string): Promise<void> {
-  const rel = relative(REPO_ROOT, taskDir);
-  try {
-    await execFileAsync("git", ["add", rel, "progress.json"], {
-      cwd: REPO_ROOT,
-    });
-    await execFileAsync("git", ["commit", "-m", `solve: ${taskId}`], {
-      cwd: REPO_ROOT,
-    });
-  } catch {
-    // Commit is best-effort; a failure here must not break the submit result.
-  }
-}
-
 export interface RunOptions {
   recordProgress?: boolean;
-  autoCommit?: boolean;
   usedHint?: boolean;
 }
 
@@ -159,7 +146,7 @@ export async function runTask(
   taskId: string,
   opts: RunOptions = {},
 ): Promise<SubmitResult> {
-  const { recordProgress = true, autoCommit: allowCommit = true, usedHint = false } = opts;
+  const { recordProgress = true, usedHint = false } = opts;
   const started = performance.now();
   let taskDir: string;
   try {
@@ -205,10 +192,14 @@ export async function runTask(
   };
 
   if (recordProgress) {
-    const { wasFirstPass } = recordRun(taskId, passed, usedHint);
-    if (allowCommit && wasFirstPass && !isHiddenTrack(taskId)) {
-      await autoCommit(taskDir, taskId);
-    }
+    result.progress = recordRun(taskId, {
+      passed,
+      usedHint,
+      durationMs: result.durationMs,
+      failedTests: tests.filter((test) => test.status === "fail").length,
+      lintErrors: lint.errors.length,
+      error,
+    }).taskProgress;
   }
 
   return result;

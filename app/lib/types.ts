@@ -4,6 +4,9 @@ export type TaskStatus = "passed" | "passed-with-hint" | "failed" | "not-started
 export interface CatalogLevel {
   id: string;
   status: TaskStatus;
+  attempts: number;
+  masteryScore: number;
+  nextReviewAt?: string;
 }
 
 export interface CatalogTopic {
@@ -46,7 +49,34 @@ export interface SubmitResult {
   lint: { errors: LintIssue[]; warnings: LintIssue[] };
   durationMs: number;
   usedHint?: boolean;
+  progress?: TaskProgress;
   error?: string;
+}
+
+export interface AttemptRecord {
+  at: string;
+  passed: boolean;
+  usedHint: boolean;
+  durationMs: number;
+  failedTests: number;
+  lintErrors: number;
+  error?: string;
+}
+
+export interface TaskProgress {
+  status: "passed" | "passed-with-hint" | "failed" | "not-started";
+  attempts: number;
+  history?: AttemptRecord[];
+  masteryScore?: number;
+  cleanPassStreak?: number;
+  nextReviewAt?: string;
+  lastAttemptPassed?: boolean;
+  resetCount?: number;
+  lastResetAt?: string;
+  firstPassedAt?: string;
+  firstPassedWithHintAt?: string;
+  firstPassedWithoutHintAt?: string;
+  lastRunAt: string;
 }
 
 export interface TaskResponse {
@@ -54,6 +84,8 @@ export interface TaskResponse {
   taskMd: string;
   hintsTotal: number;
   starterPath: string | null;
+  starter: string | null;
   solution: string | null;
+  progress: TaskProgress | null;
   error?: string;
 }

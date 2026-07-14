@@ -74,15 +74,17 @@ function walkFiles(dir: string, base = dir): string[] {
  * body verbatim. Multi-file: every file under _solution/ concatenated, each
  * preceded by a `// ── <relative path> ──` header.
  */
-export function readSolutionText(solutionPath: string): string {
-  if (!statSync(solutionPath).isDirectory()) {
-    return readFileSync(solutionPath, "utf8");
+export function readArtifactText(artifactPath: string): string {
+  if (!statSync(artifactPath).isDirectory()) {
+    return readFileSync(artifactPath, "utf8");
   }
-  const files = walkFiles(solutionPath);
+  const files = walkFiles(artifactPath);
   return files
     .map((f) => {
-      const rel = relative(solutionPath, f).split(sep).join("/");
+      const rel = relative(artifactPath, f).split(sep).join("/");
       return `// ── ${rel} ──\n${readFileSync(f, "utf8")}`;
     })
     .join("\n");
 }
+
+export const readSolutionText = readArtifactText;

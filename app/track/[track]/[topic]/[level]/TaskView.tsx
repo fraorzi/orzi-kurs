@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import Markdown from "@/app/components/Markdown";
 import SearchButton from "@/app/components/SearchButton";
 import { IconArrowRight, IconCopy, IconCheck, IconExternal, IconPlay } from "@/app/components/icons";
 import { openInEditor } from "@/app/lib/actions";
-import type { LearningResource, SubmitResult } from "@/app/lib/types";
+import type { LearningResource, SubmitResult, TaskProgress, TaskResponse } from "@/app/lib/types";
+import type { TaskRecommendation } from "@/harness/recommendation";
 import { trackMeta, topicNumber } from "@/app/lib/tracks";
 
 interface Props {
@@ -20,9 +21,11 @@ interface Props {
   starterPath: string | null;
   starterRel: string | null;
   initialSolution: string | null;
+  initialStarter: string | null;
+  initialProgress: TaskProgress | null;
   initialPassKind: "with-hint" | "without-hint" | null;
   resources: LearningResource[];
-  nextTaskHref: string | null;
+  nextTask: TaskRecommendation | null;
 }
 
 export default function TaskView({
@@ -36,13 +39,17 @@ export default function TaskView({
   starterPath,
   starterRel,
   initialSolution,
+  initialStarter,
+  initialProgress,
   initialPassKind,
   resources,
-  nextTaskHref,
+  nextTask,
 }: Props) {
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<SubmitResult | null>(null);
   const [solution, setSolution] = useState<string | null>(initialSolution);
+  const [starter, setStarter] = useState<string | null>(initialStarter);
+  const [progress, setProgress] = useState<TaskProgress | null>(initialProgress);
   const [passKind, setPassKind] = useState(initialPassKind);
   const [copied, setCopied] = useState(false);
   const [hints, setHints] = useState<string[]>([]);
@@ -50,10 +57,16 @@ export default function TaskView({
   const [loadingHint, setLoadingHint] = useState(false);
   const [openingEditor, setOpeningEditor] = useState(false);
   const [editorError, setEditorError] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [resetting, setResetting] = useState(false);
+  const [confirmReset, setConfirmReset] = useState(false);
 
   async function handleSubmit() {
     setSubmitting(true);
     setResult(null);
+    setSubmitError(null);
+    setSolution(null);
+    setStarter(null);
     try {
       const res = await fetch("/api/submit", {
         method: "POST",
@@ -61,13 +74,31 @@ export default function TaskView({
         body: JSON.stringify({ taskId, usedHint: hints.length > 0 }),
       });
       const data: SubmitResult = await res.json();
+      if (!res.ok) {
+        setSubmitError(data.error ?? "nie udało się sprawdzić zadania");
+        return;
+      }
       setResult(data);
+      setProgress(data.progress ?? null);
       if (data.passed) {
         setPassKind(hints.length > 0 ? "with-hint" : "without-hint");
-        const taskRes = await fetch(`/api/task?id=${encodeURIComponent(taskId)}`);
-        const taskData = await taskRes.json();
-        setSolution(taskData.solution ?? null);
+        try {
+          const taskRes = await fetch(`/api/task?id=${encodeURIComponent(taskId)}`);
+          const taskData: TaskResponse = await taskRes.json();
+          if (!taskRes.ok) {
+            setSubmitError(taskData.error ?? "Zadanie zaliczone, ale nie udało się pobrać porównania. Odśwież stronę.");
+          } else {
+            setSolution(taskData.solution ?? null);
+            setStarter(taskData.starter ?? null);
+          }
+        } catch {
+          setSubmitError("Zadanie zaliczone, ale nie udało się pobrać porównania. Odśwież stronę.");
+        }
+      } else {
+        setPassKind(null);
       }
+    } catch {
+      setSubmitError("Nie udało się połączyć z lokalnym runnerem. Kod pozostał bez zmian — spróbuj ponownie.");
     } finally {
       setSubmitting(false);
     }
@@ -117,12 +148,41 @@ export default function TaskView({
   function handleRetryWithoutHint() {
     setResult(null);
     setSolution(null);
+    setStarter(null);
     setPassKind(null);
     setHints([]);
     document.getElementById("task-starter")?.scrollIntoView({
       behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
       block: "center",
     });
+  }
+
+  async function handleResetProgress() {
+    setResetting(true);
+    setSubmitError(null);
+    try {
+      const res = await fetch("/api/progress", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ taskId }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setSubmitError(data.error ?? "nie udało się zresetować postępu");
+        return;
+      }
+      setProgress(data.progress ?? null);
+      setResult(null);
+      setSolution(null);
+      setStarter(null);
+      setPassKind(null);
+      setHints([]);
+      setConfirmReset(false);
+    } catch {
+      setSubmitError("Nie udało się zresetować postępu. Spróbuj ponownie.");
+    } finally {
+      setResetting(false);
+    }
   }
 
   return (
@@ -166,6 +226,15 @@ export default function TaskView({
           </section>
         )}
 
+        <ProgressPanel
+          progress={progress}
+          confirmReset={confirmReset}
+          resetting={resetting}
+          onAskReset={() => setConfirmReset(true)}
+          onCancelReset={() => setConfirmReset(false)}
+          onReset={handleResetProgress}
+        />
+
         <div className="row-card" id="task-starter">
           <div className="lbl">{starterPath?.endsWith("/src") ? "Katalog startera" : "Plik startera"}</div>
           {starterPath ? (
@@ -207,6 +276,13 @@ export default function TaskView({
           )}
         </div>
 
+        {submitError && (
+          <div className="request-error" role="alert">
+            <strong>Nie udało się wykonać operacji</strong>
+            <span>{submitError}</span>
+          </div>
+        )}
+
         {result && <ResultPanel result={result} />}
 
         {hints.length > 0 && (
@@ -233,13 +309,17 @@ export default function TaskView({
               <h2 className="sec">Rozwiązanie wzorcowe</h2>
               {passKind === "with-hint" && <span className="pass-kind">zaliczone z hintem</span>}
             </div>
-            <pre>
-              <code>{solution}</code>
-            </pre>
+            {starter ? (
+              <SolutionComparison starter={starter} solution={solution} />
+            ) : (
+              <pre>
+                <code>{solution}</code>
+              </pre>
+            )}
           </section>
         )}
 
-        {(nextHintIndex < hintsTotal || (passKind && nextTaskHref) || passKind === "with-hint") && (
+        {(nextHintIndex < hintsTotal || (passKind && nextTask) || passKind === "with-hint") && (
           <div className="completion-actions">
             <div>
               {nextHintIndex < hintsTotal && (
@@ -258,9 +338,9 @@ export default function TaskView({
                   Spróbuj bez hinta
                 </button>
               )}
-              {passKind && nextTaskHref && (
-                <Link className="next-task" href={nextTaskHref}>
-                  Następne zadanie
+              {passKind && nextTask && (
+                <Link className="next-task" href={nextTask.href} title={nextTask.label}>
+                  {nextTask.reason === "next-new" ? "Następne zadanie" : nextTask.label}
                   <IconArrowRight />
                 </Link>
               )}
@@ -272,13 +352,221 @@ export default function TaskView({
   );
 }
 
-function ResultPanel({ result }: { result: SubmitResult }) {
+const MASTERY_LABELS = ["Nowe", "Uczę się", "Rozumiem", "Utrwalone", "Opanowane"];
+
+function formatProgressDate(
+  value: string,
+  options: Intl.DateTimeFormatOptions,
+): string {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime())
+    ? "nieznana data"
+    : new Intl.DateTimeFormat("pl-PL", { ...options, timeZone: "Europe/Warsaw" }).format(date);
+}
+
+function ProgressPanel({
+  progress,
+  confirmReset,
+  resetting,
+  onAskReset,
+  onCancelReset,
+  onReset,
+}: {
+  progress: TaskProgress | null;
+  confirmReset: boolean;
+  resetting: boolean;
+  onAskReset: () => void;
+  onCancelReset: () => void;
+  onReset: () => void;
+}) {
+  const score = Math.max(0, Math.min(4, Math.round(progress?.masteryScore ?? 0)));
+  const attempts = progress?.attempts ?? 0;
+  const history = progress?.history ?? [];
+
   return (
-    <section>
-      <div className={`result ${result.passed ? "ok" : "no"}`}>
+    <section className="learning-progress" aria-labelledby="learning-progress-title">
+      <div className="mastery-summary">
+        <div>
+          <span className="lbl" id="learning-progress-title">Poziom opanowania</span>
+          <strong>{MASTERY_LABELS[score] ?? MASTERY_LABELS[0]}</strong>
+        </div>
+        <div className="mastery-scale" aria-label={`Poziom opanowania ${score} z 4`}>
+          {[1, 2, 3, 4].map((step) => (
+            <i key={step} className={step <= score ? "on" : ""} aria-hidden="true" />
+          ))}
+        </div>
+        <div className="mastery-meta">
+          <span>
+            {attempts} {attempts === 1 ? "próba" : attempts > 1 && attempts < 5 ? "próby" : "prób"}
+          </span>
+          {progress?.nextReviewAt && (
+            <span>
+              Powtórka: {formatProgressDate(progress.nextReviewAt, {
+                day: "numeric",
+                month: "short",
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {progress && (
+        <details className="attempt-history">
+          <summary>Historia prób</summary>
+          {history.length > 0 ? (
+            <ol>
+              {[...history].reverse().map((attempt, index) => (
+                <li key={`${attempt.at}-${index}`}>
+                  <span className={`attempt-mark ${attempt.passed ? "passed" : "failed"}`}>
+                    {attempt.passed ? "PASS" : "FAIL"}
+                  </span>
+                  <span>
+                    {formatProgressDate(attempt.at, {
+                      dateStyle: "short",
+                      timeStyle: "short",
+                    })}
+                  </span>
+                  <span>{attempt.usedHint ? "z hintem" : "bez hinta"}</span>
+                  <span className="num">{attempt.durationMs} ms</span>
+                  {!attempt.passed && (
+                    <small>
+                      {attempt.error
+                        ? "błąd runnera"
+                        : `${attempt.failedTests} testów i ${attempt.lintErrors} błędów lint`}
+                    </small>
+                  )}
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p>Starsze próby były zapisane tylko jako licznik. Nowe pojawią się tutaj.</p>
+          )}
+
+          {confirmReset ? (
+            <div className="reset-confirm" role="group" aria-label="Potwierdź reset postępu">
+              <p>Postęp i poziom opanowania zaczną się od zera. Historia oraz Twój kod zostaną zachowane.</p>
+              <div>
+                <button className="btn-danger" onClick={onReset} disabled={resetting}>
+                  {resetting ? "Resetuję…" : "Potwierdź reset"}
+                </button>
+                <button className="btn-ghost" onClick={onCancelReset} disabled={resetting}>Anuluj</button>
+              </div>
+            </div>
+          ) : (
+            <button className="btn-ghost" onClick={onAskReset}>Resetuj postęp</button>
+          )}
+        </details>
+      )}
+    </section>
+  );
+}
+
+interface DiffRow {
+  left: { number: number; text: string } | null;
+  right: { number: number; text: string } | null;
+  kind: "same" | "remove" | "add" | "changed";
+}
+
+function buildDiff(leftText: string, rightText: string): DiffRow[] {
+  const left = leftText.replace(/\r\n/g, "\n").split("\n");
+  const right = rightText.replace(/\r\n/g, "\n").split("\n");
+
+  if (left.length * right.length > 250_000) {
+    return Array.from({ length: Math.max(left.length, right.length) }, (_, index) => ({
+      left: index < left.length ? { number: index + 1, text: left[index] } : null,
+      right: index < right.length ? { number: index + 1, text: right[index] } : null,
+      kind: left[index] === right[index] ? "same" : "changed",
+    }));
+  }
+
+  const width = right.length + 1;
+  const lengths = new Uint32Array((left.length + 1) * width);
+  for (let i = left.length - 1; i >= 0; i--) {
+    for (let j = right.length - 1; j >= 0; j--) {
+      lengths[i * width + j] = left[i] === right[j]
+        ? lengths[(i + 1) * width + j + 1] + 1
+        : Math.max(lengths[(i + 1) * width + j], lengths[i * width + j + 1]);
+    }
+  }
+
+  const rows: DiffRow[] = [];
+  let i = 0;
+  let j = 0;
+  while (i < left.length || j < right.length) {
+    if (i < left.length && j < right.length && left[i] === right[j]) {
+      rows.push({
+        left: { number: i + 1, text: left[i] },
+        right: { number: j + 1, text: right[j] },
+        kind: "same",
+      });
+      i++;
+      j++;
+    } else if (i < left.length && (j === right.length || lengths[(i + 1) * width + j] >= lengths[i * width + j + 1])) {
+      rows.push({ left: { number: i + 1, text: left[i] }, right: null, kind: "remove" });
+      i++;
+    } else {
+      rows.push({ left: null, right: { number: j + 1, text: right[j] }, kind: "add" });
+      j++;
+    }
+  }
+  return rows;
+}
+
+function SolutionComparison({ starter, solution }: { starter: string; solution: string }) {
+  const rows = useMemo(() => buildDiff(starter, solution), [starter, solution]);
+
+  return (
+    <details className="solution-comparison" open>
+      <summary>Porównaj z własnym rozwiązaniem</summary>
+      <div className="compare-head" aria-hidden="true">
+        <span>Twoje rozwiązanie</span>
+        <span>Rozwiązanie wzorcowe</span>
+      </div>
+      <div className="compare-code" role="table" aria-label="Porównanie rozwiązania linia po linii">
+        {rows.map((row, index) => (
+          <div className={`compare-row ${row.kind}`} role="row" key={index}>
+            <code role="cell">
+              <span className="line-no">{row.left?.number ?? ""}</span>
+              <span>{row.left?.text ?? ""}</span>
+            </code>
+            <code role="cell">
+              <span className="line-no">{row.right?.number ?? ""}</span>
+              <span>{row.right?.text ?? ""}</span>
+            </code>
+          </div>
+        ))}
+      </div>
+    </details>
+  );
+}
+
+function ResultPanel({ result }: { result: SubmitResult }) {
+  const failedTests = result.tests.filter((test) => test.status === "fail");
+  const passedTests = result.tests.length - failedTests.length;
+
+  return (
+    <section aria-live="polite">
+      <div className={`result ${result.passed ? "ok" : "no"}`} role="status">
         {result.passed ? (result.usedHint ? "ZALICZONE Z HINTEM" : "ZALICZONE") : "NIEZALICZONE"}
         <span className="ms num">{result.durationMs} ms</span>
       </div>
+
+      {!result.passed && (
+        <div className="error-guidance">
+          <strong>Co poprawić teraz</strong>
+          {result.error ? (
+            <p>Runner nie ukończył sprawdzenia. Zacznij od komunikatu infrastruktury poniżej.</p>
+          ) : failedTests.length > 0 ? (
+            <p>
+              Przeszło {passedTests} z {result.tests.length} testów. Zacznij od pierwszego czerwonego testu — jego nazwa opisuje wymaganie, a komunikat pokazuje różnicę wyniku.
+            </p>
+          ) : (
+            <p>Testy przeszły, ale lint zatrzymał zaliczenie. Otwórz wskazane linie i usuń błędy oznaczone jako „error”.</p>
+          )}
+        </div>
+      )}
 
       {result.error && (
         <div

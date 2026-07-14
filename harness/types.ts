@@ -18,12 +18,30 @@ export interface SubmitResult {
   tests: TestResult[];
   lint: { errors: LintIssue[]; warnings: LintIssue[] };
   durationMs: number;
+  progress?: TaskProgress;
+  error?: string;
+}
+
+export interface AttemptRecord {
+  at: string;
+  passed: boolean;
+  usedHint: boolean;
+  durationMs: number;
+  failedTests: number;
+  lintErrors: number;
   error?: string;
 }
 
 export interface TaskProgress {
-  status: "passed" | "passed-with-hint" | "failed";
+  status: "passed" | "passed-with-hint" | "failed" | "not-started";
   attempts: number;
+  history?: AttemptRecord[];
+  masteryScore?: number;
+  cleanPassStreak?: number;
+  nextReviewAt?: string;
+  lastAttemptPassed?: boolean;
+  resetCount?: number;
+  lastResetAt?: string;
   firstPassedAt?: string;
   firstPassedWithHintAt?: string;
   firstPassedWithoutHintAt?: string;

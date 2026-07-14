@@ -42,9 +42,11 @@ orzi-kurs/
 2. **ESLint** na `starter.js` (typescript-eslint + sonarjs). Errors blokują zaliczenie,
    warnings tylko raportowane.
 3. Zaliczenie = wszystkie testy green **i** zero lint errors.
-4. Po zaliczeniu: zapis do `progress.json` + auto-commit
-   `git add <taskdir> progress.json && git commit -m "solve: <taskId>"`.
-   Bez Co-Authored-By. Commit tylko przy przejściu z fail→pass (nie przy ponownym pass).
+4. Po każdej próbie: zapis wyniku, czasu, użycia hinta, błędów, poziomu opanowania
+   i terminu powtórki do `progress.json`.
+5. Commit jest wyłącznie ręczny: `pnpm commit:task <taskId>` ponownie uruchamia
+   pipeline i dopiero po sukcesie commituje starter oraz `progress.json` jako
+   `solve: <taskId>`. Submit z UI i CLI nigdy nie wykonuje operacji git.
 
 ## Kontrakty TypeScript (harness/types.ts)
 
@@ -69,8 +71,15 @@ export interface SubmitResult {
 }
 
 export interface TaskProgress {
-  status: "passed" | "failed";
+  status: "passed" | "passed-with-hint" | "failed" | "not-started";
   attempts: number;
+  history?: AttemptRecord[];
+  masteryScore?: number;       // 0..4
+  cleanPassStreak?: number;
+  nextReviewAt?: string;       // ISO
+  lastAttemptPassed?: boolean;
+  resetCount?: number;
+  lastResetAt?: string;        // ISO
   firstPassedAt?: string;       // ISO
   lastRunAt: string;            // ISO
 }
@@ -82,10 +91,12 @@ export interface TaskProgress {
 - `GET /api/catalog` → drzewo tracków (bez `_`-prefiksowanych) + merge z progress.json:
   `{ tracks: [{ id, topics: [{ id, title (H1 z README), levels: [{ id, status }] }] }] }`
 - `GET /api/task?id=js/01-closures/easy` →
-  `{ readme, taskMd, hintsTotal, starterPath (absolutna), solution: string | null }`
-  (`solution` ≠ null tylko gdy zadanie zaliczone)
+  `{ readme, taskMd, hintsTotal, starterPath (absolutna), starter, solution, progress }`
+  (`starter` i `solution` ≠ null tylko gdy zadanie zaliczone)
 - `GET /api/hint?id=<taskId>&n=1` → `{ hint: string }` (treść sekcji "## Hint n")
 - `POST /api/submit` body `{ taskId }` → `SubmitResult`
+- `DELETE /api/progress` body `{ taskId }` → reset aktywnego postępu bez kasowania
+  historii prób i bez modyfikowania startera
 
 ## harness/bench.ts
 
@@ -113,6 +124,7 @@ Dowodzi, że każdy wzorzec przechodzi swoje testy. Musi być zielone przed doda
 
 - `pnpm dev` — dashboard
 - `pnpm submit <taskId>` — pipeline z CLI (ten sam kod co API)
+- `pnpm commit:task <taskId>` — ponowna weryfikacja i ręczny commit zaliczenia
 - `pnpm verify:solutions [trackId]`
 
 ## Typy zagadnień: zwykłe, `[D]` debug, `[O]` optymalizacja
