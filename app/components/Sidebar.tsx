@@ -15,6 +15,8 @@ interface Props {
   onToggle: () => void;
 }
 
+type SwitcherPhase = "closed" | "open" | "closing";
+
 export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
   const pathname = usePathname();
   const router = useRouter();
@@ -33,15 +35,16 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
     setOpenSlug(curTopicSlug);
   }
 
-  const [switcherOpen, setSwitcherOpen] = useState(false);
+  const [switcherPhase, setSwitcherPhase] = useState<SwitcherPhase>("closed");
   const [popPos, setPopPos] = useState<{ top: number; left: number } | null>(null);
   const switcherRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const switcherOpen = switcherPhase === "open";
 
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);
-    setSwitcherOpen(false);
+    setSwitcherPhase((phase) => (phase === "closed" ? phase : "closing"));
   }
 
   const positionPop = useCallback(() => {
@@ -54,8 +57,12 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
 
   function openSwitcher() {
     positionPop();
-    setSwitcherOpen(true);
+    setSwitcherPhase("open");
   }
+
+  const closeSwitcher = useCallback(() => {
+    setSwitcherPhase((phase) => (phase === "closed" ? phase : "closing"));
+  }, []);
 
   useEffect(() => {
     if (!switcherOpen) return;
@@ -64,11 +71,14 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
         !switcherRef.current?.contains(e.target as Node) &&
         !(e.target as HTMLElement).closest?.(".trackpop")
       ) {
-        setSwitcherOpen(false);
+        closeSwitcher();
       }
     }
     function onEsc(e: KeyboardEvent) {
-      if (e.key === "Escape") setSwitcherOpen(false);
+      if (e.key === "Escape") {
+        closeSwitcher();
+        triggerRef.current?.focus();
+      }
     }
     // Keep the popover glued to its trigger while scrolling instead of closing it.
     let raf = 0;
@@ -90,7 +100,7 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
       window.removeEventListener("resize", reposition);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [switcherOpen, positionPop]);
+  }, [closeSwitcher, switcherOpen, positionPop]);
 
   const track =
     catalog?.tracks.find((t) => t.id === curTrackId) ?? catalog?.tracks[0] ?? null;
@@ -128,19 +138,26 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
               ref={triggerRef}
               className="trackswitch"
               aria-expanded={switcherOpen}
-              onClick={() => (switcherOpen ? setSwitcherOpen(false) : openSwitcher())}
+              onClick={() => (switcherOpen ? closeSwitcher() : openSwitcher())}
             >
               <TrackBadge id={track.id} />
               <span>{meta.name}</span>
               <span className="sw">zmień ›</span>
             </button>
 
-            {switcherOpen && popPos && (
+            {switcherPhase !== "closed" && popPos && (
               <div
-                className="trackpop"
+                className={`trackpop${switcherPhase === "closing" ? " closing" : ""}`}
                 role="listbox"
                 aria-label="Wybierz track"
+                aria-hidden={switcherPhase === "closing"}
+                inert={switcherPhase === "closing" ? true : undefined}
                 style={{ top: popPos.top, left: popPos.left }}
+                onAnimationEnd={(event) => {
+                  if (event.target === event.currentTarget && switcherPhase === "closing") {
+                    setSwitcherPhase("closed");
+                  }
+                }}
               >
                 {catalog?.tracks.map((t) => {
                   const m = trackMeta(t.id);
@@ -152,7 +169,7 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
                       role="option"
                       aria-selected={isCurrent}
                       onClick={() => {
-                        setSwitcherOpen(false);
+                        closeSwitcher();
                         router.push(`/track/${t.id}`);
                       }}
                     >
