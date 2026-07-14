@@ -24,9 +24,9 @@ typy) mają swoje zadania. Trudność rośnie z numerami zagadnień; wewnątrz z
 easy → medium → hard.
 
 ## js (01–37 gotowe: numerowane + pierwsze [O] optymalizacyjne)
-(verify:solutions js = 132/132; zrobiona 1. połowa pozycji audytowych b/c:
-05b, 10b, 16b, 17b, 17c, 18b, 20b. Zostają: 21b, 22b, 25b, 27b, 29b, 31b,
-05c (nowa, audyt) + module-01..05)
+(verify:solutions js = 153/153; wszystkie pozycje audytowe b/c gotowe:
+05b, 05c, 10b, 16b, 17b, 17c, 18b, 20b, 21b, 22b, 25b, 27b, 29b, 31b.
+Zostają wyłącznie: module-01..05)
 
 - [x] 01 funkcje: deklaracja vs wyrażenie vs arrow (this/arguments/hoisting),
       parametry domyślne i rest, funkcje jako wartości
@@ -37,7 +37,7 @@ easy → medium → hard.
 - [x] 05b Unicode w stringach: jednostki UTF-16 vs code points, [...str] vs split(""),
       normalize w praktyce, Intl.Segmenter dla grafemów (emoji ze ZWJ)
       (audyt: MDN — pułapki length/emoji z README 05 zasługują na własne zadania)
-- [ ] 05c Intl.Segmenter — segmentacja słów i zdań (granularity "word"/"sentence"),
+- [x] 05c Intl.Segmenter — segmentacja słów i zdań (granularity "word"/"sentence"),
       liczenie słów świadome lokalizacji, iteracja po zdaniach, pole isWordLike
       (audyt: MDN Intl.Segmenter — wymiar słów/zdań odrębny od grafemów z 05b)
 - [x] 06 obiekty podstawy: literały, dynamiczne klucze, Object.keys/values/entries,
@@ -82,27 +82,27 @@ easy → medium → hard.
       też wymiar wydajnościowy [O]: lazy vs materializacja)
 - [x] 21 generatory (yield*, delegacja, leniwe sekwencje, next(arg))
       (rozbite z „iteratory i generatory" — audyt)
-- [ ] 21b async generatory i for await...of (strumienie async, paginacja)
+- [x] 21b async generatory i for await...of (strumienie async, paginacja)
       (audyt: javascript.info „Async iteration and generators" — osobny wymiar od sync)
 - [x] 22 deskryptory właściwości, gettery/settery (defineProperty, wzorzec observe)
       (dopisane — audyt: javascript.info „Object properties configuration")
-- [ ] 22b Proxy i Reflect (przechwytywanie operacji, walidacja, reaktywność)
+- [x] 22b Proxy i Reflect (przechwytywanie operacji, walidacja, reaktywność)
       (audyt: javascript.info „Proxy and Reflect" — meta-programowanie, dopełnienie 22)
 - [x] 23 immutability w praktyce (structuredClone, freeze, wzorce update)
 - [x] 24 własny EventEmitter (on/off/once/emit, semantyka Node)
 - [x] 25 debounce i throttle (implementacje + różnice)
-- [ ] 25b warianty debounce/throttle: leading/trailing, cancel/flush, throttle na rAF
+- [x] 25b warianty debounce/throttle: leading/trailing, cancel/flush, throttle na rAF
       (audyt: lodash docs — realne opcje produkcyjne, osobny poziom trudności)
 - [x] 26 [D] debug: asynchroniczność (brakujący await, forEach+async, sekwencyjne await)
       (dopisane — audyt: kanon błędów async)
 - [x] 27 rekurencja (drzewa, spłaszczanie, limity stosu)
-- [ ] 27b trampolina i iteracyjne alternatywy rekurencji (unikanie przepełnienia stosu)
+- [x] 27b trampolina i iteracyjne alternatywy rekurencji (unikanie przepełnienia stosu)
       (audyt: kanon — dopełnienie „limity stosu" z 27)
 - [x] 28 JSON i serializacja (replacer/reviver, toJSON, cykle)
       (dopisane — audyt: javascript.info „JSON methods")
 - [x] 29 liczby i precyzja (IEEE-754, EPSILON, zaokrąglanie, losowość)
       (dopisane — audyt: javascript.info „Numbers")
-- [ ] 29b BigInt: literały n, arytmetyka, zakaz mieszania z number (TypeError),
+- [x] 29b BigInt: literały n, arytmetyka, zakaz mieszania z number (TypeError),
       konwersje, kiedy używać (id, kwoty, > MAX_SAFE_INTEGER), czego brakuje (Math.*)
       (audyt: MDN BigInt — jedyny typ liczbowy nieobecny w tracku; domyka też
       uproszczenie looseEq z 03-hard)
@@ -110,7 +110,7 @@ easy → medium → hard.
       (dopisane — audyt: javascript.info „Date and time")
 - [x] 31 wyrażenia regularne: podstawy praktyczne (grupy, flagi, replace z funkcją)
       (dopisane — audyt: javascript.info RegExp + MDN)
-- [ ] 31b regex zaawansowany: lookbehind (?<=)/(?<!), flaga y (sticky, tokenizacja),
+- [x] 31b regex zaawansowany: lookbehind (?<=)/(?<!), flaga y (sticky, tokenizacja),
       flaga v (unicode sets, ES2024), $<name> w replace, escapowanie danych do wzorca
       (audyt: MDN — dopełnienie 31; censor z 31-medium zakłada brak metaznaków,
       tu wariant z escapowaniem)
