@@ -34,15 +34,10 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
   }
 
   const [switcherOpen, setSwitcherOpen] = useState(false);
+  const [switcherClosing, setSwitcherClosing] = useState(false);
   const [popPos, setPopPos] = useState<{ top: number; left: number } | null>(null);
   const switcherRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-
-  const [prevPathname, setPrevPathname] = useState(pathname);
-  if (pathname !== prevPathname) {
-    setPrevPathname(pathname);
-    setSwitcherOpen(false);
-  }
 
   const positionPop = useCallback(() => {
     const r = triggerRef.current?.getBoundingClientRect();
@@ -54,8 +49,18 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
 
   function openSwitcher() {
     positionPop();
+    setSwitcherClosing(false);
     setSwitcherOpen(true);
   }
+
+  const closeSwitcher = useCallback(() => {
+    if (!switcherOpen || switcherClosing) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setSwitcherOpen(false);
+      return;
+    }
+    setSwitcherClosing(true);
+  }, [switcherClosing, switcherOpen]);
 
   useEffect(() => {
     if (!switcherOpen) return;
@@ -64,11 +69,11 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
         !switcherRef.current?.contains(e.target as Node) &&
         !(e.target as HTMLElement).closest?.(".trackpop")
       ) {
-        setSwitcherOpen(false);
+        closeSwitcher();
       }
     }
     function onEsc(e: KeyboardEvent) {
-      if (e.key === "Escape") setSwitcherOpen(false);
+      if (e.key === "Escape") closeSwitcher();
     }
     // Keep the popover glued to its trigger while scrolling instead of closing it.
     let raf = 0;
@@ -90,7 +95,7 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
       window.removeEventListener("resize", reposition);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [switcherOpen, positionPop]);
+  }, [switcherOpen, positionPop, closeSwitcher]);
 
   const track =
     catalog?.tracks.find((t) => t.id === curTrackId) ?? catalog?.tracks[0] ?? null;
@@ -127,8 +132,8 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
             <button
               ref={triggerRef}
               className="trackswitch"
-              aria-expanded={switcherOpen}
-              onClick={() => (switcherOpen ? setSwitcherOpen(false) : openSwitcher())}
+              aria-expanded={switcherOpen && !switcherClosing}
+              onClick={() => (switcherOpen ? closeSwitcher() : openSwitcher())}
             >
               <TrackBadge id={track.id} />
               <span>{meta.name}</span>
@@ -137,10 +142,20 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
 
             {switcherOpen && popPos && (
               <div
-                className="trackpop"
+                className={`trackpop${switcherClosing ? " closing" : ""}`}
                 role="listbox"
                 aria-label="Wybierz track"
                 style={{ top: popPos.top, left: popPos.left }}
+                onAnimationEnd={(event) => {
+                  if (
+                    switcherClosing &&
+                    event.target === event.currentTarget &&
+                    event.animationName === "trackpop-out"
+                  ) {
+                    setSwitcherOpen(false);
+                    setSwitcherClosing(false);
+                  }
+                }}
               >
                 {catalog?.tracks.map((t) => {
                   const m = trackMeta(t.id);
@@ -152,7 +167,7 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
                       role="option"
                       aria-selected={isCurrent}
                       onClick={() => {
-                        setSwitcherOpen(false);
+                        closeSwitcher();
                         router.push(`/track/${t.id}`);
                       }}
                     >

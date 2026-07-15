@@ -218,10 +218,10 @@ export default function TaskView({
         </article>
 
         {resources.length > 0 && (
-          <section className="resources" aria-labelledby="resources-title">
-            <div>
-              <h2 id="resources-title">Materiały przed hintem</h2>
-              <p>Wyjaśniają mechanizm, ale nie pokazują rozwiązania tego zadania.</p>
+          <aside className="resources" aria-label="Referencje">
+            <div className="resources-label">
+              <span className="resources-glyph" aria-hidden="true">↗</span>
+              <span>Referencje</span>
             </div>
             <div className="resource-links">
               {resources.map((resource) => (
@@ -234,7 +234,7 @@ export default function TaskView({
                 </a>
               ))}
             </div>
-          </section>
+          </aside>
         )}
 
         <ProgressPanel
@@ -505,34 +505,78 @@ function buildDiff(leftText: string, rightText: string): DiffRow[] {
       j++;
     }
   }
-  return rows;
+  const alignedRows: DiffRow[] = [];
+  for (let index = 0; index < rows.length;) {
+    if (rows[index].kind === "same") {
+      alignedRows.push(rows[index]);
+      index++;
+      continue;
+    }
+
+    const changedBlock: DiffRow[] = [];
+    while (index < rows.length && rows[index].kind !== "same") {
+      changedBlock.push(rows[index]);
+      index++;
+    }
+    const removed = changedBlock.flatMap((row) => row.left ? [row.left] : []);
+    const added = changedBlock.flatMap((row) => row.right ? [row.right] : []);
+    for (let lineIndex = 0; lineIndex < Math.max(removed.length, added.length); lineIndex++) {
+      alignedRows.push({
+        left: removed[lineIndex] ?? null,
+        right: added[lineIndex] ?? null,
+        kind: removed[lineIndex] && added[lineIndex]
+          ? "changed"
+          : removed[lineIndex]
+            ? "remove"
+            : "add",
+      });
+    }
+  }
+  return alignedRows;
 }
 
 function SolutionComparison({ starter, solution }: { starter: string; solution: string }) {
   const rows = useMemo(() => buildDiff(starter, solution), [starter, solution]);
+  const [comparisonOpen, setComparisonOpen] = useState(false);
 
   return (
-    <details className="solution-comparison" open>
-      <summary>Porównaj z własnym rozwiązaniem</summary>
-      <div className="compare-head" aria-hidden="true">
-        <span>Twoje rozwiązanie</span>
-        <span>Rozwiązanie wzorcowe</span>
-      </div>
-      <div className="compare-code" role="table" aria-label="Porównanie rozwiązania linia po linii">
-        {rows.map((row, index) => (
-          <div className={`compare-row ${row.kind}`} role="row" key={index}>
-            <code role="cell">
-              <span className="line-no">{row.left?.number ?? ""}</span>
-              <span>{row.left?.text ?? ""}</span>
-            </code>
-            <code role="cell">
-              <span className="line-no">{row.right?.number ?? ""}</span>
-              <span>{row.right?.text ?? ""}</span>
-            </code>
+    <div className={`solution-comparison${comparisonOpen ? " open" : ""}`}>
+      <button
+        className="solution-comparison-trigger"
+        aria-expanded={comparisonOpen}
+        aria-controls="solution-comparison-content"
+        onClick={() => setComparisonOpen((open) => !open)}
+      >
+        <span>Porównaj z własnym rozwiązaniem</span>
+        <span className="solution-comparison-mark" aria-hidden="true">+</span>
+      </button>
+      <div
+        className="solution-comparison-reveal"
+        id="solution-comparison-content"
+        aria-hidden={!comparisonOpen}
+      >
+        <div className="solution-comparison-inner">
+          <div className="compare-head" aria-hidden="true">
+            <span>Twoje rozwiązanie</span>
+            <span>Rozwiązanie wzorcowe</span>
           </div>
-        ))}
+          <div className="compare-code" role="table" aria-label="Porównanie rozwiązania linia po linii">
+            {rows.map((row, index) => (
+              <div className={`compare-row ${row.kind}`} role="row" key={index}>
+                <code role="cell">
+                  <span className="line-no">{row.left?.number ?? ""}</span>
+                  <span>{row.left?.text ?? ""}</span>
+                </code>
+                <code role="cell">
+                  <span className="line-no">{row.right?.number ?? ""}</span>
+                  <span>{row.right?.text ?? ""}</span>
+                </code>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-    </details>
+    </div>
   );
 }
 

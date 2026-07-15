@@ -46,7 +46,7 @@ export default async function TopicPage({
         <SearchButton />
       </div>
 
-      <div className="wrap wrap-read page-theory">
+      <div className="wrap wrap-task page-theory">
         <div className="page-role">
           <strong>Teoria przed praktyką</strong>
           <span>Zrozum mechanizm, a potem sprawdź go na trzech poziomach trudności.</span>
