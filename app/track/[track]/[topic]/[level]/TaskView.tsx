@@ -16,6 +16,7 @@ interface Props {
   topic: string;
   topicTitle: string;
   level: string;
+  levelDescription: string;
   taskMd: string;
   hintsTotal: number;
   starterPath: string | null;
@@ -34,6 +35,7 @@ export default function TaskView({
   topic,
   topicTitle,
   level,
+  levelDescription,
   taskMd,
   hintsTotal,
   starterPath,
@@ -80,6 +82,7 @@ export default function TaskView({
       }
       setResult(data);
       setProgress(data.progress ?? null);
+      window.dispatchEvent(new CustomEvent("orzi:progress"));
       if (data.passed) {
         setPassKind(hints.length > 0 ? "with-hint" : "without-hint");
         try {
@@ -138,6 +141,8 @@ export default function TaskView({
         next[n - 1] = data.hint;
         return next;
       });
+    } catch {
+      setHintError("Nie udało się pobrać wskazówki. Spróbuj ponownie.");
     } finally {
       setLoadingHint(false);
     }
@@ -203,8 +208,15 @@ export default function TaskView({
         <SearchButton />
       </div>
 
-      <div className="wrap wrap-read">
-        <Markdown content={taskMd} />
+      <div className="wrap wrap-task page-task">
+        <div className="page-role task-role">
+          <strong>Praktyka · {level}</strong>
+          <span>{levelDescription}</span>
+        </div>
+
+        <article className="task-brief">
+          <Markdown content={taskMd} />
+        </article>
 
         {resources.length > 0 && (
           <section className="resources" aria-labelledby="resources-title">
@@ -235,46 +247,53 @@ export default function TaskView({
           onReset={handleResetProgress}
         />
 
-        <div className="row-card" id="task-starter">
-          <div className="lbl">{starterPath?.endsWith("/src") ? "Katalog startera" : "Plik startera"}</div>
-          {starterPath ? (
-            <>
-              <div className="starter">
-                <code>{starterPath}</code>
-                {starterRel && (
-                  <button
-                    className="btn-ghost"
-                    onClick={handleOpenEditor}
-                    disabled={openingEditor}
-                    title="Otwórz plik w WebStorm"
-                  >
-                    <IconExternal />
-                    {openingEditor ? "otwieram…" : "WebStorm"}
-                  </button>
-                )}
-                <button className="btn-ghost" onClick={handleCopyPath}>
-                  {copied ? <IconCheck /> : <IconCopy />}
-                  {copied ? "skopiowano" : "Kopiuj ścieżkę"}
-                </button>
-              </div>
-              {editorError && (
-                <div style={{ color: "var(--bad)", fontSize: "12px", marginTop: 8 }}>{editorError}</div>
-              )}
-            </>
-          ) : (
-            <span style={{ color: "var(--bad)" }}>brak pliku startera</span>
-          )}
-        </div>
+        <section className="task-workbench" id="task-starter" aria-labelledby="workbench-title">
+          <div className="task-workbench-head">
+            <div>
+              <h2 id="workbench-title">Pracuj w WebStormie</h2>
+              <p>Zapisz rozwiązanie w pliku startera, a potem wróć tutaj i uruchom sprawdzanie.</p>
+            </div>
+            <span className="task-step">1 · Edytuj</span>
+          </div>
 
-        <div className="actions">
-          <button className="submit" onClick={handleSubmit} disabled={submitting}>
-            <IconPlay />
-            {submitting ? "Sprawdzam…" : "Submit"}
-          </button>
-          {submitting && (
-            <span style={{ color: "var(--faint)", fontSize: "12.5px" }}>sprawdzanie w toku…</span>
-          )}
-        </div>
+          <div className="starter-block">
+            <div className="lbl">{starterPath?.endsWith("/src") ? "Katalog startera" : "Plik startera"}</div>
+            {starterPath ? (
+              <>
+                <div className="starter">
+                  <code>{starterRel ?? starterPath}</code>
+                  {starterRel && (
+                    <button
+                      className="btn-ghost"
+                      onClick={handleOpenEditor}
+                      disabled={openingEditor}
+                      title="Otwórz plik w WebStorm"
+                    >
+                      <IconExternal />
+                      {openingEditor ? "Otwieram…" : "Otwórz"}
+                    </button>
+                  )}
+                  <button className="btn-ghost" onClick={handleCopyPath}>
+                    {copied ? <IconCheck /> : <IconCopy />}
+                    {copied ? "Skopiowano" : "Kopiuj pełną ścieżkę"}
+                  </button>
+                </div>
+                {editorError && <p className="inline-error" role="alert">{editorError}</p>}
+              </>
+            ) : (
+              <p className="inline-error" role="alert">Brak pliku startera.</p>
+            )}
+          </div>
+
+          <div className="actions">
+            <button className="submit" onClick={handleSubmit} disabled={submitting}>
+              <IconPlay />
+              {submitting ? "Sprawdzam…" : "Sprawdź rozwiązanie"}
+            </button>
+            <span className="task-step">2 · Sprawdź</span>
+          </div>
+          {submitting && <p className="submit-status" role="status">Uruchamiam testy i lint…</p>}
+        </section>
 
         {submitError && (
           <div className="request-error" role="alert">
@@ -283,31 +302,48 @@ export default function TaskView({
           </div>
         )}
 
-        {result && <ResultPanel result={result} />}
+        {result && (
+          <ResultPanel
+            result={result}
+            nextTask={nextTask}
+            hasSolution={solution !== null}
+            canOpenEditor={starterRel !== null}
+            openingEditor={openingEditor}
+            onOpenEditor={handleOpenEditor}
+            onRetry={handleSubmit}
+          />
+        )}
 
         {hints.length > 0 && (
-          <section className="hints">
-            <h2 className="sec" style={{ marginTop: 0 }}>
-              Hinty <span className="n num">{hintsTotal}</span>
-            </h2>
+          <section className="hints" id="hints">
+            <div className="hints-head">
+              <div>
+                <h2>Wskazówki</h2>
+                <p>Odkrywaj je pojedynczo, kiedy utkniesz.</p>
+              </div>
+              <span className="num">{hints.length}/{hintsTotal}</span>
+            </div>
             {hints.map((hint, i) => (
               <div key={i} className="hint">
-                <div className="hn">Hint {i + 1}</div>
+                <div className="hn">Wskazówka {i + 1}</div>
                 <Markdown content={hint} />
               </div>
             ))}
           </section>
         )}
 
-        {hintError && (
-          <div style={{ color: "var(--bad)", fontSize: "13px", marginTop: 8 }}>{hintError}</div>
-        )}
+        {hintError && <p className="inline-error" role="alert">{hintError}</p>}
 
         {solution && (
-          <section className="solution">
-            <div className="solution-heading">
-              <h2 className="sec">Rozwiązanie wzorcowe</h2>
-              {passKind === "with-hint" && <span className="pass-kind">zaliczone z hintem</span>}
+          <section className="solution" id="solution">
+            <div className="solution-head">
+              <div>
+                <h2>Rozwiązanie wzorcowe</h2>
+                <p>Porównaj strukturę i decyzje, nie tylko końcowy wynik.</p>
+              </div>
+              {passKind === "with-hint"
+                ? <span className="pass-kind">zaliczone ze wskazówką</span>
+                : <span className="task-step">Po zaliczeniu</span>}
             </div>
             {starter ? (
               <SolutionComparison starter={starter} solution={solution} />
@@ -319,7 +355,7 @@ export default function TaskView({
           </section>
         )}
 
-        {(nextHintIndex < hintsTotal || (passKind && nextTask) || passKind === "with-hint") && (
+        {(nextHintIndex < hintsTotal || passKind === "with-hint") && (
           <div className="completion-actions">
             <div>
               {nextHintIndex < hintsTotal && (
@@ -328,7 +364,7 @@ export default function TaskView({
                   onClick={() => handleRevealHint(nextHintIndex + 1)}
                   disabled={loadingHint}
                 >
-                  {loadingHint ? "Odkrywam…" : `Odkryj Hint ${nextHintIndex + 1}`}
+                  {loadingHint ? "Odkrywam…" : `Odkryj wskazówkę ${nextHintIndex + 1}`}
                 </button>
               )}
             </div>
@@ -337,12 +373,6 @@ export default function TaskView({
                 <button className="btn-ghost" onClick={handleRetryWithoutHint}>
                   Spróbuj bez hinta
                 </button>
-              )}
-              {passKind && nextTask && (
-                <Link className="next-task" href={nextTask.href} title={nextTask.label}>
-                  {nextTask.reason === "next-new" ? "Następne zadanie" : nextTask.label}
-                  <IconArrowRight />
-                </Link>
               )}
             </div>
           </div>
@@ -380,7 +410,6 @@ function ProgressPanel({
   onReset: () => void;
 }) {
   const score = Math.max(0, Math.min(4, Math.round(progress?.masteryScore ?? 0)));
-  const attempts = progress?.attempts ?? 0;
 
   return (
     <section className="learning-progress" aria-labelledby="learning-progress-title">
@@ -395,9 +424,6 @@ function ProgressPanel({
           ))}
         </div>
         <div className="mastery-meta">
-          <span>
-            {attempts} {attempts === 1 ? "próba" : attempts > 1 && attempts < 5 ? "próby" : "prób"}
-          </span>
           {progress?.nextReviewAt && (
             <span>
               Powtórka: {formatProgressDate(progress.nextReviewAt, {
@@ -415,7 +441,7 @@ function ProgressPanel({
         <div className="progress-reset">
           {confirmReset ? (
             <div className="reset-confirm" role="group" aria-label="Potwierdź reset postępu">
-              <p>Postęp, licznik prób i poziom opanowania zaczną się od zera. Twój kod zostanie zachowany.</p>
+              <p>Postęp i poziom opanowania zaczną się od zera. Twój kod zostanie zachowany.</p>
               <div>
                 <button className="btn-danger" onClick={onReset} disabled={resetting}>
                   {resetting ? "Resetuję…" : "Potwierdź reset"}
@@ -511,72 +537,131 @@ function SolutionComparison({ starter, solution }: { starter: string; solution: 
   );
 }
 
-function ResultPanel({ result }: { result: SubmitResult }) {
+function ResultPanel({
+  result,
+  nextTask,
+  hasSolution,
+  canOpenEditor,
+  openingEditor,
+  onOpenEditor,
+  onRetry,
+}: {
+  result: SubmitResult;
+  nextTask: TaskRecommendation | null;
+  hasSolution: boolean;
+  canOpenEditor: boolean;
+  openingEditor: boolean;
+  onOpenEditor: () => void;
+  onRetry: () => void;
+}) {
   const failedTests = result.tests.filter((test) => test.status === "fail");
   const passedTests = result.tests.length - failedTests.length;
+  const firstBlocker = result.error
+    ?? failedTests[0]?.message
+    ?? failedTests[0]?.name
+    ?? result.lint.errors[0]?.message
+    ?? "Sprawdź szczegóły raportu i popraw pierwszą blokującą pozycję.";
 
-  return (
-    <section aria-live="polite">
-      <div className={`result ${result.passed ? "ok" : "no"}`} role="status">
-        {result.passed ? (result.usedHint ? "ZALICZONE Z HINTEM" : "ZALICZONE") : "NIEZALICZONE"}
-        <span className="ms num">{result.durationMs} ms</span>
-      </div>
+  if (result.passed) {
+    return (
+      <section className="result-shell result-success" aria-live="polite">
+        <div className="result-success-main">
+          <span className="result-mark"><IconCheck /></span>
+          <div>
+            <h2>{result.usedHint ? "Zadanie zaliczone ze wskazówką" : "Zadanie zaliczone"}</h2>
+            <p>Testy i lint potwierdziły rozwiązanie. Możesz porównać wzorzec albo przejść dalej.</p>
+          </div>
+          <span className="result-time num">{result.durationMs} ms</span>
+        </div>
 
-      {!result.passed && (
-        <div className="error-guidance">
-          <strong>Co poprawić teraz</strong>
-          {result.error ? (
-            <p>Runner nie ukończył sprawdzenia. Zacznij od komunikatu infrastruktury poniżej.</p>
-          ) : failedTests.length > 0 ? (
-            <p>
-              Przeszło {passedTests} z {result.tests.length} testów. Zacznij od pierwszego czerwonego testu — jego nazwa opisuje wymaganie, a komunikat pokazuje różnicę wyniku.
-            </p>
-          ) : (
-            <p>Testy przeszły, ale lint zatrzymał zaliczenie. Otwórz wskazane linie i usuń błędy oznaczone jako „error”.</p>
+        <div className="result-persistence">
+          <span className="persistence-ok"><IconCheck /> Postęp zapisany</span>
+          {result.progress?.nextReviewAt && <span>Powtórka została zaplanowana</span>}
+        </div>
+
+        <div className="result-actions result-actions-success">
+          {hasSolution && <a className="btn-ghost" href="#solution">Porównaj rozwiązanie</a>}
+          {nextTask && (
+            <Link className="cta result-next" href={nextTask.href} title={nextTask.label}>
+              <span>
+                <small>{nextTask.reason === "next-new" ? "Kontynuuj ścieżkę" : "Rekomendacja"}</small>
+                {nextTask.reason === "next-new" ? "Następne zadanie" : nextTask.label}
+              </span>
+              <IconArrowRight />
+            </Link>
           )}
         </div>
-      )}
+      </section>
+    );
+  }
+
+  return (
+    <section className="result-shell result-failure" aria-live="polite">
+      <div className="result-failure-head">
+        <div>
+          <h2>Jeszcze nie przechodzi</h2>
+          <p>{firstBlocker}</p>
+        </div>
+        <span className="result-time num">{result.durationMs} ms</span>
+      </div>
+
+      <div className="result-summary" aria-label="Podsumowanie sprawdzania">
+        <span className={failedTests.length > 0 ? "has-error" : "is-ok"}>
+          Testy <strong className="num">{passedTests}/{result.tests.length}</strong>
+        </span>
+        <span className={result.lint.errors.length > 0 ? "has-error" : "is-ok"}>
+          Lint <strong className="num">{result.lint.errors.length}</strong>
+        </span>
+      </div>
+
+      <div className="result-actions">
+        <button className="submit submit-compact" onClick={onRetry}><IconPlay /> Sprawdź ponownie</button>
+        {canOpenEditor && (
+          <button className="btn-ghost" onClick={onOpenEditor} disabled={openingEditor}>
+            <IconExternal /> {openingEditor ? "Otwieram…" : "Otwórz w WebStormie"}
+          </button>
+        )}
+      </div>
 
       {result.error && (
-        <div
-          className="hint"
-          style={{ borderColor: "var(--bad-line)", color: "var(--bad)", whiteSpace: "pre-wrap" }}
-        >
-          {result.error}
-        </div>
+        <details className="result-details" open>
+          <summary>Błąd uruchomienia</summary>
+          <pre className="infra-error">{result.error}</pre>
+        </details>
       )}
 
       {result.tests.length > 0 && (
-        <div className="tests">
-          {result.tests.map((t, i) => (
-            <div key={i} className={`test ${t.status === "pass" ? "p" : "f"}`}>
-              <span className="st">{t.status === "pass" ? "PASS" : "FAIL"}</span>
-              <div>
-                {t.name}
-                {t.message && <div className="msg">{t.message}</div>}
+        <details className="result-details" open={failedTests.length > 0}>
+          <summary>Testy <span className="num">{passedTests}/{result.tests.length}</span></summary>
+          <div className="tests">
+            {result.tests.map((test, index) => (
+              <div key={index} className={`test ${test.status === "pass" ? "p" : "f"}`}>
+                <span className="st">{test.status === "pass" ? "PASS" : "FAIL"}</span>
+                <div>{test.name}{test.message && <div className="msg">{test.message}</div>}</div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </details>
       )}
 
       {(result.lint.errors.length > 0 || result.lint.warnings.length > 0) && (
-        <div className="lint">
-          {result.lint.errors.map((issue, i) => (
-            <div key={`e${i}`} className="li err">
-              <span className="lv">error</span> <span className="loc">L{issue.line}</span>{" "}
-              <span className="loc">{issue.ruleId}</span>
-              <div>{issue.message}</div>
-            </div>
-          ))}
-          {result.lint.warnings.map((issue, i) => (
-            <div key={`w${i}`} className="li warnrow">
-              <span className="lv">warning</span> <span className="loc">L{issue.line}</span>{" "}
-              <span className="loc">{issue.ruleId}</span>
-              <div>{issue.message}</div>
-            </div>
-          ))}
-        </div>
+        <details className="result-details" open={failedTests.length === 0}>
+          <summary>Lint <span className="num">{result.lint.errors.length + result.lint.warnings.length}</span></summary>
+          <div className="lint">
+            {result.lint.errors.map((issue, index) => (
+              <div key={`e${index}`} className="li err">
+                <span className="lv">error</span> <span className="loc">L{issue.line}</span>{" "}
+                <span className="loc">{issue.ruleId}</span><div>{issue.message}</div>
+              </div>
+            ))}
+            {result.lint.warnings.map((issue, index) => (
+              <div key={`w${index}`} className="li warnrow">
+                <span className="lv">warning</span> <span className="loc">L{issue.line}</span>{" "}
+                <span className="loc">{issue.ruleId}</span><div>{issue.message}</div>
+              </div>
+            ))}
+          </div>
+        </details>
       )}
     </section>
   );

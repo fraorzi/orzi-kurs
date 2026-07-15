@@ -1,5 +1,5 @@
 import type { ComponentType, SVGProps } from "react";
-import type { Catalog, CatalogTrack, TaskStatus } from "./types";
+import type { Catalog, CatalogTopic, CatalogTrack, TaskStatus } from "./types";
 import {
   LogoJs,
   LogoTs,
@@ -105,9 +105,80 @@ export interface TrackProgress {
   total: number;
 }
 
+export interface LearningModule extends TrackProgress {
+  id: string;
+  title: string;
+  description: string;
+  topics: CatalogTopic[];
+  current: boolean;
+}
+
+interface LearningModuleDefinition {
+  id: string;
+  title: string;
+  description: string;
+  range?: [number, number];
+  projects?: boolean;
+}
+
+const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
+  js: [
+    { id: "fundamenty", title: "Fundamenty języka", description: "Funkcje, typy, iteracja, obiekty i praca z kolekcjami.", range: [1, 9] },
+    { id: "asynchronicznosc", title: "Asynchroniczność", description: "Promisy, async/await i model działania event loopa.", range: [10, 12] },
+    { id: "model-obiektowy", title: "Model obiektowy i niezawodność", description: "this, prototypy, klasy, błędy i struktury danych.", range: [13, 19] },
+    { id: "iteracja", title: "Iteracja i metaprogramowanie", description: "Iteratory, generatory, deskryptory, Proxy i niemutowalność.", range: [20, 23] },
+    { id: "wzorce", title: "Wzorce aplikacyjne", description: "Zdarzenia, kontrola częstotliwości, rekurencja, dane i fetch.", range: [24, 32] },
+    { id: "jakosc", title: "Debugowanie i wydajność", description: "Diagnoza problemów, dobór struktur i optymalizacja pracy.", range: [33, 37] },
+    { id: "projekty", title: "Projekty przekrojowe", description: "Wieloplikowe zadania łączące materiał z całej ścieżki.", projects: true },
+  ],
+  ts: [
+    { id: "fundamenty", title: "Fundamenty typowania", description: "Inference, unie, obiekty i kontrakty funkcji.", range: [1, 4] },
+    { id: "generyki", title: "Generyki i reużywalne kontrakty", description: "Parametry typów, constraints i standardowe utility types.", range: [5, 7] },
+    { id: "typy-zaawansowane", title: "Transformacje typów", description: "Mapped, conditional i template literal types.", range: [8, 10] },
+    { id: "model-obiektowy", title: "Model obiektowy i bezpieczne API", description: "Klasy, enumy, const objects oraz satisfies.", range: [11, 12] },
+    { id: "projekty", title: "Projekt przekrojowy", description: "Typowanie kompletnego, wieloplikowego modułu.", projects: true },
+  ],
+};
+
 export function trackProgress(track: CatalogTrack): TrackProgress {
   const levels = track.topics.flatMap((t) => t.levels);
   return { passed: levels.filter((l) => l.status === "passed").length, total: levels.length };
+}
+
+export function learningModules(track: CatalogTrack): LearningModule[] {
+  const currentTopic = track.topics.find((topic) =>
+    topic.levels.some((level) => level.status !== "passed"),
+  );
+  const definitions = LEARNING_MODULES[track.id];
+
+  if (!definitions) {
+    return Array.from({ length: Math.ceil(track.topics.length / 8) }, (_, index) => {
+      const topics = track.topics.slice(index * 8, index * 8 + 8);
+      return {
+        id: `etap-${index + 1}`,
+        title: `Etap ${index + 1}`,
+        description: "Kolejny blok zagadnień w tej ścieżce.",
+        topics,
+        current: topics.some((topic) => topic.id === currentTopic?.id),
+        ...trackProgress({ ...track, topics }),
+      };
+    });
+  }
+
+  return definitions.flatMap((definition) => {
+    const topics = track.topics.filter((topic) => {
+      if (definition.projects) return topicSlug(topic.id).startsWith("module-");
+      const number = Number.parseInt(topicSlug(topic.id), 10);
+      return definition.range !== undefined && number >= definition.range[0] && number <= definition.range[1];
+    });
+    if (topics.length === 0) return [];
+    return [{
+      ...definition,
+      topics,
+      current: topics.some((topic) => topic.id === currentTopic?.id),
+      ...trackProgress({ ...track, topics }),
+    }];
+  });
 }
 
 export function pct({ passed, total }: TrackProgress): number {
