@@ -7,7 +7,6 @@ import { readProgress } from "@/harness/progress";
 import { buildCatalog } from "@/harness/catalog";
 import { resourcesForTask } from "@/harness/resources";
 import { nextTaskInTrack } from "@/harness/task-navigation";
-import { LEVEL_DESC } from "@/app/lib/tracks";
 import TaskView from "./TaskView";
 
 export default async function LevelPage({
@@ -46,7 +45,6 @@ export default async function LevelPage({
       topic={topic}
       topicTitle={topicTitle}
       level={level}
-      levelDescription={LEVEL_DESC[level] ?? "zadanie praktyczne"}
       taskMd={taskMd}
       hintsTotal={hintsTotal}
       starterPath={starterPath}

@@ -11,7 +11,6 @@ import {
   trackMeta,
   topicNumber,
   topicTag,
-  LEVEL_DESC,
   STATUS_LABEL,
 } from "@/app/lib/tracks";
 
@@ -72,10 +71,7 @@ export default async function TopicPage({
                 href={`/track/${track}/${topic}/${level.id}`}
               >
                 <span className={`sdot ${level.status}`} style={{ width: 11, height: 11 }} />
-                <div>
-                  <div className="lname">{level.id}</div>
-                  <div className="ldesc">{LEVEL_DESC[level.id] ?? ""}</div>
-                </div>
+                <div className="lname">{level.id}</div>
                 <span className={`pill ${level.status}`}>{STATUS_LABEL[level.status]}</span>
               </Link>
             ))}

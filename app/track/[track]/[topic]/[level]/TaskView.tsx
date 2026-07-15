@@ -15,7 +15,6 @@ interface Props {
   topic: string;
   topicTitle: string;
   level: string;
-  levelDescription: string;
   taskMd: string;
   hintsTotal: number;
   starterPath: string | null;
@@ -34,7 +33,6 @@ export default function TaskView({
   topic,
   topicTitle,
   level,
-  levelDescription,
   taskMd,
   hintsTotal,
   starterPath,
@@ -210,7 +208,6 @@ export default function TaskView({
       <div className="wrap wrap-task page-task">
         <div className="page-role task-role">
           <strong>Praktyka · {level}</strong>
-          <span>{levelDescription}</span>
         </div>
 
         <article className="task-brief">
@@ -252,7 +249,6 @@ export default function TaskView({
               <h2 id="workbench-title">Pracuj w WebStormie</h2>
               <p>Zapisz rozwiązanie w pliku startera, a potem wróć tutaj i uruchom sprawdzanie.</p>
             </div>
-            <span className="task-step">1 · Edytuj</span>
           </div>
 
           <div className="starter-block">
@@ -289,7 +285,6 @@ export default function TaskView({
               <IconPlay />
               {submitting ? "Sprawdzam…" : "Sprawdź rozwiązanie"}
             </button>
-            <span className="task-step">2 · Sprawdź</span>
           </div>
           {submitting && <p className="submit-status" role="status">Uruchamiam testy i lint…</p>}
         </section>
@@ -340,9 +335,9 @@ export default function TaskView({
                 <h2>Rozwiązanie wzorcowe</h2>
                 <p>Porównaj strukturę i decyzje, nie tylko końcowy wynik.</p>
               </div>
-              {passKind === "with-hint"
-                ? <span className="pass-kind">zaliczone ze wskazówką</span>
-                : <span className="task-step">Po zaliczeniu</span>}
+              {passKind === "with-hint" && (
+                <span className="pass-kind">zaliczone ze wskazówką</span>
+              )}
             </div>
             {starter ? (
               <SolutionComparison starter={starter} solution={solution} />

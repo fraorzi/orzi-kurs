@@ -86,13 +86,6 @@ export function topicTag(topicId: string): "D" | "O" | null {
   return null;
 }
 
-export const LEVEL_DESC: Record<string, string> = {
-  easy: "prawie przepisanie z teorii",
-  medium: "wariacja, trzeba zrozumieć",
-  hard: "pełne zrozumienie tematu",
-  module: "projekt wieloplikowy — łączy poznane wzorce",
-};
-
 export const STATUS_LABEL: Record<TaskStatus, string> = {
   passed: "zaliczone",
   "passed-with-hint": "zaliczone z hintem",
