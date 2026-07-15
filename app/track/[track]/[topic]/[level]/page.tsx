@@ -6,7 +6,7 @@ import { findStarter, findSolution, readArtifactText, TRACKS_ROOT } from "@/harn
 import { readProgress } from "@/harness/progress";
 import { buildCatalog } from "@/harness/catalog";
 import { resourcesForTask } from "@/harness/resources";
-import { recommendTask } from "@/harness/recommendation";
+import { nextTaskInTrack } from "@/harness/task-navigation";
 import { LEVEL_DESC } from "@/app/lib/tracks";
 import TaskView from "./TaskView";
 
@@ -37,7 +37,7 @@ export default async function LevelPage({
 
   const catalogTrack = buildCatalog().tracks.find((item) => item.id === track);
   const topicTitle = catalogTrack?.topics.find((item) => item.id === `${track}/${topic}`)?.title ?? topic;
-  const nextTask = catalogTrack ? recommendTask(catalogTrack, progress, taskId) : null;
+  const nextTask = catalogTrack ? nextTaskInTrack(catalogTrack, taskId) : null;
 
   return (
     <TaskView
@@ -56,7 +56,7 @@ export default async function LevelPage({
       initialProgress={taskProgress}
       initialPassKind={progressStatus === "passed-with-hint" ? "with-hint" : passed ? "without-hint" : null}
       resources={resourcesForTask(taskId)}
-      nextTask={nextTask}
+      nextTaskHref={nextTask?.href ?? null}
     />
   );
 }

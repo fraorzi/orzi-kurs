@@ -25,9 +25,8 @@ pnpm dev          # dashboard na http://localhost:3000
 
 Z terminala zamiast UI: `pnpm submit js/01-closures/easy`.
 
-Adaptacyjna kolejność proponuje najpierw błędne zadania, następnie rozwiązane z hintem,
-terminowe powtórki i dopiero potem nowy materiał. Reset postępu nie modyfikuje plików
-rozwiązania.
+Przycisk **Następne zadanie** prowadzi kolejno przez easy → medium → hard, a po hard
+otwiera easy następnego zagadnienia. Reset postępu nie modyfikuje plików rozwiązania.
 
 ## Struktura zadania
 

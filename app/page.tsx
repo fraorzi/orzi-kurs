@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { connection } from "next/server";
 import { buildCatalog } from "@/harness/catalog";
-import { readProgress } from "@/harness/progress";
-import { recommendTask } from "@/harness/recommendation";
 import SearchButton from "@/app/components/SearchButton";
 import TrackBadge from "@/app/components/TrackBadge";
 import {
@@ -18,6 +16,7 @@ import {
   trackMeta,
   trackProgress,
   pct,
+  nextTopic,
   topicSlug,
   topicNumber,
   type Category,
@@ -33,7 +32,6 @@ const CAT_ICON: Record<Category, typeof IconCode> = {
 export default async function Home() {
   await connection();
   const catalog = buildCatalog();
-  const progress = readProgress();
   const activeIds = new Set(catalog.tracks.map((t) => t.id));
   const upcoming = TRACK_META.filter((m) => !activeIds.has(m.id));
 
@@ -58,10 +56,8 @@ export default async function Home() {
           const meta = trackMeta(track.id);
           const prog = trackProgress(track);
           const p = pct(prog);
-          const recommendation = recommendTask(track, progress);
-          const [, recommendedTopic, recommendedLevel] = recommendation?.taskId.split("/") ?? [];
-          const next = track.topics.find((topic) => topic.id === `${track.id}/${recommendedTopic}`);
-          const nextLevel = next?.levels.find((level) => level.id === recommendedLevel);
+          const next = nextTopic(track);
+          const nextLevel = next?.levels.find((level) => level.status !== "passed") ?? next?.levels[0];
           const startIdx = next ? track.topics.indexOf(next) : 0;
           const peek = track.topics.slice(startIdx, startIdx + 3);
 
@@ -88,7 +84,7 @@ export default async function Home() {
 
               {next && nextLevel && (
                 <div className="cont">
-                  <span className="lbl">{recommendation?.label}:</span>
+                  <span className="lbl">Kontynuuj:</span>
                   <span className="where">
                     {topicNumber(next.id)} {next.title} · {nextLevel.id}
                   </span>

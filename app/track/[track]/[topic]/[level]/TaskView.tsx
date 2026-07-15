@@ -7,7 +7,6 @@ import SearchButton from "@/app/components/SearchButton";
 import { IconArrowRight, IconCopy, IconCheck, IconExternal, IconPlay } from "@/app/components/icons";
 import { openInEditor } from "@/app/lib/actions";
 import type { LearningResource, SubmitResult, TaskProgress, TaskResponse } from "@/app/lib/types";
-import type { TaskRecommendation } from "@/harness/recommendation";
 import { trackMeta, topicNumber } from "@/app/lib/tracks";
 
 interface Props {
@@ -26,7 +25,7 @@ interface Props {
   initialProgress: TaskProgress | null;
   initialPassKind: "with-hint" | "without-hint" | null;
   resources: LearningResource[];
-  nextTask: TaskRecommendation | null;
+  nextTaskHref: string | null;
 }
 
 export default function TaskView({
@@ -45,7 +44,7 @@ export default function TaskView({
   initialProgress,
   initialPassKind,
   resources,
-  nextTask,
+  nextTaskHref,
 }: Props) {
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<SubmitResult | null>(null);
@@ -305,7 +304,7 @@ export default function TaskView({
         {result && (
           <ResultPanel
             result={result}
-            nextTask={nextTask}
+            nextTaskHref={nextTaskHref}
             hasSolution={solution !== null}
             canOpenEditor={starterRel !== null}
             openingEditor={openingEditor}
@@ -539,7 +538,7 @@ function SolutionComparison({ starter, solution }: { starter: string; solution: 
 
 function ResultPanel({
   result,
-  nextTask,
+  nextTaskHref,
   hasSolution,
   canOpenEditor,
   openingEditor,
@@ -547,7 +546,7 @@ function ResultPanel({
   onRetry,
 }: {
   result: SubmitResult;
-  nextTask: TaskRecommendation | null;
+  nextTaskHref: string | null;
   hasSolution: boolean;
   canOpenEditor: boolean;
   openingEditor: boolean;
@@ -581,11 +580,11 @@ function ResultPanel({
 
         <div className="result-actions result-actions-success">
           {hasSolution && <a className="btn-ghost" href="#solution">Porównaj rozwiązanie</a>}
-          {nextTask && (
-            <Link className="cta result-next" href={nextTask.href} title={nextTask.label}>
+          {nextTaskHref && (
+            <Link className="cta result-next" href={nextTaskHref}>
               <span>
-                <small>{nextTask.reason === "next-new" ? "Kontynuuj ścieżkę" : "Rekomendacja"}</small>
-                {nextTask.reason === "next-new" ? "Następne zadanie" : nextTask.label}
+                <small>Kontynuuj ścieżkę</small>
+                Następne zadanie
               </span>
               <IconArrowRight />
             </Link>
