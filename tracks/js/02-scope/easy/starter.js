@@ -1,6 +1,6 @@
 export function makeIndexFns(n) {
   const fns = [];
-  for (var i = 0; i < n; i++) {
+  for (let i = 0; i < n; i++) {
     fns.push(function () {
       return i;
     });
@@ -11,7 +11,7 @@ export function makeIndexFns(n) {
 export function labelTemperature(t) {
   let label = "w normie";
   if (t > 30) {
-    let label = "upał";
+    label = "upał";
   }
   return label;
 }
