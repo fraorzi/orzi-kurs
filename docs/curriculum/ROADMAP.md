@@ -74,7 +74,8 @@ Etapy 1–4 są ukończone. React obejmuje infrastrukturę, fundamenty, escape h
 architekturę stanu, async UI React 19, Suspense, external stores, custom hooks,
 kompozycję, concurrent UI, Compiler, wydajność, testowanie, dostępność, duże listy,
 style dynamiczne i server state wraz z trzema modułami. Etap Next.js jest aktywny:
-audyt wersji 16.2.10, kolejność i infrastruktura testowa są gotowe.
+audyt wersji 16.2.10, kolejność i infrastruktura testowa są gotowe, a pierwszych
+9 zadań obejmuje App Router, granice Server/Client oraz serwerowy graf danych.
 
 Każdy punkt jest osobnym branchem. Następny branch powstaje z aktualnego fundamentu,
 nie z niepowiązanego brancha tracka.

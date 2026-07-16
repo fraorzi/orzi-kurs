@@ -296,9 +296,9 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 
 ## next (~20 pozycji ≈ 60 zadań) — Next 16.2, App Router i Cache Components
 
-- [ ] 01 App Router: struktura, layouts, pages, route groups i colocation
-- [ ] 02 Server vs Client Components: serializowalne propsy, granica bundle i `"use client"`
-- [ ] 03 pobieranie danych na serwerze: async komponenty, równoległość i eliminacja waterfalls
+- [x] 01 App Router: struktura, layouts, pages, route groups i colocation
+- [x] 02 Server vs Client Components: serializowalne propsy, granica bundle i `"use client"`
+- [x] 03 pobieranie danych na serwerze: async komponenty, równoległość i eliminacja waterfalls
 - [ ] 04 Cache Components: `cacheComponents`, static shell, dynamic holes i Suspense
 - [ ] 05 `use cache`, cacheLife, cacheTag oraz wymagania serializacji klucza
 - [ ] 06 rewalidacja: updateTag, revalidateTag, revalidatePath i read-your-own-writes

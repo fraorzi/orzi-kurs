@@ -19,7 +19,7 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 
 ## Bieżący branch
 
-`feature/curriculum-react`
+`feature/curriculum-next`
 
 ## Ukończone w bieżącym etapie
 
@@ -247,12 +247,21 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   `@harness/next-test` i kontrakt treści pilnują przyszłych zadań.
 - Ukryty smoke Next przechodzi jako rozwiązanie 1/1 i starter 1/1; harness po
   rozszerzeniu ma 55/55 zielonych testów.
+- Next 01: root layout, semantyczna struktura dokumentu, analizator ścieżek App
+  Routera oraz wieloplikowy refactor z route group i prywatnym katalogiem.
+- Next 02: wąskie Client Components, serializowalne DTO zamiast callbacków oraz
+  ochrona modułu DAL przez `server-only@0.0.1` i brak importu serwera do client graph.
+- Next 03: jawna walidacja odpowiedzi HTTP jako `unknown`, kontrolowane testy
+  niezależnych promise'ów i częściowo zależny graf user → orders wykonywany bez
+  zbędnego waterfallu.
+- Pierwszy blok Next ma 3 tematy i 9 zadań, wyłącznie w TypeScript/TSX. Lokalne
+  bramki tematów przechodzą 9/9 dla rozwiązań i 9/9 dla starterów.
 
 ## Następne kroki
 
-1. Dodać fundamenty App Router, layouty i colocation.
-2. Dodać granice Server/Client z serializowalnymi propsami i ochroną server-only.
-3. Dodać serwerowe pobieranie danych z równoległością i diagnozą waterfalls.
+1. Dodać model Cache Components i granice dynamicznej pracy przez Suspense.
+2. Dodać `use cache`, lifetime i tagowanie zgodne z Next 16.2.
+3. Dodać poprawne strategie `updateTag`, `revalidateTag` i `revalidatePath`.
 
 ## Otwarte ryzyka
 
