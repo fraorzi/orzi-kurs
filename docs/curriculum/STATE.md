@@ -148,12 +148,25 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   przez `useId` oraz cleanup callback refów dostępny od React 19.
 - Stan częściowy React: 10 tematów i 30 zadań; 30/30 rozwiązań oraz 30/30
   pierwotnych starterów przechodzi właściwe bramki.
+- Blok escape hatches ukończony commitem `88d6b35` i wypchnięty na
+  `origin/feature/curriculum-react`.
+- React 11: reducery od prostych akcji domenowych przez niemutowalną listę zadań
+  po historię undo/redo z poprawnym czyszczeniem future.
+- React 12: aktualna składnia providerów React 19, bezpieczne custom hooki bez
+  fikcyjnych defaultów oraz osobne contexty stanu i dispatchu.
+- `module-01`: wieloplikowa lokalna tablica zadań z reducerem, contextami,
+  selektorami danych pochodnych, dostępnym formularzem, filtrami i testem
+  niemutowalności zamrożonych danych wejściowych.
+- React 13: rozłączne unie stanów UI, retry formularza bez utraty danych i checkout
+  z reducerem pilnującym legalnych przejść.
+- Stan częściowy React: 13 tematów, pierwszy moduł i 40 zadań; 40/40 rozwiązań oraz
+  40/40 pierwotnych starterów przechodzi właściwe bramki.
 
 ## Następne kroki
 
-1. Dodać 11–12: reducer i context z aktualną składnią providera React 19.
-2. Zbudować `module-01`: wieloplikowy interaktywny widget bez fetchy.
-3. Dodać 13: modelowanie stanów UI przed wejściem w Actions i Suspense.
+1. Dodać React 19 Actions: form `action`, `useActionState` i walidację.
+2. Dodać `useFormStatus` oraz projektowanie pending/error/success.
+3. Dodać `useOptimistic`, a potem `use`, Suspense i Error Boundary.
 
 ## Otwarte ryzyka
 

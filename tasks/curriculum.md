@@ -232,10 +232,10 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] 09 ręczny fetch w efekcie: race conditions, AbortController i dlaczego to
       mechanizm niskopoziomowy, nie domyślna architektura danych
 - [x] 10 useRef, callback refs i useId
-- [ ] 11 useReducer (kiedy zamiast useState)
-- [ ] 12 useContext: kompozycja providerów, React 19 provider syntax, wydajność
-- [ ] module-01 (interaktywny widget wieloplikowy, bez fetchy)
-- [ ] 13 modelowanie UI jako stanów: idle/pending/success/error/empty zamiast zestawu
+- [x] 11 useReducer (kiedy zamiast useState)
+- [x] 12 useContext: kompozycja providerów, React 19 provider syntax, wydajność
+- [x] module-01 (interaktywny widget wieloplikowy, bez fetchy)
+- [x] 13 modelowanie UI jako stanów: idle/pending/success/error/empty zamiast zestawu
       niezależnych booleanów; przejścia i nieosiągalne kombinacje
 - [ ] 14 formularze i Actions: form `action`, useActionState
 - [ ] 15 useFormStatus i projektowanie stanów pending/error/success
