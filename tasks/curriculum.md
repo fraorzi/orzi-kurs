@@ -194,7 +194,7 @@ Zostało: pozycje audytowe b/c, 13–20, module-02)
 - [x] 14 [D] debug: `any`-zatrucie, błędne generyki, niebezpieczne assertions
 - [x] 14b [D] wariancja: covariance/contravariance, bivariance metod i dziurawe tablice (audyt)
 - [x] 14c testowanie typów: `@ts-expect-error`, assertion helpers i testy kontraktów
-- [ ] 15 [O] optymalizacja kodu runtime bez utraty kontraktów typów: poprawny, ale wolny
+- [x] 15 [O] optymalizacja kodu runtime bez utraty kontraktów typów: poprawny, ale wolny
       moduł TS — przepisz bez zmiany typów; bramka `expectScaling` (audyt: track musi
       mieć [O], nie tylko [D])
 - [x] 16 typowanie async: Promise/Awaited, generyczny fetch, modelowanie sukcesu i błędu

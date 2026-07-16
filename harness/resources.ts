@@ -211,6 +211,11 @@ const TOPIC_RESOURCES: Record<string, LearningResource[]> = {
     { title: "TypeScript Comment Directives", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#-ts-expect-error-comments", description: "Celowe testy negatywne i zachowanie nieużytej dyrektywy." },
     { title: "DefinitelyTyped", url: "https://github.com/DefinitelyTyped/DefinitelyTyped", description: "Praktyczny wzorzec utrzymywania testów kontraktów deklaracji." },
   ],
+  "15-optimize-runtime": [
+    { title: "Object Types", url: "https://www.typescriptlang.org/docs/handbook/2/objects.html#the-readonlyarray-type", description: "Kontrakty readonly pozwalają optymalizować lokalną implementację bez mutowania wejścia." },
+    { title: "Type Compatibility", url: "https://www.typescriptlang.org/docs/handbook/type-compatibility.html", description: "Zachowanie zgodności sygnatur funkcji i publicznych typów podczas refaktoru." },
+    { title: "Map", url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map", description: "Indeksowanie, kolejność wstawienia i budowanie ograniczonego cache LRU." },
+  ],
   "16-async-types": [
     { title: "Awaited", url: "https://www.typescriptlang.org/docs/handbook/utility-types.html#awaitedtype", description: "Rekurencyjne rozpakowywanie Promise i zachowanie typów wyników async." },
     { title: "AbortSignal", url: "https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal", description: "Standardowy kontrakt anulowania operacji asynchronicznych." },

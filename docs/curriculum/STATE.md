@@ -78,13 +78,17 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   przeglądarki ani dev servera.
 - Stan częściowy: 82 zadania; nowych 45/45 rozwiązań i 45/45 starterów przechodzi
   na TS 6 oraz TS 7.
+- TypeScript: dodane `15-optimize-runtime` jako pierwszy blok `[O]` tego tracka.
+- Startery są kompletne i poprawne funkcjonalnie; oblewają wyłącznie deterministyczne
+  bramki jakości mierzące liczbę odczytów, wywołań selektora i zachowanie cache LRU.
+- Stan częściowy: 85 zadań; nowych 48/48 rozwiązań i 48/48 starterów przechodzi
+  na TS 6 oraz TS 7.
 
 ## Następne kroki
 
-1. Dodać optymalizację runtime z osobną bramką jakości `[O]`.
-2. Dodać egzamin z type challenges oraz ścieżkę migracji TS 5.9 → 6 → 7.
-3. Dodać elective: dekoratory i jawne zarządzanie zasobami.
-4. Zbudować drugi moduł praktyczny po ukończeniu optymalizacji, testów typów
+1. Dodać egzamin z type challenges oraz ścieżkę migracji TS 5.9 → 6 → 7.
+2. Dodać elective: dekoratory i jawne zarządzanie zasobami.
+3. Zbudować drugi moduł praktyczny po ukończeniu optymalizacji, testów typów
    i migracji.
 
 ## Otwarte ryzyka
