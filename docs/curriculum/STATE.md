@@ -238,9 +238,9 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 
 ## Następne kroki
 
-1. Utworzyć osobny `feature/curriculum-node` z ukończonego fundamentu React.
-2. Przeprowadzić audyt Node 24 LTS przed dodaniem pierwszych zadań.
-3. Rozszerzyć harness o potrzeby `node:test`, procesów, sygnałów, streamów i I/O.
+1. Utworzyć osobny `feature/curriculum-next` z ukończonego fundamentu React.
+2. Przeprowadzić audyt zainstalowanej wersji Next 16 przed dodaniem pierwszych zadań.
+3. Rozszerzyć harness o App Router, granice server/client, Actions, cache i routing.
 
 ## Otwarte ryzyka
 

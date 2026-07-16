@@ -62,8 +62,8 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 2. Audyt JavaScript — uczeń jest aktualnie w tym tracku.
 3. Dokończenie TypeScript oraz migracja harnessu do bieżącej wersji.
 4. React i rozszerzenie harnessu o jsdom, Testing Library, hook lint oraz pomiar renderów.
-5. Node.js — daje fundament runtime przed bardziej złożonym Next i Strapi.
-6. Next.js 16.
+5. Next.js 16 — zgodnie z kolejnością nauki użytkownika po React + TypeScript.
+6. Node.js — pogłębienie runtime przed backendowymi modułami Strapi.
 7. MySQL 8.4 LTS i adapter deterministycznych zadań SQL.
 8. Strapi 5 i adapter testowej instancji.
 9. Projekty łączone.
@@ -73,7 +73,7 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 Etapy 1–4 są ukończone. React obejmuje infrastrukturę, fundamenty, escape hatches,
 architekturę stanu, async UI React 19, Suspense, external stores, custom hooks,
 kompozycję, concurrent UI, Compiler, wydajność, testowanie, dostępność, duże listy,
-style dynamiczne i server state wraz z trzema modułami. Następnym etapem jest Node.js.
+style dynamiczne i server state wraz z trzema modułami. Następnym etapem jest Next.js.
 
 Każdy punkt jest osobnym branchem. Następny branch powstaje z aktualnego fundamentu,
 nie z niepowiązanego brancha tracka.
