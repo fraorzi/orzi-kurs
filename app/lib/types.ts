@@ -33,11 +33,19 @@ export interface LintIssue {
   line: number;
 }
 
+export interface TypeIssue {
+  file: string;
+  line: number;
+  code: string;
+  message: string;
+}
+
 export interface SubmitResult {
   taskId: string;
   passed: boolean;
   tests: TestResult[];
   lint: { errors: LintIssue[]; warnings: LintIssue[] };
+  typecheck: { errors: TypeIssue[] };
   durationMs: number;
   error?: string;
 }

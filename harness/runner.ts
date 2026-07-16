@@ -8,6 +8,7 @@ import type { SubmitResult, TestResult, LintIssue } from "./types";
 import { REPO_ROOT } from "./progress";
 import { resolveTaskDir, findStarter, TRACKS_ROOT } from "./paths";
 import { recordRun } from "./progress";
+import { runTypecheck } from "./typecheck";
 
 const execFileAsync = promisify(execFile);
 
@@ -169,6 +170,7 @@ export async function runTask(
       passed: false,
       tests: [],
       lint: { errors: [], warnings: [] },
+      typecheck: { errors: [] },
       durationMs: Math.round(performance.now() - started),
       error: (e as Error).message,
     };
@@ -180,25 +182,29 @@ export async function runTask(
       passed: false,
       tests: [],
       lint: { errors: [], warnings: [] },
+      typecheck: { errors: [] },
       durationMs: Math.round(performance.now() - started),
       error: `zadanie nie istnieje: ${taskId}`,
     };
   }
 
-  const [{ tests, error }, lint] = await Promise.all([
+  const [{ tests, error }, lint, typeErrors] = await Promise.all([
     runVitest(taskDir),
     runLint(taskDir),
+    runTypecheck(taskDir),
   ]);
 
   const testsGreen =
     !error && tests.length > 0 && tests.every((t) => t.status === "pass");
-  const passed = testsGreen && lint.errors.length === 0;
+  const passed =
+    testsGreen && lint.errors.length === 0 && typeErrors.length === 0;
 
   const result: SubmitResult = {
     taskId,
     passed,
     tests,
     lint,
+    typecheck: { errors: typeErrors },
     durationMs: Math.round(performance.now() - started),
     error,
   };

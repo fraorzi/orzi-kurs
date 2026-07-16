@@ -134,25 +134,53 @@ KOMPLET: module-01..05 gotowe — track js zamknięty)
 - [x] module-05 (feature: rate limiter + kolejka zadań — throttle, pool współbieżności,
       batching, backoff przy retry; skleja 25/10/37/32) (audyt)
 
-## ts (~16 pozycji ≈ 48 zadań)
+## ts (~26 pozycji ≈ 78 zadań) — TS 5.9, bramka `tsc --noEmit` w pipeline
+(01–12 + module-01 gotowe: verify:solutions ts = 37/37, każdy starter oblewa.
+Zostało: pozycje audytowe b/c, 13–18, module-02)
 
-- [ ] 01 typy podstawowe, inference, literal types, as const
-- [ ] 02 unie, narrowing, type guards, discriminated unions
-- [ ] 03 obiekty: interface vs type, optional, readonly, index signatures
-- [ ] 04 funkcje: sygnatury, overloads, void/unknown/never
-- [ ] 05 generyki: podstawy (funkcje, interfejsy)
-- [ ] 06 generyki: constraints, defaults, wiele parametrów
-- [ ] 07 utility types (Partial, Pick, Omit, Record, ReturnType, Awaited)
-- [ ] 08 mapped types (własne utility)
-- [ ] 09 conditional types + infer
-- [ ] 10 template literal types
-- [ ] module-01 (typowanie realnego modułu JS end-to-end)
-- [ ] 11 klasy: abstract, implements, modyfikatory
-- [ ] 12 enums vs const objects, satisfies
-- [ ] 13 moduły, declaration files (.d.ts), typowanie bibliotek
-- [ ] 14 [D] debug: naprawa błędów typów w realnym kodzie (any-zatrucie, złe generyki)
-- [ ] 15 mix z type-challenges (medium) jako egzamin
+- [x] 01 typy podstawowe, inference, literal types, as const
+- [x] 02 unie, narrowing, type guards, discriminated unions
+- [ ] 02b narrowing zaawansowany: predykaty `x is T`, `asserts x is T`, inferred type
+      predicates (TS 5.5), `never` i wyczerpanie unii (exhaustiveness) (audyt)
+- [x] 03 obiekty: interface vs type, optional, readonly, index signatures
+- [ ] 03b typowanie strukturalne: excess property check, weak types, kiedy nadmiarowe
+      pole przechodzi, a kiedy nie (audyt — Handbook „Object Types", Effective TS)
+- [x] 04 funkcje: sygnatury, overloads, void/unknown/never, `this` param
+- [x] 05 generyki: podstawy (funkcje, interfejsy)
+- [x] 06 generyki: constraints, defaults, wiele parametrów
+- [ ] 06b generyki nowoczesne: `const` type parameters (TS 5.0), `NoInfer` (TS 5.4),
+      generyki wyższego rzędu i przekazywanie sygnatur (audyt)
+- [x] 07 utility types (Partial, Pick, Omit, Record, ReturnType, Awaited)
+- [x] 08 mapped types (własne utility) + key remapping `as`, modyfikatory `+/-readonly`, `?`
+- [x] 09 conditional types + infer (w tym distributive conditional types i `[T] extends [U]`)
+- [x] 10 template literal types
+- [ ] 10b typy rekurencyjne: DeepPartial/DeepReadonly, Paths obiektu, tail-recursive
+      operacje na krotkach; limity rekurencji TS (audyt — type-challenges medium/hard)
+- [ ] 10c krotki i wariadyczne typy krotek: `[...T]`, labeled tuples, typowanie `curry`/`pipe`
+      (audyt — Handbook „Variadic Tuple Types")
+- [x] module-01 (typowanie realnego modułu JS end-to-end)
+- [x] 11 klasy: abstract, implements, modyfikatory, parameter properties, `#private` vs `private`
+- [x] 12 enums vs const objects, `satisfies` vs `as` vs adnotacja
+- [ ] 13 moduły, declaration files (.d.ts), typowanie bibliotek, `import type` /
+      verbatimModuleSyntax
+- [ ] 13b declaration merging i module augmentation (rozszerzanie cudzych typów) (audyt)
+- [ ] 13c tsconfig i flagi ścisłości: strictNullChecks, noUncheckedIndexedAccess,
+      exactOptionalPropertyTypes — co realnie łapią (audyt)
+- [ ] 14 [D] debug: naprawa błędów typów w realnym kodzie (any-zatrucie, złe generyki,
+      niebezpieczne `as`)
+- [ ] 14b [D] debug: wariancja — kowariancja/kontrawariancja funkcji, bivariance metod,
+      dziurawe typy tablic (audyt)
+- [ ] 15 [O] optymalizacja typowanego kodu: poprawny, ale wolny moduł TS (find w pętli,
+      brak indeksu) — przepisz bez zmiany typów; bramka `expectScaling` (audyt: track
+      musi mieć [O], nie tylko [D])
+- [ ] 16 typowanie asynchroniczności: Promise/Awaited, typowany fetch, zwężanie odpowiedzi
+      (audyt — łączy z js/10-11)
+- [ ] 17 branded types i walidacja na granicy (nominal typing, parse-don't-validate)
+      (audyt — Total TypeScript patterns)
+- [ ] 18 mix z type-challenges (medium) jako egzamin
 - [ ] module-02 (typowany klient API — łączy z js/module-02)
+- Przyszłe (wymaga rozszerzenia harnessu): [O] wydajność typów mierzona liczbą
+  instancjacji (`tsc --extendedDiagnostics`) — naiwna rekurencja vs tail-recursive.
 
 ## react (~24 pozycje ≈ 72 zadania) — hooki rozbite na warianty
 

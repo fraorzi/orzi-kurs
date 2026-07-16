@@ -243,6 +243,19 @@ function ResultPanel({ result }: { result: SubmitResult }) {
         </div>
       )}
 
+      {result.typecheck.errors.length > 0 && (
+        <div className="lint">
+          {result.typecheck.errors.map((issue, i) => (
+            <div key={i} className="li err">
+              <span className="lv">type</span>{" "}
+              <span className="loc">{issue.file}:{issue.line}</span>{" "}
+              <span className="loc">{issue.code}</span>
+              <div>{issue.message}</div>
+            </div>
+          ))}
+        </div>
+      )}
+
       {(result.lint.errors.length > 0 || result.lint.warnings.length > 0) && (
         <div className="lint">
           {result.lint.errors.map((issue, i) => (
