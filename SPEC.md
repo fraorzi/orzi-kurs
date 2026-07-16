@@ -217,6 +217,11 @@ Pipeline zadania TS: **vitest → eslint → tsc** (równolegle). Vitest tylko �
 - Domyślny pakiet `typescript` to wspierany przez linter kompilator TS 6.
   `ORZI_TSC_PACKAGE=typescript7` przełącza samą bramkę CLI na natywny TS 7, który
   nie udostępnia jeszcze API wymaganego przez `typescript-eslint`.
+- Zadanie może dodać `tsconfig.task.json` z obiektem `compilerOptions`. Runner
+  akceptuje wyłącznie dydaktyczne flagi ścisłości: `exactOptionalPropertyTypes`,
+  `noPropertyAccessFromIndexSignature`, `noUncheckedIndexedAccess`,
+  `useUnknownInCatchVariables` i `verbatimModuleSyntax`. Ustawienia modułów, emisji,
+  ścieżek i bibliotek pozostają kontrolowane przez harness.
 
 ### Konwencja importów w zadaniach ts
 
