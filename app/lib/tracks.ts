@@ -238,6 +238,94 @@ const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
     { id: "mistrzostwo", title: "Zaawansowane konstrukcje i migracja", description: "Type challenges, migracja między wersjami i najnowsze możliwości języka.", range: [18, 20] },
     { id: "projekt-runtime", title: "Projekt: bezpieczny runtime", description: "Końcowy moduł łączący typy statyczne z kodem wykonywanym.", slugs: ["module-02"] },
   ],
+  react: [
+    {
+      id: "fundamenty-ui",
+      title: "Fundamenty komponentów i stanu",
+      description: "Komponenty, JSX, identity, snapshot stanu, formularze i dane pochodne.",
+      slugs: [
+        "01-components-props-purity",
+        "02-jsx-lists-identity",
+        "03-state-snapshot-batching",
+        "04-immutable-state",
+        "05-accessible-forms",
+        "06-derived-state",
+      ],
+    },
+    {
+      id: "escape-hatches",
+      title: "Efekty jako escape hatch",
+      description: "Synchronizacja z systemami zewnętrznymi, Effect Events, fetch i refy.",
+      slugs: [
+        "07-effects-synchronization",
+        "08-effect-events",
+        "09-fetch-effects",
+        "10-refs-ids",
+      ],
+    },
+    {
+      id: "architektura-stanu",
+      title: "Architektura stanu",
+      description: "Reducer, context, modelowanie stanów UI i pierwszy moduł praktyczny.",
+      slugs: [
+        "11-reducer",
+        "12-context",
+        "module-01",
+        "13-ui-state-modeling",
+      ],
+    },
+    {
+      id: "async-ui",
+      title: "Asynchroniczne UI React 19",
+      description: "Actions, status formularza, optimistic UI, Suspense i zewnętrzne store'y.",
+      slugs: [
+        "14-actions",
+        "15-form-status",
+        "16-optimistic",
+        "17-use-suspense-errors",
+        "18-external-store",
+      ],
+    },
+    {
+      id: "api-komponentow",
+      title: "Reużywalne API komponentów",
+      description: "Custom hooks, kompozycja, portale, przejścia oraz kontrolowane API imperative.",
+      slugs: [
+        "19-custom-hooks",
+        "20-composition",
+        "21-portals-error-boundaries",
+        "22-transitions-activity",
+        "23-imperative-layout",
+      ],
+    },
+    {
+      id: "jakosc",
+      title: "Jakość, testy i wydajność",
+      description: "Compiler, pomiary renderów, debug, optymalizacja, dostępność i duże listy.",
+      slugs: [
+        "24-react-compiler",
+        "25-manual-memoization",
+        "26-debug-renders-effects",
+        "26b-optimize-renders",
+        "27-component-testing",
+        "28-accessibility",
+        "29-list-performance",
+        "30-dynamic-styles",
+      ],
+    },
+    {
+      id: "elective",
+      title: "Elective: server state",
+      description: "TanStack Query jako gotowa architektura cache i mutacji danych serwerowych.",
+      slugs: ["31-tanstack-query"],
+    },
+    {
+      id: "projekty",
+      title: "Projekty końcowe",
+      description: "Moduły łączące Actions, Suspense, optimistic UI, cache i store zewnętrzny.",
+      slugs: ["module-02", "module-03"],
+    },
+  ],
 };
 
 export function trackProgress(track: CatalogTrack): TrackProgress {

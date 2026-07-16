@@ -27,7 +27,9 @@ Stan po ukończeniu pierwszych trzech etapów:
 - fundament procesu zapisany i wypchnięty,
 - JavaScript: 161/161 rozwiązań i 161/161 starterów,
 - TypeScript: 95/95 rozwiązań i 95/95 starterów na TS 6 oraz TS 7,
-- harness: 42/42.
+- harness: 47/47,
+- React: harness TSX z jsdom, Testing Library, user-event, Profiler i lintem
+  hooków gotowy; treść tracka jest następnym etapem.
 
 Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetować
 `progress.json` ani starterów.
@@ -59,7 +61,7 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 10. Java/PJATK jako osobna, niezależna ścieżka; może być realizowana wcześniej po
     zmianie priorytetu użytkownika.
 
-Etapy 1–3 są ukończone. Następnym aktywnym etapem jest React.
+Etapy 1–3 są ukończone. Etap React jest aktywny; jego infrastruktura testowa jest gotowa.
 
 Każdy punkt jest osobnym branchem. Następny branch powstaje z aktualnego fundamentu,
 nie z niepowiązanego brancha tracka.

@@ -42,31 +42,38 @@ function isExcluded(path: string): boolean {
     .some((seg) => seg.startsWith("_solution") || seg.endsWith(".verify-backup"));
 }
 
-function walkTsFiles(dir: string, acc: string[] = []): string[] {
+function isTypeScriptSource(path: string): boolean {
+  return (path.endsWith(".ts") || path.endsWith(".tsx")) &&
+    !path.endsWith(".d.ts");
+}
+
+function walkTypeScriptFiles(dir: string, acc: string[] = []): string[] {
   for (const name of readdirSync(dir).sort((a, b) => a.localeCompare(b))) {
     const full = join(dir, name);
     if (isExcluded(full)) continue;
-    if (statSync(full).isDirectory()) walkTsFiles(full, acc);
-    else if (full.endsWith(".ts") && !full.endsWith(".d.ts")) acc.push(full);
+    if (statSync(full).isDirectory()) walkTypeScriptFiles(full, acc);
+    else if (isTypeScriptSource(full)) acc.push(full);
   }
   return acc;
 }
 
 /**
- * Files the tsc gate covers: every `.ts` file of the task (starter.ts or the
- * whole src/ tree, run.test.ts, any local helper), minus `_solution*`.
+ * Files the tsc gate covers: every `.ts`/`.tsx` file of the task (single-file
+ * starter or whole src/ tree, tests and local helpers), minus `_solution*`.
  * Empty list ⇒ plain-JS task ⇒ no tsc run at all (keeps the js track fast).
  */
 export function collectTypecheckFiles(taskDir: string): string[] {
   const starter = findStarter(taskDir);
   if (!starter) return [];
 
-  const starterIsTs = !statSync(starter).isDirectory() && starter.endsWith(".ts");
+  const starterIsTs =
+    !statSync(starter).isDirectory() && isTypeScriptSource(starter);
   const srcHasTs =
-    statSync(starter).isDirectory() && walkTsFiles(starter).length > 0;
+    statSync(starter).isDirectory() &&
+    walkTypeScriptFiles(starter).length > 0;
   if (!starterIsTs && !srcHasTs) return [];
 
-  return walkTsFiles(taskDir);
+  return walkTypeScriptFiles(taskDir);
 }
 
 export function isTypeScriptTask(taskDir: string): boolean {
@@ -147,6 +154,7 @@ function tsconfigFor(files: string[], taskDir: string): string {
         lib: ["ES2023", "DOM", "ESNext.Disposable"],
         module: "ESNext",
         moduleResolution: "Bundler",
+        jsx: "react-jsx",
         skipLibCheck: true,
         types: ["node"],
         typeRoots: [resolve(REPO_ROOT, "node_modules/@types")],

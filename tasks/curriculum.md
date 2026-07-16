@@ -215,6 +215,12 @@ TS 7 działa równolegle jako obowiązkowa bramka CLI.
 
 ## react (~35 pozycji ≈ 105 zadań) — React 19.2, efekty jako escape hatch
 
+Audyt 2026-07-16: kolejność odpowiada oficjalnym blokom Describing UI →
+Interactivity → Managing State → Escape Hatches → async UI React 19 → jakość.
+Stabilne `<Activity>` pozostaje w core; Canary `<ViewTransition>` i API
+eksperymentalne są poza rdzeniem. Testy zachowania, dostępność i stany błędów są
+integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28.
+
 - [ ] 01 komponenty, props, kompozycja i czystość renderowania
 - [ ] 02 JSX, warunki, listy, keys, identity oraz reset stanu przez `key`
 - [ ] 03 state jako snapshot: useState, batching i updater function

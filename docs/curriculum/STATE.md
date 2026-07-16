@@ -17,7 +17,7 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 
 ## Bieżący branch
 
-`feature/curriculum-typescript`
+`feature/curriculum-react`
 
 ## Ukończone w bieżącym etapie
 
@@ -111,13 +111,25 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   TypeScript 6.0.3 i TypeScript 7.0.2.
 - Końcowe bramki repo: harness 42/42, root lint bez błędów i root `tsc --noEmit`
   bez diagnostyki.
+- TypeScript ukończony commitem `b769e5c` i wypchnięty na
+  `origin/feature/curriculum-typescript`.
+- Utworzony i wypchnięty osobny branch `feature/curriculum-react`.
+- React: zainstalowane przypięte Testing Library, DOM, user-event, jest-dom oraz
+  bezpośrednia zależność `eslint-plugin-react-hooks`.
+- Harness rozpoznaje `.tsx`/`.jsx`, typecheck obejmuje TSX z `react-jsx`, runner
+  automatycznie wybiera jsdom dla tracka React, a lint obejmuje JSX/TSX.
+- Dodany `@harness/react-test` z cleanupem, `renderWithUser` i licznikiem commitów
+  opartym na `Profiler`.
+- Ukryty smoke React: 2/2 rozwiązań i 2/2 starterów ma poprawne bramki; osobny
+  przypadek potwierdza błąd `react-hooks/rules-of-hooks`.
+- Harness po rozszerzeniu React: 47/47 testów.
 
 ## Następne kroki
 
-1. Utworzyć osobny branch `feature/curriculum-react` z aktualnego fundamentu.
-2. Rozszerzyć harness React o środowisko DOM, bibliotekę testującą zachowanie
-   użytkownika, lint hooków i deterministyczne pomiary renderów.
-3. Realizować track React 19.2 od fundamentów UI do praktycznych modułów mida.
+1. Dodać kontrakt kompletności treści React.
+2. Zbudować pierwszy blok 01–06: komponenty, JSX/identity, snapshot stanu,
+   niemutowalne aktualizacje, dostępne formularze i stan pochodny.
+3. Zweryfikować rozwiązania i pierwotne startery, zrobić checkpoint Git.
 
 ## Otwarte ryzyka
 
