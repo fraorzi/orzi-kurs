@@ -29,19 +29,19 @@ Nie mierzymy sukcesu liczbą lekcji. Mierzymy go zachowaniami opisanymi w
 
 Branch fundamentu:
 
-- `codex/curriculum-foundation`
+- `feature/curriculum-foundation`
 
 Branche tracków, tworzone z aktualnego fundamentu:
 
-- `codex/curriculum-javascript`
-- `codex/curriculum-typescript`
-- `codex/curriculum-react`
-- `codex/curriculum-node`
-- `codex/curriculum-next`
-- `codex/curriculum-mysql`
-- `codex/curriculum-strapi`
-- `codex/curriculum-java`
-- `codex/curriculum-combined`
+- `feature/curriculum-javascript`
+- `feature/curriculum-typescript`
+- `feature/curriculum-react`
+- `feature/curriculum-node`
+- `feature/curriculum-next`
+- `feature/curriculum-mysql`
+- `feature/curriculum-strapi`
+- `feature/curriculum-java`
+- `feature/curriculum-combined`
 
 Branch jednego tracka nie powinien zawierać treści innego tracka. Wspólne rozszerzenia
 harnessu trafiają do fundamentu albo do małego, jasno opisanego brancha zależnego.

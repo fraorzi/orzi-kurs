@@ -17,7 +17,7 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 
 ## Bieżący branch
 
-`codex/curriculum-foundation`
+`feature/curriculum-foundation`
 
 ## Ukończone w bieżącym etapie
 
@@ -35,7 +35,7 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 
 1. Uruchomić lint oraz testy zmian fundamentu.
 2. Commit i push fundamentu.
-3. Utworzyć `codex/curriculum-javascript`.
+3. Utworzyć `feature/curriculum-javascript`.
 4. Przeprowadzić pełny audyt JS, w tym `verify:solutions js`, starter gates,
    priorytety core/elective i jakość modułów.
 
