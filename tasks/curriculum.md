@@ -163,10 +163,10 @@ Zostało: pozycje audytowe b/c, 13–20, module-02)
 
 - [x] 01 typy podstawowe, inference, literal types, `as const`
 - [x] 02 unie, narrowing, type guards, discriminated unions
-- [ ] 02b narrowing zaawansowany: predykaty `x is T`, `asserts x is T`, inferred type
+- [x] 02b narrowing zaawansowany: predykaty `x is T`, `asserts x is T`, inferred type
       predicates (TS 5.5) i wyczerpanie unii przez `never` (audyt)
 - [x] 03 obiekty: interface vs type, optional, readonly, index signatures
-- [ ] 03b typowanie strukturalne: excess property checks, weak types i zgodność kształtów
+- [x] 03b typowanie strukturalne: excess property checks, weak types i zgodność kształtów
       (audyt — Handbook „Object Types", Effective TS)
 - [x] 04 funkcje: sygnatury, overloads, void/unknown/never, parametr `this`
 - [ ] 04b operatory typów: `keyof`, `typeof`, indexed access i bezpieczne klucze obiektów

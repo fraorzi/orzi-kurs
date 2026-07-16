@@ -44,12 +44,16 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 - TypeScript: usunięty zdeprecjonowany `baseUrl` z generowanego tsconfigu; mapowanie
   harnessu korzysta teraz z bezpośredniej ścieżki absolutnej.
 - TypeScript po migracji: 37/37 rozwiązań i 37/37 starterów na TS 6 oraz TS 7.
+- TypeScript: dodane `02b-advanced-narrowing` i `03b-structural-typing`, łącznie
+  6 nowych zadań praktycznych.
+- Nowy stan częściowy TypeScript: 43 zadania; nowe 6/6 rozwiązań i 6/6 starterów
+  przechodzi na TS 6 oraz TS 7.
 
 ## Następne kroki
 
 1. Zapisać i wypchnąć checkpoint migracji TS 6/7.
-2. Dodać zaawansowane fundamenty: narrowing, structural typing, operatory typów,
-   nowoczesne generyki i tuple wariadyczne.
+2. Dodać pozostałe zaawansowane fundamenty: operatory typów, nowoczesne generyki
+   i tuple wariadyczne.
 3. Dodać praktyczne bloki granic runtime, modułów, konfiguracji, wariancji,
    testów typów i migracji.
 
