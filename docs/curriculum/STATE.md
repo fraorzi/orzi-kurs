@@ -14,6 +14,8 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 - Bez dev servera, chyba że użytkownik poprosi.
 - Bez modyfikowania postępu i rozwiązań ucznia podczas audytu.
 - Użytkownik robi PR-y; agent robi branche, commity i push.
+- Kolejność nauki: JavaScript → TypeScript → React z TypeScriptem → Next.js z
+  TypeScriptem; tracki React i Next nie dostają wariantów JS/JSX.
 
 ## Bieżący branch
 
@@ -175,12 +177,29 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   koszyka z cache'owanym snapshotem i `getServerSnapshot` dla SSR.
 - Stan częściowy React: 18 tematów, pierwszy moduł i 55 zadań; 55/55 rozwiązań oraz
   55/55 pierwotnych starterów przechodzi właściwe bramki.
+- React 19: debounce z cleanupem, trwały draft z lazy initializerem i domenowy
+  custom hook z odroczonym `useDebugValue`.
+- React 20: jedno źródło prawdy, sloty `children` i generyczny render prop
+  zachowujący wybór przez stabilne ID po reorderze.
+- React 21: fizyczna warstwa portalu, context i propagacja według drzewa React oraz
+  izolowane, resetowalne Error Boundaries dla widgetów.
+- `module-02`: wieloplikowy panel incydentów z listą pod Suspense, immutable external
+  store, draftem w storage, Form Action, pending, optimistic mutation i toastem
+  renderowanym przez portal.
+- Cały track React używa TypeScript/TSX; audyt rozszerzeń nie znalazł zadań `.js`
+  ani `.jsx`.
+- Harness ma trwałą bramkę odrzucającą źródła JavaScript/JSX w trackach React i
+  przyszłym Next.
+- Stan częściowy React: 21 tematów, dwa moduły i 65 zadań; 65/65 rozwiązań oraz
+  65/65 pierwotnych starterów przechodzi właściwe bramki.
+- Końcowe bramki checkpointu: harness 51/51, root lint i root `tsc --noEmit`
+  bez błędów.
 
 ## Następne kroki
 
-1. Dodać projektowanie custom hooks, w tym debounce, local storage i debug labels.
-2. Dodać podnoszenie stanu, kompozycję przez `children` i render props.
-3. Dodać portale i szersze strategie granic błędów.
+1. Dodać `useTransition`, `useDeferredValue` i stabilne `<Activity>`.
+2. Dodać ref jako prop, `useImperativeHandle` i pomiary przez `useLayoutEffect`.
+3. Przejść do React Compiler i optymalizacji opartej na pomiarach.
 
 ## Otwarte ryzyka
 

@@ -27,14 +27,15 @@ Stan po ukończeniu pierwszych trzech etapów:
 - fundament procesu zapisany i wypchnięty,
 - JavaScript: 161/161 rozwiązań i 161/161 starterów,
 - TypeScript: 95/95 rozwiązań i 95/95 starterów na TS 6 oraz TS 7,
-- harness po kontrakcie treści React: 49/49,
+- harness po kontrakcie treści i TypeScript-only dla UI: 51/51,
 - React: harness TSX z jsdom, Testing Library, user-event, Profiler i lintem
   hooków gotowy,
-- React: bloki 01–18 oraz `module-01` mają 55 zadań obejmujących czyste komponenty, identity,
+- React: bloki 01–21 oraz `module-01..02` mają 65 zadań obejmujących czyste komponenty, identity,
   architekturę stanu, dostępne formularze, efekty jako synchronizację, Effect Events,
   odporny ręczny fetch, refy i ID, reducer/context, jawne maszyny stanów oraz
-  React 19 Actions, optimistic UI, Suspense/Error Boundary i external stores;
-  55/55 rozwiązań i 55/55 starterów przechodzi właściwe bramki.
+  React 19 Actions, optimistic UI, Suspense/Error Boundary, external stores,
+  custom hooks, kompozycję i portale;
+  65/65 rozwiązań i 65/65 starterów przechodzi właściwe bramki.
 
 Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetować
 `progress.json` ani starterów.
@@ -45,9 +46,9 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 |---|---|
 | JavaScript | ECMAScript obsługiwany przez Node 24 LTS i współczesne przeglądarki; nowości oznaczane jako core lub elective |
 | TypeScript | TS 7.0 jako aktualny cel, TS 6.0 jako wiedza migracyjna; istniejący harness 5.9 wymaga kontrolowanej migracji |
-| React | React 19.2 i stabilny React Compiler 1.x |
+| React | React 19.2 i stabilny React Compiler 1.x; wyłącznie TypeScript/TSX po ukończeniu tracka TS |
 | Node.js | Node 24 LTS; Node 22 jako obecne środowisko zgodności |
-| Next.js | dokładna wersja repo z `node_modules/next/dist/docs/`, obecnie 16.2.10 |
+| Next.js | dokładna wersja repo z `node_modules/next/dist/docs/`, obecnie 16.2.10; wyłącznie TypeScript/TSX |
 | MySQL | MySQL 8.4 LTS; kompatybilność podstaw sprawdzana również lokalnie na 9.6 |
 | Strapi | Strapi 5 |
 | Java | JDK 25 LTS; osobne notatki zgodności z wymaganiami PJATK |
@@ -67,8 +68,8 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
     zmianie priorytetu użytkownika.
 
 Etapy 1–3 są ukończone. Etap React jest aktywny; infrastruktura, fundamenty,
-escape hatches, architektura stanu, async UI React 19, Suspense i external stores
-do pozycji 18 wraz z pierwszym modułem są gotowe.
+escape hatches, architektura stanu, async UI React 19, Suspense, external stores,
+custom hooks, kompozycja i portale do pozycji 21 wraz z dwoma modułami są gotowe.
 
 Każdy punkt jest osobnym branchem. Następny branch powstaje z aktualnego fundamentu,
 nie z niepowiązanego brancha tracka.

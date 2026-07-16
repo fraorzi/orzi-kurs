@@ -24,6 +24,11 @@ typy) mają swoje zadania. Trudność rośnie z pozycją na roadmapie; wewnątrz
 easy → medium → hard. Numery w nazwach istniejących katalogów są stabilnymi
 identyfikatorami treści i nie wyznaczają już kolejności nauki.
 
+Zasada sekwencji i języka: docelowa kolejność ucznia to **JavaScript → TypeScript →
+React z TypeScriptem → Next.js z TypeScriptem**. Wszystkie zadania React i Next,
+łącznie ze starterami, rozwiązaniami, testami i modułami, używają `.ts`/`.tsx` oraz
+przechodzą strict typecheck; nie powstają równoległe warianty `.js`/`.jsx`.
+
 ## js (rdzeń mida gotowy + elective)
 (baseline przed audytem: verify:solutions js = 158/158 i verify:starters js = 158/158;
 po audycie dodano 09b-modules, więc track ma 161 zadań. Wszystkie wcześniejsze pozycje audytowe b/c gotowe:
@@ -242,9 +247,9 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] 16 useOptimistic i bezpieczne optimistic updates
 - [x] 17 `use`, Suspense i Error Boundary dla danych oraz contextu
 - [x] 18 useSyncExternalStore (stores zewnętrzne)
-- [ ] 19 custom hooks: projektowanie API, useDebounce/useLocalStorage, useDebugValue
-- [ ] 20 podnoszenie stanu, kompozycja przez children, render props
-- [ ] 21 portale i granice błędów poza przepływem danych z Suspense
+- [x] 19 custom hooks: projektowanie API, useDebounce/useLocalStorage, useDebugValue
+- [x] 20 podnoszenie stanu, kompozycja przez children, render props
+- [x] 21 portale i granice błędów poza przepływem danych z Suspense
 - [ ] 22 useTransition, useDeferredValue i `<Activity>`
 - [ ] 23 ref jako prop, useImperativeHandle i useLayoutEffect do pomiarów layoutu
 - [ ] 24 React Compiler: automatyczna memoizacja, reguły Reacta, stopniowa adopcja
@@ -261,7 +266,7 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [ ] 30 style w JS/React (obiekt style, CSS variables z JS — wyjątek od Tailwinda)
 - [ ] 31 elective: server state z TanStack Query — query keys, staleTime, invalidation,
       mutations, cancellation i optimistic updates bez własnego `useEffect`
-- [ ] module-02 (feature: formularz Action + lista Suspense + optimistic mutation)
+- [x] module-02 (feature: formularz Action + lista Suspense + optimistic mutation)
 - [ ] module-03 (feature: lista z serwerowym cache, filtrami i zewnętrznym store)
 
 ## node (~18 pozycji ≈ 54 zadania) — Node 24 LTS
