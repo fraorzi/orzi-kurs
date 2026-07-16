@@ -17,7 +17,7 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 
 ## Bieżący branch
 
-`feature/curriculum-javascript`
+`feature/curriculum-typescript`
 
 ## Ukończone w bieżącym etapie
 
@@ -37,17 +37,28 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 - Dodana automatyczna bramka starterów odzyskująca ich stan z historii Git.
 - Rozpoczęty audyt core/elective oraz brakującego tematu modułów ESM.
 - JavaScript po zmianach: 161/161 rozwiązań i 161/161 bramek starterów.
+- JavaScript ukończony commitem `bc81b47` i wypchnięty na
+  `origin/feature/curriculum-javascript`.
+- TypeScript: zależność główna zaktualizowana do 6.0.3, a natywny kompilator 7.0.2
+  dodany obok jako niezależna bramka zgodności CLI.
+- TypeScript: usunięty zdeprecjonowany `baseUrl` z generowanego tsconfigu; mapowanie
+  harnessu korzysta teraz z bezpośredniej ścieżki absolutnej.
+- TypeScript po migracji: 37/37 rozwiązań i 37/37 starterów na TS 6 oraz TS 7.
 
 ## Następne kroki
 
-1. Dokończyć końcową kontrolę zmian JavaScriptu.
-2. Commit i push brancha JavaScript.
-3. Utworzyć `feature/curriculum-typescript`.
+1. Zapisać i wypchnąć checkpoint migracji TS 6/7.
+2. Dodać zaawansowane fundamenty: narrowing, structural typing, operatory typów,
+   nowoczesne generyki i tuple wariadyczne.
+3. Dodać praktyczne bloki granic runtime, modułów, konfiguracji, wariancji,
+   testów typów i migracji.
 
 ## Otwarte ryzyka
 
 - Aktualne środowisko ma Node 22, podczas gdy celem tracka będzie Node 24 LTS.
-- Repo ma TypeScript 5.9.3, podczas gdy aktualne stabilne wydanie to 7.0.
+- TS 7 nie udostępnia jeszcze stabilnego API wymaganego przez `typescript-eslint`;
+  do czasu wsparcia narzędzi repo musi utrzymywać TS 6 dla lintu i TS 7 dla
+  dodatkowej bramki CLI.
 - Lokalny JDK 11 nie wystarczy do przyszłej ścieżki JDK 25.
 - Adaptery React, MySQL i Strapi wymagają zmian harnessu oraz nowych zależności.
 - Pełna liczba przyszłych zadań jest duża; praca musi pozostać iteracyjna i

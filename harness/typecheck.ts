@@ -9,7 +9,12 @@ import { findStarter } from "./paths";
 
 const execFileAsync = promisify(execFile);
 
-const TSC_BIN = resolve(REPO_ROOT, "node_modules/typescript/bin/tsc");
+const TSC_BIN = resolve(
+  REPO_ROOT,
+  "node_modules",
+  process.env.ORZI_TSC_PACKAGE ?? "typescript",
+  "bin/tsc",
+);
 
 /**
  * Never typechecked: the reference solution (`_solution*`) and the backup copies
@@ -98,8 +103,7 @@ function tsconfigFor(files: string[]): string {
         skipLibCheck: true,
         types: ["node"],
         typeRoots: [resolve(REPO_ROOT, "node_modules/@types")],
-        baseUrl: REPO_ROOT,
-        paths: { "@harness/*": ["harness/*"] },
+        paths: { "@harness/*": [resolve(REPO_ROOT, "harness/*")] },
       },
       include: files,
     },

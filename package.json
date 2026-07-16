@@ -11,7 +11,9 @@
     "submit": "tsx harness/cli.ts submit",
     "commit:task": "tsx harness/cli.ts commit",
     "verify:solutions": "tsx harness/cli.ts verify",
-    "verify:starters": "tsx harness/cli.ts verify-starters"
+    "verify:starters": "tsx harness/cli.ts verify-starters",
+    "verify:solutions:ts7": "ORZI_TSC_PACKAGE=typescript7 tsx harness/cli.ts verify ts",
+    "verify:starters:ts7": "ORZI_TSC_PACKAGE=typescript7 tsx harness/cli.ts verify-starters ts"
   },
   "dependencies": {
     "next": "16.2.10",
@@ -30,8 +32,9 @@
     "eslint-plugin-sonarjs": "^4.1.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.0",
-    "typescript": "^5",
-    "typescript-eslint": "^8.63.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.64.0",
+    "typescript7": "npm:typescript@7.0.2",
     "vitest": "^4.1.10"
   }
 }

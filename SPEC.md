@@ -158,6 +158,8 @@ test oznaczony w nazwie `[quality]` ma oblać; starter musi też być lint/typec
 - `pnpm commit:task <taskId>` — ponowna weryfikacja i ręczny commit zaliczenia
 - `pnpm verify:solutions [trackId]`
 - `pnpm verify:starters [trackId]`
+- `pnpm verify:solutions:ts7` i `pnpm verify:starters:ts7` — dodatkowa macierz
+  zgodności tracka TypeScript z natywnym kompilatorem TS 7
 - `pnpm lint` — lint kodu repo (`--ignore-pattern tracks`). Pliki zadań lintuje runner
   przy submicie; startery mają celowo `// TODO` (= lint error `sonarjs/todo-tag`),
   więc nie mogą wchodzić do lintu repo.
@@ -209,8 +211,12 @@ Pipeline zadania TS: **vitest → eslint → tsc** (równolegle). Vitest tylko �
 - **Konfiguracja:** generowany tymczasowy tsconfig (samodzielny, bez `extends`):
   `strict`, `noEmit`, `target: ES2022`, `lib: [ES2023, DOM]`, `module: ESNext`,
   `moduleResolution: Bundler`, `skipLibCheck`, `types: ["node"]` oraz `paths`
-  mapujące `@harness/*` → `harness/*`. Root `tsconfig.json` **wyklucza `tracks/`** —
+  mapujące `@harness/*` bezpośrednio na absolutną ścieżkę `harness/*` (bez
+  zdeprecjonowanego `baseUrl`). Root `tsconfig.json` **wyklucza `tracks/`** —
   startery mają celowo oblewać typy i nie mogą wywracać `next build`.
+- Domyślny pakiet `typescript` to wspierany przez linter kompilator TS 6.
+  `ORZI_TSC_PACKAGE=typescript7` przełącza samą bramkę CLI na natywny TS 7, który
+  nie udostępnia jeszcze API wymaganego przez `typescript-eslint`.
 
 ### Konwencja importów w zadaniach ts
 
