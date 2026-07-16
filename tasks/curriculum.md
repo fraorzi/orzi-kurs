@@ -221,12 +221,12 @@ Stabilne `<Activity>` pozostaje w core; Canary `<ViewTransition>` i API
 eksperymentalne są poza rdzeniem. Testy zachowania, dostępność i stany błędów są
 integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28.
 
-- [ ] 01 komponenty, props, kompozycja i czystość renderowania
-- [ ] 02 JSX, warunki, listy, keys, identity oraz reset stanu przez `key`
-- [ ] 03 state jako snapshot: useState, batching i updater function
-- [ ] 04 useState: obiekty i tablice (immutable updates)
-- [ ] 05 formularze kontrolowane, walidacja, dostępne etykiety, focus i komunikaty błędów
-- [ ] 06 derived state, logika zdarzeń i „You Might Not Need an Effect”
+- [x] 01 komponenty, props, kompozycja i czystość renderowania
+- [x] 02 JSX, warunki, listy, keys, identity oraz reset stanu przez `key`
+- [x] 03 state jako snapshot: useState, batching i updater function
+- [x] 04 useState: obiekty i tablice (immutable updates)
+- [x] 05 formularze kontrolowane, walidacja, dostępne etykiety, focus i komunikaty błędów
+- [x] 06 derived state, logika zdarzeń i „You Might Not Need an Effect”
 - [ ] 07 useEffect tylko do synchronizacji z systemem zewnętrznym: dependencies, cleanup
 - [ ] 08 useEffectEvent, stale closures i oddzielanie zdarzeń od efektów
 - [ ] 09 ręczny fetch w efekcie: race conditions, AbortController i dlaczego to

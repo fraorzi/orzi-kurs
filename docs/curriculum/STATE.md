@@ -122,14 +122,26 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   opartym na `Profiler`.
 - Ukryty smoke React: 2/2 rozwiązań i 2/2 starterów ma poprawne bramki; osobny
   przypadek potwierdza błąd `react-hooks/rules-of-hooks`.
-- Harness po rozszerzeniu React: 47/47 testów.
+- Infrastruktura React ukończona commitem `f70678e` i wypchnięta na
+  `origin/feature/curriculum-react`.
+- Dodany kontrakt kompletności treści React: teoria zastosowań, pułapki, źródła,
+  starter, rozwiązanie, test przez wspólny helper i co najmniej dwa progresywne hinty.
+- React 01–03: czyste komponenty i props, JSX/listy/identity oraz snapshot stanu,
+  batching i aktualizacje funkcyjne.
+- React 04–06: niemutowalne obiekty/tablice, kontrolowane i dostępne formularze
+  z walidacją/focusem oraz stan pochodny i logika zdarzeń bez zbędnych efektów.
+- Pierwszy blok React ma 6 tematów i 18 zadań. Każdy starter reprezentuje konkretny
+  błąd, a testy obejmują m.in. zamrożone propsy, równoległe aktualizacje po `await`,
+  dostępne opisy błędów, kolejność focusu i zmianę propsów bez synchronizacji efektem.
+- Pełna macierz pierwszego bloku: 18/18 rozwiązań oraz 18/18 pierwotnych starterów.
+- Harness po dodaniu kontraktu treści React: 49/49 testów.
 
 ## Następne kroki
 
-1. Dodać kontrakt kompletności treści React.
-2. Zbudować pierwszy blok 01–06: komponenty, JSX/identity, snapshot stanu,
-   niemutowalne aktualizacje, dostępne formularze i stan pochodny.
-3. Zweryfikować rozwiązania i pierwotne startery, zrobić checkpoint Git.
+1. Zbudować blok 07–10: efekty tylko do systemów zewnętrznych, Effect Events,
+   ręczny fetch z anulowaniem oraz refy/useId.
+2. Dodać 11–12 i `module-01`: reducer, context i wieloplikowy widget bez fetchy.
+3. Utrzymać pełną macierz rozwiązań/starterów i checkpointować każdy logiczny blok.
 
 ## Otwarte ryzyka
 
@@ -138,6 +150,6 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   do czasu wsparcia narzędzi repo musi utrzymywać TS 6 dla lintu i TS 7 dla
   dodatkowej bramki CLI.
 - Lokalny JDK 11 nie wystarczy do przyszłej ścieżki JDK 25.
-- Adaptery React, MySQL i Strapi wymagają zmian harnessu oraz nowych zależności.
+- Adaptery MySQL i Strapi wymagają zmian harnessu oraz nowych zależności.
 - Pełna liczba przyszłych zadań jest duża; praca musi pozostać iteracyjna i
   checkpointowana w Git.

@@ -52,7 +52,7 @@ describe("curriculum order", () => {
     expect(
       compareTopicSlugs(
         "react",
-        "06-derived-state",
+        "06-derived-state-no-effect",
         "07-effects-synchronization",
       ),
     ).toBeLessThan(0);
