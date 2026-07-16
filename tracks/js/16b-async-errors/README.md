@@ -79,6 +79,13 @@ obsługi błędów — każdą promisę, która może się odrzucić, obsłuż u
   fragmenty jednej odpowiedzi).
 - **`any`** — kilka równoważnych źródeł, wystarczy pierwszy działający (np. mirror/CDN).
 
+## Kiedy unikać
+
+- Nie używaj globalnego `unhandledrejection` jako zwykłego mechanizmu obsługi błędów.
+- Nie zamieniaj każdego błędu na `null`; konsument traci wtedy przyczynę i nie odróżnia
+  awarii od prawidłowego braku danych.
+- Nie stosuj `allSettled`, jeśli brak jednego wyniku unieważnia całą operację.
+
 ## Pułapki
 
 - `try/catch` bez `await` **nie łapie** odrzuceń — to najczęstszy błąd w kodzie async.

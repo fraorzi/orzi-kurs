@@ -61,6 +61,18 @@ cofnąć **dokładnie to**, co zrobił `subscribe`.
 - Nie zgaduj mikro-optymalizacji. Szukaj **pętli w pętli** (jawnej albo ukrytej w
   `find`/`includes`/`indexOf`/`shift`).
 
+## Kiedy używać
+
+- Gdy czas lub pamięć rosną znacznie szybciej niż rozmiar wejścia.
+- Gdy profiler wskazuje gorącą pętlę, rosnącą liczbę listenerów albo niezwalniane dane.
+- Gdy kontrakt jest poprawny funkcjonalnie, ale nie spełnia wymagań skali.
+
+## Kiedy unikać
+
+- Nie optymalizuj na podstawie pojedynczego mikrobenchmarku bez reprezentatywnych danych.
+- Nie zamieniaj czytelnej struktury na skomplikowaną, jeśli koszt nie występuje w praktyce.
+- Nie traktuj WeakRef jako domyślnego lekarstwa na cache bez limitu.
+
 ## Pułapki
 
 - Ukryta pętla: `find`, `includes`, `indexOf`, `filter` **wewnątrz** innej pętli.

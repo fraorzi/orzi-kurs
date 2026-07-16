@@ -12,10 +12,19 @@ describe("curriculum order", () => {
   });
 
   it("gives letter-suffixed legacy directories unique roadmap numbers", () => {
-    expect(topicDisplayNumber("js/05-strings")).toBe("07");
-    expect(topicDisplayNumber("js/05b-unicode")).toBe("08");
-    expect(topicDisplayNumber("js/05c-intl-segmenter")).toBe("09");
+    expect(topicDisplayNumber("js/05-strings")).not.toBe(
+      topicDisplayNumber("js/05b-unicode"),
+    );
+    expect(topicDisplayNumber("js/09b-modules")).not.toBe(
+      topicDisplayNumber("js/09-array-methods"),
+    );
     expect(topicDisplayNumber("js/module-01")).toBe("M1");
+  });
+
+  it("places the JavaScript mid core before specialist electives", () => {
+    expect(compareTopicSlugs("js", "09b-modules", "module-01")).toBeLessThan(0);
+    expect(compareTopicSlugs("js", "module-05", "18b-weakref")).toBeLessThan(0);
+    expect(compareTopicSlugs("js", "module-05", "31b-regex-advanced")).toBeLessThan(0);
   });
 
   it("places TypeScript type operators and tuples before type transformations", () => {

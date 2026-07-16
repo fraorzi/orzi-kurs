@@ -24,10 +24,11 @@ typy) mają swoje zadania. Trudność rośnie z pozycją na roadmapie; wewnątrz
 easy → medium → hard. Numery w nazwach istniejących katalogów są stabilnymi
 identyfikatorami treści i nie wyznaczają już kolejności nauki.
 
-## js (01–37 gotowe: numerowane + pierwsze [O] optymalizacyjne)
-(verify:solutions js = 158/158; wszystkie pozycje audytowe b/c gotowe:
+## js (rdzeń mida gotowy + elective)
+(baseline przed audytem: verify:solutions js = 158/158 i verify:starters js = 158/158;
+po audycie dodano 09b-modules, więc track ma 161 zadań. Wszystkie wcześniejsze pozycje audytowe b/c gotowe:
 05b, 05c, 10b, 16b, 17b, 17c, 18b, 20b, 21b, 22b, 25b, 27b, 29b, 31b.
-KOMPLET: module-01..05 gotowe — track js zamknięty)
+KOMPLET: module-01..05 gotowe. Tematy w etapie Elective nie blokują przejścia do TS.)
 
 ### Kolejność nauki na roadmapie
 
@@ -35,15 +36,15 @@ KOMPLET: module-01..05 gotowe — track js zamknięty)
 sortowanie katalogów. Etapy są ułożone według prerekwizytów:
 
 1. Fundamenty: funkcje → scope → typy → liczby → pętle → stringi, Unicode i regex.
-2. Dane: obiekty → destructuring → tablice → immutability → Map/Set → JSON i Date
-   → closures → rekursja.
+2. Dane i granice kodu: obiekty → destructuring → tablice → moduły ESM →
+   immutability → Map/Set → JSON i Date → closures → rekursja.
 3. Model obiektowy: `this` → prototypy → klasy → obsługa błędów → debug logiki.
 4. Async i integracje: promises → async/await → event loop → błędy async → fetch
    → debounce/throttle → EventEmitter → module-01.
-5. Zaawansowana iteracja: iteratory → generatory → deskryptory → Proxy → słabe
-   referencje → module-04.
-6. Jakość: regex zaawansowany → debug wydajności → optymalizacje → module-03,
-   module-02 i module-05 dokładnie po wymaganych zagadnieniach.
+5. Architektura języka: iteratory → generatory → deskryptory → WeakMap → module-04.
+6. Jakość: debug wydajności → optymalizacje → module-02, module-03 i module-05.
+7. Elective po osiągnięciu mida: Intl.Segmenter, BigInt, Promise.withResolvers,
+   iterator helpers, async generators, Proxy/Reflect, WeakRef, trampoliny i regex advanced.
 
 - [x] 01 funkcje: deklaracja vs wyrażenie vs arrow (this/arguments/hoisting),
       parametry domyślne i rest, funkcje jako wartości
@@ -62,6 +63,9 @@ sortowanie katalogów. Etapy są ułożone według prerekwizytów:
 - [x] 07 destructuring, spread/rest w obiektach i tablicach
 - [x] 08 domknięcia
 - [x] 09 metody tablic
+- [x] 09b moduły ESM: named/default exports, importy jako żywe wiązania, jawny
+      publiczny kontrakt przez re-eksport oraz bezpieczny dynamic import z allow-listą
+      (audyt 2026-07-16: brakowało podstawowej granicy kodu wymaganej w realnych projektach)
 - [x] 10 promisy
 - [x] 10b Promise.withResolvers (ES2024) i wzorzec deferred: most callback→promise,
       ręczne rozstrzyganie z zewnątrz, kolejki zadań

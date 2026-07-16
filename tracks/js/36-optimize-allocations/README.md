@@ -48,6 +48,12 @@ const remove = new Set(toRemove);
 arr.filter((x) => !remove.has(x));
 ```
 
+## Kiedy używać
+
+- Gdy profil pamięci pokazuje dużą liczbę krótkotrwałych tablic lub obiektów.
+- Gdy rosnący akumulator jest kopiowany przy każdej iteracji.
+- Gdy lokalny, niewidoczny na zewnątrz bufor może bezpiecznie powstać mutacyjnie.
+
 ## Kiedy NIE optymalizować
 
 - Mała, stała liczba elementów — `[...acc, x]` w pętli po kilku pozycjach jest nieszkodliwe

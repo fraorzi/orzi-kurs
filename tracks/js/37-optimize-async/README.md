@@ -64,6 +64,12 @@ return results.flat();
 - Świadome ograniczanie obciążenia (rate limit API) — wtedy pool z małym `limit`.
 - Jedno-dwa żądania — równoległość i batching nie mają po co komplikować kodu.
 
+## Kiedy unikać
+
+- Nie używaj pełnego `Promise.all` dla nieograniczonego wejścia.
+- Nie batchuj operacji, jeśli backend nie gwarantuje mapowania wyników do wejściowych kluczy.
+- Nie zwiększaj limitu współbieżności bez pomiaru serwera, klienta i limitów połączeń.
+
 ## Pułapki
 
 - `Promise.all` **odrzuca przy pierwszym błędzie** — gdy chcesz wszystkie wyniki mimo

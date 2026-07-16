@@ -65,6 +65,12 @@ dryfu zmiennoprzecinkowego przy dodawaniu kwot.
 - Sprawdzanie „czy to liczba całkowita/NaN" → warianty `Number.*` (bez konwersji).
 - Kwoty pieniężne → liczby całkowite (grosze), nie floaty.
 
+## Kiedy unikać
+
+- Nie używaj `Number` do całkowitych identyfikatorów przekraczających bezpieczny zakres.
+- Nie używaj `toFixed` jako narzędzia do dalszej arytmetyki bez jawnej konwersji.
+- Nie stosuj jednej tolerancji `Number.EPSILON` do liczb o dowolnej skali.
+
 ## Pułapki
 
 - **`0.1 + 0.2 !== 0.3`** — nigdy nie porównuj floatów przez `===`.

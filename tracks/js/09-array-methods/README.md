@@ -32,7 +32,7 @@ Callback dostaje trzy argumenty: `(element, index, array)`.
 ```js
 arr.find(fn);       // pierwszy pasujący element (lub undefined)
 arr.findIndex(fn);  // jego indeks (lub -1)
-arr.includes(x);    // czy zawiera (porównanie ===); UWAGA: O(n)
+arr.includes(x);    // czy zawiera (SameValueZero, więc NaN działa); UWAGA: O(n)
 arr.some(fn);       // czy JAKIKOLWIEK spełnia
 arr.every(fn);      // czy WSZYSTKIE spełniają
 arr.indexOf(x);     // indeks pierwszego wystąpienia
@@ -71,4 +71,25 @@ to klasyczne źródło bugów (w React — niewykryte re-rendery).
 ## Wydajność
 
 `includes`/`indexOf` w pętli po dużej tablicy = O(n²). Do sprawdzania „czy już było"
-używaj `Set` (`has`/`add` — O(1)): deduplikacja przez `Set` jest liniowa.
+używaj `Set` (`has`/`add` — średnio O(1)): deduplikacja przez `Set` jest liniowa.
+
+## Kiedy używać
+
+- `map`, gdy wynik ma dokładnie jeden element na każdy element wejścia.
+- `filter`, gdy wybierasz podzbiór, a `find`, gdy potrzebujesz tylko pierwszego trafienia.
+- `some`/`every`, gdy pytanie ma odpowiedź logiczną i można zakończyć iterację wcześniej.
+- `reduce`, gdy naprawdę składasz kolekcję do jednej wartości lub struktury.
+
+## Kiedy unikać
+
+- Nie używaj `map` wyłącznie dla efektów ubocznych — wtedy intencję lepiej pokazuje pętla.
+- Nie wciskaj całej logiki do jednego `reduce`, jeśli prosta pętla jest łatwiejsza do
+  przeczytania i debugowania.
+- Nie buduj długiego łańcucha tablic pośrednich na gorącej ścieżce bez pomiaru.
+
+## Pułapki
+
+- `sort`, `reverse`, `splice`, `push` i `pop` mutują tablicę; `toSorted` i `slice` nie.
+- `includes(NaN)` jest prawdziwe, podczas gdy `indexOf(NaN)` zwraca `-1`.
+- Rzadkie tablice pomijają puste sloty w części metod callbackowych.
+- Brak wartości początkowej w `reduce` jest szczególnie groźny dla pustej tablicy.

@@ -70,6 +70,13 @@ Gdy operacje są niezależne — `Promise.all` puszcza je równolegle.
 - `Promise.all` **odrzuca** przy pierwszym błędzie; gdy chcesz wszystkie wyniki mimo
   błędów — `Promise.allSettled`.
 
+## Kiedy unikać
+
+- Nie zamieniaj mechanicznie każdej pętli z `await` na `Promise.all`; zależności i limity
+  API mogą wymagać kolejności albo poola.
+- Nie dodawaj `await` wyłącznie po to, by uciszyć test, jeśli kontrakt ma zwracać Promise.
+- Nie pozostawiaj „fire and forget" bez jawnej obsługi odrzucenia i obserwowalności.
+
 ## Pułapki (jak szukać)
 
 - Wynik to `Promise`/`undefined` mimo `async` → sprawdź, czy nie brakuje `await`.

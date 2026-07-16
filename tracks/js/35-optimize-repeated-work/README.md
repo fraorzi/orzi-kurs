@@ -44,6 +44,12 @@ tablice pośrednie. Gdy to gorąca ścieżka, jedna pętla robi to raz. Częstsz
 błąd to **przeliczanie prefiksu** w pętli (np. `slice(0, i).reduce(...)` dla każdego `i`) —
 to O(n²), które zbija się do O(n) akumulatorem bieżącym.
 
+## Kiedy używać
+
+- Gdy profiler pokazuje wielokrotne wykonanie tej samej kosztownej funkcji.
+- Gdy niezmiennik jest liczony wewnątrz pętli mimo stałych argumentów.
+- Gdy kolejne przejścia przeliczają te same prefiksy lub budują zbędne dane pośrednie.
+
 ## Kiedy NIE optymalizować
 
 - Kosztowna funkcja jest tania albo wołana raz — cache tylko zaciemnia.
