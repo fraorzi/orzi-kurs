@@ -155,11 +155,12 @@ sortowanie katalogów. Etapy są ułożone według prerekwizytów:
 - [x] module-05 (feature: rate limiter + kolejka zadań — throttle, pool współbieżności,
       batching, backoff przy retry; skleja 25/10/37/32) (audyt)
 
-## ts (~33 pozycje ≈ 96 zadań) — TS 7.0, bramka `tsc --noEmit` w pipeline, od kodu runtime do programowania typów
-(01–12 + module-01 gotowe: verify:solutions ts = 37/37, każdy starter oblewa.
-Istniejąca treść i harness używają TS 5.9.3. Branch TypeScript ma najpierw sprawdzić
-ją na TS 6.0 i 7.0, poprawić regresje, a następnie utrwalić aktualną wersję.
-Zostało: pozycje audytowe b/c, 13–20, module-02)
+## ts (33 pozycje, 95 zadań) — rdzeń mida gotowy
+
+Stan końcowy audytu: 95/95 rozwiązań i 95/95 pierwotnych starterów przechodzi
+odpowiednie bramki na TypeScript 6.0.3 oraz natywnym TypeScript 7.0.2. Główny
+toolchain pozostaje na TS 6 do czasu wsparcia API TS 7 przez zależności lintu;
+TS 7 działa równolegle jako obowiązkowa bramka CLI.
 
 - [x] 01 typy podstawowe, inference, literal types, `as const`
 - [x] 02 unie, narrowing, type guards, discriminated unions
@@ -206,7 +207,9 @@ Zostało: pozycje audytowe b/c, 13–20, module-02)
 - [x] 19 migracja TS 5.9 → 6.0 → 7.0: nowe domyślne opcje, usunięte/deprecated
       konfiguracje, import attributes, zgodność narzędzi i diagnoza zmian inferencji
 - [x] 20 elective: dekoratory oraz `using`/DisposableStack — kiedy projekt realnie ich wymaga
-- [ ] module-02 (typowany klient API — łączy z js/module-02)
+- [x] module-02 (typowany klient API: parsery `unknown`, branded ID, jawne `Result`,
+      retry/backoff, timeout, zewnętrzny AbortSignal, generyczna kolejka i type tests;
+      łączy 13c/14c/16/17 z praktyką js/module-02)
 - Przyszłe (wymaga rozszerzenia harnessu): [O] wydajność typów mierzona liczbą
   instancjacji (`tsc --extendedDiagnostics`) — naiwna rekurencja vs tail-recursive.
 

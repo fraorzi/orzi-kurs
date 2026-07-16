@@ -9,8 +9,10 @@ od wiedzy internowej do samodzielności mida. Największe luki dotyczą pracy na
 granicach runtime, projektowania kontraktów modułów, konfiguracji kompilatora,
 diagnostyki złożonych typów oraz bezpiecznej migracji istniejącego projektu.
 
-Type challenges pozostają przydatnym ćwiczeniem, ale nie mogą zastąpić zadań,
-w których typy chronią prawdziwy przepływ danych i publiczne API.
+Po realizacji audytu track prowadzi od aktywnego pisania podstawowych typów do
+samodzielnego projektowania kontraktów modułów, granic runtime i bezpiecznych
+przepływów asynchronicznych. Type challenges pozostały egzaminem pomocniczym,
+a nie substytutem pracy z prawdziwym publicznym API.
 
 ## Stan wejściowy
 
@@ -38,17 +40,18 @@ Pierwszy pełny przebieg TS 6 wykrył `baseUrl` w tymczasowym tsconfigu harnessu
 Konfiguracja została poprawiona przez użycie bezpośredniej ścieżki w `paths`, bez
 wyciszania diagnostyki.
 
-## Wynik migracji harnessu
+## Końcowy wynik migracji i rozbudowy
 
 | Bramka | TypeScript 6.0.3 | TypeScript 7.0.2 |
 |---|---:|---:|
-| rozwiązania | 37/37 | 37/37 |
-| startery | 37/37 | 37/37 |
+| rozwiązania | 95/95 | 95/95 |
+| startery | 95/95 | 95/95 |
 
 Startery są sprawdzane jako oczekiwane czerwone bramki i nie nadpisują bieżącej
-pracy ucznia.
+pracy ucznia. Dodatkowo harness ma 42/42 zielone testy, root lint nie zgłasza
+błędów, a root `tsc --noEmit` przechodzi bez diagnostyki.
 
-## Priorytet brakujących bloków
+## Zrealizowany zakres
 
 ### Fundamenty potrzebne w codziennej pracy
 
@@ -71,10 +74,18 @@ pracy ucznia.
 
 ### Projekty i egzaminy
 
-- repozytorium danych przyjmujące nieufne dane z adaptera,
-- typowany system zdarzeń lub pluginów z publicznym API,
-- migracja małej biblioteki wraz z changelogiem i testami kompatybilności,
-- końcowy moduł łączący runtime validation, async flow, moduły i type tests.
+- `module-01`: repozytorium danych przyjmujące nieufne wejście, z niemutowalnym
+  modelem domeny, walidacją i publicznym API,
+- praktyczny egzamin z mapped, conditional, template literal i rekurencyjnych typów,
+- migracja konfiguracji i pipeline'u z TS 5.9 przez TS 6 do natywnej bramki TS 7,
+- `module-02`: odporny klient API z parserami `unknown`, branded ID, jawnym
+  `Result`, retry/backoff, timeoutem, propagacją anulowania i kolejką zachowującą
+  generyczny typ wyniku.
+
+Końcowy moduł używa tych samych decyzji, które pojawiają się w istniejących
+projektach: wstrzyknięty transport i mechanizm oczekiwania, jawna polityka retry,
+sprzątanie listenerów i timerów, oddzielenie błędu HTTP od złego kontraktu danych
+oraz statyczne testy publicznego API.
 
 ## Kryterium ukończenia tracka
 
@@ -87,6 +98,10 @@ Track jest gotowy dopiero wtedy, gdy:
 - moduły praktyczne wymagają decyzji projektowych podobnych do pracy w istniejącym
   projekcie, a nie wyłącznie uzupełnienia pojedynczej funkcji.
 
+Wszystkie kryteria są spełnione. Otwartym elective pozostaje pomiar wydajności
+samego kompilatora przez `--extendedDiagnostics`; wymaga osobnej bramki liczby
+instancjacji i nie blokuje przejścia do Reacta.
+
 ## Źródła bazowe
 
 - TypeScript 6.0 release notes:
@@ -97,3 +112,9 @@ Track jest gotowy dopiero wtedy, gdy:
   <https://typescript-eslint.io/users/dependency-versions/>
 - TypeScript Handbook:
   <https://www.typescriptlang.org/docs/handbook/intro.html>
+- TypeScript Handbook — narrowing:
+  <https://www.typescriptlang.org/docs/handbook/2/narrowing.html>
+- MDN — AbortSignal:
+  <https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal>
+- MDN — Using the Fetch API:
+  <https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch>

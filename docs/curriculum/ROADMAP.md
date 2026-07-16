@@ -16,11 +16,18 @@ Data audytu: 2026-07-16.
 | Java | plan na starym branchu | Zakres PJATK jest wartościowy, ale branch nie może być scalony z aktualnym main |
 | Combined | 8 pomysłów | Brakuje jakości przekrojowej: CI, deployment, obserwowalność, security i accessibility |
 
-Aktualne bramki bazowe:
+Punkty odniesienia:
 
 - `pnpm test:harness`: 31/31,
 - `pnpm verify:solutions ts`: 37/37,
 - pełna weryfikacja JS do ponowienia na branchu JavaScript.
+
+Stan po ukończeniu pierwszych trzech etapów:
+
+- fundament procesu zapisany i wypchnięty,
+- JavaScript: 161/161 rozwiązań i 161/161 starterów,
+- TypeScript: 95/95 rozwiązań i 95/95 starterów na TS 6 oraz TS 7,
+- harness: 42/42.
 
 Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetować
 `progress.json` ani starterów.
@@ -51,6 +58,8 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 9. Projekty łączone.
 10. Java/PJATK jako osobna, niezależna ścieżka; może być realizowana wcześniej po
     zmianie priorytetu użytkownika.
+
+Etapy 1–3 są ukończone. Następnym aktywnym etapem jest React.
 
 Każdy punkt jest osobnym branchem. Następny branch powstaje z aktualnego fundamentu,
 nie z niepowiązanego brancha tracka.

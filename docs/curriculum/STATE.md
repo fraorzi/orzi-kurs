@@ -100,12 +100,24 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   udostępnia globalny konstruktor, którego w tym środowisku faktycznie brakuje.
 - Stan częściowy: 94 zadania; nowych 57/57 rozwiązań i 57/57 starterów przechodzi
   na TS 6 oraz TS 7.
+- TypeScript: dodany końcowy `module-02`, wieloplikowy klient API zamówień łączący
+  parsery danych `unknown`, branded `OrderId`, rozłączne błędy, retry z backoffem,
+  timeout, zewnętrzny `AbortSignal` i generyczny limit współbieżności.
+- Moduł działa z `exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`,
+  `useUnknownInCatchVariables` i `verbatimModuleSyntax`; testuje kontrakty runtime
+  oraz compile-time.
+- Końcowy stan tracka TypeScript: 33 pozycje i 95 zadań.
+- Pełna macierz końcowa: 95/95 rozwiązań oraz 95/95 pierwotnych starterów na
+  TypeScript 6.0.3 i TypeScript 7.0.2.
+- Końcowe bramki repo: harness 42/42, root lint bez błędów i root `tsc --noEmit`
+  bez diagnostyki.
 
 ## Następne kroki
 
-1. Zbudować drugi moduł praktyczny łączący granice runtime, async, anulowanie,
-   testy typów i konfigurację.
-2. Wykonać końcowy audyt oraz pełną macierz regresji tracka.
+1. Utworzyć osobny branch `feature/curriculum-react` z aktualnego fundamentu.
+2. Rozszerzyć harness React o środowisko DOM, bibliotekę testującą zachowanie
+   użytkownika, lint hooków i deterministyczne pomiary renderów.
+3. Realizować track React 19.2 od fundamentów UI do praktycznych modułów mida.
 
 ## Otwarte ryzyka
 
