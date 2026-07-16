@@ -265,12 +265,18 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   `unknown` i natychmiastowym `{ expire: 0 }`.
 - Stan po bloku cache: 6 tematów i 18 zadań; 18/18 rozwiązań i 18/18 starterów
   przechodzi właściwe bramki TypeScript, zachowania i kontraktów źródła.
+- Next 07–09: asynchroniczne params, bezpieczny catch-all, `generateStaticParams`,
+  URL jako źródło prawdy filtrów i paginacji oraz dostępne loading/error/not-found.
+- Expected errors są modelowane jako wyniki, a nieoczekiwane awarie obsługuje
+  Client Error Boundary z aktualnym w Next 16.2 propem `unstable_retry`.
+- Stan po bloku routingu: 9 tematów i 27 zadań; nowe 9/9 rozwiązań i 9/9 starterów
+  przechodzi lokalne bramki.
 
 ## Następne kroki
 
-1. Dodać dynamiczne trasy z asynchronicznymi `params` i `searchParams`.
-2. Dodać URL jako źródło prawdy filtrów i paginacji oraz bezpieczną nawigację.
-3. Dodać loading, expected errors, error boundary i not-found.
+1. Dodać Server Actions z walidacją, authz i idempotencją.
+2. Dodać Route Handlers jako jawne kontrakty HTTP i BFF.
+3. Dodać metadata, zasoby i bezpieczne granice auth/DAL.
 
 ## Otwarte ryzyka
 
