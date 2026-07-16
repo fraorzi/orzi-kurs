@@ -26,11 +26,17 @@ export async function PUT(req: NextRequest) {
   try {
     body = await req.json();
   } catch {
-    return Response.json({ error: "nieprawidłowy JSON w body" }, { status: 400 });
+    return Response.json(
+      { error: "nieprawidłowy JSON w body", mutated: false },
+      { status: 400 },
+    );
   }
 
   if (!body.taskId || typeof body.taskId !== "string") {
-    return Response.json({ error: "wymagane pole taskId" }, { status: 400 });
+    return Response.json(
+      { error: "wymagane pole taskId", mutated: false },
+      { status: 400 },
+    );
   }
 
   try {
@@ -48,11 +54,17 @@ export async function PATCH(req: NextRequest) {
   try {
     body = await req.json();
   } catch {
-    return Response.json({ error: "nieprawidłowy JSON w body" }, { status: 400 });
+    return Response.json(
+      { error: "nieprawidłowy JSON w body", mutated: false },
+      { status: 400 },
+    );
   }
 
   if (!body.taskId || typeof body.taskId !== "string" || !body.snapshot) {
-    return Response.json({ error: "wymagane pola taskId i snapshot" }, { status: 400 });
+    return Response.json(
+      { error: "wymagane pola taskId i snapshot", mutated: false },
+      { status: 400 },
+    );
   }
 
   try {

@@ -5,6 +5,7 @@ const REVIEW_DAYS = [0, 1, 3, 7, 21] as const;
 export interface RecordedAttempt {
   passed: boolean;
   usedHint: boolean;
+  verifiedStarter?: string;
 }
 
 function addDays(iso: string, days: number): string {
@@ -57,6 +58,9 @@ export function evolveTaskProgress(
       attempt.passed && !attempt.usedHint
         ? (previous?.firstPassedWithoutHintAt ?? now)
         : previous?.firstPassedWithoutHintAt,
+    verifiedStarter: attempt.passed
+      ? (attempt.verifiedStarter ?? previous?.verifiedStarter)
+      : previous?.verifiedStarter,
     lastRunAt: now,
   };
 }
@@ -75,6 +79,7 @@ export function resetTaskProgressState(
     cleanPassStreak: 0,
     nextReviewAt: undefined,
     lastAttemptPassed: undefined,
+    verifiedStarter: undefined,
     resetCount: (previous.resetCount ?? 0) + 1,
     lastResetAt: now,
   };

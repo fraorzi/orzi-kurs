@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { compareTopicSlugs, topicDisplayNumber } from "../curriculum/order";
+import { learningModules } from "../app/lib/tracks";
+import type { CatalogTrack } from "../app/lib/types";
+import { compareTopicSlugs, TOPIC_ORDER, topicDisplayNumber } from "../curriculum/order";
 
 describe("curriculum order", () => {
   it("places prerequisites before dependent JavaScript topics", () => {
@@ -20,5 +22,20 @@ describe("curriculum order", () => {
     expect(compareTopicSlugs("ts", "04b-type-operators", "08-mapped-types")).toBeLessThan(0);
     expect(compareTopicSlugs("ts", "06c-tuples", "09-conditional-types")).toBeLessThan(0);
     expect(compareTopicSlugs("ts", "17-runtime-boundaries", "18-type-challenges")).toBeLessThan(0);
+  });
+
+  it("keeps TypeScript learning modules in exact catalog order", () => {
+    const track: CatalogTrack = {
+      id: "ts",
+      topics: TOPIC_ORDER.ts.map((slug) => ({
+        id: `ts/${slug}`,
+        title: slug,
+        levels: [],
+      })),
+    };
+
+    expect(
+      learningModules(track).flatMap((module) => module.topics.map((topic) => topic.id)),
+    ).toEqual(track.topics.map((topic) => topic.id));
   });
 });

@@ -14,11 +14,13 @@ export default function Shell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     let cancelled = false;
+    let requestId = 0;
     function loadCatalog() {
+      const currentRequest = ++requestId;
       fetch("/api/catalog")
         .then((r) => r.json())
         .then((data: Catalog) => {
-          if (!cancelled) setCatalog(data);
+          if (!cancelled && currentRequest === requestId) setCatalog(data);
         })
         .catch(() => {});
     }

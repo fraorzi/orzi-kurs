@@ -10,8 +10,9 @@ import { join, relative } from "node:path";
 import { spawnSync } from "node:child_process";
 import { runTask } from "./runner";
 import { readProgress, REPO_ROOT } from "./progress";
+import { changedProgressTaskIds } from "./progress-diff";
 import { resolveTaskDir, findStarter, findSolution, TRACKS_ROOT } from "./paths";
-import type { SubmitResult } from "./types";
+import type { Progress, SubmitResult } from "./types";
 
 const GREEN = "\x1b[32m";
 const RED = "\x1b[31m";
@@ -92,6 +93,35 @@ async function cmdCommit(taskId: string): Promise<number> {
   printResult(result);
   if (!result.passed) {
     console.error("commit przerwany — aktualny kod nie przechodzi sprawdzenia");
+    return 1;
+  }
+
+  const headProgress = spawnSync("git", ["show", "HEAD:progress.json"], {
+    cwd: REPO_ROOT,
+    encoding: "utf8",
+  });
+  if (headProgress.status !== 0) {
+    console.error(headProgress.stderr || "nie udało się odczytać progress.json z HEAD");
+    return 2;
+  }
+  let progressAtHead: Progress;
+  try {
+    progressAtHead = JSON.parse(headProgress.stdout) as Progress;
+  } catch {
+    console.error("progress.json w HEAD nie jest prawidłowym JSON-em");
+    return 2;
+  }
+  const unrelatedProgress = changedProgressTaskIds(
+    progressAtHead,
+    readProgress(),
+  ).filter((changedTaskId) => changedTaskId !== taskId);
+  if (unrelatedProgress.length > 0) {
+    console.error(
+      `commit przerwany — progress.json zawiera zmiany innych zadań: ${unrelatedProgress.join(", ")}`,
+    );
+    console.error(
+      "zacommituj lub wycofaj te wpisy osobno, a potem ponów commit bieżącego zadania",
+    );
     return 1;
   }
 

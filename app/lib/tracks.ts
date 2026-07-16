@@ -116,7 +116,6 @@ interface LearningModuleDefinition {
   description: string;
   slugs?: string[];
   range?: [number, number];
-  projects?: boolean;
 }
 
 const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
@@ -224,8 +223,12 @@ const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
     { id: "fundamenty", title: "Fundamenty typowania", description: "Inference, unie, obiekty i kontrakty funkcji.", range: [1, 4] },
     { id: "generyki", title: "Generyki i reużywalne kontrakty", description: "Parametry typów, constraints i standardowe utility types.", range: [5, 7] },
     { id: "typy-zaawansowane", title: "Transformacje typów", description: "Mapped, conditional i template literal types.", range: [8, 10] },
+    { id: "projekt-typy", title: "Projekt: model typów", description: "Pierwszy przekrojowy moduł spinający typy i generyki.", slugs: ["module-01"] },
     { id: "model-obiektowy", title: "Model obiektowy i bezpieczne API", description: "Klasy, enumy, const objects oraz satisfies.", range: [11, 12] },
-    { id: "projekty", title: "Projekt przekrojowy", description: "Typowanie kompletnego, wieloplikowego modułu.", projects: true },
+    { id: "moduly-i-diagnostyka", title: "Moduły i diagnostyka typów", description: "Deklaracje modułów, ścisła konfiguracja i diagnozowanie złożonych typów.", range: [13, 14] },
+    { id: "runtime", title: "Typy na granicy runtime", description: "Koszt wykonania, asynchroniczność, DOM i walidacja danych zewnętrznych.", range: [15, 17] },
+    { id: "mistrzostwo", title: "Zaawansowane konstrukcje", description: "Type challenges i najnowsze możliwości języka.", range: [18, 19] },
+    { id: "projekt-runtime", title: "Projekt: bezpieczny runtime", description: "Końcowy moduł łączący typy statyczne z kodem wykonywanym.", slugs: ["module-02"] },
   ],
 };
 
@@ -259,7 +262,6 @@ export function learningModules(track: CatalogTrack): LearningModule[] {
     const topics = track.topics.filter((topic) => {
       if (assigned.has(topic.id)) return false;
       if (definition.slugs) return definition.slugs.includes(topicSlug(topic.id));
-      if (definition.projects) return topicSlug(topic.id).startsWith("module-");
       const number = Number.parseInt(topicSlug(topic.id), 10);
       return definition.range !== undefined && number >= definition.range[0] && number <= definition.range[1];
     });

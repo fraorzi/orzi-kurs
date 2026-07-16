@@ -93,6 +93,7 @@ export interface TaskProgress {
   firstPassedAt?: string;       // ISO
   firstPassedWithHintAt?: string;    // ISO
   firstPassedWithoutHintAt?: string; // ISO
+  verifiedStarter?: string;     // snapshot kodu z ostatniej zaliczonej próby
   lastRunAt: string;            // ISO
 }
 // progress.json: Record<taskId, TaskProgress>

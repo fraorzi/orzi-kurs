@@ -40,6 +40,7 @@ describe("mastery", () => {
         status: "passed",
         attempts: 2,
         masteryScore: 2,
+        verifiedStarter: "export const answer = 42;\n",
         lastRunAt: "2026-07-10T10:00:00.000Z",
       },
       { passed: false, usedHint: false },
@@ -50,6 +51,21 @@ describe("mastery", () => {
     expect(progress.lastAttemptPassed).toBe(false);
     expect(progress.masteryScore).toBe(1);
     expect(progress.nextReviewAt).toBe("2026-07-14T10:00:00.000Z");
+    expect(progress.verifiedStarter).toBe("export const answer = 42;\n");
+  });
+
+  it("stores the source snapshot associated with a passing attempt", () => {
+    const progress = evolveTaskProgress(
+      undefined,
+      {
+        passed: true,
+        usedHint: false,
+        verifiedStarter: "export const answer = 42;\n",
+      },
+      "2026-07-14T10:00:00.000Z",
+    );
+
+    expect(progress.verifiedStarter).toBe("export const answer = 42;\n");
   });
 
   it("resets active progress and removes legacy attempt history", () => {

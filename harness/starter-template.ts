@@ -1,5 +1,6 @@
 import {
   mkdirSync,
+  lstatSync,
   readFileSync,
   readdirSync,
   rmSync,
@@ -8,7 +9,7 @@ import {
 } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { dirname, relative, resolve, sep } from "node:path";
-import { findStarter, resolveTaskDir } from "./paths";
+import { assertPathWithinRoot, findStarter, resolveTaskDir } from "./paths";
 import { REPO_ROOT } from "./progress";
 import type { StarterSnapshot } from "../shared/task-undo";
 
@@ -44,11 +45,22 @@ function starterTemplatePath(taskDir: string, repoRoot: string): string | null {
   return null;
 }
 
-function walkFiles(path: string): string[] {
+function walkFiles(path: string, root: string): string[] {
+  assertPathWithinRoot(path, root);
   if (!statSync(path).isDirectory()) return [path];
   return readdirSync(path)
     .sort((left, right) => left.localeCompare(right))
-    .flatMap((name) => walkFiles(resolve(path, name)));
+    .flatMap((name) => walkFiles(resolve(path, name), root));
+}
+
+function removeDestinationForWrite(destination: string, root: string): void {
+  assertPathWithinRoot(dirname(destination), root);
+  try {
+    lstatSync(destination);
+    rmSync(destination, { recursive: true, force: true });
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+  }
 }
 
 function validSnapshotPath(path: string): boolean {
@@ -82,16 +94,19 @@ export function captureStarterSnapshotInRepo(
   if (!STARTER_CANDIDATES.includes(artifactName as typeof STARTER_CANDIDATES[number])) {
     throw new Error(`nieobsługiwany starter: ${artifactName}`);
   }
+  assertPathWithinRoot(starterPath, taskDir);
   const kind = statSync(starterPath).isDirectory() ? "directory" : "file";
   return {
     artifactName: artifactName as StarterSnapshot["artifactName"],
     kind,
-    files: walkFiles(starterPath).map((file) => ({
-      path: kind === "directory"
-        ? toGitPath(relative(starterPath, file))
-        : artifactName,
-      contentBase64: readFileSync(file).toString("base64"),
-    })),
+    files: walkFiles(starterPath, taskDir).map((file) => {
+      return {
+        path: kind === "directory"
+          ? toGitPath(relative(starterPath, file))
+          : artifactName,
+        contentBase64: readFileSync(file).toString("base64"),
+      };
+    }),
   };
 }
 
@@ -102,7 +117,7 @@ function restoreDirectory(repoRoot: string, relativePath: string, destination: s
     .split("\n")
     .filter(Boolean);
 
-  rmSync(destination, { recursive: true, force: true });
+  removeDestinationForWrite(destination, resolve(repoRoot, "tracks"));
   mkdirSync(destination, { recursive: true });
 
   for (const file of files) {
@@ -137,6 +152,7 @@ export function restoreStarterCodeInRepo(taskId: string, repoRoot: string): Rest
   if (templateRelative.endsWith("/src")) {
     restoreDirectory(repoRoot, templateRelative, destination);
   } else {
+    removeDestinationForWrite(destination, taskDir);
     mkdirSync(dirname(destination), { recursive: true });
     writeFileSync(destination, git(repoRoot, ["show", `HEAD:${templateRelative}`]));
   }
@@ -180,6 +196,7 @@ export function restoreStarterSnapshotInRepo(
   const destination = resolve(taskDir, snapshot.artifactName);
   const withinTask = destination.startsWith(taskDir + sep);
   if (!withinTask) throw new Error("kopia startera wskazuje poza zadanie");
+  assertPathWithinRoot(dirname(destination), taskDir);
 
   const files = snapshot.files.map((file) => {
     if (!validSnapshotPath(file.path) || typeof file.contentBase64 !== "string") {
@@ -197,14 +214,15 @@ export function restoreStarterSnapshotInRepo(
   });
 
   if (snapshot.kind === "missing") {
-    rmSync(destination, { recursive: true, force: true });
+    removeDestinationForWrite(destination, taskDir);
     return { starterPath: null, starterRel: null };
   }
 
   if (snapshot.kind === "directory") {
-    rmSync(destination, { recursive: true, force: true });
+    removeDestinationForWrite(destination, taskDir);
     mkdirSync(destination, { recursive: true });
   } else {
+    removeDestinationForWrite(destination, taskDir);
     mkdirSync(dirname(destination), { recursive: true });
   }
 

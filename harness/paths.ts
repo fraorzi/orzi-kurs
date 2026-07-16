@@ -1,8 +1,46 @@
-import { resolve, sep, relative } from "node:path";
-import { existsSync, statSync, readFileSync, readdirSync } from "node:fs";
+import { basename, dirname, resolve, sep, relative } from "node:path";
+import {
+  existsSync,
+  lstatSync,
+  realpathSync,
+  statSync,
+  readFileSync,
+  readdirSync,
+} from "node:fs";
 import { REPO_ROOT } from "./progress";
 
 export const TRACKS_ROOT = resolve(REPO_ROOT, "tracks");
+
+function canonicalPath(path: string): string {
+  let existing = resolve(path);
+  const missing: string[] = [];
+
+  while (true) {
+    try {
+      lstatSync(existing);
+      break;
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+      const parent = dirname(existing);
+      if (parent === existing) throw error;
+      missing.unshift(basename(existing));
+      existing = parent;
+    }
+  }
+
+  return resolve(realpathSync(existing), ...missing);
+}
+
+export function assertPathWithinRoot(path: string, root: string): void {
+  const canonicalRoot = canonicalPath(root);
+  const canonicalCandidate = canonicalPath(path);
+  if (
+    canonicalCandidate !== canonicalRoot &&
+    !canonicalCandidate.startsWith(canonicalRoot + sep)
+  ) {
+    throw new Error(`ścieżka poza dozwolonym katalogiem: ${path}`);
+  }
+}
 
 export function resolveTaskDir(taskId: string, tracksRoot = TRACKS_ROOT): string {
   if (!taskId || typeof taskId !== "string") {
@@ -15,6 +53,13 @@ export function resolveTaskDir(taskId: string, tracksRoot = TRACKS_ROOT): string
   const withinTracks = dir === tracksRoot || dir.startsWith(tracksRoot + sep);
   if (!withinTracks) {
     throw new Error(`taskId poza tracks/ (path traversal?): ${taskId}`);
+  }
+  assertPathWithinRoot(dir, tracksRoot);
+  if (
+    canonicalPath(dir) !==
+    resolve(canonicalPath(tracksRoot), relative(tracksRoot, dir))
+  ) {
+    throw new Error(`taskId prowadzi przez symlink: ${taskId}`);
   }
   return dir;
 }

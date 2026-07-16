@@ -10,6 +10,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@harness": fileURLToPath(new URL("./harness", import.meta.url)),
+      "@": fileURLToPath(new URL(".", import.meta.url)),
     },
   },
 });

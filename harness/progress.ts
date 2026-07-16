@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import { isDeepStrictEqual } from "node:util";
 import type { Progress, TaskProgress } from "./types";
 import { evolveTaskProgress, resetTaskProgressState, type RecordedAttempt } from "./mastery";
 
@@ -40,12 +41,25 @@ export function recordRun(taskId: string, attempt: RecordedAttempt): {
   return { progress, taskProgress: progress[taskId] };
 }
 
-export function resetTaskProgress(taskId: string): Progress[string] | null {
+export class ProgressConflictError extends Error {}
+
+export function resetTaskProgress(
+  taskId: string,
+  expectedProgress: TaskProgress,
+): { progress: TaskProgress | null; previousProgress: TaskProgress | null } {
   const progress = readProgress();
-  if (!progress[taskId]) return null;
-  progress[taskId] = resetTaskProgressState(progress[taskId]);
+  const previousProgress = progress[taskId] ?? null;
+  if (!previousProgress) {
+    return { progress: null, previousProgress: null };
+  }
+  if (!isDeepStrictEqual(previousProgress, expectedProgress)) {
+    throw new ProgressConflictError(
+      "postęp zmienił się od ostatniego odczytu — odśwież stronę i spróbuj ponownie",
+    );
+  }
+  progress[taskId] = resetTaskProgressState(previousProgress);
   writeProgress(progress);
-  return progress[taskId];
+  return { progress: progress[taskId], previousProgress };
 }
 
 export function restoreTaskProgress(taskId: string, taskProgress: TaskProgress): TaskProgress {

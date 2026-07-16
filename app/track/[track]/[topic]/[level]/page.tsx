@@ -31,7 +31,7 @@ export default async function LevelPage({
   const passed = progressStatus === "passed" || progressStatus === "passed-with-hint";
   const solutionPath = findSolution(taskDir);
   const solution = passed && solutionPath ? readArtifactText(solutionPath) : null;
-  const starter = passed && starterPath ? readArtifactText(starterPath) : null;
+  const starter = passed ? (taskProgress?.verifiedStarter ?? null) : null;
   const starterRel = starterPath ? relative(process.cwd(), starterPath) : null;
 
   const catalogTrack = buildCatalog().tracks.find((item) => item.id === track);

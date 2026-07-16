@@ -62,7 +62,7 @@ export interface SubmitResult {
 }
 
 export interface TaskProgress {
-  status: "passed" | "passed-with-hint" | "failed" | "not-started";
+  status: TaskStatus;
   attempts: number;
   masteryScore?: number;
   cleanPassStreak?: number;
@@ -73,6 +73,7 @@ export interface TaskProgress {
   firstPassedAt?: string;
   firstPassedWithHintAt?: string;
   firstPassedWithoutHintAt?: string;
+  verifiedStarter?: string;
   lastRunAt: string;
 }
 

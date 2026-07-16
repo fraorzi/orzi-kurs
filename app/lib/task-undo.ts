@@ -22,6 +22,7 @@ function isUndoRecord(value: unknown): value is TaskUndoRecord<TaskProgress> {
 }
 
 function readRecords(): TaskUndoRecord<TaskProgress>[] {
+  if (typeof window === "undefined") return [];
   try {
     const parsed: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
     return Array.isArray(parsed) ? parsed.filter(isUndoRecord) : [];
@@ -31,6 +32,7 @@ function readRecords(): TaskUndoRecord<TaskProgress>[] {
 }
 
 function writeRecords(records: TaskUndoRecord<TaskProgress>[]): boolean {
+  if (typeof window === "undefined") return false;
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(records.slice(-MAX_RECORDS)));
     return true;

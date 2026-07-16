@@ -89,6 +89,16 @@ export default function TaskView({
     return () => window.clearTimeout(timer);
   }, [taskId, undoRecords]);
 
+  function activateUndoRecord(record: TaskUndoRecord<TaskProgress>) {
+    const activatedAt = Date.now();
+    storeUndoRecord({
+      ...record,
+      createdAt: activatedAt,
+      expiresAt: activatedAt + UNDO_DURATION_MS,
+    });
+    setUndoRecords(loadUndoRecords(taskId));
+  }
+
   async function handleSubmit() {
     setSubmitting(true);
     setResult(null);
@@ -211,11 +221,17 @@ export default function TaskView({
       const res = await fetch("/api/progress", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ taskId }),
+        body: JSON.stringify({ taskId, progress }),
       });
-      const data = await res.json();
+      const data: {
+        progress?: TaskProgress | null;
+        previousProgress?: TaskProgress | null;
+        mutated?: boolean;
+        error?: string;
+      } = await res.json();
       if (!res.ok) {
-        removeUndoRecord(undoRecord.id);
+        if (data.mutated === false) removeUndoRecord(undoRecord.id);
+        else activateUndoRecord(undoRecord);
         setSubmitError(data.error ?? "nie udało się zresetować postępu");
         return;
       }
@@ -226,15 +242,12 @@ export default function TaskView({
       setPassKind(null);
       setHints([]);
       window.dispatchEvent(new CustomEvent("orzi:progress"));
-      const activatedAt = Date.now();
-      storeUndoRecord({
+      activateUndoRecord({
         ...undoRecord,
-        createdAt: activatedAt,
-        expiresAt: activatedAt + UNDO_DURATION_MS,
+        payload: data.previousProgress ?? undoRecord.payload,
       });
-      setUndoRecords(loadUndoRecords(taskId));
     } catch {
-      removeUndoRecord(undoRecord.id);
+      activateUndoRecord(undoRecord);
       setSubmitError("Nie udało się zresetować postępu. Spróbuj ponownie.");
     } finally {
       setResetting(false);
@@ -278,10 +291,12 @@ export default function TaskView({
       const data: {
         starterPath?: string | null;
         starterRel?: string | null;
+        mutated?: boolean;
         error?: string;
       } = await res.json();
       if (!res.ok) {
-        removeUndoRecord(undoRecord.id);
+        if (data.mutated === false) removeUndoRecord(undoRecord.id);
+        else activateUndoRecord(undoRecord);
         setSubmitError(data.error ?? "nie udało się przywrócić kodu początkowego");
         return;
       }
@@ -291,15 +306,9 @@ export default function TaskView({
       setPassKind(null);
       setCurrentStarterPath(data.starterPath ?? null);
       setCurrentStarterRel(data.starterRel ?? null);
-      const activatedAt = Date.now();
-      storeUndoRecord({
-        ...undoRecord,
-        createdAt: activatedAt,
-        expiresAt: activatedAt + UNDO_DURATION_MS,
-      });
-      setUndoRecords(loadUndoRecords(taskId));
+      activateUndoRecord(undoRecord);
     } catch {
-      if (undoRecord) removeUndoRecord(undoRecord.id);
+      if (undoRecord) activateUndoRecord(undoRecord);
       setSubmitError("Nie udało się przywrócić kodu początkowego. Spróbuj ponownie.");
     } finally {
       setResettingCode(false);
