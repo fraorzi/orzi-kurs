@@ -201,7 +201,6 @@ const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
         "18-weakmap-weakset",
         "18b-weakref",
         "module-04",
-        "31b-regex-advanced",
       ],
     },
     {
@@ -209,6 +208,7 @@ const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
       title: "Wydajność i projekty produkcyjne",
       description: "Profilowanie, dobór struktur, ograniczanie pracy i moduły przekrojowe.",
       slugs: [
+        "31b-regex-advanced",
         "33-debug-perf",
         "34-optimize-data-structures",
         "35-optimize-repeated-work",
@@ -254,14 +254,17 @@ export function learningModules(track: CatalogTrack): LearningModule[] {
     });
   }
 
-  return definitions.flatMap((definition) => {
+  const assigned = new Set<string>();
+  const modules = definitions.flatMap((definition) => {
     const topics = track.topics.filter((topic) => {
+      if (assigned.has(topic.id)) return false;
       if (definition.slugs) return definition.slugs.includes(topicSlug(topic.id));
       if (definition.projects) return topicSlug(topic.id).startsWith("module-");
       const number = Number.parseInt(topicSlug(topic.id), 10);
       return definition.range !== undefined && number >= definition.range[0] && number <= definition.range[1];
     });
     if (topics.length === 0) return [];
+    for (const topic of topics) assigned.add(topic.id);
     return [{
       ...definition,
       topics,
@@ -269,6 +272,19 @@ export function learningModules(track: CatalogTrack): LearningModule[] {
       ...trackProgress({ ...track, topics }),
     }];
   });
+
+  const leftover = track.topics.filter((topic) => !assigned.has(topic.id));
+  if (leftover.length > 0) {
+    modules.push({
+      id: "nowe",
+      title: "Nowe zagadnienia",
+      description: "Świeżo dodane tematy, jeszcze nieprzypisane do etapu.",
+      topics: leftover,
+      current: leftover.some((topic) => topic.id === currentTopic?.id),
+      ...trackProgress({ ...track, topics: leftover }),
+    });
+  }
+  return modules;
 }
 
 export function pct({ passed, total }: TrackProgress): number {
