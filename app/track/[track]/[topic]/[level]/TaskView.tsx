@@ -756,6 +756,7 @@ function ResultPanel({
   const firstBlocker = result.error
     ?? failedTests[0]?.message
     ?? failedTests[0]?.name
+    ?? result.typecheck.errors[0]?.message
     ?? result.lint.errors[0]?.message
     ?? "Sprawdź szczegóły raportu i popraw pierwszą blokującą pozycję.";
 
@@ -806,6 +807,11 @@ function ResultPanel({
         <span className={failedTests.length > 0 ? "has-error" : "is-ok"}>
           Testy <strong className="num">{passedTests}/{result.tests.length}</strong>
         </span>
+        {result.typecheck.errors.length > 0 && (
+          <span className="has-error">
+            Typy <strong className="num">{result.typecheck.errors.length}</strong>
+          </span>
+        )}
         <span className={result.lint.errors.length > 0 ? "has-error" : "is-ok"}>
           Lint <strong className="num">{result.lint.errors.length}</strong>
         </span>
@@ -841,8 +847,23 @@ function ResultPanel({
         </details>
       )}
 
-      {(result.lint.errors.length > 0 || result.lint.warnings.length > 0) && (
+      {result.typecheck.errors.length > 0 && (
         <details className="result-details" open={failedTests.length === 0}>
+          <summary>Typy <span className="num">{result.typecheck.errors.length}</span></summary>
+          <div className="lint">
+            {result.typecheck.errors.map((issue, index) => (
+              <div key={index} className="li err">
+                <span className="lv">type</span>{" "}
+                <span className="loc">{issue.file}:{issue.line}</span>{" "}
+                <span className="loc">{issue.code}</span><div>{issue.message}</div>
+              </div>
+            ))}
+          </div>
+        </details>
+      )}
+
+      {(result.lint.errors.length > 0 || result.lint.warnings.length > 0) && (
+        <details className="result-details" open={failedTests.length === 0 && result.typecheck.errors.length === 0}>
           <summary>Lint <span className="num">{result.lint.errors.length + result.lint.warnings.length}</span></summary>
           <div className="lint">
             {result.lint.errors.map((issue, index) => (

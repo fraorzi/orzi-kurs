@@ -252,3 +252,55 @@ Cztery mini-projekty w konwencji module-01 (topic `module-NN/` + poziom `module/
 ### STAN JS: KOMPLET (01–37 + audyt b/c + module-01..05)
 - `verify:solutions js` → **158/158**; track js domknięty.
 - Do zrobienia (inne tracki): ts/react/next/node/strapi/mysql — numerowane + własne module-NN.
+
+## Sesja treści: ts 01–12 + module-01 (bramka typów w harnessie)
+
+### Harness (rozszerzenie przed treścią, subagent Opus)
+- [x] `harness/typecheck.ts` — `tsc --noEmit` na plikach zadania (starter/src + run.test,
+      bez `_solution*`), generowany standalone tsconfig (strict, Bundler, `@harness/*`),
+      dla zadań `.js` NIE odpala tsc (track js bez spowolnienia: nadal 158/158).
+- [x] `SubmitResult.typecheck.errors` + pipeline `passed = testy && lint && typecheck`;
+      CLI i UI pokazują sekcję błędów typów.
+- [x] `harness/type-assert.ts` — `Equal/Expect/NotEqual/ExpectFalse/IsAny/NotAny`
+      (styl type-challenges), alias `@harness/type-assert` działa w vitest i w tsc.
+- [x] Smoke: `_smoke/03-ts-single`, `_smoke/04-ts-multi` — verify 4/4, starter oblewa
+      z widocznym `type error [TS2344]`.
+- Konwencja: `run.test.ts` importuje `./starter` (bez rozszerzenia), wieloplikowe `./src/index`.
+- `pnpm lint` i tsconfig repo wykluczają `tracks/` (startery mają celowe TODO/błędy);
+      lint zadań leci przez ESLint API w runnerze.
+
+### Treść (01–12 + module-01, verify:solutions ts = 37/37)
+- [x] 01 typy podstawowe / 02 unie+narrowing / 03 obiekty / 04 funkcje / 05 generyki
+- [x] 06 generic constraints — longest/getProp/ApiResponse<T=null> · pluck/indexBy/countBy/sumBy
+      (`K extends PropertyKey, T extends Record<K, number>`) · typowany EventBus (hard)
+- [x] 07 utility types (dokończone hard: FormState<T> — Partial+Record+Readonly, pick/omit)
+- [x] 08 mapped types — MyPartial/MyReadonly/Mutable/Nullable · Prettify/Optional/RequiredOnly
+      + applyDefaults · DeepReadonly/DeepPartial + deepFreeze/deepMerge (hard)
+- [x] 09 conditional types — Exclude/Extract/NonNullable/ElementType · infer: ReturnType/
+      Parameters/Awaited/FirstParam + once/resolveAll · KeysOfType/PickByType/DeepPartialSafe
+- [x] 10 template literal types (dokończone medium: Getters/ChangeHandlers/WithoutInternal
+      przez key remapping; hard: typowany router PathParams<P> przez rekurencyjny infer)
+- [x] 11 klasy / 12 enums vs const objects + satisfies
+- [x] module-01 — typowany moduł użytkowników (types/validate/repository/index):
+      Result jako unia rozłączna, strażniki typu, `#private`, wstrzyknięty zegar
+- [x] Bramka: verify ts 37/37; KAŻDY starter oblewa (skrypt check-starters w scratchpadzie);
+      js nadal 158/158; `pnpm lint` i `pnpm build` zielone.
+
+### Poprawki merytoryczne (zweryfikowane eksperymentalnie tsc, nie „z pamięci”)
+- ts/05 README + test: `identity("abc")` daje **"abc"**, nie `string` — literał przeżywa
+  w `const`, ginie w `let` i w polu obiektu/krotce. Poprzednia treść kłamała.
+- ts/06: `longest("kot","pies")` → `"kot" | "pies"` (nie `string`) — ograniczenie nie rozszerza.
+- ts/06: mapa zdarzeń musi być `type`, nie `interface` — interfejs nie ma niejawnej index
+  signature, więc oblewa `T extends Record<string, unknown>`. Dopisane do README+task.
+- ts/09 medium: `infer` w pozycji pierwszego parametru (`(first: infer P, ...rest: never[])`)
+  daje `never` dla funkcji z 2+ parametrami — FirstParam trzeba robić dwustopniowo.
+- ts/09 medium: `values: T` na literale tablicowym wnioskuje tablicę unii, nie krotkę —
+  potrzebne `readonly [...T]`.
+- ts/08 hard: `DeepPartial` na `string[]` daje `(string|undefined)[]` (homomorficzne
+  mapowanie) — zostawione CELOWO jako pułapka, naprawiane w 09/hard przez DeepPartialSafe.
+- ts/08 hard test: zapis do zamrożonego pola RZUCA TypeError (moduły ESM = strict mode).
+
+### Zostało w tracku ts
+- Pozycje audytowe: 02b, 03b, 06b (const type params, NoInfer), 10b, 10c, 13b, 13c, 14b.
+- 13 moduły/.d.ts, 14 [D] debug typów, 15 [O] optymalizacja, 16 async, 17 branded types,
+  18 type-challenges, module-02 (typowany klient API).

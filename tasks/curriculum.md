@@ -151,45 +151,56 @@ sortowanie katalogów. Etapy są ułożone według prerekwizytów:
 - [x] module-05 (feature: rate limiter + kolejka zadań — throttle, pool współbieżności,
       batching, backoff przy retry; skleja 25/10/37/32) (audyt)
 
-## ts (~31 pozycji ≈ 90 zadań) — od kodu runtime do programowania typów
+## ts (~31 pozycji ≈ 90 zadań) — TS 5.9, bramka `tsc --noEmit` w pipeline, od kodu runtime do programowania typów
+(01–12 + module-01 gotowe: verify:solutions ts = 37/37, każdy starter oblewa.
+Zostało: pozycje audytowe b/c, 13–19, module-02)
 
-- [ ] 01 typy podstawowe, inference, literal types, `as const`
-- [ ] 02 unie, narrowing, type guards, discriminated unions
+- [x] 01 typy podstawowe, inference, literal types, `as const`
+- [x] 02 unie, narrowing, type guards, discriminated unions
 - [ ] 02b narrowing zaawansowany: predykaty `x is T`, `asserts x is T`, inferred type
-      predicates i wyczerpanie unii przez `never`
-- [ ] 03 obiekty: interface vs type, optional, readonly, index signatures
+      predicates (TS 5.5) i wyczerpanie unii przez `never` (audyt)
+- [x] 03 obiekty: interface vs type, optional, readonly, index signatures
 - [ ] 03b typowanie strukturalne: excess property checks, weak types i zgodność kształtów
-- [ ] 04 funkcje: sygnatury, overloads, void/unknown/never, parametr `this`
+      (audyt — Handbook „Object Types", Effective TS)
+- [x] 04 funkcje: sygnatury, overloads, void/unknown/never, parametr `this`
 - [ ] 04b operatory typów: `keyof`, `typeof`, indexed access i bezpieczne klucze obiektów
-- [ ] 05 generyki: podstawy (funkcje, interfejsy)
-- [ ] 06 generyki: constraints, defaults, wiele parametrów
-- [ ] 06b generyki nowoczesne: `const` type parameters, `NoInfer`, zachowanie sygnatur
-      funkcji wyższego rzędu
-- [ ] 06c krotki i wariadyczne tuple types: labeled tuples, `[...T]`, typowanie `curry`/`pipe`
-- [ ] 07 utility types (Partial, Pick, Omit, Record, ReturnType, Parameters, Awaited)
-- [ ] 08 mapped types: własne utility, key remapping `as`, modyfikatory `+/-readonly`, `?`
-- [ ] 09 conditional types + `infer`, distributive conditional types i wyłączanie dystrybucji
-- [ ] 10 template literal types
-- [ ] 10b typy rekurencyjne: DeepPartial/DeepReadonly, ścieżki obiektu, limity kompilatora
-- [ ] module-01 (typowanie realnego modułu JS end-to-end)
-- [ ] 11 klasy: abstract, implements, modyfikatory, parameter properties,
+- [x] 05 generyki: podstawy (funkcje, interfejsy)
+- [x] 06 generyki: constraints, defaults, wiele parametrów
+- [ ] 06b generyki nowoczesne: `const` type parameters (TS 5.0), `NoInfer` (TS 5.4),
+      zachowanie sygnatur funkcji wyższego rzędu (audyt)
+- [ ] 06c krotki i wariadyczne tuple types: labeled tuples, `[...T]`, typowanie
+      `curry`/`pipe` (audyt — Handbook „Variadic Tuple Types")
+- [x] 07 utility types (Partial, Pick, Omit, Record, ReturnType, Parameters, Awaited)
+- [x] 08 mapped types: własne utility, key remapping `as`, modyfikatory `+/-readonly`, `?`
+- [x] 09 conditional types + `infer`, distributive conditional types i wyłączanie dystrybucji
+- [x] 10 template literal types
+- [ ] 10b typy rekurencyjne: DeepPartial/DeepReadonly, ścieżki obiektu, tail-recursive
+      operacje na krotkach; limity rekurencji TS (audyt — type-challenges medium/hard)
+- [x] module-01 (typowanie realnego modułu JS end-to-end)
+- [x] 11 klasy: abstract, implements, modyfikatory, parameter properties,
       `#private` vs `private`
-- [ ] 12 enums vs const objects, `satisfies` vs `as` vs adnotacja
+- [x] 12 enums vs const objects, `satisfies` vs `as` vs adnotacja
 - [ ] 13 moduły, declaration files `.d.ts`, typowanie bibliotek, `import type`,
       `verbatimModuleSyntax`
-- [ ] 13b declaration merging i module augmentation
+- [ ] 13b declaration merging i module augmentation (rozszerzanie cudzych typów) (audyt)
 - [ ] 13c tsconfig i tryby ścisłości: strictNullChecks, noUncheckedIndexedAccess,
-      exactOptionalPropertyTypes, moduleResolution
+      exactOptionalPropertyTypes, moduleResolution (audyt)
 - [ ] 14 [D] debug: `any`-zatrucie, błędne generyki, niebezpieczne assertions
-- [ ] 14b [D] wariancja: covariance/contravariance, bivariance metod i dziurawe tablice
+- [ ] 14b [D] wariancja: covariance/contravariance, bivariance metod i dziurawe tablice (audyt)
 - [ ] 14c testowanie typów: `@ts-expect-error`, assertion helpers i testy kontraktów
-- [ ] 15 [O] optymalizacja kodu runtime bez utraty kontraktów typów
+- [ ] 15 [O] optymalizacja kodu runtime bez utraty kontraktów typów: poprawny, ale wolny
+      moduł TS — przepisz bez zmiany typów; bramka `expectScaling` (audyt: track musi
+      mieć [O], nie tylko [D])
 - [ ] 16 typowanie async: Promise/Awaited, generyczny fetch, modelowanie sukcesu i błędu
+      (audyt — łączy z js/10-11)
 - [ ] 17 granice runtime: `unknown`, parsery, branded types, parse-don't-validate
+      (audyt — Total TypeScript patterns)
 - [ ] 17b DOM i zdarzenia: EventTarget, HTMLElement, dataset, formularze i bezpieczne narrowing
 - [ ] 18 mix z type-challenges (medium) jako egzamin
 - [ ] 19 elective: dekoratory oraz `using`/DisposableStack — kiedy projekt realnie ich wymaga
 - [ ] module-02 (typowany klient API — łączy z js/module-02)
+- Przyszłe (wymaga rozszerzenia harnessu): [O] wydajność typów mierzona liczbą
+  instancjacji (`tsc --extendedDiagnostics`) — naiwna rekurencja vs tail-recursive.
 
 ## react (~32 pozycje ≈ 96 zadań) — React 19.2, efekty jako escape hatch
 

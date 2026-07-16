@@ -35,6 +35,12 @@ function printResult(res: SubmitResult): void {
     }
   }
 
+  for (const t of res.typecheck.errors) {
+    console.log(
+      `  ${RED}type error${RESET} [${t.code}] ${t.file}:${t.line}: ${t.message}`,
+    );
+  }
+
   for (const e of res.lint.errors) {
     console.log(`  ${RED}lint error${RESET} [${e.ruleId}] ln ${e.line}: ${e.message}`);
   }
@@ -175,6 +181,11 @@ async function verifyOne(taskDir: string): Promise<boolean> {
       if (res.error) console.log(`      ${DIM}${res.error}${RESET}`);
       for (const t of res.tests.filter((t) => t.status === "fail")) {
         console.log(`      ${RED}✗${RESET} ${t.name}${t.message ? ` — ${t.message}` : ""}`);
+      }
+      for (const t of res.typecheck.errors) {
+        console.log(
+          `      ${RED}type error${RESET} [${t.code}] ${t.file}:${t.line}: ${t.message}`,
+        );
       }
       for (const e of res.lint.errors) {
         console.log(`      ${RED}lint${RESET} [${e.ruleId}] ln ${e.line}: ${e.message}`);

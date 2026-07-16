@@ -1,8 +1,19 @@
 {
   "js/01-functions/easy": {
     "status": "passed",
-    "attempts": 9,
+    "attempts": 11,
     "firstPassedAt": "2026-07-14T15:18:37.281Z",
-    "lastRunAt": "2026-07-14T15:18:37.281Z"
+    "lastRunAt": "2026-07-14T15:19:44.468Z"
+  },
+  "js/01-functions/medium": {
+    "status": "failed",
+    "attempts": 1,
+    "lastRunAt": "2026-07-14T15:33:00.413Z"
+  },
+  "js/02-scope/easy": {
+    "status": "passed",
+    "attempts": 1,
+    "firstPassedAt": "2026-07-15T15:46:49.049Z",
+    "lastRunAt": "2026-07-15T15:46:49.049Z"
   }
 }
