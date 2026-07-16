@@ -15,6 +15,8 @@ interface Props {
   onToggle: () => void;
 }
 
+type SwitcherPhase = "closed" | "open" | "closing";
+
 export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
   const pathname = usePathname();
   const router = useRouter();
@@ -33,11 +35,17 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
     setOpenSlug(curTopicSlug);
   }
 
-  const [switcherOpen, setSwitcherOpen] = useState(false);
-  const [switcherClosing, setSwitcherClosing] = useState(false);
+  const [switcherPhase, setSwitcherPhase] = useState<SwitcherPhase>("closed");
   const [popPos, setPopPos] = useState<{ top: number; left: number } | null>(null);
   const switcherRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const switcherOpen = switcherPhase === "open";
+
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setSwitcherPhase((phase) => (phase === "closed" ? phase : "closing"));
+  }
 
   const positionPop = useCallback(() => {
     const r = triggerRef.current?.getBoundingClientRect();
@@ -49,18 +57,12 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
 
   function openSwitcher() {
     positionPop();
-    setSwitcherClosing(false);
-    setSwitcherOpen(true);
+    setSwitcherPhase("open");
   }
 
   const closeSwitcher = useCallback(() => {
-    if (!switcherOpen || switcherClosing) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setSwitcherOpen(false);
-      return;
-    }
-    setSwitcherClosing(true);
-  }, [switcherClosing, switcherOpen]);
+    setSwitcherPhase((phase) => (phase === "closed" ? phase : "closing"));
+  }, []);
 
   useEffect(() => {
     if (!switcherOpen) return;
@@ -73,7 +75,10 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
       }
     }
     function onEsc(e: KeyboardEvent) {
-      if (e.key === "Escape") closeSwitcher();
+      if (e.key === "Escape") {
+        closeSwitcher();
+        triggerRef.current?.focus();
+      }
     }
     // Keep the popover glued to its trigger while scrolling instead of closing it.
     let raf = 0;
@@ -95,7 +100,7 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
       window.removeEventListener("resize", reposition);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [switcherOpen, positionPop, closeSwitcher]);
+  }, [closeSwitcher, switcherOpen, positionPop]);
 
   const track =
     catalog?.tracks.find((t) => t.id === curTrackId) ?? catalog?.tracks[0] ?? null;
@@ -132,7 +137,7 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
             <button
               ref={triggerRef}
               className="trackswitch"
-              aria-expanded={switcherOpen && !switcherClosing}
+              aria-expanded={switcherOpen}
               onClick={() => (switcherOpen ? closeSwitcher() : openSwitcher())}
             >
               <TrackBadge id={track.id} />
@@ -140,20 +145,17 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
               <span className="sw">zmień ›</span>
             </button>
 
-            {switcherOpen && popPos && (
+            {switcherPhase !== "closed" && popPos && (
               <div
-                className={`trackpop${switcherClosing ? " closing" : ""}`}
+                className={`trackpop${switcherPhase === "closing" ? " closing" : ""}`}
                 role="listbox"
                 aria-label="Wybierz track"
+                aria-hidden={switcherPhase === "closing"}
+                inert={switcherPhase === "closing" ? true : undefined}
                 style={{ top: popPos.top, left: popPos.left }}
                 onAnimationEnd={(event) => {
-                  if (
-                    switcherClosing &&
-                    event.target === event.currentTarget &&
-                    event.animationName === "trackpop-out"
-                  ) {
-                    setSwitcherOpen(false);
-                    setSwitcherClosing(false);
+                  if (event.target === event.currentTarget && switcherPhase === "closing") {
+                    setSwitcherPhase("closed");
                   }
                 }}
               >
