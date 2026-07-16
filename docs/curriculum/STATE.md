@@ -71,14 +71,21 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   kompilowane, ale nie uruchamiane runtime.
 - Stan częściowy: 73 zadania; nowych 36/36 rozwiązań i 36/36 starterów przechodzi
   na TS 6 oraz TS 7.
+- TypeScript: dodane `16-async-types`, `17-runtime-boundaries` i `17b-dom-events`.
+- Zadania obejmują zachowanie tuple przez `Awaited`, anulowanie i pule współbieżności,
+  parsery danych `unknown`, branded ID, formularze oraz delegację zdarzeń DOM.
+- Dodano jsdom jako środowisko deterministycznych testów DOM bez uruchamiania
+  przeglądarki ani dev servera.
+- Stan częściowy: 82 zadania; nowych 45/45 rozwiązań i 45/45 starterów przechodzi
+  na TS 6 oraz TS 7.
 
 ## Następne kroki
 
-1. Zapisać i wypchnąć ukończoną partię zaawansowanych fundamentów.
-2. Dodać async types, granice runtime i DOM.
-3. Dodać optymalizację runtime, type challenges, migrację oraz elective.
-4. Zbudować drugi moduł praktyczny po ukończeniu potrzebnych bloków.
-   testów typów i migracji.
+1. Dodać optymalizację runtime z osobną bramką jakości `[O]`.
+2. Dodać egzamin z type challenges oraz ścieżkę migracji TS 5.9 → 6 → 7.
+3. Dodać elective: dekoratory i jawne zarządzanie zasobami.
+4. Zbudować drugi moduł praktyczny po ukończeniu optymalizacji, testów typów
+   i migracji.
 
 ## Otwarte ryzyka
 

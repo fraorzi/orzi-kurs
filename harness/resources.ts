@@ -211,6 +211,19 @@ const TOPIC_RESOURCES: Record<string, LearningResource[]> = {
     { title: "TypeScript Comment Directives", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#-ts-expect-error-comments", description: "Celowe testy negatywne i zachowanie nieużytej dyrektywy." },
     { title: "DefinitelyTyped", url: "https://github.com/DefinitelyTyped/DefinitelyTyped", description: "Praktyczny wzorzec utrzymywania testów kontraktów deklaracji." },
   ],
+  "16-async-types": [
+    { title: "Awaited", url: "https://www.typescriptlang.org/docs/handbook/utility-types.html#awaitedtype", description: "Rekurencyjne rozpakowywanie Promise i zachowanie typów wyników async." },
+    { title: "AbortSignal", url: "https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal", description: "Standardowy kontrakt anulowania operacji asynchronicznych." },
+  ],
+  "17-runtime-boundaries": [
+    { title: "Narrowing", url: "https://www.typescriptlang.org/docs/handbook/2/narrowing.html", description: "Bezpieczne zawężanie wartości unknown na granicach systemu." },
+    { title: "Symbols", url: "https://www.typescriptlang.org/docs/handbook/symbols.html#unique-symbol", description: "Unique symbol jako podstawa nominalnych branded types." },
+  ],
+  "17b-dom-events": [
+    { title: "Event", url: "https://developer.mozilla.org/en-US/docs/Web/API/Event", description: "Model target, currentTarget i propagacji zdarzeń DOM." },
+    { title: "FormData", url: "https://developer.mozilla.org/en-US/docs/Web/API/FormData", description: "Odczytywanie i interpretowanie wartości formularza." },
+    { title: "Element.closest()", url: "https://developer.mozilla.org/en-US/docs/Web/API/Element/closest", description: "Bezpieczna delegacja zdarzeń z elementów potomnych." },
+  ],
 };
 
 const MODULE_RESOURCES: LearningResource[] = [

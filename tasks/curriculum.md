@@ -197,11 +197,11 @@ Zostało: pozycje audytowe b/c, 13–20, module-02)
 - [ ] 15 [O] optymalizacja kodu runtime bez utraty kontraktów typów: poprawny, ale wolny
       moduł TS — przepisz bez zmiany typów; bramka `expectScaling` (audyt: track musi
       mieć [O], nie tylko [D])
-- [ ] 16 typowanie async: Promise/Awaited, generyczny fetch, modelowanie sukcesu i błędu
+- [x] 16 typowanie async: Promise/Awaited, generyczny fetch, modelowanie sukcesu i błędu
       (audyt — łączy z js/10-11)
-- [ ] 17 granice runtime: `unknown`, parsery, branded types, parse-don't-validate
+- [x] 17 granice runtime: `unknown`, parsery, branded types, parse-don't-validate
       (audyt — Total TypeScript patterns)
-- [ ] 17b DOM i zdarzenia: EventTarget, HTMLElement, dataset, formularze i bezpieczne narrowing
+- [x] 17b DOM i zdarzenia: EventTarget, HTMLElement, dataset, formularze i bezpieczne narrowing
 - [ ] 18 mix z type-challenges (medium) jako egzamin
 - [ ] 19 migracja TS 5.9 → 6.0 → 7.0: nowe domyślne opcje, usunięte/deprecated
       konfiguracje, import attributes, zgodność narzędzi i diagnoza zmian inferencji
