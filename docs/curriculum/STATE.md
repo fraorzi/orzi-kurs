@@ -66,14 +66,18 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   `13c-strict-tsconfig`, łącznie 9 nowych zadań, w tym 6 wieloplikowych.
 - Stan częściowy: 64 zadania; nowych 27/27 rozwiązań i 27/27 starterów przechodzi
   na TS 6 oraz TS 7.
+- TypeScript: dodane `14-debug-types`, `14b-variance` i `14c-type-tests`.
+- Testy typów są teraz także częścią artefaktu ucznia: osobne `type-tests.ts` są
+  kompilowane, ale nie uruchamiane runtime.
+- Stan częściowy: 73 zadania; nowych 36/36 rozwiązań i 36/36 starterów przechodzi
+  na TS 6 oraz TS 7.
 
 ## Następne kroki
 
 1. Zapisać i wypchnąć ukończoną partię zaawansowanych fundamentów.
-2. Dodać debugowanie typów, wariancję i testy kontraktów compile-time.
-3. Dodać async types, granice runtime i DOM.
-4. Dodać optymalizację runtime, migrację oraz elective.
-5. Zbudować drugi moduł praktyczny po ukończeniu potrzebnych bloków.
+2. Dodać async types, granice runtime i DOM.
+3. Dodać optymalizację runtime, type challenges, migrację oraz elective.
+4. Zbudować drugi moduł praktyczny po ukończeniu potrzebnych bloków.
    testów typów i migracji.
 
 ## Otwarte ryzyka

@@ -199,6 +199,18 @@ const TOPIC_RESOURCES: Record<string, LearningResource[]> = {
     { title: "TSConfig Reference", url: "https://www.typescriptlang.org/tsconfig/", description: "Oficjalna dokumentacja opcji kompilatora." },
     { title: "verbatimModuleSyntax", url: "https://www.typescriptlang.org/tsconfig/verbatimModuleSyntax.html", description: "Jawne importy i eksporty typów zgodne z emitowanym ESM." },
   ],
+  "14-debug-types": [
+    { title: "The Basics", url: "https://www.typescriptlang.org/docs/handbook/2/basic-types.html", description: "Różnice między any i unknown oraz źródła utraty bezpieczeństwa typów." },
+    { title: "Generics", url: "https://www.typescriptlang.org/docs/handbook/2/generics.html", description: "Relacje między parametrami typów, argumentami i wynikiem." },
+  ],
+  "14b-variance": [
+    { title: "strictFunctionTypes", url: "https://www.typescriptlang.org/tsconfig/strictFunctionTypes.html", description: "Bezpieczniejsze sprawdzanie parametrów callbacków i wyjątek metod." },
+    { title: "Type Compatibility", url: "https://www.typescriptlang.org/docs/handbook/type-compatibility.html", description: "Kowariancja, kontrawariancja i bivariance w modelu strukturalnym." },
+  ],
+  "14c-type-tests": [
+    { title: "TypeScript Comment Directives", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#-ts-expect-error-comments", description: "Celowe testy negatywne i zachowanie nieużytej dyrektywy." },
+    { title: "DefinitelyTyped", url: "https://github.com/DefinitelyTyped/DefinitelyTyped", description: "Praktyczny wzorzec utrzymywania testów kontraktów deklaracji." },
+  ],
 };
 
 const MODULE_RESOURCES: LearningResource[] = [
