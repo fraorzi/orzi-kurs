@@ -161,12 +161,20 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   z reducerem pilnującym legalnych przejść.
 - Stan częściowy React: 13 tematów, pierwszy moduł i 40 zadań; 40/40 rozwiązań oraz
   40/40 pierwotnych starterów przechodzi właściwe bramki.
+- React 14: funkcyjne `form action`, walidacja i wynik przez `useActionState` oraz
+  sekwencyjna kolejka Actions zależna od poprzedniego wyniku.
+- React 15: `useFormStatus` w poprawnej granicy potomka formularza, odczyt
+  wysyłanego `FormData` i niezależne statusy operacji.
+- React 16: optimistic toggle z rollbackiem, atomowa aktualizacja powiązanych pól
+  oraz reducer listy rebazowany na świeższych danych z zewnątrz.
+- Stan częściowy React: 16 tematów, pierwszy moduł i 49 zadań; 49/49 rozwiązań oraz
+  49/49 pierwotnych starterów przechodzi właściwe bramki.
 
 ## Następne kroki
 
-1. Dodać React 19 Actions: form `action`, `useActionState` i walidację.
-2. Dodać `useFormStatus` oraz projektowanie pending/error/success.
-3. Dodać `useOptimistic`, a potem `use`, Suspense i Error Boundary.
+1. Dodać `use`, Suspense i Error Boundary dla danych i contextu.
+2. Dodać `useSyncExternalStore`, w tym stabilność snapshotów i cleanup subskrypcji.
+3. Przejść do projektowania custom hooks i wzorców kompozycji.
 
 ## Otwarte ryzyka
 

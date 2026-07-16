@@ -237,9 +237,9 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] module-01 (interaktywny widget wieloplikowy, bez fetchy)
 - [x] 13 modelowanie UI jako stanów: idle/pending/success/error/empty zamiast zestawu
       niezależnych booleanów; przejścia i nieosiągalne kombinacje
-- [ ] 14 formularze i Actions: form `action`, useActionState
-- [ ] 15 useFormStatus i projektowanie stanów pending/error/success
-- [ ] 16 useOptimistic i bezpieczne optimistic updates
+- [x] 14 formularze i Actions: form `action`, useActionState
+- [x] 15 useFormStatus i projektowanie stanów pending/error/success
+- [x] 16 useOptimistic i bezpieczne optimistic updates
 - [ ] 17 `use`, Suspense i Error Boundary dla danych oraz contextu
 - [ ] 18 useSyncExternalStore (stores zewnętrzne)
 - [ ] 19 custom hooks: projektowanie API, useDebounce/useLocalStorage, useDebugValue
