@@ -30,12 +30,13 @@ Stan po ukończeniu pierwszych trzech etapów:
 - harness po kontrakcie treści i TypeScript-only dla UI: 51/51,
 - React: harness TSX z jsdom, Testing Library, user-event, Profiler i lintem
   hooków gotowy,
-- React: bloki 01–21 oraz `module-01..02` mają 65 zadań obejmujących czyste komponenty, identity,
+- React: bloki 01–26b oraz `module-01..02` mają 83 zadania obejmujące czyste komponenty, identity,
   architekturę stanu, dostępne formularze, efekty jako synchronizację, Effect Events,
   odporny ręczny fetch, refy i ID, reducer/context, jawne maszyny stanów oraz
   React 19 Actions, optimistic UI, Suspense/Error Boundary, external stores,
-  custom hooks, kompozycję i portale;
-  65/65 rozwiązań i 65/65 starterów przechodzi właściwe bramki.
+  custom hooks, kompozycję, portale, responsywny concurrent UI, React 19 refs,
+  stabilny React Compiler oraz optymalizację opartą na Profilerze;
+  83/83 rozwiązania i 83/83 startery przechodzą właściwe bramki.
 
 Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetować
 `progress.json` ani starterów.
@@ -69,7 +70,8 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 
 Etapy 1–3 są ukończone. Etap React jest aktywny; infrastruktura, fundamenty,
 escape hatches, architektura stanu, async UI React 19, Suspense, external stores,
-custom hooks, kompozycja i portale do pozycji 21 wraz z dwoma modułami są gotowe.
+custom hooks, kompozycja, concurrent UI i blok wydajności do pozycji 26b wraz z
+dwoma modułami są gotowe.
 
 Każdy punkt jest osobnym branchem. Następny branch powstaje z aktualnego fundamentu,
 nie z niepowiązanego brancha tracka.

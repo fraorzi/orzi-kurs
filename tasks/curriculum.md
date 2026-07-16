@@ -250,13 +250,13 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] 19 custom hooks: projektowanie API, useDebounce/useLocalStorage, useDebugValue
 - [x] 20 podnoszenie stanu, kompozycja przez children, render props
 - [x] 21 portale i granice błędów poza przepływem danych z Suspense
-- [ ] 22 useTransition, useDeferredValue i `<Activity>`
-- [ ] 23 ref jako prop, useImperativeHandle i useLayoutEffect do pomiarów layoutu
-- [ ] 24 React Compiler: automatyczna memoizacja, reguły Reacta, stopniowa adopcja
+- [x] 22 useTransition, useDeferredValue i `<Activity>`
+- [x] 23 ref jako prop, useImperativeHandle i useLayoutEffect do pomiarów layoutu
+- [x] 24 React Compiler: automatyczna memoizacja, reguły Reacta, stopniowa adopcja
       i diagnozowanie pominiętych optymalizacji
-- [ ] 25 useMemo/useCallback/React.memo tylko po pomiarze lub dla kontraktu referencji
-- [ ] 26 [D] nadmiarowe re-rendery, zepsute zależności i brak cleanup (Profiler + lint)
-- [ ] 26b [O] optymalizacja wolnego widoku: lokalizacja stanu, podział komponentów,
+- [x] 25 useMemo/useCallback/React.memo tylko po pomiarze lub dla kontraktu referencji
+- [x] 26 [D] nadmiarowe re-rendery, zepsute zależności i brak cleanup (Profiler + lint)
+- [x] 26b [O] optymalizacja wolnego widoku: lokalizacja stanu, podział komponentów,
       memoizacja tam, gdzie pomiar wykazał koszt
 - [ ] 27 wzorce testowania komponentów: role, nazwa dostępna, user-event, async UI,
       unikanie testów szczegółów implementacji

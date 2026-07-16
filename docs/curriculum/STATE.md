@@ -194,12 +194,34 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   65/65 pierwotnych starterów przechodzi właściwe bramki.
 - Końcowe bramki checkpointu: harness 51/51, root lint i root `tsc --noEmit`
   bez błędów.
+- React 22: pilne i nieblokujące aktualizacje przez `useTransition`, stare wyniki
+  pod Suspense przez `useDeferredValue` oraz zachowanie stanu przy sprzątaniu
+  Effectów przez stabilne `<Activity>` z React 19.2.
+- React 23: bezpośredni `ref` jako prop w React 19, ograniczone uchwyty przez
+  `useImperativeHandle` i pomiar tooltipa przed repaintem przez `useLayoutEffect`.
+- React 24: dodany prawdziwy harness React Compiler oparty na stabilnym
+  `babel-plugin-react-compiler@1.0.0` i Babel Core; zadania sprawdzają Rules of
+  Hooks, opt-in `"use memo"`, celowy brak kompilacji legacy oraz usunięcie
+  wadliwego cache'u ukrytego przez `"use no memo"`.
+- React 25: ręczne `useMemo`, `useCallback` i `memo` wyłącznie dla zmierzonego
+  kosztu albo jawnego kontraktu referencji z zewnętrznym API.
+- React 26: scenariusze debugowania wycieku subskrypcji, starego closure przez
+  niepełne zależności i zbędnych commitów wynikających ze złego właściciela stanu.
+- React 26b: startery optymalizacyjne są funkcjonalnie poprawne i oblewają tylko
+  testy `[quality]`; rozwiązania stosują kompozycję `children`, lokalizację stanu,
+  podział komponentów i memoizację dopiero po pomiarze.
+- Stan częściowy React: 27 tematów, dwa moduły i 83 zadania; 83/83 rozwiązania oraz
+  83/83 pierwotne startery przechodzą właściwe bramki.
+- Końcowe bramki checkpointu wydajności: harness 51/51, root lint, root
+  `tsc --noEmit`, `git diff --check` i kontrakt TypeScript-only bez błędów.
 
 ## Następne kroki
 
-1. Dodać `useTransition`, `useDeferredValue` i stabilne `<Activity>`.
-2. Dodać ref jako prop, `useImperativeHandle` i pomiary przez `useLayoutEffect`.
-3. Przejść do React Compiler i optymalizacji opartej na pomiarach.
+1. Dodać wzorce testowania komponentów oparte na rolach, nazwach dostępnych,
+   `user-event` i asynchronicznym UI bez testowania szczegółów implementacji.
+2. Rozszerzyć dostępność o klawiaturę, zarządzanie focusem, live regions i dialog.
+3. Dodać wydajność dużych list, style dynamiczne oraz elective server-state przed
+   końcowym `module-03`.
 
 ## Otwarte ryzyka
 
