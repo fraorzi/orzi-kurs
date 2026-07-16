@@ -135,13 +135,25 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   dostępne opisy błędów, kolejność focusu i zmianę propsów bez synchronizacji efektem.
 - Pełna macierz pierwszego bloku: 18/18 rozwiązań oraz 18/18 pierwotnych starterów.
 - Harness po dodaniu kontraktu treści React: 49/49 testów.
+- Pierwszy blok React ukończony commitem `9e39c62` i wypchnięty na
+  `origin/feature/curriculum-react`.
+- React 07: efekty jako niezależne procesy setup/cleanup, kompletne zależności,
+  odpinanie subskrypcji i rozdzielanie systemów zewnętrznych.
+- React 08: stabilne `useEffectEvent` z React 19.2, najnowsze wartości bez stale
+  closure oraz testy liczące zbędne ponowne połączenia i subskrypcje.
+- React 09: pending/success/error, deterministyczne race conditions, ignorowanie
+  starych odpowiedzi, propagacja `AbortSignal` i ochrona przed adapterem kończącym
+  pracę już po anulowaniu.
+- React 10: lokalne uchwyty DOM przez `useRef`, hydratowalne relacje dostępności
+  przez `useId` oraz cleanup callback refów dostępny od React 19.
+- Stan częściowy React: 10 tematów i 30 zadań; 30/30 rozwiązań oraz 30/30
+  pierwotnych starterów przechodzi właściwe bramki.
 
 ## Następne kroki
 
-1. Zbudować blok 07–10: efekty tylko do systemów zewnętrznych, Effect Events,
-   ręczny fetch z anulowaniem oraz refy/useId.
-2. Dodać 11–12 i `module-01`: reducer, context i wieloplikowy widget bez fetchy.
-3. Utrzymać pełną macierz rozwiązań/starterów i checkpointować każdy logiczny blok.
+1. Dodać 11–12: reducer i context z aktualną składnią providera React 19.
+2. Zbudować `module-01`: wieloplikowy interaktywny widget bez fetchy.
+3. Dodać 13: modelowanie stanów UI przed wejściem w Actions i Suspense.
 
 ## Otwarte ryzyka
 

@@ -30,9 +30,10 @@ Stan po ukończeniu pierwszych trzech etapów:
 - harness po kontrakcie treści React: 49/49,
 - React: harness TSX z jsdom, Testing Library, user-event, Profiler i lintem
   hooków gotowy,
-- React: pierwszy blok 01–06 ma 18 zadań obejmujących czyste komponenty, identity,
-  snapshot i niemutowalny stan, dostępne formularze oraz eliminowanie stanu
-  pochodnego; 18/18 rozwiązań i 18/18 starterów przechodzi właściwe bramki.
+- React: bloki 01–10 mają 30 zadań obejmujących czyste komponenty, identity,
+  architekturę stanu, dostępne formularze, efekty jako synchronizację, Effect Events,
+  odporny ręczny fetch oraz refy i ID; 30/30 rozwiązań i 30/30 starterów przechodzi
+  właściwe bramki.
 
 Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetować
 `progress.json` ani starterów.
@@ -64,8 +65,8 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 10. Java/PJATK jako osobna, niezależna ścieżka; może być realizowana wcześniej po
     zmianie priorytetu użytkownika.
 
-Etapy 1–3 są ukończone. Etap React jest aktywny; infrastruktura i pierwszy blok
-fundamentów 01–06 są gotowe.
+Etapy 1–3 są ukończone. Etap React jest aktywny; infrastruktura oraz bloki
+fundamentów i escape hatches 01–10 są gotowe.
 
 Każdy punkt jest osobnym branchem. Następny branch powstaje z aktualnego fundamentu,
 nie z niepowiązanego brancha tracka.

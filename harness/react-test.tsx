@@ -1,5 +1,6 @@
 import "@testing-library/jest-dom/vitest";
 import {
+  act,
   cleanup,
   render,
   screen,
@@ -18,7 +19,7 @@ import type {
 
 afterEach(cleanup);
 
-export { cleanup, render, screen, waitFor, within };
+export { act, cleanup, render, screen, waitFor, within };
 
 export interface RenderWithUserResult extends RenderResult {
   readonly user: UserEvent;

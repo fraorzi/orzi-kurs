@@ -227,11 +227,11 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] 04 useState: obiekty i tablice (immutable updates)
 - [x] 05 formularze kontrolowane, walidacja, dostępne etykiety, focus i komunikaty błędów
 - [x] 06 derived state, logika zdarzeń i „You Might Not Need an Effect”
-- [ ] 07 useEffect tylko do synchronizacji z systemem zewnętrznym: dependencies, cleanup
-- [ ] 08 useEffectEvent, stale closures i oddzielanie zdarzeń od efektów
-- [ ] 09 ręczny fetch w efekcie: race conditions, AbortController i dlaczego to
+- [x] 07 useEffect tylko do synchronizacji z systemem zewnętrznym: dependencies, cleanup
+- [x] 08 useEffectEvent, stale closures i oddzielanie zdarzeń od efektów
+- [x] 09 ręczny fetch w efekcie: race conditions, AbortController i dlaczego to
       mechanizm niskopoziomowy, nie domyślna architektura danych
-- [ ] 10 useRef, callback refs i useId
+- [x] 10 useRef, callback refs i useId
 - [ ] 11 useReducer (kiedy zamiast useState)
 - [ ] 12 useContext: kompozycja providerów, React 19 provider syntax, wydajność
 - [ ] module-01 (interaktywny widget wieloplikowy, bez fetchy)
