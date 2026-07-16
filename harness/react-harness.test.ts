@@ -47,8 +47,10 @@ describe("React task harness", () => {
     ).toEqual(["run.test.tsx", "starter.tsx"]);
   });
 
-  it("uses jsdom for the React track and node elsewhere", () => {
+  it("uses jsdom for typed UI tracks and node elsewhere", () => {
     expect(vitestEnvironmentForTask(join(TRACKS_ROOT, "react/01/easy")))
+      .toBe("jsdom");
+    expect(vitestEnvironmentForTask(join(TRACKS_ROOT, "next/01/easy")))
       .toBe("jsdom");
     expect(vitestEnvironmentForTask(join(TRACKS_ROOT, "ts/01/easy")))
       .toBe("node");

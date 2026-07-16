@@ -81,4 +81,31 @@ describe("curriculum order", () => {
         module.topics.map((topic) => topic.id)),
     ).toEqual(track.topics.map((topic) => topic.id));
   });
+
+  it("keeps Next foundations before cache, mutations and production quality", () => {
+    expect(compareTopicSlugs("next", "02-server-client-boundaries", "04-cache-components"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("next", "06-revalidation", "10-server-actions"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("next", "13-auth-data-access", "14-proxy"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("next", "17-testing", "19b-optimize-next"))
+      .toBeLessThan(0);
+  });
+
+  it("keeps Next learning modules in exact catalog order", () => {
+    const track: CatalogTrack = {
+      id: "next",
+      topics: TOPIC_ORDER.next.map((slug) => ({
+        id: `next/${slug}`,
+        title: slug,
+        levels: [],
+      })),
+    };
+
+    expect(
+      learningModules(track).flatMap((module) =>
+        module.topics.map((topic) => topic.id)),
+    ).toEqual(track.topics.map((topic) => topic.id));
+  });
 });

@@ -327,6 +327,50 @@ const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
       slugs: ["module-03"],
     },
   ],
+  next: [
+    {
+      id: "fundamenty-routera",
+      title: "App Router i granice wykonania",
+      description: "Struktura routingu oraz świadome Server i Client Components.",
+      range: [1, 2],
+    },
+    {
+      id: "dane-i-cache",
+      title: "Dane, Cache Components i rewalidacja",
+      description: "Równoległe dane serwerowe, use cache, tagi i świeżość.",
+      range: [3, 6],
+    },
+    {
+      id: "routing-i-odpornosc",
+      title: "Routing i odporne przejścia",
+      description: "Dynamiczne segmenty, URL state oraz loading/error/not-found.",
+      range: [7, 9],
+    },
+    {
+      id: "mutacje-i-api",
+      title: "Mutacje i granice HTTP",
+      description: "Server Actions, Route Handlers, walidacja i spójność danych.",
+      range: [10, 11],
+    },
+    {
+      id: "produkt-i-bezpieczenstwo",
+      title: "Produkt, bezpieczeństwo i streaming",
+      description: "Metadata, DAL/authz, proxy, streaming i dostępne formularze.",
+      range: [12, 16],
+    },
+    {
+      id: "jakosc-produkcyjna",
+      title: "Testy i jakość produkcyjna",
+      description: "Strategia testów, instrumentacja, debug i optymalizacja.",
+      range: [17, 20],
+    },
+    {
+      id: "projekty",
+      title: "Projekty końcowe",
+      description: "Dwa wieloplikowe moduły łączące pełny przepływ Next.",
+      slugs: ["module-01", "module-02"],
+    },
+  ],
 };
 
 export function trackProgress(track: CatalogTrack): TrackProgress {

@@ -235,12 +235,24 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   starterów przechodzi właściwe bramki zachowania, typów i lintu.
 - Końcowe bramki repo: harness 51/51, root lint, root `tsc --noEmit`,
   `git diff --check`, zgodność slugów katalogu i kontrakt TypeScript-only bez błędów.
+- React ukończony commitem `513b85f`, kolejność dalszej nauki doprecyzowana w
+  `dfa1196`; oba commity wypchnięte na `origin/feature/curriculum-react`.
+- Utworzony i wypchnięty osobny branch `feature/curriculum-next` z ukończonego
+  fundamentu React.
+- Next: wykonany audyt dokładnie zainstalowanego `next@16.2.10`, lokalnych docs oraz
+  oficjalnego Next Learn. Zapisano model App Router, async route props, opt-in Cache
+  Components, semantykę `updateTag`/`revalidateTag`, `proxy.ts`, authz i testy.
+- Dodana kolejność 20 tematów oraz dwóch modułów Next i odpowiadające grupy katalogu.
+- Harness wybiera jsdom dla tracka Next, lint hooków obejmuje jego TSX, a wspólny
+  `@harness/next-test` i kontrakt treści pilnują przyszłych zadań.
+- Ukryty smoke Next przechodzi jako rozwiązanie 1/1 i starter 1/1; harness po
+  rozszerzeniu ma 55/55 zielonych testów.
 
 ## Następne kroki
 
-1. Utworzyć osobny `feature/curriculum-next` z ukończonego fundamentu React.
-2. Przeprowadzić audyt zainstalowanej wersji Next 16 przed dodaniem pierwszych zadań.
-3. Rozszerzyć harness o App Router, granice server/client, Actions, cache i routing.
+1. Dodać fundamenty App Router, layouty i colocation.
+2. Dodać granice Server/Client z serializowalnymi propsami i ochroną server-only.
+3. Dodać serwerowe pobieranie danych z równoległością i diagnozą waterfalls.
 
 ## Otwarte ryzyka
 
