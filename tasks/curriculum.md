@@ -305,7 +305,7 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] 07 dynamic routes, asynchroniczne params/searchParams i generateStaticParams
 - [x] 08 nawigacja: Link, prefetch, useRouter, search params, filtry i paginacja w URL
 - [x] 09 loading/error/not-found, expected errors i granice UI
-- [ ] 10 Server Actions: formularze, walidacja, authz, błędy i idempotencja
+- [x] 10 Server Actions: formularze, walidacja, authz, błędy i idempotencja
 - [ ] 11 Route Handlers i Backend for Frontend: metody, cookies, cache, CORS i limity
 - [ ] 12 metadata, Open Graph, Image, Font, Script i optymalizacja zasobów
 - [ ] 13 authn vs authz, DAL, sesje i bezpieczne sprawdzanie uprawnień blisko danych

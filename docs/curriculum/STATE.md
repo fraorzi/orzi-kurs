@@ -271,12 +271,16 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   Client Error Boundary z aktualnym w Next 16.2 propem `unstable_retry`.
 - Stan po bloku routingu: 9 tematów i 27 zadań; nowe 9/9 rozwiązań i 9/9 starterów
   przechodzi lokalne bramki.
+- Next 10: walidacja `FormData` bez rzutowań, authn/authz przy zasobie przed mutacją
+  oraz atomowy kontrakt idempotencji zamówienia z replay, konfliktem i recovery.
+- Stan po Server Actions: 10 tematów i 30 zadań; temat przechodzi 3/3 dla rozwiązań
+  i 3/3 dla starterów.
 
 ## Następne kroki
 
-1. Dodać Server Actions z walidacją, authz i idempotencją.
-2. Dodać Route Handlers jako jawne kontrakty HTTP i BFF.
-3. Dodać metadata, zasoby i bezpieczne granice auth/DAL.
+1. Dodać Route Handlers jako jawne kontrakty HTTP i BFF.
+2. Dodać metadata i bezpieczną optymalizację zasobów.
+3. Dodać bezpieczne granice auth/DAL oraz Proxy.
 
 ## Otwarte ryzyka
 
