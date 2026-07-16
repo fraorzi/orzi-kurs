@@ -214,14 +214,33 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   83/83 pierwotne startery przechodzą właściwe bramki.
 - Końcowe bramki checkpointu wydajności: harness 51/51, root lint, root
   `tsc --noEmit`, `git diff --check` i kontrakt TypeScript-only bez błędów.
+- React 27: trzy zadania uczą pisania testów komponentów jako kodu produkcyjnego:
+  role i nazwy dostępne, `user-event`, kontrolowane Promise, zapytania `findBy` oraz
+  parametryzowane przypadki bez snapshotów i selektorów DOM.
+- React 28: live regions, ręcznie aktywowane taby z roving tabindex oraz modal z
+  pułapką focusu, Escape i przywróceniem focusu do triggera.
+- React 29: stabilne identity draftów po reorderze, matematyka fixed-size windowing
+  i aktualne API `react-window@2.2.7` (`List`, nie historyczne `FixedSizeList`).
+- React 30: rozdzielenie statycznych klas od wartości runtime, poprawne jednostki
+  inline style oraz wąsko typowane CSS custom properties dla motywów i wykresów.
+- React 31: elective server state na `@tanstack/react-query@5.101.2`: klucze cache'u,
+  `staleTime`, request cancellation, invalidacja oraz optimistic cache update z
+  rollbackiem zgodnym z aktualnymi callbackami Query 5.
+- `module-03`: wieloplikowa konsola operacyjna łącząca dostępne taby, osobne cache'e
+  filtrów, dynamiczne tokeny CSS, zarządzanie focusem w dialogu i optymistyczne
+  przypisanie rekordu z rollbackiem.
+- Końcowy stan tracka React: 32 tematy, trzy moduły i 99 zadań; cały kod ucznia i
+  rozwiązań pozostaje w TypeScript/TSX, bez wariantów JavaScript/JSX.
+- Pełna macierz końcowa: 99/99 wzorcowych rozwiązań oraz 99/99 pierwotnych
+  starterów przechodzi właściwe bramki zachowania, typów i lintu.
+- Końcowe bramki repo: harness 51/51, root lint, root `tsc --noEmit`,
+  `git diff --check`, zgodność slugów katalogu i kontrakt TypeScript-only bez błędów.
 
 ## Następne kroki
 
-1. Dodać wzorce testowania komponentów oparte na rolach, nazwach dostępnych,
-   `user-event` i asynchronicznym UI bez testowania szczegółów implementacji.
-2. Rozszerzyć dostępność o klawiaturę, zarządzanie focusem, live regions i dialog.
-3. Dodać wydajność dużych list, style dynamiczne oraz elective server-state przed
-   końcowym `module-03`.
+1. Utworzyć osobny `feature/curriculum-node` z ukończonego fundamentu React.
+2. Przeprowadzić audyt Node 24 LTS przed dodaniem pierwszych zadań.
+3. Rozszerzyć harness o potrzeby `node:test`, procesów, sygnałów, streamów i I/O.
 
 ## Otwarte ryzyka
 

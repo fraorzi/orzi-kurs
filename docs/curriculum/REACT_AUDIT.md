@@ -90,6 +90,17 @@ Track jest gotowy, gdy:
 - moduły obejmują dostępność, async UI, error/pending states i decyzje architektoniczne,
 - Canary/Experimental są jawnie oddzielone od stabilnego rdzenia 19.2.
 
+## Stan realizacji
+
+Kryterium jest spełnione przez 32 tematy, trzy wieloplikowe moduły i 99 zadań.
+Końcowy zakres dodaje testy komponentów, wzorce WAI-ARIA, fixed-size windowing i
+`react-window` 2, dynamiczne style oraz elective TanStack Query 5. Track następuje
+po TypeScript i nie zawiera starterów ani rozwiązań `.js`/`.jsx`.
+
+Każdy z trzech modułów zwiększa integrację: lokalna architektura stanu, async UI
+React 19 z external store, a następnie operacyjny server state z dostępnymi filtrami,
+dialogiem i rollbackiem optymistycznej mutacji.
+
 ## Źródła bazowe
 
 - React Learn:
@@ -108,3 +119,9 @@ Track jest gotowy, gdy:
   <https://testing-library.com/docs/user-event/intro/>
 - Vitest environments:
   <https://vitest.dev/guide/environment.html>
+- WAI-ARIA Authoring Practices:
+  <https://www.w3.org/WAI/ARIA/apg/patterns/>
+- react-window 2:
+  <https://github.com/bvaughn/react-window>
+- TanStack Query 5:
+  <https://tanstack.com/query/latest/docs/framework/react/overview>

@@ -250,6 +250,7 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] 19 custom hooks: projektowanie API, useDebounce/useLocalStorage, useDebugValue
 - [x] 20 podnoszenie stanu, kompozycja przez children, render props
 - [x] 21 portale i granice błędów poza przepływem danych z Suspense
+- [x] module-02 (feature: formularz Action + lista Suspense + optimistic mutation)
 - [x] 22 useTransition, useDeferredValue i `<Activity>`
 - [x] 23 ref jako prop, useImperativeHandle i useLayoutEffect do pomiarów layoutu
 - [x] 24 React Compiler: automatyczna memoizacja, reguły Reacta, stopniowa adopcja
@@ -258,16 +259,15 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] 26 [D] nadmiarowe re-rendery, zepsute zależności i brak cleanup (Profiler + lint)
 - [x] 26b [O] optymalizacja wolnego widoku: lokalizacja stanu, podział komponentów,
       memoizacja tam, gdzie pomiar wykazał koszt
-- [ ] 27 wzorce testowania komponentów: role, nazwa dostępna, user-event, async UI,
+- [x] 27 wzorce testowania komponentów: role, nazwa dostępna, user-event, async UI,
       unikanie testów szczegółów implementacji
-- [ ] 28 dostępność komponentów: klawiatura, focus management, live regions, dialog
+- [x] 28 dostępność komponentów: klawiatura, focus management, live regions, dialog
       i testy regresji dostępności
-- [ ] 29 wydajność list (klucze, memo, koncepcja windowing)
-- [ ] 30 style w JS/React (obiekt style, CSS variables z JS — wyjątek od Tailwinda)
-- [ ] 31 elective: server state z TanStack Query — query keys, staleTime, invalidation,
+- [x] 29 wydajność list (klucze, memo, fixed-size windowing i react-window 2)
+- [x] 30 style dynamiczne (obiekt style i typowane CSS custom properties)
+- [x] 31 elective: server state z TanStack Query — query keys, staleTime, invalidation,
       mutations, cancellation i optimistic updates bez własnego `useEffect`
-- [x] module-02 (feature: formularz Action + lista Suspense + optimistic mutation)
-- [ ] module-03 (feature: lista z serwerowym cache, filtrami i zewnętrznym store)
+- [x] module-03 (feature: konsola z cache'em serwerowym, filtrami, dialogiem i rollbackiem)
 
 ## node (~18 pozycji ≈ 54 zadania) — Node 24 LTS
 

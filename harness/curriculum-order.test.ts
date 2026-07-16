@@ -56,11 +56,13 @@ describe("curriculum order", () => {
         "07-effects-synchronization",
       ),
     ).toBeLessThan(0);
-    expect(compareTopicSlugs("react", "13-ui-state-modeling", "14-actions"))
+    expect(compareTopicSlugs("react", "13-ui-state-modeling", "14-form-actions"))
       .toBeLessThan(0);
     expect(compareTopicSlugs("react", "24-react-compiler", "25-manual-memoization"))
       .toBeLessThan(0);
     expect(compareTopicSlugs("react", "module-01", "module-02"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("react", "module-02", "22-concurrent-ui"))
       .toBeLessThan(0);
   });
 

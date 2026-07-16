@@ -42,6 +42,8 @@ algorytmu i bez kopiowania rozwiązania z tutoriala.
 - Traktuje efekty jako synchronizację z systemem zewnętrznym.
 - Buduje dostępne formularze i stany async, testuje zachowanie użytkownika.
 - Profiluje przed optymalizacją i rozumie wpływ React Compiler.
+- Rozdziela stan lokalny od cache'u serwerowego, projektuje klucze zapytań,
+  invalidację, anulowanie i bezpieczny rollback mutacji optymistycznej.
 
 ### Node.js
 

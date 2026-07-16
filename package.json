@@ -16,10 +16,12 @@
     "verify:starters:ts7": "ORZI_TSC_PACKAGE=typescript7 tsx harness/cli.ts verify-starters ts"
   },
   "dependencies": {
+    "@tanstack/react-query": "5.101.2",
     "next": "16.2.10",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-markdown": "^10.1.0",
+    "react-window": "2.2.7",
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
