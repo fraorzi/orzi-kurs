@@ -256,12 +256,21 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   zbędnego waterfallu.
 - Pierwszy blok Next ma 3 tematy i 9 zadań, wyłącznie w TypeScript/TSX. Lokalne
   bramki tematów przechodzą 9/9 dla rozwiązań i 9/9 dla starterów.
+- Next 04: stabilna konfiguracja `cacheComponents`, wąskie granice Suspense
+  zachowujące static shell oraz audyt odróżniający async od runtime dynamic holes.
+- Next 05: `use cache` na poziomie funkcji, request-time API wyprowadzone poza
+  cached scope, jawny `cacheLife` i wielopoziomowe tagi z izolacją tenantów.
+- Next 06: planowanie `updateTag`, `revalidateTag` i `revalidatePath`, Server Action
+  z read-your-own-writes oraz uwierzytelniony webhook Route Handler z walidacją
+  `unknown` i natychmiastowym `{ expire: 0 }`.
+- Stan po bloku cache: 6 tematów i 18 zadań; 18/18 rozwiązań i 18/18 starterów
+  przechodzi właściwe bramki TypeScript, zachowania i kontraktów źródła.
 
 ## Następne kroki
 
-1. Dodać model Cache Components i granice dynamicznej pracy przez Suspense.
-2. Dodać `use cache`, lifetime i tagowanie zgodne z Next 16.2.
-3. Dodać poprawne strategie `updateTag`, `revalidateTag` i `revalidatePath`.
+1. Dodać dynamiczne trasy z asynchronicznymi `params` i `searchParams`.
+2. Dodać URL jako źródło prawdy filtrów i paginacji oraz bezpieczną nawigację.
+3. Dodać loading, expected errors, error boundary i not-found.
 
 ## Otwarte ryzyka
 
