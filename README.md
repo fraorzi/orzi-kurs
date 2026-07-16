@@ -18,10 +18,15 @@ pnpm dev          # dashboard na http://localhost:3000
    (ścieżka jest w widoku zadania).
 3. Kliknij **Submit** — wyniki testów, lint i ewentualne benchmarki pojawią się od razu.
 4. Utknąłeś? Odkrywaj hinty pojedynczo.
-5. Po zaliczeniu zobaczysz rozwiązanie wzorcowe do porównania. Zaliczone rozwiązanie
-   commituje się samo (`solve: <taskId>`).
+5. Po zaliczeniu zobaczysz porównanie własnego kodu z rozwiązaniem wzorcowym. Licznik
+   prób, użycie hinta, poziom opanowania i termin powtórki zapisują się w `progress.json`.
+6. Jeśli chcesz utrwalić zaliczenie w gicie, uruchom świadomie
+   `pnpm commit:task <taskId>`. Submit nigdy nie tworzy commita sam.
 
 Z terminala zamiast UI: `pnpm submit js/01-closures/easy`.
+
+Przycisk **Następne zadanie** prowadzi kolejno przez easy → medium → hard, a po hard
+otwiera easy następnego zagadnienia. Reset postępu nie modyfikuje plików rozwiązania.
 
 ## Struktura zadania
 
@@ -43,5 +48,6 @@ tracks/js/01-closures/
 - Konwencje treści i kontrakty harnessu: [SPEC.md](SPEC.md).
 - Zadania są kurowane ze sprawdzonych źródeł (javascript.info, Exercism, MDN,
   oficjalne docs) — nie wymyślane. Testy pisane pod rozwiązania wzorcowe.
-- Review po module: rozwiązania są w gicie (`solve:` commity) — otwórz PR z gałęzi
+- Review po module: rozwiązania zapisane komendą `pnpm commit:task` są w gicie
+  (`solve:` commity) — otwórz PR z gałęzi
   i daj do przejrzenia człowiekowi albo `/code-review`.

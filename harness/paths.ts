@@ -1,20 +1,65 @@
-import { resolve, sep, relative } from "node:path";
-import { existsSync, statSync, readFileSync, readdirSync } from "node:fs";
+import { basename, dirname, resolve, sep, relative } from "node:path";
+import {
+  existsSync,
+  lstatSync,
+  realpathSync,
+  statSync,
+  readFileSync,
+  readdirSync,
+} from "node:fs";
 import { REPO_ROOT } from "./progress";
 
 export const TRACKS_ROOT = resolve(REPO_ROOT, "tracks");
 
-export function resolveTaskDir(taskId: string): string {
+function canonicalPath(path: string): string {
+  let existing = resolve(path);
+  const missing: string[] = [];
+
+  while (true) {
+    try {
+      lstatSync(existing);
+      break;
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+      const parent = dirname(existing);
+      if (parent === existing) throw error;
+      missing.unshift(basename(existing));
+      existing = parent;
+    }
+  }
+
+  return resolve(realpathSync(existing), ...missing);
+}
+
+export function assertPathWithinRoot(path: string, root: string): void {
+  const canonicalRoot = canonicalPath(root);
+  const canonicalCandidate = canonicalPath(path);
+  if (
+    canonicalCandidate !== canonicalRoot &&
+    !canonicalCandidate.startsWith(canonicalRoot + sep)
+  ) {
+    throw new Error(`ścieżka poza dozwolonym katalogiem: ${path}`);
+  }
+}
+
+export function resolveTaskDir(taskId: string, tracksRoot = TRACKS_ROOT): string {
   if (!taskId || typeof taskId !== "string") {
     throw new Error("taskId jest wymagany");
   }
   if (taskId.includes("\0")) {
     throw new Error(`nieprawidłowy taskId: ${taskId}`);
   }
-  const dir = resolve(TRACKS_ROOT, taskId);
-  const withinTracks = dir === TRACKS_ROOT || dir.startsWith(TRACKS_ROOT + sep);
+  const dir = resolve(tracksRoot, taskId);
+  const withinTracks = dir === tracksRoot || dir.startsWith(tracksRoot + sep);
   if (!withinTracks) {
     throw new Error(`taskId poza tracks/ (path traversal?): ${taskId}`);
+  }
+  assertPathWithinRoot(dir, tracksRoot);
+  if (
+    canonicalPath(dir) !==
+    resolve(canonicalPath(tracksRoot), relative(tracksRoot, dir))
+  ) {
+    throw new Error(`taskId prowadzi przez symlink: ${taskId}`);
   }
   return dir;
 }
@@ -74,15 +119,17 @@ function walkFiles(dir: string, base = dir): string[] {
  * body verbatim. Multi-file: every file under _solution/ concatenated, each
  * preceded by a `// ── <relative path> ──` header.
  */
-export function readSolutionText(solutionPath: string): string {
-  if (!statSync(solutionPath).isDirectory()) {
-    return readFileSync(solutionPath, "utf8");
+export function readArtifactText(artifactPath: string): string {
+  if (!statSync(artifactPath).isDirectory()) {
+    return readFileSync(artifactPath, "utf8");
   }
-  const files = walkFiles(solutionPath);
+  const files = walkFiles(artifactPath);
   return files
     .map((f) => {
-      const rel = relative(solutionPath, f).split(sep).join("/");
+      const rel = relative(artifactPath, f).split(sep).join("/");
       return `// ── ${rel} ──\n${readFileSync(f, "utf8")}`;
     })
     .join("\n");
 }
+
+export const readSolutionText = readArtifactText;

@@ -2,11 +2,11 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { readFileSync, existsSync, mkdtempSync, rmSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join, relative } from "node:path";
+import { join } from "node:path";
 import { ESLint } from "eslint";
 import type { SubmitResult, TestResult, LintIssue } from "./types";
 import { REPO_ROOT } from "./progress";
-import { resolveTaskDir, findStarter, TRACKS_ROOT } from "./paths";
+import { resolveTaskDir, findStarter, readArtifactText, TRACKS_ROOT } from "./paths";
 import { recordRun } from "./progress";
 import { runTypecheck } from "./typecheck";
 
@@ -32,7 +32,15 @@ interface VitestJson {
 
 function firstAssertionMessage(messages: string[]): string | undefined {
   if (!messages.length) return undefined;
-  return messages[0].split("\n")[0].trim();
+  const clean = messages[0]
+    .replace(/\u001b\[[0-9;]*m/g, "")
+    .split("\n")
+    .map((line) => line.trimEnd())
+    .filter((line) => !/^\s*at\s/.test(line) && !line.includes("node_modules/"))
+    .slice(0, 6)
+    .join("\n")
+    .trim();
+  return clean ? clean.slice(0, 1200) : undefined;
 }
 
 async function runVitest(
@@ -130,36 +138,16 @@ async function runLint(
   return { errors, warnings };
 }
 
-function isHiddenTrack(taskId: string): boolean {
-  return taskId
-    .split("/")
-    .some((seg) => seg.startsWith("_"));
-}
-
-async function autoCommit(taskDir: string, taskId: string): Promise<void> {
-  const rel = relative(REPO_ROOT, taskDir);
-  try {
-    await execFileAsync("git", ["add", rel, "progress.json"], {
-      cwd: REPO_ROOT,
-    });
-    await execFileAsync("git", ["commit", "-m", `solve: ${taskId}`], {
-      cwd: REPO_ROOT,
-    });
-  } catch {
-    // Commit is best-effort; a failure here must not break the submit result.
-  }
-}
-
 export interface RunOptions {
   recordProgress?: boolean;
-  autoCommit?: boolean;
+  usedHint?: boolean;
 }
 
 export async function runTask(
   taskId: string,
   opts: RunOptions = {},
 ): Promise<SubmitResult> {
-  const { recordProgress = true, autoCommit: allowCommit = true } = opts;
+  const { recordProgress = true, usedHint = false } = opts;
   const started = performance.now();
   let taskDir: string;
   try {
@@ -188,6 +176,22 @@ export async function runTask(
     };
   }
 
+  let submittedStarter: string | undefined;
+  try {
+    const starter = findStarter(taskDir);
+    submittedStarter = starter ? readArtifactText(starter) : undefined;
+  } catch (error) {
+    return {
+      taskId,
+      passed: false,
+      tests: [],
+      lint: { errors: [], warnings: [] },
+      typecheck: { errors: [] },
+      durationMs: Math.round(performance.now() - started),
+      error: `nie udało się odczytać zgłaszanego rozwiązania: ${(error as Error).message}`,
+    };
+  }
+
   const [{ tests, error }, lint, typeErrors] = await Promise.all([
     runVitest(taskDir),
     runLint(taskDir),
@@ -196,8 +200,23 @@ export async function runTask(
 
   const testsGreen =
     !error && tests.length > 0 && tests.every((t) => t.status === "pass");
-  const passed =
+  let submissionError = error;
+  const checksPassed =
     testsGreen && lint.errors.length === 0 && typeErrors.length === 0;
+  if (checksPassed) {
+    try {
+      const currentStarter = findStarter(taskDir);
+      const currentSource = currentStarter ? readArtifactText(currentStarter) : undefined;
+      if (currentSource !== submittedStarter) {
+        submissionError =
+          "kod zmienił się podczas sprawdzania — uruchom sprawdzenie ponownie";
+      }
+    } catch (currentSourceError) {
+      submissionError =
+        `nie udało się potwierdzić sprawdzonego rozwiązania: ${(currentSourceError as Error).message}`;
+    }
+  }
+  const passed = checksPassed && !submissionError;
 
   const result: SubmitResult = {
     taskId,
@@ -206,14 +225,15 @@ export async function runTask(
     lint,
     typecheck: { errors: typeErrors },
     durationMs: Math.round(performance.now() - started),
-    error,
+    error: submissionError,
   };
 
   if (recordProgress) {
-    const { wasFirstPass } = recordRun(taskId, passed);
-    if (allowCommit && wasFirstPass && !isHiddenTrack(taskId)) {
-      await autoCommit(taskDir, taskId);
-    }
+    result.progress = recordRun(taskId, {
+      passed,
+      usedHint,
+      verifiedStarter: passed ? submittedStarter : undefined,
+    }).taskProgress;
   }
 
   return result;

@@ -11,5 +11,5 @@ export default async function TrackPage({
   const { track } = await params;
   const data = buildCatalog().tracks.find((t) => t.id === track);
   if (!data) notFound();
-  return <Roadmap track={data} name={trackMeta(track).name} />;
+  return <Roadmap track={data} name={trackMeta(track).name} now={new Date().toISOString()} />;
 }

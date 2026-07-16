@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { buildCatalog } from "@/harness/catalog";
 import SearchButton from "@/app/components/SearchButton";
 import TrackBadge from "@/app/components/TrackBadge";
@@ -15,9 +16,9 @@ import {
   trackMeta,
   trackProgress,
   pct,
+  nextTopic,
   topicSlug,
   topicNumber,
-  nextTopic,
   type Category,
 } from "@/app/lib/tracks";
 
@@ -28,7 +29,8 @@ const CAT_ICON: Record<Category, typeof IconCode> = {
   Projekty: IconBoxes,
 };
 
-export default function Home() {
+export default async function Home() {
+  await connection();
   const catalog = buildCatalog();
   const activeIds = new Set(catalog.tracks.map((t) => t.id));
   const upcoming = TRACK_META.filter((m) => !activeIds.has(m.id));
@@ -55,7 +57,7 @@ export default function Home() {
           const prog = trackProgress(track);
           const p = pct(prog);
           const next = nextTopic(track);
-          const nextLevel = next?.levels.find((l) => l.status !== "passed") ?? next?.levels[0];
+          const nextLevel = next?.levels.find((level) => level.status !== "passed") ?? next?.levels[0];
           const startIdx = next ? track.topics.indexOf(next) : 0;
           const peek = track.topics.slice(startIdx, startIdx + 3);
 

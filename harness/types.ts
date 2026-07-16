@@ -26,13 +26,23 @@ export interface SubmitResult {
   lint: { errors: LintIssue[]; warnings: LintIssue[] };
   typecheck: { errors: TypeIssue[] };
   durationMs: number;
+  progress?: TaskProgress;
   error?: string;
 }
 
 export interface TaskProgress {
-  status: "passed" | "failed";
+  status: "passed" | "passed-with-hint" | "failed" | "not-started";
   attempts: number;
+  masteryScore?: number;
+  cleanPassStreak?: number;
+  nextReviewAt?: string;
+  lastAttemptPassed?: boolean;
+  resetCount?: number;
+  lastResetAt?: string;
   firstPassedAt?: string;
+  firstPassedWithHintAt?: string;
+  firstPassedWithoutHintAt?: string;
+  verifiedStarter?: string;
   lastRunAt: string;
 }
 
