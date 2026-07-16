@@ -166,6 +166,28 @@ const TOPIC_RESOURCES: Record<string, LearningResource[]> = {
   "37-optimize-async": [
     { title: "Współbieżność Promise", url: `${MDN}/Reference/Global_Objects/Promise#promise_concurrency`, description: "Dobór all, allSettled, any i race do pracy asynchronicznej." },
   ],
+  "02b-advanced-narrowing": [
+    { title: "Narrowing", url: "https://www.typescriptlang.org/docs/handbook/2/narrowing.html", description: "Predykaty, assertion functions, unie rozłączne i wyczerpanie przez never." },
+    { title: "TypeScript 5.5", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-5.html", description: "Zasady inferowanych predykatów typu." },
+  ],
+  "03b-structural-typing": [
+    { title: "Type Compatibility", url: "https://www.typescriptlang.org/docs/handbook/type-compatibility.html", description: "Oficjalny opis strukturalnego modelu zgodności TypeScript." },
+    { title: "Object Types", url: "https://www.typescriptlang.org/docs/handbook/2/objects.html", description: "Excess property checks i kontrakty obiektowe." },
+  ],
+  "04b-type-operators": [
+    { title: "Creating Types from Types", url: "https://www.typescriptlang.org/docs/handbook/2/types-from-types.html", description: "Mapa operatorów keyof, typeof i indexed access." },
+  ],
+  "06b-modern-generics": [
+    { title: "TypeScript 5.0", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#const-type-parameters", description: "Const type parameters i zachowanie literalnej inferencji." },
+    { title: "NoInfer", url: "https://www.typescriptlang.org/docs/handbook/utility-types.html#noinfertype", description: "Blokowanie wybranego źródła inferencji w generycznym API." },
+  ],
+  "06c-tuples": [
+    { title: "TypeScript 4.0", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types", description: "Variadic i labeled tuple types." },
+  ],
+  "10b-recursive-types": [
+    { title: "Conditional Types", url: "https://www.typescriptlang.org/docs/handbook/2/conditional-types.html", description: "Warunki, infer i podstawy rekurencyjnych transformacji." },
+    { title: "TypeScript 4.5", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-5.html#tail-recursion-elimination-on-conditional-types", description: "Tail recursion elimination oraz limity kosztownych typów." },
+  ],
 };
 
 const MODULE_RESOURCES: LearningResource[] = [

@@ -180,7 +180,7 @@ Zostało: pozycje audytowe b/c, 13–20, module-02)
 - [x] 08 mapped types: własne utility, key remapping `as`, modyfikatory `+/-readonly`, `?`
 - [x] 09 conditional types + `infer`, distributive conditional types i wyłączanie dystrybucji
 - [x] 10 template literal types
-- [ ] 10b typy rekurencyjne: DeepPartial/DeepReadonly, ścieżki obiektu, tail-recursive
+- [x] 10b typy rekurencyjne: DeepPartial/DeepReadonly, ścieżki obiektu, tail-recursive
       operacje na krotkach; limity rekurencji TS (audyt — type-challenges medium/hard)
 - [x] module-01 (typowanie realnego modułu JS end-to-end)
 - [x] 11 klasy: abstract, implements, modyfikatory, parameter properties,

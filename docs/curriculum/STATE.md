@@ -54,12 +54,19 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   i 15/15 starterów przechodzi na TS 6 oraz TS 7.
 - Dodana automatyczna kontrola kompletności treści TypeScript: README, zastosowania,
   pułapki, starter, rozwiązanie, test i progresywne hinty.
+- TypeScript: dodane `10b-recursive-types` z praktycznym deep freeze, ścieżkami
+  konfiguracji i tail-recursive operacją na tuple.
+- Stan częściowy: 55 zadań; nowych 18/18 rozwiązań i 18/18 starterów przechodzi
+  na TS 6 oraz TS 7.
+- Nowe tematy mają przypisane bezpośrednie materiały z oficjalnej dokumentacji
+  TypeScript zamiast wyłącznie ogólnego fallbacku do Handbooka.
 
 ## Następne kroki
 
 1. Zapisać i wypchnąć ukończoną partię zaawansowanych fundamentów.
-2. Dodać typy rekurencyjne i drugi moduł praktyczny.
-3. Dodać bloki granic runtime, modułów, konfiguracji, wariancji,
+2. Dodać bloki modułów, deklaracji i rygorystycznej konfiguracji.
+3. Dodać granice runtime, wariancję, debugowanie i testy typów.
+4. Zbudować drugi moduł praktyczny po ukończeniu potrzebnych bloków.
    testów typów i migracji.
 
 ## Otwarte ryzyka
