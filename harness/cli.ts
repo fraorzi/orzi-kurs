@@ -7,9 +7,12 @@ import {
   statSync,
 } from "node:fs";
 import { join, relative } from "node:path";
+import { spawnSync } from "node:child_process";
 import { runTask } from "./runner";
+import { readProgress, REPO_ROOT } from "./progress";
+import { changedProgressTaskIds } from "./progress-diff";
 import { resolveTaskDir, findStarter, findSolution, TRACKS_ROOT } from "./paths";
-import type { SubmitResult } from "./types";
+import type { Progress, SubmitResult } from "./types";
 
 const GREEN = "\x1b[32m";
 const RED = "\x1b[31m";
@@ -33,6 +36,12 @@ function printResult(res: SubmitResult): void {
     }
   }
 
+  for (const t of res.typecheck.errors) {
+    console.log(
+      `  ${RED}type error${RESET} [${t.code}] ${t.file}:${t.line}: ${t.message}`,
+    );
+  }
+
   for (const e of res.lint.errors) {
     console.log(`  ${RED}lint error${RESET} [${e.ruleId}] ln ${e.line}: ${e.message}`);
   }
@@ -49,6 +58,95 @@ async function cmdSubmit(taskId: string): Promise<number> {
   const res = await runTask(taskId);
   printResult(res);
   return res.passed ? 0 : 1;
+}
+
+async function cmdCommit(taskId: string): Promise<number> {
+  if (!taskId) {
+    console.error("użycie: commit <taskId>");
+    return 2;
+  }
+  if (taskId.split("/").some((segment) => segment.startsWith("_"))) {
+    console.error("nie można commitować zadania technicznego z ukrytego tracka");
+    return 2;
+  }
+
+  const taskProgress = readProgress()[taskId];
+  const status = taskProgress?.status;
+  if (status !== "passed" && status !== "passed-with-hint") {
+    console.error(`zadanie nie jest zaliczone: ${taskId}`);
+    return 1;
+  }
+  if (taskProgress.lastAttemptPassed === false) {
+    console.error("ostatnia próba nie przeszła — zalicz zadanie ponownie przed commitem");
+    return 1;
+  }
+
+  const taskDir = resolveTaskDir(taskId);
+  const starter = findStarter(taskDir);
+  if (!starter) {
+    console.error(`brak startera dla: ${taskId}`);
+    return 2;
+  }
+
+  console.log(`sprawdzam ponownie przed commitem: ${taskId}`);
+  const result = await runTask(taskId, { recordProgress: false });
+  printResult(result);
+  if (!result.passed) {
+    console.error("commit przerwany — aktualny kod nie przechodzi sprawdzenia");
+    return 1;
+  }
+
+  const headProgress = spawnSync("git", ["show", "HEAD:progress.json"], {
+    cwd: REPO_ROOT,
+    encoding: "utf8",
+  });
+  if (headProgress.status !== 0) {
+    console.error(headProgress.stderr || "nie udało się odczytać progress.json z HEAD");
+    return 2;
+  }
+  let progressAtHead: Progress;
+  try {
+    progressAtHead = JSON.parse(headProgress.stdout) as Progress;
+  } catch {
+    console.error("progress.json w HEAD nie jest prawidłowym JSON-em");
+    return 2;
+  }
+  const unrelatedProgress = changedProgressTaskIds(
+    progressAtHead,
+    readProgress(),
+  ).filter((changedTaskId) => changedTaskId !== taskId);
+  if (unrelatedProgress.length > 0) {
+    console.error(
+      `commit przerwany — progress.json zawiera zmiany innych zadań: ${unrelatedProgress.join(", ")}`,
+    );
+    console.error(
+      "zacommituj lub wycofaj te wpisy osobno, a potem ponów commit bieżącego zadania",
+    );
+    return 1;
+  }
+
+  const paths = [relative(REPO_ROOT, starter), "progress.json"];
+  const changes = spawnSync("git", ["status", "--porcelain", "--", ...paths], {
+    cwd: REPO_ROOT,
+    encoding: "utf8",
+  });
+  if (changes.status !== 0) {
+    console.error(changes.stderr || "nie udało się sprawdzić zmian w git");
+    return 2;
+  }
+  if (!changes.stdout.trim()) {
+    console.log("brak zmian rozwiązania lub postępu do zacommitowania");
+    return 0;
+  }
+
+  const add = spawnSync("git", ["add", "--", ...paths], { cwd: REPO_ROOT, stdio: "inherit" });
+  if (add.status !== 0) return add.status ?? 2;
+  const commit = spawnSync(
+    "git",
+    ["commit", "--only", "-m", `solve: ${taskId}`, "--", ...paths],
+    { cwd: REPO_ROOT, stdio: "inherit" },
+  );
+  return commit.status ?? 2;
 }
 
 function dirsIn(path: string): string[] {
@@ -105,7 +203,7 @@ async function verifyOne(taskDir: string): Promise<boolean> {
   backupOriginal();
   try {
     swapIn();
-    const res = await runTask(taskId, { recordProgress: false, autoCommit: false });
+    const res = await runTask(taskId, { recordProgress: false });
     if (res.passed) {
       console.log(`  ${GREEN}✓${RESET} ${taskId} ${DIM}(${res.durationMs}ms)${RESET}`);
     } else {
@@ -113,6 +211,11 @@ async function verifyOne(taskDir: string): Promise<boolean> {
       if (res.error) console.log(`      ${DIM}${res.error}${RESET}`);
       for (const t of res.tests.filter((t) => t.status === "fail")) {
         console.log(`      ${RED}✗${RESET} ${t.name}${t.message ? ` — ${t.message}` : ""}`);
+      }
+      for (const t of res.typecheck.errors) {
+        console.log(
+          `      ${RED}type error${RESET} [${t.code}] ${t.file}:${t.line}: ${t.message}`,
+        );
       }
       for (const e of res.lint.errors) {
         console.log(`      ${RED}lint${RESET} [${e.ruleId}] ln ${e.line}: ${e.message}`);
@@ -154,10 +257,12 @@ async function main(): Promise<void> {
   let code: number;
   if (cmd === "submit") {
     code = await cmdSubmit(arg);
+  } else if (cmd === "commit") {
+    code = await cmdCommit(arg);
   } else if (cmd === "verify") {
     code = await cmdVerify(arg);
   } else {
-    console.error("użycie: tsx harness/cli.ts <submit|verify> [taskId|trackId]");
+    console.error("użycie: tsx harness/cli.ts <submit|commit|verify> [taskId|trackId]");
     code = 2;
   }
   process.exit(code);

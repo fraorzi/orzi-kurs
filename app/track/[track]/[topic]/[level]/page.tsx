@@ -2,9 +2,11 @@ import { readFileSync, existsSync } from "node:fs";
 import { join, relative } from "node:path";
 import { notFound } from "next/navigation";
 import { parseHints } from "@/harness/hints";
-import { findStarter, findSolution, TRACKS_ROOT } from "@/harness/paths";
+import { findStarter, findSolution, readArtifactText, TRACKS_ROOT } from "@/harness/paths";
 import { readProgress } from "@/harness/progress";
 import { buildCatalog } from "@/harness/catalog";
+import { resourcesForTask } from "@/harness/resources";
+import { nextTaskInTrack } from "@/harness/task-navigation";
 import TaskView from "./TaskView";
 
 export default async function LevelPage({
@@ -23,15 +25,18 @@ export default async function LevelPage({
     : "";
   const hintsTotal = parseHints(join(taskDir, "hints.md")).length;
   const starterPath = findStarter(taskDir);
-  const passed = readProgress()[taskId]?.status === "passed";
+  const progress = readProgress();
+  const taskProgress = progress[taskId] ?? null;
+  const progressStatus = taskProgress?.status;
+  const passed = progressStatus === "passed" || progressStatus === "passed-with-hint";
   const solutionPath = findSolution(taskDir);
-  const solution = passed && solutionPath ? readFileSync(solutionPath, "utf8") : null;
+  const solution = passed && solutionPath ? readArtifactText(solutionPath) : null;
+  const starter = passed ? (taskProgress?.verifiedStarter ?? null) : null;
   const starterRel = starterPath ? relative(process.cwd(), starterPath) : null;
 
-  const topicTitle =
-    buildCatalog()
-      .tracks.find((t) => t.id === track)
-      ?.topics.find((t) => t.id === `${track}/${topic}`)?.title ?? topic;
+  const catalogTrack = buildCatalog().tracks.find((item) => item.id === track);
+  const topicTitle = catalogTrack?.topics.find((item) => item.id === `${track}/${topic}`)?.title ?? topic;
+  const nextTask = catalogTrack ? nextTaskInTrack(catalogTrack, taskId) : null;
 
   return (
     <TaskView
@@ -45,6 +50,11 @@ export default async function LevelPage({
       starterPath={starterPath}
       starterRel={starterRel}
       initialSolution={solution}
+      initialStarter={starter}
+      initialProgress={taskProgress}
+      initialPassKind={progressStatus === "passed-with-hint" ? "with-hint" : passed ? "without-hint" : null}
+      resources={resourcesForTask(taskId)}
+      nextTaskHref={nextTask?.href ?? null}
     />
   );
 }

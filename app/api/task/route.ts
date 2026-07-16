@@ -38,10 +38,13 @@ export async function GET(req: NextRequest) {
   const hintsTotal = parseHints(join(taskDir, "hints.md")).length;
   const starterPath = findStarter(taskDir);
 
-  const passed = readProgress()[id]?.status === "passed";
+  const progress = readProgress()[id] ?? null;
+  const status = progress?.status;
+  const passed = status === "passed" || status === "passed-with-hint";
   const solutionPath = findSolution(taskDir);
   const solution =
     passed && solutionPath ? readSolutionText(solutionPath) : null;
+  const starter = passed ? (progress?.verifiedStarter ?? null) : null;
 
-  return Response.json({ readme, taskMd, hintsTotal, starterPath, solution });
+  return Response.json({ readme, taskMd, hintsTotal, starterPath, starter, solution, progress });
 }

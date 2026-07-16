@@ -3,10 +3,15 @@ import { join, relative } from "node:path";
 import type { Progress } from "./types";
 import { readProgress } from "./progress";
 import { TRACKS_ROOT } from "./paths";
+import { masteryScore } from "./mastery";
+import { compareTopicSlugs } from "../curriculum/order";
 
 export interface CatalogLevel {
   id: string;
-  status: "passed" | "failed" | "not-started";
+  status: "passed" | "passed-with-hint" | "failed" | "not-started";
+  attempts: number;
+  masteryScore: number;
+  nextReviewAt?: string;
 }
 
 export interface CatalogTopic {
@@ -46,12 +51,18 @@ function isTaskDir(path: string): boolean {
     ["js", "ts"].some((ext) => existsSync(join(path, `starter.${ext}`)));
 }
 
-function levelStatus(
+function levelProgress(
   taskDir: string,
   progress: Progress,
-): CatalogLevel["status"] {
+): Omit<CatalogLevel, "id"> {
   const id = relative(TRACKS_ROOT, taskDir).split("\\").join("/");
-  return progress[id]?.status ?? "not-started";
+  const taskProgress = progress[id];
+  return {
+    status: taskProgress?.status ?? "not-started",
+    attempts: taskProgress?.attempts ?? 0,
+    masteryScore: masteryScore(taskProgress),
+    nextReviewAt: taskProgress?.nextReviewAt,
+  };
 }
 
 function collectLevels(topicDir: string, progress: Progress): CatalogLevel[] {
@@ -73,7 +84,7 @@ function collectLevels(topicDir: string, progress: Progress): CatalogLevel[] {
     if (!isLevel) continue;
     const dir = join(topicDir, sub);
     if (!isTaskDir(dir)) continue;
-    levels.push({ id: sub, status: levelStatus(dir, progress) });
+    levels.push({ id: sub, ...levelProgress(dir, progress) });
   }
   return levels;
 }
@@ -86,7 +97,9 @@ export function buildCatalog(progress: Progress = readProgress()): Catalog {
     const trackDir = join(TRACKS_ROOT, trackName);
     const topics: CatalogTopic[] = [];
 
-    for (const topicName of dirsIn(trackDir)) {
+    for (const topicName of dirsIn(trackDir).sort((left, right) =>
+      compareTopicSlugs(trackName, left, right)
+    )) {
       if (topicName.startsWith("_")) continue;
       const topicDir = join(trackDir, topicName);
       const levels = collectLevels(topicDir, progress);

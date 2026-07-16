@@ -6,8 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint --ignore-pattern tracks",
+    "test:harness": "vitest run harness",
     "submit": "tsx harness/cli.ts submit",
+    "commit:task": "tsx harness/cli.ts commit",
     "verify:solutions": "tsx harness/cli.ts verify"
   },
   "dependencies": {

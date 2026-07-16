@@ -14,14 +14,21 @@ export default function Shell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/catalog")
-      .then((r) => r.json())
-      .then((data: Catalog) => {
-        if (!cancelled) setCatalog(data);
-      })
-      .catch(() => {});
+    let requestId = 0;
+    function loadCatalog() {
+      const currentRequest = ++requestId;
+      fetch("/api/catalog")
+        .then((r) => r.json())
+        .then((data: Catalog) => {
+          if (!cancelled && currentRequest === requestId) setCatalog(data);
+        })
+        .catch(() => {});
+    }
+    loadCatalog();
+    window.addEventListener("orzi:progress", loadCatalog);
     return () => {
       cancelled = true;
+      window.removeEventListener("orzi:progress", loadCatalog);
     };
   }, [pathname]);
 

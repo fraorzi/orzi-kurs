@@ -5,7 +5,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
-  let body: { taskId?: string };
+  let body: { taskId?: string; usedHint?: boolean };
   try {
     body = await req.json();
   } catch {
@@ -17,6 +17,6 @@ export async function POST(req: NextRequest) {
     return Response.json({ error: "wymagane pole taskId" }, { status: 400 });
   }
 
-  const result = await runTask(taskId);
-  return Response.json(result);
+  const result = await runTask(taskId, { usedHint: body.usedHint === true });
+  return Response.json({ ...result, usedHint: body.usedHint === true });
 }

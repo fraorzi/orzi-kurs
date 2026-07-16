@@ -11,7 +11,6 @@ import {
   trackMeta,
   topicNumber,
   topicTag,
-  LEVEL_DESC,
   STATUS_LABEL,
 } from "@/app/lib/tracks";
 
@@ -46,28 +45,38 @@ export default async function TopicPage({
         <SearchButton />
       </div>
 
-      <div className="wrap wrap-read">
-        {readme ? <Markdown content={readme} /> : <h1 className="title">{topicData.title}</h1>}
-
-        <h2 className="sec">
-          Poziomy {tag && <TopicTag tag={tag} />}
-        </h2>
-        <div className="lvls">
-          {topicData.levels.map((level) => (
-            <Link
-              key={level.id}
-              className="lcard"
-              href={`/track/${track}/${topic}/${level.id}`}
-            >
-              <span className={`sdot ${level.status}`} style={{ width: 11, height: 11 }} />
-              <div>
-                <div className="lname">{level.id}</div>
-                <div className="ldesc">{LEVEL_DESC[level.id] ?? ""}</div>
-              </div>
-              <span className={`pill ${level.status}`}>{STATUS_LABEL[level.status]}</span>
-            </Link>
-          ))}
+      <div className="wrap wrap-task page-theory">
+        <div className="page-role">
+          <strong>Teoria przed praktyką</strong>
+          <span>Zrozum mechanizm, a potem sprawdź go na trzech poziomach trudności.</span>
         </div>
+
+        <article className="theory-content">
+          {readme ? <Markdown content={readme} /> : <h1 className="title">{topicData.title}</h1>}
+        </article>
+
+        <section className="level-picker" aria-labelledby="level-picker-title">
+          <div className="level-picker-head">
+            <div>
+              <h2 id="level-picker-title">Przejdź do praktyki</h2>
+              <p>Wybierz poziom. Każdy kolejny wymaga więcej samodzielnego myślenia.</p>
+            </div>
+            {tag && <TopicTag tag={tag} />}
+          </div>
+          <div className="lvls">
+            {topicData.levels.map((level) => (
+              <Link
+                key={level.id}
+                className="lcard"
+                href={`/track/${track}/${topic}/${level.id}`}
+              >
+                <span className={`sdot ${level.status}`} style={{ width: 11, height: 11 }} />
+                <div className="lname">{level.id}</div>
+                <span className={`pill ${level.status}`}>{STATUS_LABEL[level.status]}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
       </div>
     </>
   );

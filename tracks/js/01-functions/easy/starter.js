@@ -1,14 +1,13 @@
 export function min(a, b) {
-    if (a < b) return a;
-    return b;
+    return a < b ? a : b;
 }
 
 export function pow(x, n) {
-    let sum = 1;
+    let res = 1;
     for (let i = 0; i < n; i++) {
-        sum *= x;
+        res *= x;
     }
-    return sum;
+    return res;
 }
 
 export function greet(name, greeting = "Cześć") {
