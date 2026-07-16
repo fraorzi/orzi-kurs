@@ -188,6 +188,17 @@ const TOPIC_RESOURCES: Record<string, LearningResource[]> = {
     { title: "Conditional Types", url: "https://www.typescriptlang.org/docs/handbook/2/conditional-types.html", description: "Warunki, infer i podstawy rekurencyjnych transformacji." },
     { title: "TypeScript 4.5", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-5.html#tail-recursion-elimination-on-conditional-types", description: "Tail recursion elimination oraz limity kosztownych typów." },
   ],
+  "13-modules-declarations": [
+    { title: "Modules", url: "https://www.typescriptlang.org/docs/handbook/2/modules.html", description: "Importy, eksporty, rozwiązywanie modułów i publiczne API." },
+    { title: "Declaration Files", url: "https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html", description: "Pisanie i testowanie deklaracji dla istniejącego JavaScriptu." },
+  ],
+  "13b-module-augmentation": [
+    { title: "Declaration Merging", url: "https://www.typescriptlang.org/docs/handbook/declaration-merging.html", description: "Scalanie interfejsów i module augmentation." },
+  ],
+  "13c-strict-tsconfig": [
+    { title: "TSConfig Reference", url: "https://www.typescriptlang.org/tsconfig/", description: "Oficjalna dokumentacja opcji kompilatora." },
+    { title: "verbatimModuleSyntax", url: "https://www.typescriptlang.org/tsconfig/verbatimModuleSyntax.html", description: "Jawne importy i eksporty typów zgodne z emitowanym ESM." },
+  ],
 };
 
 const MODULE_RESOURCES: LearningResource[] = [

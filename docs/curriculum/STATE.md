@@ -60,13 +60,20 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   na TS 6 oraz TS 7.
 - Nowe tematy mają przypisane bezpośrednie materiały z oficjalnej dokumentacji
   TypeScript zamiast wyłącznie ogólnego fallbacku do Handbooka.
+- Harness obsługuje ograniczony `tsconfig.task.json`, dzięki czemu zadania faktycznie
+  włączają wybrane flagi ścisłości bez przejmowania konfiguracji modułów i emisji.
+- TypeScript: dodane `13-modules-declarations`, `13b-module-augmentation` oraz
+  `13c-strict-tsconfig`, łącznie 9 nowych zadań, w tym 6 wieloplikowych.
+- Stan częściowy: 64 zadania; nowych 27/27 rozwiązań i 27/27 starterów przechodzi
+  na TS 6 oraz TS 7.
 
 ## Następne kroki
 
 1. Zapisać i wypchnąć ukończoną partię zaawansowanych fundamentów.
-2. Dodać bloki modułów, deklaracji i rygorystycznej konfiguracji.
-3. Dodać granice runtime, wariancję, debugowanie i testy typów.
-4. Zbudować drugi moduł praktyczny po ukończeniu potrzebnych bloków.
+2. Dodać debugowanie typów, wariancję i testy kontraktów compile-time.
+3. Dodać async types, granice runtime i DOM.
+4. Dodać optymalizację runtime, migrację oraz elective.
+5. Zbudować drugi moduł praktyczny po ukończeniu potrzebnych bloków.
    testów typów i migracji.
 
 ## Otwarte ryzyka

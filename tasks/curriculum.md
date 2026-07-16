@@ -186,10 +186,10 @@ Zostało: pozycje audytowe b/c, 13–20, module-02)
 - [x] 11 klasy: abstract, implements, modyfikatory, parameter properties,
       `#private` vs `private`
 - [x] 12 enums vs const objects, `satisfies` vs `as` vs adnotacja
-- [ ] 13 moduły, declaration files `.d.ts`, typowanie bibliotek, `import type`,
+- [x] 13 moduły, declaration files `.d.ts`, typowanie bibliotek, `import type`,
       `verbatimModuleSyntax`
-- [ ] 13b declaration merging i module augmentation (rozszerzanie cudzych typów) (audyt)
-- [ ] 13c tsconfig i tryby ścisłości: strictNullChecks, noUncheckedIndexedAccess,
+- [x] 13b declaration merging i module augmentation (rozszerzanie cudzych typów) (audyt)
+- [x] 13c tsconfig i tryby ścisłości: strictNullChecks, noUncheckedIndexedAccess,
       exactOptionalPropertyTypes, moduleResolution (audyt)
 - [ ] 14 [D] debug: `any`-zatrucie, błędne generyki, niebezpieczne assertions
 - [ ] 14b [D] wariancja: covariance/contravariance, bivariance metod i dziurawe tablice (audyt)
