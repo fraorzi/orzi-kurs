@@ -1,18 +1,20 @@
-# Gotowe prompty do sesji
+# Archiwalne prompty ręcznego workflow
+
+> Ten plik dokumentuje poprzedni, ręczny sposób rozwijania repo i nie jest już
+> instrukcją wykonawczą. Aktualny proces jest ciągły, samodzielnie checkpointowany
+> w Git i opisany w `docs/curriculum/OPERATING_MODEL.md` oraz
+> `docs/curriculum/STATE.md`. Obowiązuje wyłącznie GPT-5.6 Sol; agent sam tworzy
+> branche, commity i pushe. Poniższe prompty zachowano jako źródło historycznych
+> kryteriów testów i wymagań harnessu.
 
 ## Jak używać
 
-- **Kiedy:** po zamknięciu MVP (pierwszy commit repo). Wcześniej nie — sesje opierają
-  się na SPEC/curriculum/wzorcu js/01-05, które muszą być scommitowane.
-- **Jak:** nowe okno Claude Code w katalogu `orzi-kurs`, wklej prompt.
+- **Status:** archiwum; nie uruchamiaj tego workflow dla bieżącej roadmapy.
+- **Dawniej:** nowe okno narzędzia w katalogu `orzi-kurs`, jeden moduł na sesję.
   Jedna sesja = jeden moduł. **Nie odpalaj dwóch sesji treści naraz** (konflikt na
   harness/package.json przy rozszerzeniach).
-- **Modele (oszczędność usage):** Prompt 1 (treść) → **Opus** — wystarcza, bo jakość
-  trzymają bramki (kuracja ze źródeł, wzorzec js/08-12, verify:solutions, wytyczne
-  testów niżej). Prompt 2 (audyt) → **Fable** — mocny model czyta i poprawia, co jest
-  wielokrotnie tańsze niż generowanie. Prompty 3-4 → Opus/Sonnet.
-- **Cykl na moduł:** Prompt 1 (treść) → Prompt 2 (audyt, świeże okno) → Ty rozwiązujesz
-  → Prompt 3 (review Twoich rozwiązań). Prompt 4 (powiadomienia) — raz, na sam koniec.
+- **Obecnie:** zasady modeli, branchy, commitów i kolejności bierze się wyłącznie
+  z `AGENTS.md` i `docs/curriculum/`.
 - **Kolejność modułów:** js (dokończenie) → ts → react → node → next → mysql → strapi
   → combined. Prompt 1 sam bierze pierwszy nieukończony.
 - **Tempo:** wystarczy być 1 moduł przed Twoim planem nauki; możesz też wygenerować
@@ -45,9 +47,8 @@ Dokończ kolejny moduł treści w orzi-kurs.
    przywiązanie do konkretnej listy. Każdy temat mający wiele wariantów ROZBIJ
    na osobne zagadnienia i DOPISZ do curriculum.md. Curriculum to minimum,
    nie limit. Wypisz mi wynik audytu (co rozbiłeś i dlaczego) zanim ruszysz.
-4. Jeśli moduł wymaga rozszerzenia harnessu (tabela niżej) — najpierw zleć je
-   subagentowi przez Agent tool z model: "opus", ze szczegółowym specem i obowiązkową
-   weryfikacją na tracks/_smoke. Treść piszesz dopiero na działającym harnessie.
+4. Jeśli moduł wymaga rozszerzenia harnessu (tabela niżej) — najpierw wykonaj je
+   i zweryfikuj na tracks/_smoke. Treść piszesz dopiero na działającym harnessie.
 5. Treść wg SPEC.md: README z sekcjami „kiedy używać / kiedy unikać / pułapki";
    poziomy easy (niemal z README) / medium (wariacja) / hard (wymaga zrozumienia,
    może być wieloplikowy); hinty progresywne; _solution; testy z polskimi opisowymi
@@ -69,7 +70,8 @@ Dokończ kolejny moduł treści w orzi-kurs.
    ratio — zbyt małe `sizes` nie złapią O(n²). Dla tanich operacji użyj [2000, 20000]
    i sprawdź oba kierunki na kilku przebiegach.
 7. Odhacz zrobione pozycje w tasks/curriculum.md.
-8. ŻADNYCH commitów git i żadnych propozycji commitów — commituję sam.
+8. W archiwalnym workflow agent nie wykonywał commitów. Aktualny workflow wymaga
+   osobnego brancha, logicznych commitów i pushu.
 9. Raport: co powstało, co dopisałeś do curriculum, wyniki verify, ograniczenia.
 ```
 
@@ -124,7 +126,7 @@ E. WYNIK
    - Błędy merytoryczne i mechaniczne POPRAW od razu w plikach (po poprawce
      verify:solutions znowu green).
    - Braki zakresu → curriculum.md z dopiskiem „(audyt)".
-   - ŻADNYCH commitów git i żadnych propozycji commitów — commituję sam.
+   - W aktualnym workflow poprawki trafiają do logicznych commitów na branchu tracka.
    - Raport końcowy: co sprawdzone, co poprawione (plik po pliku), co dopisane
      do curriculum, co przetestowałeś eksperymentalnie w scratchpadzie i z jakim
      wynikiem, czego nie dało się zweryfikować i dlaczego.

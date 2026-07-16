@@ -88,7 +88,8 @@ const TS_TOPIC_ORDER = [
   "17-runtime-boundaries",
   "17b-dom-events",
   "18-type-challenges",
-  "19-modern-features",
+  "19-ts-migration",
+  "20-modern-features",
   "module-02",
 ] as const;
 
