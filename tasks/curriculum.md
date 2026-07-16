@@ -20,13 +20,30 @@ szeroki (np. useEffect), dostaje kilka zagadnień. Lista może rosnąć, nie mal
 
 Zasada progresji: KAŻDY track zaczyna od bloku podstaw do aktywnego pisania —
 czytać kod ≠ pisać z głowy, więc nawet „znane" konstrukcje (składnia funkcji, pętle,
-typy) mają swoje zadania. Trudność rośnie z numerami zagadnień; wewnątrz zagadnienia
-easy → medium → hard.
+typy) mają swoje zadania. Trudność rośnie z pozycją na roadmapie; wewnątrz zagadnienia
+easy → medium → hard. Numery w nazwach istniejących katalogów są stabilnymi
+identyfikatorami treści i nie wyznaczają już kolejności nauki.
 
 ## js (01–37 gotowe: numerowane + pierwsze [O] optymalizacyjne)
 (verify:solutions js = 158/158; wszystkie pozycje audytowe b/c gotowe:
 05b, 05c, 10b, 16b, 17b, 17c, 18b, 20b, 21b, 22b, 25b, 27b, 29b, 31b.
 KOMPLET: module-01..05 gotowe — track js zamknięty)
+
+### Kolejność nauki na roadmapie
+
+Źródłem kolejności dla aplikacji jest `curriculum/order.ts`, a nie alfabetyczne
+sortowanie katalogów. Etapy są ułożone według prerekwizytów:
+
+1. Fundamenty: funkcje → scope → typy → liczby → pętle → stringi, Unicode i regex.
+2. Dane: obiekty → destructuring → tablice → immutability → Map/Set → JSON i Date
+   → closures → rekursja.
+3. Model obiektowy: `this` → prototypy → klasy → obsługa błędów → debug logiki.
+4. Async i integracje: promises → async/await → event loop → błędy async → fetch
+   → debounce/throttle → EventEmitter → module-01.
+5. Zaawansowana iteracja: iteratory → generatory → deskryptory → Proxy → słabe
+   referencje → module-04.
+6. Jakość: regex zaawansowany → debug wydajności → optymalizacje → module-03,
+   module-02 i module-05 dokładnie po wymaganych zagadnieniach.
 
 - [x] 01 funkcje: deklaracja vs wyrażenie vs arrow (this/arguments/hoisting),
       parametry domyślne i rest, funkcje jako wartości
@@ -134,54 +151,84 @@ KOMPLET: module-01..05 gotowe — track js zamknięty)
 - [x] module-05 (feature: rate limiter + kolejka zadań — throttle, pool współbieżności,
       batching, backoff przy retry; skleja 25/10/37/32) (audyt)
 
-## ts (~16 pozycji ≈ 48 zadań)
+## ts (~31 pozycji ≈ 90 zadań) — od kodu runtime do programowania typów
 
-- [ ] 01 typy podstawowe, inference, literal types, as const
+- [ ] 01 typy podstawowe, inference, literal types, `as const`
 - [ ] 02 unie, narrowing, type guards, discriminated unions
+- [ ] 02b narrowing zaawansowany: predykaty `x is T`, `asserts x is T`, inferred type
+      predicates i wyczerpanie unii przez `never`
 - [ ] 03 obiekty: interface vs type, optional, readonly, index signatures
-- [ ] 04 funkcje: sygnatury, overloads, void/unknown/never
+- [ ] 03b typowanie strukturalne: excess property checks, weak types i zgodność kształtów
+- [ ] 04 funkcje: sygnatury, overloads, void/unknown/never, parametr `this`
+- [ ] 04b operatory typów: `keyof`, `typeof`, indexed access i bezpieczne klucze obiektów
 - [ ] 05 generyki: podstawy (funkcje, interfejsy)
 - [ ] 06 generyki: constraints, defaults, wiele parametrów
-- [ ] 07 utility types (Partial, Pick, Omit, Record, ReturnType, Awaited)
-- [ ] 08 mapped types (własne utility)
-- [ ] 09 conditional types + infer
+- [ ] 06b generyki nowoczesne: `const` type parameters, `NoInfer`, zachowanie sygnatur
+      funkcji wyższego rzędu
+- [ ] 06c krotki i wariadyczne tuple types: labeled tuples, `[...T]`, typowanie `curry`/`pipe`
+- [ ] 07 utility types (Partial, Pick, Omit, Record, ReturnType, Parameters, Awaited)
+- [ ] 08 mapped types: własne utility, key remapping `as`, modyfikatory `+/-readonly`, `?`
+- [ ] 09 conditional types + `infer`, distributive conditional types i wyłączanie dystrybucji
 - [ ] 10 template literal types
+- [ ] 10b typy rekurencyjne: DeepPartial/DeepReadonly, ścieżki obiektu, limity kompilatora
 - [ ] module-01 (typowanie realnego modułu JS end-to-end)
-- [ ] 11 klasy: abstract, implements, modyfikatory
-- [ ] 12 enums vs const objects, satisfies
-- [ ] 13 moduły, declaration files (.d.ts), typowanie bibliotek
-- [ ] 14 [D] debug: naprawa błędów typów w realnym kodzie (any-zatrucie, złe generyki)
-- [ ] 15 mix z type-challenges (medium) jako egzamin
+- [ ] 11 klasy: abstract, implements, modyfikatory, parameter properties,
+      `#private` vs `private`
+- [ ] 12 enums vs const objects, `satisfies` vs `as` vs adnotacja
+- [ ] 13 moduły, declaration files `.d.ts`, typowanie bibliotek, `import type`,
+      `verbatimModuleSyntax`
+- [ ] 13b declaration merging i module augmentation
+- [ ] 13c tsconfig i tryby ścisłości: strictNullChecks, noUncheckedIndexedAccess,
+      exactOptionalPropertyTypes, moduleResolution
+- [ ] 14 [D] debug: `any`-zatrucie, błędne generyki, niebezpieczne assertions
+- [ ] 14b [D] wariancja: covariance/contravariance, bivariance metod i dziurawe tablice
+- [ ] 14c testowanie typów: `@ts-expect-error`, assertion helpers i testy kontraktów
+- [ ] 15 [O] optymalizacja kodu runtime bez utraty kontraktów typów
+- [ ] 16 typowanie async: Promise/Awaited, generyczny fetch, modelowanie sukcesu i błędu
+- [ ] 17 granice runtime: `unknown`, parsery, branded types, parse-don't-validate
+- [ ] 17b DOM i zdarzenia: EventTarget, HTMLElement, dataset, formularze i bezpieczne narrowing
+- [ ] 18 mix z type-challenges (medium) jako egzamin
+- [ ] 19 elective: dekoratory oraz `using`/DisposableStack — kiedy projekt realnie ich wymaga
 - [ ] module-02 (typowany klient API — łączy z js/module-02)
 
-## react (~24 pozycje ≈ 72 zadania) — hooki rozbite na warianty
+## react (~32 pozycje ≈ 96 zadań) — React 19.2, efekty jako escape hatch
 
-- [ ] 01 komponenty i props (czysto renderujące, kompozycja)
-- [ ] 02 JSX: warunki, listy, keys (i czemu index bywa zły)
-- [ ] 03 useState: podstawy, batching, updater function
+- [ ] 01 komponenty, props, kompozycja i czystość renderowania
+- [ ] 02 JSX, warunki, listy, keys, identity oraz reset stanu przez `key`
+- [ ] 03 state jako snapshot: useState, batching i updater function
 - [ ] 04 useState: obiekty i tablice (immutable updates)
-- [ ] 05 formularze kontrolowane (inputy, selecty, walidacja)
-- [ ] 06 useEffect: cykl życia, zależności, cleanup
-- [ ] 07 useEffect: pobieranie danych, race conditions, AbortController
-- [ ] 08 [D] stale closures w hookach (najczęstszy bug Reacta)
-- [ ] 09 useRef: DOM i mutable box (kiedy ref, kiedy state)
-- [ ] 10 useMemo/useCallback: stabilność referencji, kiedy NIE używać
-- [ ] 11 re-rendery: React.memo, licznik renderów (testowane Profilerem!)
+- [ ] 05 formularze kontrolowane, walidacja i dostępne etykiety
+- [ ] 06 derived state, logika zdarzeń i „You Might Not Need an Effect”
+- [ ] 07 useEffect tylko do synchronizacji z systemem zewnętrznym: dependencies, cleanup
+- [ ] 08 useEffectEvent, stale closures i oddzielanie zdarzeń od efektów
+- [ ] 09 ręczny fetch w efekcie: race conditions, AbortController i dlaczego to
+      mechanizm niskopoziomowy, nie domyślna architektura danych
+- [ ] 10 useRef, callback refs i useId
+- [ ] 11 useReducer (kiedy zamiast useState)
+- [ ] 12 useContext: kompozycja providerów, React 19 provider syntax, wydajność
 - [ ] module-01 (interaktywny widget wieloplikowy, bez fetchy)
-- [ ] 12 useReducer (kiedy zamiast useState)
-- [ ] 13 useContext: kompozycja providerów, wydajność kontekstu
-- [ ] 14 custom hooks (useDebounce, useLocalStorage, useFetch)
-- [ ] 15 podnoszenie stanu, kompozycja przez children, render props
-- [ ] 16 error boundaries i portale
+- [ ] 13 formularze i Actions: form `action`, useActionState
+- [ ] 14 useFormStatus i projektowanie stanów pending/error/success
+- [ ] 15 useOptimistic i bezpieczne optimistic updates
+- [ ] 16 `use`, Suspense i Error Boundary dla danych oraz contextu
 - [ ] 17 useSyncExternalStore (stores zewnętrzne)
-- [ ] 18 useTransition/useDeferredValue (współbieżny React)
-- [ ] 19 [D] debug: nadmiarowe re-rendery i zepsute zależności (Profiler + lint)
-- [ ] 19b [O] optymalizacja komponentu: działający, ale wolny widok — memo/useMemo tam,
-      gdzie trzeba, podnoszenie stanu, rozbicie komponentu (mierzone licznikiem renderów)
-- [ ] 20 wzorce testowania komponentów (Testing Library idiomatycznie)
-- [ ] 21 wydajność list (klucze, memo, koncepcja windowing)
-- [ ] 22 style w JS/React (obiekt style, CSS variables z JS — wyjątek od Tailwinda)
-- [ ] module-02 (feature wieloplikowy: lista + filtry + fetch + cache)
+- [ ] 18 custom hooks: projektowanie API, useDebounce/useLocalStorage, useDebugValue
+- [ ] 19 podnoszenie stanu, kompozycja przez children, render props
+- [ ] 20 portale i granice błędów poza przepływem danych z Suspense
+- [ ] 21 useTransition, useDeferredValue i `<Activity>`
+- [ ] 22 ref jako prop, useImperativeHandle i useLayoutEffect do pomiarów layoutu
+- [ ] 23 React Compiler: automatyczna memoizacja, ograniczenia i migracja mentalnego modelu
+- [ ] 24 useMemo/useCallback/React.memo tylko po pomiarze lub dla kontraktu referencji
+- [ ] 25 [D] nadmiarowe re-rendery i zepsute zależności (Profiler + lint)
+- [ ] 25b [O] optymalizacja wolnego widoku: lokalizacja stanu, podział komponentów,
+      memoizacja tam, gdzie pomiar wykazał koszt
+- [ ] 26 wzorce testowania komponentów (Testing Library idiomatycznie)
+- [ ] 27 wydajność list (klucze, memo, koncepcja windowing)
+- [ ] 28 style w JS/React (obiekt style, CSS variables z JS — wyjątek od Tailwinda)
+- [ ] 29 elective: server state z TanStack Query — query keys, staleTime, invalidation,
+      mutations, cancellation i optimistic updates bez własnego `useEffect`
+- [ ] module-02 (feature: formularz Action + lista Suspense + optimistic mutation)
+- [ ] module-03 (feature: lista z serwerowym cache, filtrami i zewnętrznym store)
 
 ## next (~12 pozycji ≈ 36 zadań)
 
@@ -254,6 +301,6 @@ KOMPLET: module-01..05 gotowe — track js zamknięty)
 - [ ] node-mysql-01: warstwa danych z transakcjami
 - [ ] full-01: kapston — feature przez wszystkie warstwy
 
-**Suma (minimum, nie limit): ~112 zagadnień ≈ 360–390 zadań + 10 testów modułowych.**
+**Suma (minimum, nie limit): ~135 zagadnień ≈ 420–460 zadań + 12 testów modułowych.**
 Sesje treści i audyty (tasks/prompts.md) mają obowiązek dopisywać pozycje, gdy źródła
 pokazują więcej wariantów.

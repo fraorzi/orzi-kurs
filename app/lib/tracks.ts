@@ -1,5 +1,6 @@
 import type { ComponentType, SVGProps } from "react";
 import type { Catalog, CatalogTopic, CatalogTrack, TaskStatus } from "./types";
+import { topicDisplayNumber } from "../../curriculum/order";
 import {
   LogoJs,
   LogoTs,
@@ -71,6 +72,9 @@ export function topicSlug(topicId: string): string {
 
 /** "21-generators" → "21", "module-01" → "M1" (numer z prefiksu katalogu). */
 export function topicNumber(topicId: string): string {
+  const displayNumber = topicDisplayNumber(topicId);
+  if (displayNumber) return displayNumber;
+
   const slug = topicSlug(topicId);
   const m = slug.match(/^(\d+)/);
   if (m) return m[1];
@@ -110,19 +114,111 @@ interface LearningModuleDefinition {
   id: string;
   title: string;
   description: string;
+  slugs?: string[];
   range?: [number, number];
   projects?: boolean;
 }
 
 const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
   js: [
-    { id: "fundamenty", title: "Fundamenty języka", description: "Funkcje, typy, iteracja, obiekty i praca z kolekcjami.", range: [1, 9] },
-    { id: "asynchronicznosc", title: "Asynchroniczność", description: "Promisy, async/await i model działania event loopa.", range: [10, 12] },
-    { id: "model-obiektowy", title: "Model obiektowy i niezawodność", description: "this, prototypy, klasy, błędy i struktury danych.", range: [13, 19] },
-    { id: "iteracja", title: "Iteracja i metaprogramowanie", description: "Iteratory, generatory, deskryptory, Proxy i niemutowalność.", range: [20, 23] },
-    { id: "wzorce", title: "Wzorce aplikacyjne", description: "Zdarzenia, kontrola częstotliwości, rekurencja, dane i fetch.", range: [24, 32] },
-    { id: "jakosc", title: "Debugowanie i wydajność", description: "Diagnoza problemów, dobór struktur i optymalizacja pracy.", range: [33, 37] },
-    { id: "projekty", title: "Projekty przekrojowe", description: "Wieloplikowe zadania łączące materiał z całej ścieżki.", projects: true },
+    {
+      id: "fundamenty",
+      title: "Fundamenty języka",
+      description: "Funkcje, typy, liczby, iteracja oraz świadoma praca z tekstem.",
+      slugs: [
+        "01-functions",
+        "02-scope",
+        "03-types-coercion",
+        "29-numbers",
+        "29b-bigint",
+        "04-loops",
+        "05-strings",
+        "05b-unicode",
+        "05c-intl-segmenter",
+        "31-regex",
+      ],
+    },
+    {
+      id: "dane",
+      title: "Dane i struktury",
+      description: "Obiekty, kolekcje, niemutowalność, serializacja, czas i domknięcia.",
+      slugs: [
+        "06-objects",
+        "07-destructuring",
+        "09-array-methods",
+        "23-immutability",
+        "17-map-set",
+        "17b-set-operations",
+        "17c-grouping",
+        "28-json",
+        "30-date",
+        "08-closures",
+        "27-recursion",
+        "27b-trampoline",
+      ],
+    },
+    {
+      id: "model-obiektowy",
+      title: "Model obiektowy i niezawodność",
+      description: "this, prototypy, klasy, błędy i diagnoza typowych usterek.",
+      slugs: [
+        "13-this-bind",
+        "14-prototypes",
+        "15-classes",
+        "16-error-handling",
+        "19-debug-logic",
+      ],
+    },
+    {
+      id: "asynchronicznosc",
+      title: "Asynchroniczność i integracje",
+      description: "Promisy, event loop, odporne żądania oraz sterowanie zdarzeniami.",
+      slugs: [
+        "10-promises",
+        "10b-promise-withresolvers",
+        "11-async-await",
+        "12-event-loop",
+        "16b-async-errors",
+        "32-fetch",
+        "25-debounce-throttle",
+        "25b-debounce-variants",
+        "26-debug-async",
+        "24-event-emitter",
+        "module-01",
+      ],
+    },
+    {
+      id: "iteracja",
+      title: "Leniwa iteracja i metaprogramowanie",
+      description: "Iteratory, generatory, kontrola właściwości i świadome zarządzanie pamięcią.",
+      slugs: [
+        "20-iterators",
+        "20b-iterator-helpers",
+        "21-generators",
+        "21b-async-generators",
+        "22-property-descriptors",
+        "22b-proxy-reflect",
+        "18-weakmap-weakset",
+        "18b-weakref",
+        "module-04",
+        "31b-regex-advanced",
+      ],
+    },
+    {
+      id: "jakosc",
+      title: "Wydajność i projekty produkcyjne",
+      description: "Profilowanie, dobór struktur, ograniczanie pracy i moduły przekrojowe.",
+      slugs: [
+        "33-debug-perf",
+        "34-optimize-data-structures",
+        "35-optimize-repeated-work",
+        "module-03",
+        "36-optimize-allocations",
+        "37-optimize-async",
+        "module-02",
+        "module-05",
+      ],
+    },
   ],
   ts: [
     { id: "fundamenty", title: "Fundamenty typowania", description: "Inference, unie, obiekty i kontrakty funkcji.", range: [1, 4] },
@@ -160,6 +256,7 @@ export function learningModules(track: CatalogTrack): LearningModule[] {
 
   return definitions.flatMap((definition) => {
     const topics = track.topics.filter((topic) => {
+      if (definition.slugs) return definition.slugs.includes(topicSlug(topic.id));
       if (definition.projects) return topicSlug(topic.id).startsWith("module-");
       const number = Number.parseInt(topicSlug(topic.id), 10);
       return definition.range !== undefined && number >= definition.range[0] && number <= definition.range[1];

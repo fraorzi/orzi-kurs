@@ -48,6 +48,8 @@ export default function TaskView({
   const [result, setResult] = useState<SubmitResult | null>(null);
   const [solution, setSolution] = useState<string | null>(initialSolution);
   const [starter, setStarter] = useState<string | null>(initialStarter);
+  const [currentStarterPath, setCurrentStarterPath] = useState(starterPath);
+  const [currentStarterRel, setCurrentStarterRel] = useState(starterRel);
   const [progress, setProgress] = useState<TaskProgress | null>(initialProgress);
   const [passKind, setPassKind] = useState(initialPassKind);
   const [copied, setCopied] = useState(false);
@@ -58,7 +60,10 @@ export default function TaskView({
   const [editorError, setEditorError] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [resetting, setResetting] = useState(false);
-  const [confirmReset, setConfirmReset] = useState(false);
+  const [confirmProgressReset, setConfirmProgressReset] = useState(false);
+  const [resettingCode, setResettingCode] = useState(false);
+  const [confirmCodeReset, setConfirmCodeReset] = useState(false);
+  const [codeResetNotice, setCodeResetNotice] = useState<string | null>(null);
 
   async function handleSubmit() {
     setSubmitting(true);
@@ -105,18 +110,18 @@ export default function TaskView({
   }
 
   async function handleCopyPath() {
-    if (!starterPath) return;
-    await navigator.clipboard.writeText(starterPath);
+    if (!currentStarterPath) return;
+    await navigator.clipboard.writeText(currentStarterPath);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   }
 
   async function handleOpenEditor() {
-    if (!starterRel) return;
+    if (!currentStarterRel) return;
     setOpeningEditor(true);
     setEditorError(null);
     try {
-      const res = await openInEditor(starterRel);
+      const res = await openInEditor(currentStarterRel);
       if (!res.ok) setEditorError(res.error ?? "nie udało się otworzyć WebStorm");
     } finally {
       setOpeningEditor(false);
@@ -179,11 +184,50 @@ export default function TaskView({
       setStarter(null);
       setPassKind(null);
       setHints([]);
-      setConfirmReset(false);
+      setConfirmProgressReset(false);
     } catch {
       setSubmitError("Nie udało się zresetować postępu. Spróbuj ponownie.");
     } finally {
       setResetting(false);
+    }
+  }
+
+  async function handleResetCode() {
+    setResettingCode(true);
+    setSubmitError(null);
+    setCodeResetNotice(null);
+    try {
+      const res = await fetch("/api/starter", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ taskId }),
+      });
+      const data: {
+        starterPath?: string;
+        starterRel?: string;
+        backupRel?: string | null;
+        error?: string;
+      } = await res.json();
+      if (!res.ok) {
+        setSubmitError(data.error ?? "nie udało się przywrócić kodu początkowego");
+        return;
+      }
+      setResult(null);
+      setSolution(null);
+      setStarter(null);
+      setPassKind(null);
+      setCurrentStarterPath(data.starterPath ?? currentStarterPath);
+      setCurrentStarterRel(data.starterRel ?? currentStarterRel);
+      setConfirmCodeReset(false);
+      setCodeResetNotice(
+        data.backupRel
+          ? `Kod początkowy przywrócony. Poprzednią wersję zapisano w ${data.backupRel}.`
+          : "Kod początkowy przywrócony.",
+      );
+    } catch {
+      setSubmitError("Nie udało się przywrócić kodu początkowego. Spróbuj ponownie.");
+    } finally {
+      setResettingCode(false);
     }
   }
 
@@ -236,10 +280,10 @@ export default function TaskView({
 
         <ProgressPanel
           progress={progress}
-          confirmReset={confirmReset}
+          confirmReset={confirmProgressReset}
           resetting={resetting}
-          onAskReset={() => setConfirmReset(true)}
-          onCancelReset={() => setConfirmReset(false)}
+          onAskReset={() => setConfirmProgressReset(true)}
+          onCancelReset={() => setConfirmProgressReset(false)}
           onReset={handleResetProgress}
         />
 
@@ -252,12 +296,12 @@ export default function TaskView({
           </div>
 
           <div className="starter-block">
-            <div className="lbl">{starterPath?.endsWith("/src") ? "Katalog startera" : "Plik startera"}</div>
-            {starterPath ? (
+            <div className="lbl">{currentStarterPath?.endsWith("/src") ? "Katalog startera" : "Plik startera"}</div>
+            {currentStarterPath ? (
               <>
                 <div className="starter">
-                  <code>{starterRel ?? starterPath}</code>
-                  {starterRel && (
+                  <code>{currentStarterRel ?? currentStarterPath}</code>
+                  {currentStarterRel && (
                     <button
                       className="btn-ghost"
                       onClick={handleOpenEditor}
@@ -278,6 +322,39 @@ export default function TaskView({
             ) : (
               <p className="inline-error" role="alert">Brak pliku startera.</p>
             )}
+            <div className="starter-reset">
+              {confirmCodeReset ? (
+                <div className="reset-confirm" role="group" aria-label="Potwierdź przywrócenie kodu początkowego">
+                  <p>
+                    {currentStarterPath ? (
+                      <>
+                        Aktualny kod zostanie zastąpiony template’em zadania. Przed zmianą zapiszemy jego kopię
+                        w lokalnym katalogu <code>.orzi/backups/</code>.
+                      </>
+                    ) : (
+                      "Starter zostanie odtworzony z template’u zapisanego w aktualnym commicie."
+                    )}
+                  </p>
+                  <div>
+                    <button className="btn-danger" onClick={handleResetCode} disabled={resettingCode}>
+                      {resettingCode ? "Przywracam…" : "Przywróć kod"}
+                    </button>
+                    <button
+                      className="btn-ghost"
+                      onClick={() => setConfirmCodeReset(false)}
+                      disabled={resettingCode}
+                    >
+                      Anuluj
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button className="btn-ghost" onClick={() => setConfirmCodeReset(true)}>
+                  Przywróć kod początkowy
+                </button>
+              )}
+            </div>
+            {codeResetNotice && <p className="inline-success" role="status">{codeResetNotice}</p>}
           </div>
 
           <div className="actions">
@@ -301,7 +378,7 @@ export default function TaskView({
             result={result}
             nextTaskHref={nextTaskHref}
             hasSolution={solution !== null}
-            canOpenEditor={starterRel !== null}
+            canOpenEditor={currentStarterRel !== null}
             openingEditor={openingEditor}
             onOpenEditor={handleOpenEditor}
             onRetry={handleSubmit}

@@ -4,15 +4,15 @@ import { REPO_ROOT } from "./progress";
 
 export const TRACKS_ROOT = resolve(REPO_ROOT, "tracks");
 
-export function resolveTaskDir(taskId: string): string {
+export function resolveTaskDir(taskId: string, tracksRoot = TRACKS_ROOT): string {
   if (!taskId || typeof taskId !== "string") {
     throw new Error("taskId jest wymagany");
   }
   if (taskId.includes("\0")) {
     throw new Error(`nieprawidłowy taskId: ${taskId}`);
   }
-  const dir = resolve(TRACKS_ROOT, taskId);
-  const withinTracks = dir === TRACKS_ROOT || dir.startsWith(TRACKS_ROOT + sep);
+  const dir = resolve(tracksRoot, taskId);
+  const withinTracks = dir === tracksRoot || dir.startsWith(tracksRoot + sep);
   if (!withinTracks) {
     throw new Error(`taskId poza tracks/ (path traversal?): ${taskId}`);
   }
