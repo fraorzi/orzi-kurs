@@ -229,6 +229,12 @@ const TOPIC_RESOURCES: Record<string, LearningResource[]> = {
     { title: "FormData", url: "https://developer.mozilla.org/en-US/docs/Web/API/FormData", description: "Odczytywanie i interpretowanie wartości formularza." },
     { title: "Element.closest()", url: "https://developer.mozilla.org/en-US/docs/Web/API/Element/closest", description: "Bezpieczna delegacja zdarzeń z elementów potomnych." },
   ],
+  "18-type-challenges": [
+    { title: "Type Challenges", url: "https://github.com/type-challenges/type-challenges", description: "Popularny zestaw zadań medium użyty jako punkt odniesienia dla egzaminu." },
+    { title: "Mapped Types", url: "https://www.typescriptlang.org/docs/handbook/2/mapped-types.html", description: "Mapowanie unii i key remapping dla kontraktów eventów." },
+    { title: "Template Literal Types", url: "https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html", description: "Rekurencyjne parsowanie parametrów z literału trasy." },
+    { title: "Conditional Types", url: "https://www.typescriptlang.org/docs/handbook/2/conditional-types.html", description: "Dystrybucja po uniach, infer oraz składanie typów wynikowych." },
+  ],
 };
 
 const MODULE_RESOURCES: LearningResource[] = [

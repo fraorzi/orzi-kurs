@@ -202,7 +202,7 @@ Zostało: pozycje audytowe b/c, 13–20, module-02)
 - [x] 17 granice runtime: `unknown`, parsery, branded types, parse-don't-validate
       (audyt — Total TypeScript patterns)
 - [x] 17b DOM i zdarzenia: EventTarget, HTMLElement, dataset, formularze i bezpieczne narrowing
-- [ ] 18 mix z type-challenges (medium) jako egzamin
+- [x] 18 mix z type-challenges (medium) jako egzamin
 - [ ] 19 migracja TS 5.9 → 6.0 → 7.0: nowe domyślne opcje, usunięte/deprecated
       konfiguracje, import attributes, zgodność narzędzi i diagnoza zmian inferencji
 - [ ] 20 elective: dekoratory oraz `using`/DisposableStack — kiedy projekt realnie ich wymaga

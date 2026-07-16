@@ -83,10 +83,16 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   bramki jakości mierzące liczbę odczytów, wywołań selektora i zachowanie cache LRU.
 - Stan częściowy: 85 zadań; nowych 48/48 rozwiązań i 48/48 starterów przechodzi
   na TS 6 oraz TS 7.
+- TypeScript: dodane `18-type-challenges` jako praktyczny egzamin z łączenia mapped,
+  conditional, template literal i rekurencyjnych typów.
+- Zamiast izolowanych łamigłówek zadania modelują handlery eventów, parametry tras
+  oraz selekcję pól odpowiedzi API przez `DeepPick`.
+- Stan częściowy: 88 zadań; nowych 51/51 rozwiązań i 51/51 starterów przechodzi
+  na TS 6 oraz TS 7.
 
 ## Następne kroki
 
-1. Dodać egzamin z type challenges oraz ścieżkę migracji TS 5.9 → 6 → 7.
+1. Dodać ścieżkę migracji TS 5.9 → 6 → 7.
 2. Dodać elective: dekoratory i jawne zarządzanie zasobami.
 3. Zbudować drugi moduł praktyczny po ukończeniu optymalizacji, testów typów
    i migracji.
