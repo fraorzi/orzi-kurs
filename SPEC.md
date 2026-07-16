@@ -96,6 +96,16 @@ export interface TaskProgress {
 - `POST /api/submit` body `{ taskId }` → `SubmitResult`
 - `DELETE /api/progress` body `{ taskId }` → reset aktywnego postępu bez
   modyfikowania startera
+- `PATCH /api/progress` body `{ taskId, progress }` → przywrócenie postępu po
+  cofnięciu resetu
+- `GET /api/starter?id=<taskId>` → migawka aktualnego startera do tymczasowego
+  cofnięcia resetu w przeglądarce
+- `PUT /api/starter` body `{ taskId }` → przywrócenie startera z aktualnego `HEAD`
+- `PATCH /api/starter` body `{ taskId, snapshot }` → przywrócenie startera z migawki
+
+Reset kodu i reset postępu są wykonywane jednym kliknięciem. Przed resetem interfejs
+zapisuje kopię w `localStorage`, a przez 12 sekund pokazuje toast „Cofnij” z paskiem
+odliczania. Wygasłe kopie są automatycznie usuwane; nie trafiają do repozytorium.
 
 ## harness/bench.ts
 

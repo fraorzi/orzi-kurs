@@ -1,13 +1,21 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Markdown from "@/app/components/Markdown";
 import SearchButton from "@/app/components/SearchButton";
+import UndoToast from "@/app/components/UndoToast";
 import { IconArrowRight, IconCopy, IconCheck, IconExternal, IconPlay } from "@/app/components/icons";
 import { openInEditor } from "@/app/lib/actions";
+import {
+  loadUndoRecords,
+  removeUndoRecord,
+  storeUndoRecord,
+  UNDO_DURATION_MS,
+} from "@/app/lib/task-undo";
 import type { LearningResource, SubmitResult, TaskProgress, TaskResponse } from "@/app/lib/types";
 import { trackMeta, topicNumber } from "@/app/lib/tracks";
+import type { StarterSnapshot, TaskUndoRecord } from "@/shared/task-undo";
 
 interface Props {
   taskId: string;
@@ -60,10 +68,26 @@ export default function TaskView({
   const [editorError, setEditorError] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [resetting, setResetting] = useState(false);
-  const [confirmProgressReset, setConfirmProgressReset] = useState(false);
   const [resettingCode, setResettingCode] = useState(false);
-  const [confirmCodeReset, setConfirmCodeReset] = useState(false);
-  const [codeResetNotice, setCodeResetNotice] = useState<string | null>(null);
+  const [undoRecords, setUndoRecords] = useState<TaskUndoRecord<TaskProgress>[]>([]);
+  const [undoingId, setUndoingId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const sync = () => setUndoRecords(loadUndoRecords(taskId));
+    sync();
+    window.addEventListener("storage", sync);
+    return () => window.removeEventListener("storage", sync);
+  }, [taskId]);
+
+  useEffect(() => {
+    if (undoRecords.length === 0) return;
+    const nextExpiry = Math.min(...undoRecords.map((record) => record.expiresAt));
+    const timer = window.setTimeout(
+      () => setUndoRecords(loadUndoRecords(taskId)),
+      Math.max(0, nextExpiry - Date.now() + 180),
+    );
+    return () => window.clearTimeout(timer);
+  }, [taskId, undoRecords]);
 
   async function handleSubmit() {
     setSubmitting(true);
@@ -165,6 +189,22 @@ export default function TaskView({
   }
 
   async function handleResetProgress() {
+    if (!progress) return;
+    const now = Date.now();
+    const undoRecord: TaskUndoRecord<TaskProgress> = {
+      id: crypto.randomUUID(),
+      taskId,
+      kind: "progress",
+      message: "Zresetowano postęp zadania.",
+      payload: progress,
+      createdAt: now,
+      expiresAt: now + 60_000,
+    };
+    if (!storeUndoRecord(undoRecord)) {
+      setSubmitError("Nie udało się przygotować cofnięcia. Postęp nie został zresetowany.");
+      return;
+    }
+
     setResetting(true);
     setSubmitError(null);
     try {
@@ -175,6 +215,7 @@ export default function TaskView({
       });
       const data = await res.json();
       if (!res.ok) {
+        removeUndoRecord(undoRecord.id);
         setSubmitError(data.error ?? "nie udało się zresetować postępu");
         return;
       }
@@ -184,8 +225,16 @@ export default function TaskView({
       setStarter(null);
       setPassKind(null);
       setHints([]);
-      setConfirmProgressReset(false);
+      window.dispatchEvent(new CustomEvent("orzi:progress"));
+      const activatedAt = Date.now();
+      storeUndoRecord({
+        ...undoRecord,
+        createdAt: activatedAt,
+        expiresAt: activatedAt + UNDO_DURATION_MS,
+      });
+      setUndoRecords(loadUndoRecords(taskId));
     } catch {
+      removeUndoRecord(undoRecord.id);
       setSubmitError("Nie udało się zresetować postępu. Spróbuj ponownie.");
     } finally {
       setResetting(false);
@@ -195,20 +244,44 @@ export default function TaskView({
   async function handleResetCode() {
     setResettingCode(true);
     setSubmitError(null);
-    setCodeResetNotice(null);
+    let undoRecord: TaskUndoRecord<TaskProgress> | null = null;
     try {
+      const snapshotRes = await fetch(`/api/starter?id=${encodeURIComponent(taskId)}`);
+      const snapshotData: { snapshot?: StarterSnapshot | null; error?: string } =
+        await snapshotRes.json();
+      if (!snapshotRes.ok || !snapshotData.snapshot) {
+        setSubmitError(
+          snapshotData.error ?? "Nie udało się przygotować kopii kodu. Kod nie został zresetowany.",
+        );
+        return;
+      }
+      const now = Date.now();
+      undoRecord = {
+        id: crypto.randomUUID(),
+        taskId,
+        kind: "code",
+        message: "Przywrócono kod początkowy.",
+        payload: snapshotData.snapshot,
+        createdAt: now,
+        expiresAt: now + 60_000,
+      };
+      if (!storeUndoRecord(undoRecord)) {
+        setSubmitError("Nie udało się przygotować cofnięcia. Kod nie został zresetowany.");
+        return;
+      }
+
       const res = await fetch("/api/starter", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ taskId }),
       });
       const data: {
-        starterPath?: string;
-        starterRel?: string;
-        backupRel?: string | null;
+        starterPath?: string | null;
+        starterRel?: string | null;
         error?: string;
       } = await res.json();
       if (!res.ok) {
+        removeUndoRecord(undoRecord.id);
         setSubmitError(data.error ?? "nie udało się przywrócić kodu początkowego");
         return;
       }
@@ -216,18 +289,61 @@ export default function TaskView({
       setSolution(null);
       setStarter(null);
       setPassKind(null);
-      setCurrentStarterPath(data.starterPath ?? currentStarterPath);
-      setCurrentStarterRel(data.starterRel ?? currentStarterRel);
-      setConfirmCodeReset(false);
-      setCodeResetNotice(
-        data.backupRel
-          ? `Kod początkowy przywrócony. Poprzednią wersję zapisano w ${data.backupRel}.`
-          : "Kod początkowy przywrócony.",
-      );
+      setCurrentStarterPath(data.starterPath ?? null);
+      setCurrentStarterRel(data.starterRel ?? null);
+      const activatedAt = Date.now();
+      storeUndoRecord({
+        ...undoRecord,
+        createdAt: activatedAt,
+        expiresAt: activatedAt + UNDO_DURATION_MS,
+      });
+      setUndoRecords(loadUndoRecords(taskId));
     } catch {
+      if (undoRecord) removeUndoRecord(undoRecord.id);
       setSubmitError("Nie udało się przywrócić kodu początkowego. Spróbuj ponownie.");
     } finally {
       setResettingCode(false);
+    }
+  }
+
+  async function handleUndo(record: TaskUndoRecord<TaskProgress>) {
+    setUndoingId(record.id);
+    setSubmitError(null);
+    try {
+      const res = await fetch(record.kind === "code" ? "/api/starter" : "/api/progress", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(
+          record.kind === "code"
+            ? { taskId: record.taskId, snapshot: record.payload }
+            : { taskId: record.taskId, progress: record.payload },
+        ),
+      });
+      const data: {
+        starterPath?: string | null;
+        starterRel?: string | null;
+        progress?: TaskProgress;
+        error?: string;
+      } = await res.json();
+      if (!res.ok) {
+        setSubmitError(data.error ?? "Nie udało się cofnąć resetu.");
+        return;
+      }
+
+      if (record.kind === "code") {
+        setCurrentStarterPath(data.starterPath ?? null);
+        setCurrentStarterRel(data.starterRel ?? null);
+      } else {
+        setProgress(data.progress ?? record.payload);
+        window.dispatchEvent(new CustomEvent("orzi:progress"));
+      }
+
+      removeUndoRecord(record.id);
+      setUndoRecords(loadUndoRecords(taskId));
+    } catch {
+      setSubmitError("Nie udało się cofnąć resetu. Spróbuj ponownie.");
+    } finally {
+      setUndoingId(null);
     }
   }
 
@@ -280,10 +396,7 @@ export default function TaskView({
 
         <ProgressPanel
           progress={progress}
-          confirmReset={confirmProgressReset}
           resetting={resetting}
-          onAskReset={() => setConfirmProgressReset(true)}
-          onCancelReset={() => setConfirmProgressReset(false)}
           onReset={handleResetProgress}
         />
 
@@ -323,38 +436,10 @@ export default function TaskView({
               <p className="inline-error" role="alert">Brak pliku startera.</p>
             )}
             <div className="starter-reset">
-              {confirmCodeReset ? (
-                <div className="reset-confirm" role="group" aria-label="Potwierdź przywrócenie kodu początkowego">
-                  <p>
-                    {currentStarterPath ? (
-                      <>
-                        Aktualny kod zostanie zastąpiony template’em zadania. Przed zmianą zapiszemy jego kopię
-                        w lokalnym katalogu <code>.orzi/backups/</code>.
-                      </>
-                    ) : (
-                      "Starter zostanie odtworzony z template’u zapisanego w aktualnym commicie."
-                    )}
-                  </p>
-                  <div>
-                    <button className="btn-danger" onClick={handleResetCode} disabled={resettingCode}>
-                      {resettingCode ? "Przywracam…" : "Przywróć kod"}
-                    </button>
-                    <button
-                      className="btn-ghost"
-                      onClick={() => setConfirmCodeReset(false)}
-                      disabled={resettingCode}
-                    >
-                      Anuluj
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <button className="btn-ghost" onClick={() => setConfirmCodeReset(true)}>
-                  Przywróć kod początkowy
-                </button>
-              )}
+              <button className="btn-ghost" onClick={handleResetCode} disabled={resettingCode}>
+                {resettingCode ? "Przywracam…" : "Przywróć kod początkowy"}
+              </button>
             </div>
-            {codeResetNotice && <p className="inline-success" role="status">{codeResetNotice}</p>}
           </div>
 
           <div className="actions">
@@ -449,6 +534,19 @@ export default function TaskView({
           </div>
         )}
       </div>
+
+      {undoRecords.length > 0 && (
+        <div className="undo-toast-stack" aria-live="polite">
+          {undoRecords.map((record) => (
+            <UndoToast
+              key={record.id}
+              record={record}
+              busy={undoingId === record.id}
+              onUndo={() => handleUndo(record)}
+            />
+          ))}
+        </div>
+      )}
     </>
   );
 }
@@ -467,17 +565,11 @@ function formatProgressDate(
 
 function ProgressPanel({
   progress,
-  confirmReset,
   resetting,
-  onAskReset,
-  onCancelReset,
   onReset,
 }: {
   progress: TaskProgress | null;
-  confirmReset: boolean;
   resetting: boolean;
-  onAskReset: () => void;
-  onCancelReset: () => void;
   onReset: () => void;
 }) {
   const score = Math.max(0, Math.min(4, Math.round(progress?.masteryScore ?? 0)));
@@ -510,19 +602,9 @@ function ProgressPanel({
 
       {progress && (
         <div className="progress-reset">
-          {confirmReset ? (
-            <div className="reset-confirm" role="group" aria-label="Potwierdź reset postępu">
-              <p>Postęp i poziom opanowania zaczną się od zera. Twój kod zostanie zachowany.</p>
-              <div>
-                <button className="btn-danger" onClick={onReset} disabled={resetting}>
-                  {resetting ? "Resetuję…" : "Potwierdź reset"}
-                </button>
-                <button className="btn-ghost" onClick={onCancelReset} disabled={resetting}>Anuluj</button>
-              </div>
-            </div>
-          ) : (
-            <button className="btn-ghost" onClick={onAskReset}>Resetuj postęp</button>
-          )}
+          <button className="btn-ghost" onClick={onReset} disabled={resetting}>
+            {resetting ? "Resetuję…" : "Resetuj postęp"}
+          </button>
         </div>
       )}
     </section>

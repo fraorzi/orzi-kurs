@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
-import type { Progress } from "./types";
+import type { Progress, TaskProgress } from "./types";
 import { evolveTaskProgress, resetTaskProgressState, type RecordedAttempt } from "./mastery";
 
 export const REPO_ROOT = process.cwd();
@@ -46,4 +46,11 @@ export function resetTaskProgress(taskId: string): Progress[string] | null {
   progress[taskId] = resetTaskProgressState(progress[taskId]);
   writeProgress(progress);
   return progress[taskId];
+}
+
+export function restoreTaskProgress(taskId: string, taskProgress: TaskProgress): TaskProgress {
+  const progress = readProgress();
+  progress[taskId] = taskProgress;
+  writeProgress(progress);
+  return taskProgress;
 }

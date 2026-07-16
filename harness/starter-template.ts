@@ -1,16 +1,16 @@
 import {
-  copyFileSync,
-  cpSync,
-  existsSync,
   mkdirSync,
+  readFileSync,
+  readdirSync,
   rmSync,
   statSync,
   writeFileSync,
 } from "node:fs";
 import { execFileSync } from "node:child_process";
-import { basename, dirname, join, relative, resolve, sep } from "node:path";
+import { dirname, relative, resolve, sep } from "node:path";
 import { findStarter, resolveTaskDir } from "./paths";
 import { REPO_ROOT } from "./progress";
+import type { StarterSnapshot } from "../shared/task-undo";
 
 const STARTER_CANDIDATES = ["starter.ts", "starter.js", "src"] as const;
 
@@ -44,20 +44,55 @@ function starterTemplatePath(taskDir: string, repoRoot: string): string | null {
   return null;
 }
 
-function createBackup(artifactPath: string, taskId: string, repoRoot: string): string | null {
-  if (!existsSync(artifactPath)) return null;
+function walkFiles(path: string): string[] {
+  if (!statSync(path).isDirectory()) return [path];
+  return readdirSync(path)
+    .sort((left, right) => left.localeCompare(right))
+    .flatMap((name) => walkFiles(resolve(path, name)));
+}
 
-  const timestamp = new Date().toISOString().replaceAll(":", "-").replaceAll(".", "-");
-  const backupDir = join(repoRoot, ".orzi", "backups", ...taskId.split("/"), timestamp);
-  mkdirSync(backupDir, { recursive: true });
+function validSnapshotPath(path: string): boolean {
+  const parts = path.split("/");
+  return Boolean(
+    path &&
+    !path.includes("\0") &&
+    !path.startsWith("/") &&
+    parts.every((part) => part !== "" && part !== "." && part !== ".."),
+  );
+}
 
-  const backupPath = join(backupDir, basename(artifactPath));
-  if (statSync(artifactPath).isDirectory()) {
-    cpSync(artifactPath, backupPath, { recursive: true });
-  } else {
-    copyFileSync(artifactPath, backupPath);
+export function captureStarterSnapshotInRepo(
+  taskId: string,
+  repoRoot: string,
+): StarterSnapshot | null {
+  const taskDir = resolveTaskDir(taskId, resolve(repoRoot, "tracks"));
+  const starterPath = findStarter(taskDir);
+  if (!starterPath) {
+    const templateRelative = starterTemplatePath(taskDir, repoRoot);
+    if (!templateRelative) return null;
+    const artifactName = relative(taskDir, resolve(repoRoot, templateRelative));
+    return {
+      artifactName: artifactName as StarterSnapshot["artifactName"],
+      kind: "missing",
+      files: [],
+    };
   }
-  return toGitPath(relative(repoRoot, backupPath));
+
+  const artifactName = relative(taskDir, starterPath);
+  if (!STARTER_CANDIDATES.includes(artifactName as typeof STARTER_CANDIDATES[number])) {
+    throw new Error(`nieobsługiwany starter: ${artifactName}`);
+  }
+  const kind = statSync(starterPath).isDirectory() ? "directory" : "file";
+  return {
+    artifactName: artifactName as StarterSnapshot["artifactName"],
+    kind,
+    files: walkFiles(starterPath).map((file) => ({
+      path: kind === "directory"
+        ? toGitPath(relative(starterPath, file))
+        : artifactName,
+      contentBase64: readFileSync(file).toString("base64"),
+    })),
+  };
 }
 
 function restoreDirectory(repoRoot: string, relativePath: string, destination: string): void {
@@ -86,9 +121,8 @@ function restoreDirectory(repoRoot: string, relativePath: string, destination: s
 }
 
 export interface RestoredStarter {
-  starterPath: string;
-  starterRel: string;
-  backupRel: string | null;
+  starterPath: string | null;
+  starterRel: string | null;
 }
 
 export function restoreStarterCodeInRepo(taskId: string, repoRoot: string): RestoredStarter {
@@ -99,8 +133,6 @@ export function restoreStarterCodeInRepo(taskId: string, repoRoot: string): Rest
   }
 
   const destination = resolve(repoRoot, templateRelative);
-  const existingStarter = findStarter(taskDir);
-  const backupRel = createBackup(existingStarter ?? destination, taskId, repoRoot);
 
   if (templateRelative.endsWith("/src")) {
     restoreDirectory(repoRoot, templateRelative, destination);
@@ -112,10 +144,84 @@ export function restoreStarterCodeInRepo(taskId: string, repoRoot: string): Rest
   return {
     starterPath: destination,
     starterRel: templateRelative,
-    backupRel,
   };
 }
 
 export function restoreStarterCode(taskId: string): RestoredStarter {
   return restoreStarterCodeInRepo(taskId, REPO_ROOT);
+}
+
+export function captureStarterSnapshot(taskId: string): StarterSnapshot | null {
+  return captureStarterSnapshotInRepo(taskId, REPO_ROOT);
+}
+
+export function restoreStarterSnapshotInRepo(
+  taskId: string,
+  snapshot: StarterSnapshot,
+  repoRoot: string,
+): RestoredStarter {
+  if (
+    !STARTER_CANDIDATES.includes(snapshot.artifactName) ||
+    !["file", "directory", "missing"].includes(snapshot.kind) ||
+    (snapshot.kind === "file" && snapshot.artifactName === "src") ||
+    (snapshot.kind === "directory" && snapshot.artifactName !== "src") ||
+    !Array.isArray(snapshot.files) ||
+    (snapshot.kind === "missing" && snapshot.files.length !== 0) ||
+    (snapshot.kind === "file" && (
+      snapshot.files.length !== 1 ||
+      snapshot.files[0]?.path !== snapshot.artifactName
+    )) ||
+    (snapshot.kind === "directory" && snapshot.files.length === 0)
+  ) {
+    throw new Error("nieprawidłowa kopia startera");
+  }
+
+  const taskDir = resolveTaskDir(taskId, resolve(repoRoot, "tracks"));
+  const destination = resolve(taskDir, snapshot.artifactName);
+  const withinTask = destination.startsWith(taskDir + sep);
+  if (!withinTask) throw new Error("kopia startera wskazuje poza zadanie");
+
+  const files = snapshot.files.map((file) => {
+    if (!validSnapshotPath(file.path) || typeof file.contentBase64 !== "string") {
+      throw new Error("nieprawidłowy plik w kopii startera");
+    }
+    const outputPath = snapshot.kind === "directory"
+      ? resolve(destination, file.path)
+      : destination;
+    const withinDestination =
+      outputPath === destination || outputPath.startsWith(destination + sep);
+    if (!withinDestination) {
+      throw new Error("plik kopii wskazuje poza starter");
+    }
+    return { ...file, outputPath };
+  });
+
+  if (snapshot.kind === "missing") {
+    rmSync(destination, { recursive: true, force: true });
+    return { starterPath: null, starterRel: null };
+  }
+
+  if (snapshot.kind === "directory") {
+    rmSync(destination, { recursive: true, force: true });
+    mkdirSync(destination, { recursive: true });
+  } else {
+    mkdirSync(dirname(destination), { recursive: true });
+  }
+
+  for (const file of files) {
+    mkdirSync(dirname(file.outputPath), { recursive: true });
+    writeFileSync(file.outputPath, Buffer.from(file.contentBase64, "base64"));
+  }
+
+  return {
+    starterPath: destination,
+    starterRel: toGitPath(relative(repoRoot, destination)),
+  };
+}
+
+export function restoreStarterSnapshot(
+  taskId: string,
+  snapshot: StarterSnapshot,
+): RestoredStarter {
+  return restoreStarterSnapshotInRepo(taskId, snapshot, REPO_ROOT);
 }
