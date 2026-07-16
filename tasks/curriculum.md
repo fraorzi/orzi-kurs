@@ -240,8 +240,8 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] 14 formularze i Actions: form `action`, useActionState
 - [x] 15 useFormStatus i projektowanie stanów pending/error/success
 - [x] 16 useOptimistic i bezpieczne optimistic updates
-- [ ] 17 `use`, Suspense i Error Boundary dla danych oraz contextu
-- [ ] 18 useSyncExternalStore (stores zewnętrzne)
+- [x] 17 `use`, Suspense i Error Boundary dla danych oraz contextu
+- [x] 18 useSyncExternalStore (stores zewnętrzne)
 - [ ] 19 custom hooks: projektowanie API, useDebounce/useLocalStorage, useDebugValue
 - [ ] 20 podnoszenie stanu, kompozycja przez children, render props
 - [ ] 21 portale i granice błędów poza przepływem danych z Suspense

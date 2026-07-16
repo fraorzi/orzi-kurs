@@ -169,12 +169,18 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   oraz reducer listy rebazowany na świeższych danych z zewnątrz.
 - Stan częściowy React: 16 tematów, pierwszy moduł i 49 zadań; 49/49 rozwiązań oraz
   49/49 pierwotnych starterów przechodzi właściwe bramki.
+- React 17: warunkowe czytanie contextu przez `use`, stabilna Promise pod Suspense
+  oraz odrzucony zasób przechodzący do Error Boundary z retry i resetem.
+- React 18: adapter external source, generyczny custom hook z cleanupem oraz store
+  koszyka z cache'owanym snapshotem i `getServerSnapshot` dla SSR.
+- Stan częściowy React: 18 tematów, pierwszy moduł i 55 zadań; 55/55 rozwiązań oraz
+  55/55 pierwotnych starterów przechodzi właściwe bramki.
 
 ## Następne kroki
 
-1. Dodać `use`, Suspense i Error Boundary dla danych i contextu.
-2. Dodać `useSyncExternalStore`, w tym stabilność snapshotów i cleanup subskrypcji.
-3. Przejść do projektowania custom hooks i wzorców kompozycji.
+1. Dodać projektowanie custom hooks, w tym debounce, local storage i debug labels.
+2. Dodać podnoszenie stanu, kompozycję przez `children` i render props.
+3. Dodać portale i szersze strategie granic błędów.
 
 ## Otwarte ryzyka
 
