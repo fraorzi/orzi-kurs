@@ -48,13 +48,18 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   6 nowych zadań praktycznych.
 - Nowy stan częściowy TypeScript: 43 zadania; nowe 6/6 rozwiązań i 6/6 starterów
   przechodzi na TS 6 oraz TS 7.
+- TypeScript: dodane `04b-type-operators`, `06b-modern-generics` i `06c-tuples`,
+  czyli kolejne 9 zadań opartych na rejestrach aplikacji, retry i typowanych komendach.
+- Stan po ukończeniu zaawansowanych fundamentów: 52 zadania; nowych 15/15 rozwiązań
+  i 15/15 starterów przechodzi na TS 6 oraz TS 7.
+- Dodana automatyczna kontrola kompletności treści TypeScript: README, zastosowania,
+  pułapki, starter, rozwiązanie, test i progresywne hinty.
 
 ## Następne kroki
 
-1. Zapisać i wypchnąć checkpoint migracji TS 6/7.
-2. Dodać pozostałe zaawansowane fundamenty: operatory typów, nowoczesne generyki
-   i tuple wariadyczne.
-3. Dodać praktyczne bloki granic runtime, modułów, konfiguracji, wariancji,
+1. Zapisać i wypchnąć ukończoną partię zaawansowanych fundamentów.
+2. Dodać typy rekurencyjne i drugi moduł praktyczny.
+3. Dodać bloki granic runtime, modułów, konfiguracji, wariancji,
    testów typów i migracji.
 
 ## Otwarte ryzyka

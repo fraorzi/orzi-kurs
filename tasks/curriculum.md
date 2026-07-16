@@ -169,12 +169,12 @@ Zostało: pozycje audytowe b/c, 13–20, module-02)
 - [x] 03b typowanie strukturalne: excess property checks, weak types i zgodność kształtów
       (audyt — Handbook „Object Types", Effective TS)
 - [x] 04 funkcje: sygnatury, overloads, void/unknown/never, parametr `this`
-- [ ] 04b operatory typów: `keyof`, `typeof`, indexed access i bezpieczne klucze obiektów
+- [x] 04b operatory typów: `keyof`, `typeof`, indexed access i bezpieczne klucze obiektów
 - [x] 05 generyki: podstawy (funkcje, interfejsy)
 - [x] 06 generyki: constraints, defaults, wiele parametrów
-- [ ] 06b generyki nowoczesne: `const` type parameters (TS 5.0), `NoInfer` (TS 5.4),
+- [x] 06b generyki nowoczesne: `const` type parameters (TS 5.0), `NoInfer` (TS 5.4),
       zachowanie sygnatur funkcji wyższego rzędu (audyt)
-- [ ] 06c krotki i wariadyczne tuple types: labeled tuples, `[...T]`, typowanie
+- [x] 06c krotki i wariadyczne tuple types: labeled tuples, `[...T]`, typowanie
       `curry`/`pipe` (audyt — Handbook „Variadic Tuple Types")
 - [x] 07 utility types (Partial, Pick, Omit, Record, ReturnType, Parameters, Awaited)
 - [x] 08 mapped types: własne utility, key remapping `as`, modyfikatory `+/-readonly`, `?`
