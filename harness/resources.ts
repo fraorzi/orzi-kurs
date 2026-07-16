@@ -235,6 +235,11 @@ const TOPIC_RESOURCES: Record<string, LearningResource[]> = {
     { title: "Template Literal Types", url: "https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html", description: "Rekurencyjne parsowanie parametrów z literału trasy." },
     { title: "Conditional Types", url: "https://www.typescriptlang.org/docs/handbook/2/conditional-types.html", description: "Dystrybucja po uniach, infer oraz składanie typów wynikowych." },
   ],
+  "19-ts-migration": [
+    { title: "TypeScript 5.9", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-9.html", description: "Punkt wyjścia migracji i jawna, nowoczesna konfiguracja generowana przez tsc --init." },
+    { title: "TypeScript 6.0", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-6-0.html", description: "Nowe domyślne opcje, deprecjacje i przygotowanie projektu do TS 7." },
+    { title: "Announcing TypeScript 7.0", url: "https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/", description: "Twarde błędy, natywne CLI i oficjalny model pracy TS 6 oraz TS 7 obok siebie." },
+  ],
 };
 
 const MODULE_RESOURCES: LearningResource[] = [

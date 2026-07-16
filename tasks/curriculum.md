@@ -203,7 +203,7 @@ Zostało: pozycje audytowe b/c, 13–20, module-02)
       (audyt — Total TypeScript patterns)
 - [x] 17b DOM i zdarzenia: EventTarget, HTMLElement, dataset, formularze i bezpieczne narrowing
 - [x] 18 mix z type-challenges (medium) jako egzamin
-- [ ] 19 migracja TS 5.9 → 6.0 → 7.0: nowe domyślne opcje, usunięte/deprecated
+- [x] 19 migracja TS 5.9 → 6.0 → 7.0: nowe domyślne opcje, usunięte/deprecated
       konfiguracje, import attributes, zgodność narzędzi i diagnoza zmian inferencji
 - [ ] 20 elective: dekoratory oraz `using`/DisposableStack — kiedy projekt realnie ich wymaga
 - [ ] module-02 (typowany klient API — łączy z js/module-02)

@@ -89,12 +89,16 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   oraz selekcję pól odpowiedzi API przez `DeepPick`.
 - Stan częściowy: 88 zadań; nowych 51/51 rozwiązań i 51/51 starterów przechodzi
   na TS 6 oraz TS 7.
+- TypeScript: dodane `19-ts-migration`, oparte na finalnych release notes TS 6 i 7.
+- Zadania obejmują migrację `baseUrl`/`paths`, audyt twardych blockerów i zmian
+  domyślnych oraz pipeline TS 6 API + TS 7 CLI bez `ignoreDeprecations`.
+- Stan częściowy: 91 zadań; nowych 54/54 rozwiązań i 54/54 starterów przechodzi
+  na TS 6 oraz TS 7.
 
 ## Następne kroki
 
-1. Dodać ścieżkę migracji TS 5.9 → 6 → 7.
-2. Dodać elective: dekoratory i jawne zarządzanie zasobami.
-3. Zbudować drugi moduł praktyczny po ukończeniu optymalizacji, testów typów
+1. Dodać elective: dekoratory i jawne zarządzanie zasobami.
+2. Zbudować drugi moduł praktyczny po ukończeniu optymalizacji, testów typów
    i migracji.
 
 ## Otwarte ryzyka
