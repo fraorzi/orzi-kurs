@@ -306,8 +306,8 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] 08 nawigacja: Link, prefetch, useRouter, search params, filtry i paginacja w URL
 - [x] 09 loading/error/not-found, expected errors i granice UI
 - [x] 10 Server Actions: formularze, walidacja, authz, błędy i idempotencja
-- [ ] 11 Route Handlers i Backend for Frontend: metody, cookies, cache, CORS i limity
-- [ ] 12 metadata, Open Graph, Image, Font, Script i optymalizacja zasobów
+- [x] 11 Route Handlers i Backend for Frontend: metody, cookies, cache, CORS i limity
+- [x] 12 metadata, Open Graph, Image, Font, Script i optymalizacja zasobów
 - [ ] 13 authn vs authz, DAL, sesje i bezpieczne sprawdzanie uprawnień blisko danych
 - [ ] 14 `proxy.ts` (nie middleware): redirect, rewrite, headers i ograniczenia auth-gate
 - [ ] 15 streaming, Suspense, `use` i sensowne granice skeletonów

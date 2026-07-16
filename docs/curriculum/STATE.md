@@ -275,12 +275,18 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   oraz atomowy kontrakt idempotencji zamówienia z replay, konfliktem i recovery.
 - Stan po Server Actions: 10 tematów i 30 zadań; temat przechodzi 3/3 dla rozwiązań
   i 3/3 dla starterów.
+- Next 11: Route Handlers z walidacją query i cache policy, CORS/OPTIONS z allow-listą
+  i limitem body oraz BFF z sekretem, timeoutem, mapowaniem błędów i DTO upstreamu.
+- Next 12: dynamiczne metadata i noindex, bezpieczne remote images, lokalny font,
+  skrypt zawężony do layoutu dashboardu i generowany OG 1200×630.
+- Stan po warstwie HTTP i assets: 12 tematów i 36 zadań; nowe 6/6 rozwiązań i 6/6
+  starterów przechodzi właściwe bramki.
 
 ## Następne kroki
 
-1. Dodać Route Handlers jako jawne kontrakty HTTP i BFF.
-2. Dodać metadata i bezpieczną optymalizację zasobów.
-3. Dodać bezpieczne granice auth/DAL oraz Proxy.
+1. Dodać bezpieczne granice auth/DAL oraz sesje.
+2. Dodać `proxy.ts` jako coarse routing gate, nie pełne authz.
+3. Dodać streaming i sensowne granice Suspense.
 
 ## Otwarte ryzyka
 
