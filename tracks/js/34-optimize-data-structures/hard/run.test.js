@@ -23,7 +23,7 @@ describe("groupSum — poprawność", () => {
 });
 
 describe("groupSum — złożoność", () => {
-  it("działa w czasie liniowym, nie kwadratowym (nawet gdy kategorii przybywa)", () => {
+  it("[quality] działa w czasie liniowym, nie kwadratowym (nawet gdy kategorii przybywa)", () => {
     expectScaling({
       fn: (transactions) => groupSum(transactions),
       makeInput: (n) =>

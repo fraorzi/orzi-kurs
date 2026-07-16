@@ -20,7 +20,7 @@ describe("flatten — poprawność", () => {
 });
 
 describe("flatten — złożoność", () => {
-  it("działa w czasie liniowym względem liczby elementów, nie kwadratowym", () => {
+  it("[quality] działa w czasie liniowym względem liczby elementów, nie kwadratowym", () => {
     expectScaling({
       fn: (arrays) => flatten(arrays),
       makeInput: (n) => Array.from({ length: n }, (_, i) => [i]),

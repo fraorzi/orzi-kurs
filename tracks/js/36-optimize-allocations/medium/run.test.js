@@ -19,7 +19,7 @@ describe("mergeAll — poprawność", () => {
 });
 
 describe("mergeAll — złożoność", () => {
-  it("działa w czasie liniowym względem liczby kluczy, nie kwadratowym", () => {
+  it("[quality] działa w czasie liniowym względem liczby kluczy, nie kwadratowym", () => {
     expectScaling({
       fn: (objects) => mergeAll(objects),
       makeInput: (n) => Array.from({ length: n }, (_, i) => ({ [`k${i}`]: i })),

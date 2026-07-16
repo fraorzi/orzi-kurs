@@ -10,7 +10,8 @@
     "test:harness": "vitest run harness",
     "submit": "tsx harness/cli.ts submit",
     "commit:task": "tsx harness/cli.ts commit",
-    "verify:solutions": "tsx harness/cli.ts verify"
+    "verify:solutions": "tsx harness/cli.ts verify",
+    "verify:starters": "tsx harness/cli.ts verify-starters"
   },
   "dependencies": {
     "next": "16.2.10",

@@ -28,7 +28,7 @@ describe("uniqueByEmail — poprawność", () => {
 });
 
 describe("uniqueByEmail — złożoność", () => {
-  it("działa w czasie liniowym, nie kwadratowym", () => {
+  it("[quality] działa w czasie liniowym, nie kwadratowym", () => {
     expectScaling({
       fn: (users) => uniqueByEmail(users),
       makeInput: (n) => Array.from({ length: n }, (_, i) => ({ email: `e${i}` })),

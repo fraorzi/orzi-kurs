@@ -17,7 +17,7 @@ describe("pooledMap — poprawność", () => {
 });
 
 describe("pooledMap — współbieżność", () => {
-  it("osiąga limit współbieżności i nigdy go nie przekracza", async () => {
+  it("[quality] osiąga limit współbieżności i nigdy go nie przekracza", async () => {
     let active = 0;
     let maxActive = 0;
     const worker = async (x) => {

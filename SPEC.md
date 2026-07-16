@@ -143,12 +143,21 @@ export function expectScaling<T>(opts: {
 podmiana na `_solution.js`, run pipeline'u, przywrócenie startera (finally).
 Dowodzi, że każdy wzorzec przechodzi swoje testy. Musi być zielone przed dodaniem treści.
 
+## verify:starters
+
+`pnpm verify:starters [trackId]` odzyskuje pierwotną wersję każdego startera z commita,
+w którym artefakt został dodany, podmienia go tylko na czas testu i zawsze przywraca
+bieżący kod ucznia. Zwykłe zadanie i `[D]` muszą oblać pipeline bez błędu
+infrastruktury. W zadaniu `[O]` testy poprawności muszą przejść, a co najmniej jeden
+test oznaczony w nazwie `[quality]` ma oblać; starter musi też być lint/typecheck-clean.
+
 ## Skrypty (package.json)
 
 - `pnpm dev` — dashboard
 - `pnpm submit <taskId>` — pipeline z CLI (ten sam kod co API)
 - `pnpm commit:task <taskId>` — ponowna weryfikacja i ręczny commit zaliczenia
 - `pnpm verify:solutions [trackId]`
+- `pnpm verify:starters [trackId]`
 - `pnpm lint` — lint kodu repo (`--ignore-pattern tracks`). Pliki zadań lintuje runner
   przy submicie; startery mają celowo `// TODO` (= lint error `sonarjs/todo-tag`),
   więc nie mogą wchodzić do lintu repo.

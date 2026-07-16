@@ -22,7 +22,7 @@ describe("totalCost — poprawność", () => {
 });
 
 describe("totalCost — memoizacja", () => {
-  it("woła priceOf raz na RÓŻNY produkt, nie raz na zamówienie", () => {
+  it("[quality] woła priceOf raz na RÓŻNY produkt, nie raz na zamówienie", () => {
     let calls = 0;
     const priceOf = (id) => {
       calls += 1;
