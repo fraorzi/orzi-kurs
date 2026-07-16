@@ -205,7 +205,7 @@ Zostało: pozycje audytowe b/c, 13–20, module-02)
 - [x] 18 mix z type-challenges (medium) jako egzamin
 - [x] 19 migracja TS 5.9 → 6.0 → 7.0: nowe domyślne opcje, usunięte/deprecated
       konfiguracje, import attributes, zgodność narzędzi i diagnoza zmian inferencji
-- [ ] 20 elective: dekoratory oraz `using`/DisposableStack — kiedy projekt realnie ich wymaga
+- [x] 20 elective: dekoratory oraz `using`/DisposableStack — kiedy projekt realnie ich wymaga
 - [ ] module-02 (typowany klient API — łączy z js/module-02)
 - Przyszłe (wymaga rozszerzenia harnessu): [O] wydajność typów mierzona liczbą
   instancjacji (`tsc --extendedDiagnostics`) — naiwna rekurencja vs tail-recursive.

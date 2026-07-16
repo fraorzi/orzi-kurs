@@ -144,7 +144,7 @@ function tsconfigFor(files: string[], taskDir: string): string {
         strict: true,
         noEmit: true,
         target: "ES2022",
-        lib: ["ES2023", "DOM"],
+        lib: ["ES2023", "DOM", "ESNext.Disposable"],
         module: "ESNext",
         moduleResolution: "Bundler",
         skipLibCheck: true,

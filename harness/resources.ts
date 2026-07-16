@@ -240,6 +240,11 @@ const TOPIC_RESOURCES: Record<string, LearningResource[]> = {
     { title: "TypeScript 6.0", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-6-0.html", description: "Nowe domyślne opcje, deprecjacje i przygotowanie projektu do TS 7." },
     { title: "Announcing TypeScript 7.0", url: "https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/", description: "Twarde błędy, natywne CLI i oficjalny model pracy TS 6 oraz TS 7 obok siebie." },
   ],
+  "20-modern-features": [
+    { title: "TypeScript 5.0 Decorators", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#decorators", description: "Standardowe dekoratory, context objects i zachowanie typów metod." },
+    { title: "TypeScript 5.2 Resource Management", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-2.html#using-declarations-and-explicit-resource-management", description: "Disposable, using, DisposableStack i semantyka cleanupu." },
+    { title: "Explicit Resource Management", url: "https://github.com/tc39/proposal-explicit-resource-management", description: "Specyfikacja LIFO, move, SuppressedError oraz kontraktów zasobów." },
+  ],
 };
 
 const MODULE_RESOURCES: LearningResource[] = [

@@ -94,12 +94,18 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   domyślnych oraz pipeline TS 6 API + TS 7 CLI bez `ignoreDeprecations`.
 - Stan częściowy: 91 zadań; nowych 54/54 rozwiązań i 54/54 starterów przechodzi
   na TS 6 oraz TS 7.
+- TypeScript: dodane elective `20-modern-features` ze standard decorators, `using`
+  i przenośnym fallbackiem kontraktu `DisposableStack`.
+- Harness ładuje `ESNext.Disposable`; testy nie zakładają jednak, że bieżący Node 22
+  udostępnia globalny konstruktor, którego w tym środowisku faktycznie brakuje.
+- Stan częściowy: 94 zadania; nowych 57/57 rozwiązań i 57/57 starterów przechodzi
+  na TS 6 oraz TS 7.
 
 ## Następne kroki
 
-1. Dodać elective: dekoratory i jawne zarządzanie zasobami.
-2. Zbudować drugi moduł praktyczny po ukończeniu optymalizacji, testów typów
-   i migracji.
+1. Zbudować drugi moduł praktyczny łączący granice runtime, async, anulowanie,
+   testy typów i konfigurację.
+2. Wykonać końcowy audyt oraz pełną macierz regresji tracka.
 
 ## Otwarte ryzyka
 
