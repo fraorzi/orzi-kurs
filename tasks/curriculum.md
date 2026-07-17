@@ -155,58 +155,61 @@ sortowanie katalogów. Etapy są ułożone według prerekwizytów:
 - [x] module-05 (feature: rate limiter + kolejka zadań — throttle, pool współbieżności,
       batching, backoff przy retry; skleja 25/10/37/32) (audyt)
 
-## ts (~33 pozycje ≈ 96 zadań) — TS 7.0, bramka `tsc --noEmit` w pipeline, od kodu runtime do programowania typów
-(01–12 + module-01 gotowe: verify:solutions ts = 37/37, każdy starter oblewa.
-Istniejąca treść i harness używają TS 5.9.3. Branch TypeScript ma najpierw sprawdzić
-ją na TS 6.0 i 7.0, poprawić regresje, a następnie utrwalić aktualną wersję.
-Zostało: pozycje audytowe b/c, 13–20, module-02)
+## ts (33 pozycje, 95 zadań) — rdzeń mida gotowy
+
+Stan końcowy audytu: 95/95 rozwiązań i 95/95 pierwotnych starterów przechodzi
+odpowiednie bramki na TypeScript 6.0.3 oraz natywnym TypeScript 7.0.2. Główny
+toolchain pozostaje na TS 6 do czasu wsparcia API TS 7 przez zależności lintu;
+TS 7 działa równolegle jako obowiązkowa bramka CLI.
 
 - [x] 01 typy podstawowe, inference, literal types, `as const`
 - [x] 02 unie, narrowing, type guards, discriminated unions
-- [ ] 02b narrowing zaawansowany: predykaty `x is T`, `asserts x is T`, inferred type
+- [x] 02b narrowing zaawansowany: predykaty `x is T`, `asserts x is T`, inferred type
       predicates (TS 5.5) i wyczerpanie unii przez `never` (audyt)
 - [x] 03 obiekty: interface vs type, optional, readonly, index signatures
-- [ ] 03b typowanie strukturalne: excess property checks, weak types i zgodność kształtów
+- [x] 03b typowanie strukturalne: excess property checks, weak types i zgodność kształtów
       (audyt — Handbook „Object Types", Effective TS)
 - [x] 04 funkcje: sygnatury, overloads, void/unknown/never, parametr `this`
-- [ ] 04b operatory typów: `keyof`, `typeof`, indexed access i bezpieczne klucze obiektów
+- [x] 04b operatory typów: `keyof`, `typeof`, indexed access i bezpieczne klucze obiektów
 - [x] 05 generyki: podstawy (funkcje, interfejsy)
 - [x] 06 generyki: constraints, defaults, wiele parametrów
-- [ ] 06b generyki nowoczesne: `const` type parameters (TS 5.0), `NoInfer` (TS 5.4),
+- [x] 06b generyki nowoczesne: `const` type parameters (TS 5.0), `NoInfer` (TS 5.4),
       zachowanie sygnatur funkcji wyższego rzędu (audyt)
-- [ ] 06c krotki i wariadyczne tuple types: labeled tuples, `[...T]`, typowanie
+- [x] 06c krotki i wariadyczne tuple types: labeled tuples, `[...T]`, typowanie
       `curry`/`pipe` (audyt — Handbook „Variadic Tuple Types")
 - [x] 07 utility types (Partial, Pick, Omit, Record, ReturnType, Parameters, Awaited)
 - [x] 08 mapped types: własne utility, key remapping `as`, modyfikatory `+/-readonly`, `?`
 - [x] 09 conditional types + `infer`, distributive conditional types i wyłączanie dystrybucji
 - [x] 10 template literal types
-- [ ] 10b typy rekurencyjne: DeepPartial/DeepReadonly, ścieżki obiektu, tail-recursive
+- [x] 10b typy rekurencyjne: DeepPartial/DeepReadonly, ścieżki obiektu, tail-recursive
       operacje na krotkach; limity rekurencji TS (audyt — type-challenges medium/hard)
 - [x] module-01 (typowanie realnego modułu JS end-to-end)
 - [x] 11 klasy: abstract, implements, modyfikatory, parameter properties,
       `#private` vs `private`
 - [x] 12 enums vs const objects, `satisfies` vs `as` vs adnotacja
-- [ ] 13 moduły, declaration files `.d.ts`, typowanie bibliotek, `import type`,
+- [x] 13 moduły, declaration files `.d.ts`, typowanie bibliotek, `import type`,
       `verbatimModuleSyntax`
-- [ ] 13b declaration merging i module augmentation (rozszerzanie cudzych typów) (audyt)
-- [ ] 13c tsconfig i tryby ścisłości: strictNullChecks, noUncheckedIndexedAccess,
+- [x] 13b declaration merging i module augmentation (rozszerzanie cudzych typów) (audyt)
+- [x] 13c tsconfig i tryby ścisłości: strictNullChecks, noUncheckedIndexedAccess,
       exactOptionalPropertyTypes, moduleResolution (audyt)
-- [ ] 14 [D] debug: `any`-zatrucie, błędne generyki, niebezpieczne assertions
-- [ ] 14b [D] wariancja: covariance/contravariance, bivariance metod i dziurawe tablice (audyt)
-- [ ] 14c testowanie typów: `@ts-expect-error`, assertion helpers i testy kontraktów
-- [ ] 15 [O] optymalizacja kodu runtime bez utraty kontraktów typów: poprawny, ale wolny
+- [x] 14 [D] debug: `any`-zatrucie, błędne generyki, niebezpieczne assertions
+- [x] 14b [D] wariancja: covariance/contravariance, bivariance metod i dziurawe tablice (audyt)
+- [x] 14c testowanie typów: `@ts-expect-error`, assertion helpers i testy kontraktów
+- [x] 15 [O] optymalizacja kodu runtime bez utraty kontraktów typów: poprawny, ale wolny
       moduł TS — przepisz bez zmiany typów; bramka `expectScaling` (audyt: track musi
       mieć [O], nie tylko [D])
-- [ ] 16 typowanie async: Promise/Awaited, generyczny fetch, modelowanie sukcesu i błędu
+- [x] 16 typowanie async: Promise/Awaited, generyczny fetch, modelowanie sukcesu i błędu
       (audyt — łączy z js/10-11)
-- [ ] 17 granice runtime: `unknown`, parsery, branded types, parse-don't-validate
+- [x] 17 granice runtime: `unknown`, parsery, branded types, parse-don't-validate
       (audyt — Total TypeScript patterns)
-- [ ] 17b DOM i zdarzenia: EventTarget, HTMLElement, dataset, formularze i bezpieczne narrowing
-- [ ] 18 mix z type-challenges (medium) jako egzamin
-- [ ] 19 migracja TS 5.9 → 6.0 → 7.0: nowe domyślne opcje, usunięte/deprecated
+- [x] 17b DOM i zdarzenia: EventTarget, HTMLElement, dataset, formularze i bezpieczne narrowing
+- [x] 18 mix z type-challenges (medium) jako egzamin
+- [x] 19 migracja TS 5.9 → 6.0 → 7.0: nowe domyślne opcje, usunięte/deprecated
       konfiguracje, import attributes, zgodność narzędzi i diagnoza zmian inferencji
-- [ ] 20 elective: dekoratory oraz `using`/DisposableStack — kiedy projekt realnie ich wymaga
-- [ ] module-02 (typowany klient API — łączy z js/module-02)
+- [x] 20 elective: dekoratory oraz `using`/DisposableStack — kiedy projekt realnie ich wymaga
+- [x] module-02 (typowany klient API: parsery `unknown`, branded ID, jawne `Result`,
+      retry/backoff, timeout, zewnętrzny AbortSignal, generyczna kolejka i type tests;
+      łączy 13c/14c/16/17 z praktyką js/module-02)
 - Przyszłe (wymaga rozszerzenia harnessu): [O] wydajność typów mierzona liczbą
   instancjacji (`tsc --extendedDiagnostics`) — naiwna rekurencja vs tail-recursive.
 

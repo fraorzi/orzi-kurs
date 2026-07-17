@@ -1,6 +1,14 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { mkdtempSync, rmSync, writeFileSync, readdirSync, statSync } from "node:fs";
+import {
+  existsSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+  readdirSync,
+  statSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve, relative, sep } from "node:path";
 import type { TypeIssue } from "./types";
@@ -8,8 +16,21 @@ import { REPO_ROOT } from "./progress";
 import { findStarter } from "./paths";
 
 const execFileAsync = promisify(execFile);
+const TASK_TSCONFIG = "tsconfig.task.json";
+const ALLOWED_TASK_COMPILER_OPTIONS = new Set([
+  "exactOptionalPropertyTypes",
+  "noPropertyAccessFromIndexSignature",
+  "noUncheckedIndexedAccess",
+  "useUnknownInCatchVariables",
+  "verbatimModuleSyntax",
+]);
 
-const TSC_BIN = resolve(REPO_ROOT, "node_modules/typescript/bin/tsc");
+const TSC_BIN = resolve(
+  REPO_ROOT,
+  "node_modules",
+  process.env.ORZI_TSC_PACKAGE ?? "typescript",
+  "bin/tsc",
+);
 
 /**
  * Never typechecked: the reference solution (`_solution*`) and the backup copies
@@ -85,21 +106,52 @@ function parseTscOutput(stdout: string, taskDir: string): TypeIssue[] {
   return issues;
 }
 
-function tsconfigFor(files: string[]): string {
+export function taskCompilerOptions(
+  taskDir: string,
+): Record<string, boolean> {
+  const configPath = join(taskDir, TASK_TSCONFIG);
+  if (!existsSync(configPath)) return {};
+
+  const parsed = JSON.parse(readFileSync(configPath, "utf8")) as {
+    compilerOptions?: unknown;
+  };
+  if (
+    parsed.compilerOptions === undefined ||
+    typeof parsed.compilerOptions !== "object" ||
+    parsed.compilerOptions === null ||
+    Array.isArray(parsed.compilerOptions)
+  ) {
+    throw new Error(`${TASK_TSCONFIG} wymaga obiektu compilerOptions`);
+  }
+
+  const options: Record<string, boolean> = {};
+  for (const [name, value] of Object.entries(parsed.compilerOptions)) {
+    if (!ALLOWED_TASK_COMPILER_OPTIONS.has(name)) {
+      throw new Error(`${TASK_TSCONFIG}: niedozwolona opcja ${name}`);
+    }
+    if (typeof value !== "boolean") {
+      throw new Error(`${TASK_TSCONFIG}: ${name} musi być boolean`);
+    }
+    options[name] = value;
+  }
+  return options;
+}
+
+function tsconfigFor(files: string[], taskDir: string): string {
   return JSON.stringify(
     {
       compilerOptions: {
         strict: true,
         noEmit: true,
         target: "ES2022",
-        lib: ["ES2023", "DOM"],
+        lib: ["ES2023", "DOM", "ESNext.Disposable"],
         module: "ESNext",
         moduleResolution: "Bundler",
         skipLibCheck: true,
         types: ["node"],
         typeRoots: [resolve(REPO_ROOT, "node_modules/@types")],
-        baseUrl: REPO_ROOT,
-        paths: { "@harness/*": ["harness/*"] },
+        paths: { "@harness/*": [resolve(REPO_ROOT, "harness/*")] },
+        ...taskCompilerOptions(taskDir),
       },
       include: files,
     },
@@ -120,7 +172,7 @@ export async function runTypecheck(taskDir: string): Promise<TypeIssue[]> {
   const tmp = mkdtempSync(join(tmpdir(), "orzi-tsc-"));
   const configPath = join(tmp, "tsconfig.json");
   try {
-    writeFileSync(configPath, tsconfigFor(files), "utf8");
+    writeFileSync(configPath, tsconfigFor(files, taskDir), "utf8");
 
     let stdout = "";
     try {

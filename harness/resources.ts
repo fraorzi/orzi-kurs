@@ -166,6 +166,85 @@ const TOPIC_RESOURCES: Record<string, LearningResource[]> = {
   "37-optimize-async": [
     { title: "Współbieżność Promise", url: `${MDN}/Reference/Global_Objects/Promise#promise_concurrency`, description: "Dobór all, allSettled, any i race do pracy asynchronicznej." },
   ],
+  "02b-advanced-narrowing": [
+    { title: "Narrowing", url: "https://www.typescriptlang.org/docs/handbook/2/narrowing.html", description: "Predykaty, assertion functions, unie rozłączne i wyczerpanie przez never." },
+    { title: "TypeScript 5.5", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-5.html", description: "Zasady inferowanych predykatów typu." },
+  ],
+  "03b-structural-typing": [
+    { title: "Type Compatibility", url: "https://www.typescriptlang.org/docs/handbook/type-compatibility.html", description: "Oficjalny opis strukturalnego modelu zgodności TypeScript." },
+    { title: "Object Types", url: "https://www.typescriptlang.org/docs/handbook/2/objects.html", description: "Excess property checks i kontrakty obiektowe." },
+  ],
+  "04b-type-operators": [
+    { title: "Creating Types from Types", url: "https://www.typescriptlang.org/docs/handbook/2/types-from-types.html", description: "Mapa operatorów keyof, typeof i indexed access." },
+  ],
+  "06b-modern-generics": [
+    { title: "TypeScript 5.0", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#const-type-parameters", description: "Const type parameters i zachowanie literalnej inferencji." },
+    { title: "NoInfer", url: "https://www.typescriptlang.org/docs/handbook/utility-types.html#noinfertype", description: "Blokowanie wybranego źródła inferencji w generycznym API." },
+  ],
+  "06c-tuples": [
+    { title: "TypeScript 4.0", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types", description: "Variadic i labeled tuple types." },
+  ],
+  "10b-recursive-types": [
+    { title: "Conditional Types", url: "https://www.typescriptlang.org/docs/handbook/2/conditional-types.html", description: "Warunki, infer i podstawy rekurencyjnych transformacji." },
+    { title: "TypeScript 4.5", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-5.html#tail-recursion-elimination-on-conditional-types", description: "Tail recursion elimination oraz limity kosztownych typów." },
+  ],
+  "13-modules-declarations": [
+    { title: "Modules", url: "https://www.typescriptlang.org/docs/handbook/2/modules.html", description: "Importy, eksporty, rozwiązywanie modułów i publiczne API." },
+    { title: "Declaration Files", url: "https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html", description: "Pisanie i testowanie deklaracji dla istniejącego JavaScriptu." },
+  ],
+  "13b-module-augmentation": [
+    { title: "Declaration Merging", url: "https://www.typescriptlang.org/docs/handbook/declaration-merging.html", description: "Scalanie interfejsów i module augmentation." },
+  ],
+  "13c-strict-tsconfig": [
+    { title: "TSConfig Reference", url: "https://www.typescriptlang.org/tsconfig/", description: "Oficjalna dokumentacja opcji kompilatora." },
+    { title: "verbatimModuleSyntax", url: "https://www.typescriptlang.org/tsconfig/verbatimModuleSyntax.html", description: "Jawne importy i eksporty typów zgodne z emitowanym ESM." },
+  ],
+  "14-debug-types": [
+    { title: "The Basics", url: "https://www.typescriptlang.org/docs/handbook/2/basic-types.html", description: "Różnice między any i unknown oraz źródła utraty bezpieczeństwa typów." },
+    { title: "Generics", url: "https://www.typescriptlang.org/docs/handbook/2/generics.html", description: "Relacje między parametrami typów, argumentami i wynikiem." },
+  ],
+  "14b-variance": [
+    { title: "strictFunctionTypes", url: "https://www.typescriptlang.org/tsconfig/strictFunctionTypes.html", description: "Bezpieczniejsze sprawdzanie parametrów callbacków i wyjątek metod." },
+    { title: "Type Compatibility", url: "https://www.typescriptlang.org/docs/handbook/type-compatibility.html", description: "Kowariancja, kontrawariancja i bivariance w modelu strukturalnym." },
+  ],
+  "14c-type-tests": [
+    { title: "TypeScript Comment Directives", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#-ts-expect-error-comments", description: "Celowe testy negatywne i zachowanie nieużytej dyrektywy." },
+    { title: "DefinitelyTyped", url: "https://github.com/DefinitelyTyped/DefinitelyTyped", description: "Praktyczny wzorzec utrzymywania testów kontraktów deklaracji." },
+  ],
+  "15-optimize-runtime": [
+    { title: "Object Types", url: "https://www.typescriptlang.org/docs/handbook/2/objects.html#the-readonlyarray-type", description: "Kontrakty readonly pozwalają optymalizować lokalną implementację bez mutowania wejścia." },
+    { title: "Type Compatibility", url: "https://www.typescriptlang.org/docs/handbook/type-compatibility.html", description: "Zachowanie zgodności sygnatur funkcji i publicznych typów podczas refaktoru." },
+    { title: "Map", url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map", description: "Indeksowanie, kolejność wstawienia i budowanie ograniczonego cache LRU." },
+  ],
+  "16-async-types": [
+    { title: "Awaited", url: "https://www.typescriptlang.org/docs/handbook/utility-types.html#awaitedtype", description: "Rekurencyjne rozpakowywanie Promise i zachowanie typów wyników async." },
+    { title: "AbortSignal", url: "https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal", description: "Standardowy kontrakt anulowania operacji asynchronicznych." },
+  ],
+  "17-runtime-boundaries": [
+    { title: "Narrowing", url: "https://www.typescriptlang.org/docs/handbook/2/narrowing.html", description: "Bezpieczne zawężanie wartości unknown na granicach systemu." },
+    { title: "Symbols", url: "https://www.typescriptlang.org/docs/handbook/symbols.html#unique-symbol", description: "Unique symbol jako podstawa nominalnych branded types." },
+  ],
+  "17b-dom-events": [
+    { title: "Event", url: "https://developer.mozilla.org/en-US/docs/Web/API/Event", description: "Model target, currentTarget i propagacji zdarzeń DOM." },
+    { title: "FormData", url: "https://developer.mozilla.org/en-US/docs/Web/API/FormData", description: "Odczytywanie i interpretowanie wartości formularza." },
+    { title: "Element.closest()", url: "https://developer.mozilla.org/en-US/docs/Web/API/Element/closest", description: "Bezpieczna delegacja zdarzeń z elementów potomnych." },
+  ],
+  "18-type-challenges": [
+    { title: "Type Challenges", url: "https://github.com/type-challenges/type-challenges", description: "Popularny zestaw zadań medium użyty jako punkt odniesienia dla egzaminu." },
+    { title: "Mapped Types", url: "https://www.typescriptlang.org/docs/handbook/2/mapped-types.html", description: "Mapowanie unii i key remapping dla kontraktów eventów." },
+    { title: "Template Literal Types", url: "https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html", description: "Rekurencyjne parsowanie parametrów z literału trasy." },
+    { title: "Conditional Types", url: "https://www.typescriptlang.org/docs/handbook/2/conditional-types.html", description: "Dystrybucja po uniach, infer oraz składanie typów wynikowych." },
+  ],
+  "19-ts-migration": [
+    { title: "TypeScript 5.9", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-9.html", description: "Punkt wyjścia migracji i jawna, nowoczesna konfiguracja generowana przez tsc --init." },
+    { title: "TypeScript 6.0", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-6-0.html", description: "Nowe domyślne opcje, deprecjacje i przygotowanie projektu do TS 7." },
+    { title: "Announcing TypeScript 7.0", url: "https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/", description: "Twarde błędy, natywne CLI i oficjalny model pracy TS 6 oraz TS 7 obok siebie." },
+  ],
+  "20-modern-features": [
+    { title: "TypeScript 5.0 Decorators", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#decorators", description: "Standardowe dekoratory, context objects i zachowanie typów metod." },
+    { title: "TypeScript 5.2 Resource Management", url: "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-2.html#using-declarations-and-explicit-resource-management", description: "Disposable, using, DisposableStack i semantyka cleanupu." },
+    { title: "Explicit Resource Management", url: "https://github.com/tc39/proposal-explicit-resource-management", description: "Specyfikacja LIFO, move, SuppressedError oraz kontraktów zasobów." },
+  ],
 };
 
 const MODULE_RESOURCES: LearningResource[] = [
