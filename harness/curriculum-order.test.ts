@@ -108,4 +108,31 @@ describe("curriculum order", () => {
         module.topics.map((topic) => topic.id)),
     ).toEqual(track.topics.map((topic) => topic.id));
   });
+  it("keeps Node runtime foundations before networking and production concerns", () => {
+    expect(compareTopicSlugs("node", "01-runtime-modules-native-ts", "03-url-path-fs"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("node", "05-events-cancellation", "07-http-client"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("node", "09-streams-backpressure", "17-cli"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("node", "16-security-permissions", "module-01"))
+      .toBeLessThan(0);
+  });
+
+  it("keeps Node learning modules in exact catalog order", () => {
+    const track: CatalogTrack = {
+      id: "node",
+      topics: TOPIC_ORDER.node.map((slug) => ({
+        id: `node/${slug}`,
+        title: slug,
+        levels: [],
+      })),
+    };
+
+    expect(
+      learningModules(track).flatMap((module) =>
+        module.topics.map((topic) => topic.id)),
+    ).toEqual(track.topics.map((topic) => topic.id));
+  });
+
 });
