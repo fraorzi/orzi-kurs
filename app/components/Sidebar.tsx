@@ -4,7 +4,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import type { Catalog } from "@/app/lib/types";
-import { topicSlug, topicNumber, topicTag, trackMeta, TRACK_META } from "@/app/lib/tracks";
+import {
+  learningModules,
+  topicSlug,
+  topicNumber,
+  topicTag,
+  trackMeta,
+  TRACK_META,
+} from "@/app/lib/tracks";
 import { IconCheck } from "./icons";
 import TrackBadge from "./TrackBadge";
 import TopicTag from "./TopicTag";
@@ -105,6 +112,7 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
   const track =
     catalog?.tracks.find((t) => t.id === curTrackId) ?? catalog?.tracks[0] ?? null;
   const meta = track ? trackMeta(track.id) : null;
+  const modules = track ? learningModules(track) : [];
 
   function toggleTopic(slug: string, href: string) {
     if (openSlug === slug) {
@@ -212,44 +220,78 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
 
         {track && (
           <>
-            <div className="rail-cap">Zagadnienia · {track.topics.length}</div>
-            {track.topics.map((topic) => {
-              const slug = topicSlug(topic.id);
-              const open = slug === openSlug;
-              const tag = topicTag(topic.id);
-              const topicHref = `/track/${track.id}/${slug}`;
+            <div className="rail-cap">
+              Program · {modules.length} {modules.length === 1 ? "etap" : "etapów"}
+            </div>
+            {modules.map((module, index) => {
+              const routeInModule = module.topics.some(
+                (topic) => topicSlug(topic.id) === curTopicSlug,
+              );
+              const complete = module.total > 0 && module.passed === module.total;
+              const headingId = `rail-stage-${track.id}-${module.id}`;
+
               return (
-                <div key={topic.id} className={`topic${open ? " open" : ""}`}>
-                  <button
-                    className="topic-btn"
-                    aria-expanded={open}
-                    onClick={() => toggleTopic(slug, topicHref)}
-                  >
-                    <span className="topic-num mono">{topicNumber(topic.id)}</span>
-                    <span className="topic-title">{topic.title}</span>
-                    {tag && <TopicTag tag={tag} />}
-                    <span className="caret">▶</span>
-                  </button>
-                  <div className="levels">
+                <section
+                  key={module.id}
+                  className={`rail-stage${routeInModule ? " active" : ""}${module.current ? " current" : ""}${complete ? " complete" : ""}`}
+                  aria-labelledby={headingId}
+                >
+                  <header className="rail-stage-head">
                     <div>
-                      {topic.levels.map((level) => {
-                        const active =
-                          slug === curTopicSlug && level.id === curLevel;
-                        return (
-                          <Link
-                            key={level.id}
-                            className={`lvl${active ? " active" : ""}`}
-                            href={`${topicHref}/${level.id}`}
-                            aria-current={active}
-                          >
-                            <span className={`sdot ${level.status}`} />
-                            <span>{level.id}</span>
-                          </Link>
-                        );
-                      })}
+                      <span className="rail-stage-step">Etap {index + 1}</span>
+                      <h2 id={headingId}>{module.title}</h2>
                     </div>
+                    <span
+                      className="rail-stage-progress num"
+                      title={`${module.passed} z ${module.total} poziomów zaliczonych`}
+                      aria-label={`${module.passed} z ${module.total} poziomów zaliczonych`}
+                    >
+                      {module.passed}/{module.total}
+                    </span>
+                  </header>
+
+                  <div className="rail-stage-topics">
+                    {module.topics.map((topic) => {
+                      const slug = topicSlug(topic.id);
+                      const open = slug === openSlug;
+                      const tag = topicTag(topic.id);
+                      const topicHref = `/track/${track.id}/${slug}`;
+                      return (
+                        <div key={topic.id} className={`topic${open ? " open" : ""}`}>
+                          <button
+                            className="topic-btn"
+                            aria-expanded={open}
+                            onClick={() => toggleTopic(slug, topicHref)}
+                          >
+                            <span className="topic-num mono">{topicNumber(topic.id)}</span>
+                            <span className="topic-title">{topic.title}</span>
+                            {tag && <TopicTag tag={tag} />}
+                            <span className="caret">▶</span>
+                          </button>
+                          <div className="levels">
+                            <div>
+                              {topic.levels.map((level) => {
+                                const active =
+                                  slug === curTopicSlug && level.id === curLevel;
+                                return (
+                                  <Link
+                                    key={level.id}
+                                    className={`lvl${active ? " active" : ""}`}
+                                    href={`${topicHref}/${level.id}`}
+                                    aria-current={active ? "page" : undefined}
+                                  >
+                                    <span className={`sdot ${level.status}`} />
+                                    <span>{level.id}</span>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
-                </div>
+                </section>
               );
             })}
           </>
