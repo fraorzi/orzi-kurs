@@ -349,6 +349,10 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   localhost:33316. Smoke SQL przechodzi 1/1 dla rozwiązania i 1/1 dla startera.
 - Kontrakt treści MySQL wymaga zastosowań, pułapek, źródeł 8.4, progresywnych
   hintów, startera, rozwiązania i lokalnego testu.
+- Pierwsza partia MySQL obejmuje 24 zadania z wykonywalnym SQL: selekcję i NULL,
+  typy/JSON/czas, JOIN-y, agregacje i tryby SQL, CTE oraz operacje zbiorów,
+  funkcje okienkowe, DML i constraints. Testy sprawdzają nie tylko wynik, ale też
+  mutacje, ograniczenia i zachowanie relacji na prawdziwym MySQL 8.4.
 
 ## Następne kroki
 

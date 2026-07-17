@@ -323,14 +323,14 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 
 ## mysql (22 tematy + 2 moduły, 68 zadań) — MySQL 8.4 LTS
 
-- [ ] 01 SELECT, WHERE, ORDER BY, LIMIT, trzywartościowa logika i NULL
-- [ ] 02 DECIMAL, daty/strefy, utf8mb4/collation, ENUM vs lookup i JSON
-- [ ] 03 JOINy inner/left/self, cardinality i zachowanie brakujących relacji
-- [ ] 04 GROUP BY, agregacje, HAVING i ONLY_FULL_GROUP_BY
-- [ ] 05 podzapytania, EXISTS, CTE rekurencyjne i set operations
-- [ ] 06 funkcje okienkowe: ROW_NUMBER, RANK, LAG i jawne ramy okna
-- [ ] 07 INSERT/UPDATE/DELETE, upsert, affected rows i bezpieczne zmiany zbiorcze
-- [ ] 08 constraints, klucze, CHECK, ON DELETE/UPDATE i niezmienniki domeny
+- [x] 01 SELECT, WHERE, ORDER BY, LIMIT, trzywartościowa logika i NULL
+- [x] 02 DECIMAL, daty/strefy, utf8mb4/collation, ENUM vs lookup i JSON
+- [x] 03 JOINy inner/left/self, cardinality i zachowanie brakujących relacji
+- [x] 04 GROUP BY, agregacje, HAVING i ONLY_FULL_GROUP_BY
+- [x] 05 podzapytania, EXISTS, CTE rekurencyjne i set operations
+- [x] 06 funkcje okienkowe: ROW_NUMBER, RANK, LAG i jawne ramy okna
+- [x] 07 INSERT/UPDATE/DELETE, upsert, affected rows i bezpieczne zmiany zbiorcze
+- [x] 08 constraints, klucze, CHECK, ON DELETE/UPDATE i niezmienniki domeny
 - [ ] 09 transakcje, autocommit, savepoint i atomowa obsługa błędu
 - [ ] 10 izolacja, MVCC, locking reads, phantom rows i deadlock retry
 - [ ] 11 B-tree, selektywność, indeksy złożone, covering i leftmost prefix

@@ -1,0 +1,1 @@
+WITH RECURSIVE tree AS (SELECT id, parent_id, name, 0 AS depth FROM categories WHERE id = 1 UNION ALL SELECT c.id, c.parent_id, c.name, tree.depth + 1 FROM categories c INNER JOIN tree ON c.parent_id = tree.id) SELECT id, name, depth FROM tree ORDER BY id;

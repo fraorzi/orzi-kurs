@@ -1,0 +1,1 @@
+SELECT id FROM events WHERE occurred_at BETWEEN '2026-05-01' AND '2026-05-01 23:59:59' ORDER BY id;

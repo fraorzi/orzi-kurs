@@ -1,0 +1,1 @@
+WITH revenue AS (SELECT customer_id, SUM(total) AS total FROM orders GROUP BY customer_id), average_revenue AS (SELECT AVG(total) AS value FROM revenue) SELECT customer_id, total AS revenue FROM revenue CROSS JOIN average_revenue WHERE total > value ORDER BY customer_id;
