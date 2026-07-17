@@ -1,0 +1,3 @@
+import { describe, expect, it } from "vitest"; import { transact } from "./starter";
+describe("transaction retry", () => { it("wycofuje i ponawia cały callback po deadlocku", async () => { const events: string[] = []; let work = 0; const result = await transact({ begin: async () => { events.push("begin"); }, work: async () => { work += 1; events.push("work"); if (work === 1) throw Object.assign(new Error("deadlock"), { code: "ER_LOCK_DEADLOCK" }); return "ok"; }, commit: async () => { events.push("commit"); }, rollback: async () => { events.push("rollback"); } }); expect(result).toBe("ok"); expect(events).toEqual(["begin", "work", "rollback", "begin", "work", "commit"]); }); });
+

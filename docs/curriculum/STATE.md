@@ -19,7 +19,7 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 
 ## Bieżący branch
 
-`feature/curriculum-strapi`
+`feature/curriculum-combined`
 
 ## Najnowszy ukończony etap
 
@@ -30,6 +30,9 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 - Efemeryczny adapter `node:http` oraz dodatkowy test modułu zostały sprawdzone
   statycznie przez root TypeScript i lint. Ponowny dynamiczny przebieg jest wymagany
   w audycie końcowym, ponieważ limit rozszerzonych narzędzi zablokował jego start.
+- Combined: 13 dużych projektów TypeScript/TSX, w tym dwa wieloplikowe capstone’y.
+- Combined przechodzi osobny strict TypeScript config oraz root lint; dynamiczna
+  macierz Vitest pozostaje do ponowienia w audycie końcowym po odblokowaniu narzędzi.
 
 ## Ukończone w bieżącym etapie
 

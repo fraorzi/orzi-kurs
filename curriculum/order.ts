@@ -228,6 +228,22 @@ const STRAPI_TOPIC_ORDER = [
   "module-01",
 ] as const;
 
+const COMBINED_TOPIC_ORDER = [
+  "ts-react-01",
+  "ts-react-02",
+  "js-node-01",
+  "react-next-01",
+  "next-strapi-01",
+  "next-strapi-02",
+  "node-mysql-01",
+  "quality-01",
+  "security-01",
+  "delivery-01",
+  "observability-01",
+  "full-01",
+  "full-02",
+] as const;
+
 export const TOPIC_ORDER: Readonly<Record<string, readonly string[]>> = {
   js: JS_TOPIC_ORDER,
   ts: TS_TOPIC_ORDER,
@@ -236,6 +252,7 @@ export const TOPIC_ORDER: Readonly<Record<string, readonly string[]>> = {
   node: NODE_TOPIC_ORDER,
   mysql: MYSQL_TOPIC_ORDER,
   strapi: STRAPI_TOPIC_ORDER,
+  combined: COMBINED_TOPIC_ORDER,
 };
 
 export function compareTopicSlugs(track: string, left: string, right: string): number {

@@ -372,22 +372,22 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] module-01 (backend contentowy v5 do realnego frontu — authz, draft, media,
       webhook, testy; łączy z next/module-02)
 
-## combined (~13 dużych zadań)
+## combined (13 dużych projektów TypeScript/TSX)
 
-- [ ] ts-react-01: typowanie komponentów i custom hooków (generyczne propsy)
-- [ ] ts-react-02: typowany reducer + context
-- [ ] js-node-01: narzędzie CLI używające wzorców z js (pool, retry)
-- [ ] react-next-01: migracja widgetu klienckiego na server components
-- [ ] next-strapi-01: pełny CRUD feature (front + backend + auth)
-- [ ] next-strapi-02: upload plików + Image
-- [ ] node-mysql-01: warstwa danych z transakcjami
-- [ ] quality-01: zastany feature — dodać test regresji, poprawić dostępność,
+- [x] ts-react-01: typowanie komponentów i custom hooków (generyczne propsy)
+- [x] ts-react-02: typowany reducer + context
+- [x] js-node-01: narzędzie CLI używające wzorców z js (pool, retry)
+- [x] react-next-01: migracja widgetu klienckiego na server components
+- [x] next-strapi-01: pełny CRUD feature (front + backend + auth)
+- [x] next-strapi-02: upload plików + Image
+- [x] node-mysql-01: warstwa danych z transakcjami
+- [x] quality-01: zastany feature — dodać test regresji, poprawić dostępność,
       usunąć problem wydajnościowy i opisać decyzję
-- [ ] security-01: authn/authz, walidacja, rate limit, sekrety i bezpieczne logi
-- [ ] delivery-01: CI, migracje, konfiguracja środowisk, kontener, healthcheck i rollback
-- [ ] observability-01: correlation id, structured logs, metryki i diagnoza incydentu
-- [ ] full-01: capstone — pionowy feature przez wszystkie warstwy
-- [ ] full-02: capstone maintenance — wejście w obcy kod, bug report, fix, test,
+- [x] security-01: authn/authz, walidacja, rate limit, sekrety i bezpieczne logi
+- [x] delivery-01: CI, migracje, konfiguracja środowisk, kontener, healthcheck i rollback
+- [x] observability-01: correlation id, structured logs, metryki i diagnoza incydentu
+- [x] full-01: capstone — pionowy feature przez wszystkie warstwy
+- [x] full-02: capstone maintenance — wejście w obcy kod, bug report, fix, test,
       optymalizacja i plan bezpiecznego wdrożenia
 
 **Suma (minimum, nie limit): ~170 zagadnień ≈ 520–580 zadań + moduły przekrojowe.**

@@ -189,4 +189,15 @@ describe("curriculum order", () => {
     ).toEqual(track.topics.map((topic) => topic.id));
   });
 
+  it("keeps combined projects from focused integrations to capstones", () => {
+    expect(compareTopicSlugs("combined", "ts-react-01", "react-next-01"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("combined", "node-mysql-01", "security-01"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("combined", "observability-01", "full-01"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("combined", "full-01", "full-02"))
+      .toBeLessThan(0);
+  });
+
 });

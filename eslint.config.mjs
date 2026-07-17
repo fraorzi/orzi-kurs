@@ -40,6 +40,7 @@ const eslintConfig = defineConfig([
     files: [
       "tracks/react/**/*.{jsx,tsx}",
       "tracks/next/**/*.{jsx,tsx}",
+      "tracks/combined/**/*.{jsx,tsx}",
       "tracks/_smoke/05-react-tsx/**/*.{jsx,tsx}",
       "tracks/_smoke/06-next-tsx/**/*.{jsx,tsx}",
     ],

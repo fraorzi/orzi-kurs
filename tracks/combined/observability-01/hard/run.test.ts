@@ -1,0 +1,3 @@
+import { describe, expect, it } from "vitest"; import { observe } from "./starter";
+describe("observability", () => { it("koreluje bez wysokiej kardynalności i PII", () => { const value = observe({ requestId: "r1", method: "GET", url: "/articles?email=a@example.com", status: 503, durationMs: 42, userId: "u1", error: "db password" }); expect(value).toEqual({ log: { requestId: "r1", method: "GET", path: "/articles", status: 503, durationMs: 42, outcome: "error" }, metric: { name: "http_server_duration_ms", labels: { method: "GET", route: "/articles", statusClass: "5xx" }, value: 42 } }); expect(JSON.stringify(value)).not.toContain("password"); }); });
+
