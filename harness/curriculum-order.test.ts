@@ -47,4 +47,38 @@ describe("curriculum order", () => {
       learningModules(track).flatMap((module) => module.topics.map((topic) => topic.id)),
     ).toEqual(track.topics.map((topic) => topic.id));
   });
+
+  it("keeps React foundations before effects, Actions and optimization", () => {
+    expect(
+      compareTopicSlugs(
+        "react",
+        "06-derived-state-no-effect",
+        "07-effects-synchronization",
+      ),
+    ).toBeLessThan(0);
+    expect(compareTopicSlugs("react", "13-ui-state-modeling", "14-form-actions"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("react", "24-react-compiler", "25-manual-memoization"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("react", "module-01", "module-02"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("react", "module-02", "22-concurrent-ui"))
+      .toBeLessThan(0);
+  });
+
+  it("keeps React learning modules in exact catalog order", () => {
+    const track: CatalogTrack = {
+      id: "react",
+      topics: TOPIC_ORDER.react.map((slug) => ({
+        id: `react/${slug}`,
+        title: slug,
+        levels: [],
+      })),
+    };
+
+    expect(
+      learningModules(track).flatMap((module) =>
+        module.topics.map((topic) => topic.id)),
+    ).toEqual(track.topics.map((topic) => topic.id));
+  });
 });

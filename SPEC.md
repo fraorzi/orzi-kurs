@@ -200,17 +200,17 @@ rendering, zapytania SQL).
 
 ## Track ts — bramka typów
 
-Pipeline zadania TS: **vitest → eslint → tsc** (równolegle). Vitest tylko ścina typy
+Pipeline zadania TS/TSX: **vitest → eslint → tsc** (równolegle). Vitest tylko ścina typy
 (esbuild), więc sam z siebie NIE oblewa błędów typów — od tego jest `harness/typecheck.ts`.
 
-- **Kiedy odpala się tsc:** zadanie jest typescriptowe, tzn. starter to `starter.ts`
-  albo katalog `src/` z plikami `.ts`. Zadania czysto JS zwracają `typecheck.errors = []`
-  bez uruchamiania tsc (track js zostaje szybki).
-- **Zakres:** wszystkie `.ts` w katalogu zadania — starter (`starter.ts` lub całe `src/**`),
-  `run.test.ts`, ewentualne inne pliki. Wykluczone: `_solution*` i backupy `*.verify-backup`.
+- **Kiedy odpala się tsc:** zadanie jest typescriptowe, tzn. starter to `starter.ts`,
+  `starter.tsx` albo katalog `src/` z plikami `.ts`/`.tsx`. Zadania czysto JS
+  zwracają `typecheck.errors = []` bez uruchamiania tsc (track js zostaje szybki).
+- **Zakres:** wszystkie `.ts` i `.tsx` w katalogu zadania — starter, całe `src/**`,
+  testy i lokalne helpery. Wykluczone: `_solution*` i backupy `*.verify-backup`.
 - **Konfiguracja:** generowany tymczasowy tsconfig (samodzielny, bez `extends`):
-  `strict`, `noEmit`, `target: ES2022`, `lib: [ES2023, DOM]`, `module: ESNext`,
-  `moduleResolution: Bundler`, `skipLibCheck`, `types: ["node"]` oraz `paths`
+  `strict`, `noEmit`, `target: ES2022`, `lib: [ES2023, DOM]`, `jsx: react-jsx`,
+  `module: ESNext`, `moduleResolution: Bundler`, `skipLibCheck`, `types: ["node"]` oraz `paths`
   mapujące `@harness/*` bezpośrednio na absolutną ścieżkę `harness/*` (bez
   zdeprecjonowanego `baseUrl`). Root `tsconfig.json` **wyklucza `tracks/`** —
   startery mają celowo oblewać typy i nie mogą wywracać `next build`.
@@ -270,11 +270,32 @@ describe("tagCounts", () => {
   `redundant-type-aliases`. W zwykłym starterze to nieszkodliwe (i tak ma oblewać),
   ale startery `[D]`/`[O]` muszą być lint-clean — tam nie używaj takich placeholderów.
 
+## Track react — TSX, DOM i testy zachowania
+
+- Pojedynczy artefakt ucznia to `starter.tsx`, rozwiązanie to `_solution.tsx`;
+  zadania wieloplikowe używają `src/**/*.tsx` i `_solution/**/*.tsx`.
+- Runner automatycznie wybiera środowisko `jsdom` dla `tracks/react/**`.
+  Pozostałe tracki nadal domyślnie działają w szybszym środowisku Node.
+- Testy importują z `@harness/react-test`: `render`, `screen`, `within`, `waitFor`,
+  `renderWithUser` oraz `createRenderCounter`. Helper rejestruje cleanup, rozszerza
+  matchery Vitest przez `jest-dom` i tworzy `userEvent.setup()` wewnątrz testu.
+- Interakcje opisujemy przez `user-event`, a elementy wyszukujemy przede wszystkim
+  po roli i nazwie dostępnej. `data-testid` jest ostatecznością, nie domyślnym API.
+- ESLint uruchamia oficjalne `eslint-plugin-react-hooks` w konfiguracji
+  `recommended-latest`, w tym Rules of Hooks, exhaustive deps i reguły React
+  Compilera.
+- `createRenderCounter()` dostarcza callback `Profiler.onRender`, liczbę commitów
+  i ich fazy. Bramki wydajnościowe mierzą commity lub liczbę renderów, nie czas.
+- Testujemy zachowanie widoczne dla użytkownika, dostępność i kontrakt propsów;
+  nie testujemy nazw hooków, prywatnego stanu ani struktury drzewa komponentów.
+- Każdy starter musi mieć czerwoną bramkę, ale błąd infrastruktury DOM/TSX nie jest
+  zaliczoną porażką. Rozwiązanie przechodzi Vitest, lint i ścisły typecheck.
+
 ## Zadania wieloplikowe
 
-- Zadania hard i module-NN mogą być wieloplikowe: starter to wtedy katalog `src/`
-  (testy importują z `./src/index.js`), wzorzec to `_solution/` (katalog o tej samej
-  strukturze). Lint obejmuje wtedy cały `src/`. Pełny zakres: tasks/curriculum.md.
+- Zadania hard i module-NN mogą być wieloplikowe: starter to wtedy katalog `src/`,
+  wzorzec to `_solution/` o tej samej strukturze. Lint obejmuje cały `src/`.
+  Rozszerzenia i styl importów wynikają z tracka. Pełny zakres: tasks/curriculum.md.
 
 ## Konwencje treści zadań
 

@@ -94,9 +94,48 @@ const TS_TOPIC_ORDER = [
   "module-02",
 ] as const;
 
+const REACT_TOPIC_ORDER = [
+  "01-components-props-purity",
+  "02-jsx-lists-identity",
+  "03-state-snapshot-batching",
+  "04-immutable-state",
+  "05-accessible-controlled-forms",
+  "06-derived-state-no-effect",
+  "07-effects-synchronization",
+  "08-effect-events",
+  "09-fetch-effects",
+  "10-refs-ids",
+  "11-reducer",
+  "12-context",
+  "module-01",
+  "13-ui-state-modeling",
+  "14-form-actions",
+  "15-form-status",
+  "16-optimistic-updates",
+  "17-use-suspense-errors",
+  "18-external-store",
+  "19-custom-hooks",
+  "20-composition-ownership",
+  "21-portals-error-boundaries",
+  "module-02",
+  "22-concurrent-ui",
+  "23-refs-layout",
+  "24-react-compiler",
+  "25-manual-memoization",
+  "26-debugging-rendering",
+  "26b-optimize-slow-view",
+  "27-component-testing",
+  "28-accessible-widgets",
+  "29-large-lists",
+  "30-dynamic-styles",
+  "31-server-state",
+  "module-03",
+] as const;
+
 export const TOPIC_ORDER: Readonly<Record<string, readonly string[]>> = {
   js: JS_TOPIC_ORDER,
   ts: TS_TOPIC_ORDER,
+  react: REACT_TOPIC_ORDER,
 };
 
 export function compareTopicSlugs(track: string, left: string, right: string): number {

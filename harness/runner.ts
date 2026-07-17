@@ -2,7 +2,7 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { readFileSync, existsSync, mkdtempSync, rmSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, relative, sep } from "node:path";
 import { ESLint } from "eslint";
 import type { SubmitResult, TestResult, LintIssue } from "./types";
 import { REPO_ROOT } from "./progress";
@@ -57,6 +57,7 @@ async function runVitest(
           "vitest",
           "run",
           taskDir,
+          `--environment=${vitestEnvironmentForTask(taskDir)}`,
           "--reporter=json",
           `--outputFile=${outFile}`,
         ],
@@ -108,6 +109,12 @@ async function runVitest(
   }
 }
 
+export function vitestEnvironmentForTask(taskDir: string): "jsdom" | "node" {
+  return relative(TRACKS_ROOT, taskDir).split(sep)[0] === "react"
+    ? "jsdom"
+    : "node";
+}
+
 async function runLint(
   taskDir: string,
 ): Promise<{ errors: LintIssue[]; warnings: LintIssue[] }> {
@@ -117,9 +124,9 @@ async function runLint(
   if (!starter) return { errors, warnings };
 
   // Multi-file tasks lint every source file under src/; single-file tasks
-  // lint just starter.{js,ts}.
+  // lint just starter.{js,jsx,ts,tsx}.
   const target = statSync(starter).isDirectory()
-    ? join(starter, "**/*.{js,ts}")
+    ? join(starter, "**/*.{js,jsx,ts,tsx}")
     : starter;
 
   const eslint = new ESLint({ cwd: REPO_ROOT });

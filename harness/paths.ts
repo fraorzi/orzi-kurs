@@ -77,11 +77,11 @@ export function isMultiFile(taskDir: string): boolean {
 }
 
 /**
- * Path to the student-edited artefact: a `starter.{ts,js}` file for single-file
+ * Path to the student-edited artefact: a `starter.{tsx,ts,jsx,js}` file for single-file
  * tasks, or the `src/` directory for multi-file tasks. `null` if neither exists.
  */
 export function findStarter(taskDir: string): string | null {
-  for (const ext of ["ts", "js"]) {
+  for (const ext of ["tsx", "ts", "jsx", "js"]) {
     const p = resolve(taskDir, `starter.${ext}`);
     if (existsSync(p)) return p;
   }
@@ -91,11 +91,11 @@ export function findStarter(taskDir: string): string | null {
 }
 
 /**
- * Path to the reference solution: a `_solution.{ts,js}` file for single-file
+ * Path to the reference solution: a `_solution.{tsx,ts,jsx,js}` file for single-file
  * tasks, or the `_solution/` directory for multi-file tasks. `null` if neither.
  */
 export function findSolution(taskDir: string): string | null {
-  for (const ext of ["ts", "js"]) {
+  for (const ext of ["tsx", "ts", "jsx", "js"]) {
     const p = resolve(taskDir, `_solution.${ext}`);
     if (existsSync(p)) return p;
   }

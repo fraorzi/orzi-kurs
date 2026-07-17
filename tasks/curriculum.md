@@ -24,6 +24,11 @@ typy) mają swoje zadania. Trudność rośnie z pozycją na roadmapie; wewnątrz
 easy → medium → hard. Numery w nazwach istniejących katalogów są stabilnymi
 identyfikatorami treści i nie wyznaczają już kolejności nauki.
 
+Zasada sekwencji i języka: docelowa kolejność ucznia to **JavaScript → TypeScript →
+React z TypeScriptem → Next.js z TypeScriptem**. Wszystkie zadania React i Next,
+łącznie ze starterami, rozwiązaniami, testami i modułami, używają `.ts`/`.tsx` oraz
+przechodzą strict typecheck; nie powstają równoległe warianty `.js`/`.jsx`.
+
 ## js (rdzeń mida gotowy + elective)
 (baseline przed audytem: verify:solutions js = 158/158 i verify:starters js = 158/158;
 po audycie dodano 09b-modules, więc track ma 161 zadań. Wszystkie wcześniejsze pozycje audytowe b/c gotowe:
@@ -215,48 +220,54 @@ TS 7 działa równolegle jako obowiązkowa bramka CLI.
 
 ## react (~35 pozycji ≈ 105 zadań) — React 19.2, efekty jako escape hatch
 
-- [ ] 01 komponenty, props, kompozycja i czystość renderowania
-- [ ] 02 JSX, warunki, listy, keys, identity oraz reset stanu przez `key`
-- [ ] 03 state jako snapshot: useState, batching i updater function
-- [ ] 04 useState: obiekty i tablice (immutable updates)
-- [ ] 05 formularze kontrolowane, walidacja, dostępne etykiety, focus i komunikaty błędów
-- [ ] 06 derived state, logika zdarzeń i „You Might Not Need an Effect”
-- [ ] 07 useEffect tylko do synchronizacji z systemem zewnętrznym: dependencies, cleanup
-- [ ] 08 useEffectEvent, stale closures i oddzielanie zdarzeń od efektów
-- [ ] 09 ręczny fetch w efekcie: race conditions, AbortController i dlaczego to
+Audyt 2026-07-16: kolejność odpowiada oficjalnym blokom Describing UI →
+Interactivity → Managing State → Escape Hatches → async UI React 19 → jakość.
+Stabilne `<Activity>` pozostaje w core; Canary `<ViewTransition>` i API
+eksperymentalne są poza rdzeniem. Testy zachowania, dostępność i stany błędów są
+integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28.
+
+- [x] 01 komponenty, props, kompozycja i czystość renderowania
+- [x] 02 JSX, warunki, listy, keys, identity oraz reset stanu przez `key`
+- [x] 03 state jako snapshot: useState, batching i updater function
+- [x] 04 useState: obiekty i tablice (immutable updates)
+- [x] 05 formularze kontrolowane, walidacja, dostępne etykiety, focus i komunikaty błędów
+- [x] 06 derived state, logika zdarzeń i „You Might Not Need an Effect”
+- [x] 07 useEffect tylko do synchronizacji z systemem zewnętrznym: dependencies, cleanup
+- [x] 08 useEffectEvent, stale closures i oddzielanie zdarzeń od efektów
+- [x] 09 ręczny fetch w efekcie: race conditions, AbortController i dlaczego to
       mechanizm niskopoziomowy, nie domyślna architektura danych
-- [ ] 10 useRef, callback refs i useId
-- [ ] 11 useReducer (kiedy zamiast useState)
-- [ ] 12 useContext: kompozycja providerów, React 19 provider syntax, wydajność
-- [ ] module-01 (interaktywny widget wieloplikowy, bez fetchy)
-- [ ] 13 modelowanie UI jako stanów: idle/pending/success/error/empty zamiast zestawu
+- [x] 10 useRef, callback refs i useId
+- [x] 11 useReducer (kiedy zamiast useState)
+- [x] 12 useContext: kompozycja providerów, React 19 provider syntax, wydajność
+- [x] module-01 (interaktywny widget wieloplikowy, bez fetchy)
+- [x] 13 modelowanie UI jako stanów: idle/pending/success/error/empty zamiast zestawu
       niezależnych booleanów; przejścia i nieosiągalne kombinacje
-- [ ] 14 formularze i Actions: form `action`, useActionState
-- [ ] 15 useFormStatus i projektowanie stanów pending/error/success
-- [ ] 16 useOptimistic i bezpieczne optimistic updates
-- [ ] 17 `use`, Suspense i Error Boundary dla danych oraz contextu
-- [ ] 18 useSyncExternalStore (stores zewnętrzne)
-- [ ] 19 custom hooks: projektowanie API, useDebounce/useLocalStorage, useDebugValue
-- [ ] 20 podnoszenie stanu, kompozycja przez children, render props
-- [ ] 21 portale i granice błędów poza przepływem danych z Suspense
-- [ ] 22 useTransition, useDeferredValue i `<Activity>`
-- [ ] 23 ref jako prop, useImperativeHandle i useLayoutEffect do pomiarów layoutu
-- [ ] 24 React Compiler: automatyczna memoizacja, reguły Reacta, stopniowa adopcja
+- [x] 14 formularze i Actions: form `action`, useActionState
+- [x] 15 useFormStatus i projektowanie stanów pending/error/success
+- [x] 16 useOptimistic i bezpieczne optimistic updates
+- [x] 17 `use`, Suspense i Error Boundary dla danych oraz contextu
+- [x] 18 useSyncExternalStore (stores zewnętrzne)
+- [x] 19 custom hooks: projektowanie API, useDebounce/useLocalStorage, useDebugValue
+- [x] 20 podnoszenie stanu, kompozycja przez children, render props
+- [x] 21 portale i granice błędów poza przepływem danych z Suspense
+- [x] module-02 (feature: formularz Action + lista Suspense + optimistic mutation)
+- [x] 22 useTransition, useDeferredValue i `<Activity>`
+- [x] 23 ref jako prop, useImperativeHandle i useLayoutEffect do pomiarów layoutu
+- [x] 24 React Compiler: automatyczna memoizacja, reguły Reacta, stopniowa adopcja
       i diagnozowanie pominiętych optymalizacji
-- [ ] 25 useMemo/useCallback/React.memo tylko po pomiarze lub dla kontraktu referencji
-- [ ] 26 [D] nadmiarowe re-rendery, zepsute zależności i brak cleanup (Profiler + lint)
-- [ ] 26b [O] optymalizacja wolnego widoku: lokalizacja stanu, podział komponentów,
+- [x] 25 useMemo/useCallback/React.memo tylko po pomiarze lub dla kontraktu referencji
+- [x] 26 [D] nadmiarowe re-rendery, zepsute zależności i brak cleanup (Profiler + lint)
+- [x] 26b [O] optymalizacja wolnego widoku: lokalizacja stanu, podział komponentów,
       memoizacja tam, gdzie pomiar wykazał koszt
-- [ ] 27 wzorce testowania komponentów: role, nazwa dostępna, user-event, async UI,
+- [x] 27 wzorce testowania komponentów: role, nazwa dostępna, user-event, async UI,
       unikanie testów szczegółów implementacji
-- [ ] 28 dostępność komponentów: klawiatura, focus management, live regions, dialog
+- [x] 28 dostępność komponentów: klawiatura, focus management, live regions, dialog
       i testy regresji dostępności
-- [ ] 29 wydajność list (klucze, memo, koncepcja windowing)
-- [ ] 30 style w JS/React (obiekt style, CSS variables z JS — wyjątek od Tailwinda)
-- [ ] 31 elective: server state z TanStack Query — query keys, staleTime, invalidation,
+- [x] 29 wydajność list (klucze, memo, fixed-size windowing i react-window 2)
+- [x] 30 style dynamiczne (obiekt style i typowane CSS custom properties)
+- [x] 31 elective: server state z TanStack Query — query keys, staleTime, invalidation,
       mutations, cancellation i optimistic updates bez własnego `useEffect`
-- [ ] module-02 (feature: formularz Action + lista Suspense + optimistic mutation)
-- [ ] module-03 (feature: lista z serwerowym cache, filtrami i zewnętrznym store)
+- [x] module-03 (feature: konsola z cache'em serwerowym, filtrami, dialogiem i rollbackiem)
 
 ## node (~18 pozycji ≈ 54 zadania) — Node 24 LTS
 

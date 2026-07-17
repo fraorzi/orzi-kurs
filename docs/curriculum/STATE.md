@@ -14,10 +14,12 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 - Bez dev servera, chyba że użytkownik poprosi.
 - Bez modyfikowania postępu i rozwiązań ucznia podczas audytu.
 - Użytkownik robi PR-y; agent robi branche, commity i push.
+- Kolejność nauki: JavaScript → TypeScript → React z TypeScriptem → Next.js z
+  TypeScriptem; tracki React i Next nie dostają wariantów JS/JSX.
 
 ## Bieżący branch
 
-`feature/curriculum-typescript`
+`feature/curriculum-react`
 
 ## Ukończone w bieżącym etapie
 
@@ -111,13 +113,134 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   TypeScript 6.0.3 i TypeScript 7.0.2.
 - Końcowe bramki repo: harness 42/42, root lint bez błędów i root `tsc --noEmit`
   bez diagnostyki.
+- TypeScript ukończony commitem `b769e5c` i wypchnięty na
+  `origin/feature/curriculum-typescript`.
+- Utworzony i wypchnięty osobny branch `feature/curriculum-react`.
+- React: zainstalowane przypięte Testing Library, DOM, user-event, jest-dom oraz
+  bezpośrednia zależność `eslint-plugin-react-hooks`.
+- Harness rozpoznaje `.tsx`/`.jsx`, typecheck obejmuje TSX z `react-jsx`, runner
+  automatycznie wybiera jsdom dla tracka React, a lint obejmuje JSX/TSX.
+- Dodany `@harness/react-test` z cleanupem, `renderWithUser` i licznikiem commitów
+  opartym na `Profiler`.
+- Ukryty smoke React: 2/2 rozwiązań i 2/2 starterów ma poprawne bramki; osobny
+  przypadek potwierdza błąd `react-hooks/rules-of-hooks`.
+- Infrastruktura React ukończona commitem `f70678e` i wypchnięta na
+  `origin/feature/curriculum-react`.
+- Dodany kontrakt kompletności treści React: teoria zastosowań, pułapki, źródła,
+  starter, rozwiązanie, test przez wspólny helper i co najmniej dwa progresywne hinty.
+- React 01–03: czyste komponenty i props, JSX/listy/identity oraz snapshot stanu,
+  batching i aktualizacje funkcyjne.
+- React 04–06: niemutowalne obiekty/tablice, kontrolowane i dostępne formularze
+  z walidacją/focusem oraz stan pochodny i logika zdarzeń bez zbędnych efektów.
+- Pierwszy blok React ma 6 tematów i 18 zadań. Każdy starter reprezentuje konkretny
+  błąd, a testy obejmują m.in. zamrożone propsy, równoległe aktualizacje po `await`,
+  dostępne opisy błędów, kolejność focusu i zmianę propsów bez synchronizacji efektem.
+- Pełna macierz pierwszego bloku: 18/18 rozwiązań oraz 18/18 pierwotnych starterów.
+- Harness po dodaniu kontraktu treści React: 49/49 testów.
+- Pierwszy blok React ukończony commitem `9e39c62` i wypchnięty na
+  `origin/feature/curriculum-react`.
+- React 07: efekty jako niezależne procesy setup/cleanup, kompletne zależności,
+  odpinanie subskrypcji i rozdzielanie systemów zewnętrznych.
+- React 08: stabilne `useEffectEvent` z React 19.2, najnowsze wartości bez stale
+  closure oraz testy liczące zbędne ponowne połączenia i subskrypcje.
+- React 09: pending/success/error, deterministyczne race conditions, ignorowanie
+  starych odpowiedzi, propagacja `AbortSignal` i ochrona przed adapterem kończącym
+  pracę już po anulowaniu.
+- React 10: lokalne uchwyty DOM przez `useRef`, hydratowalne relacje dostępności
+  przez `useId` oraz cleanup callback refów dostępny od React 19.
+- Stan częściowy React: 10 tematów i 30 zadań; 30/30 rozwiązań oraz 30/30
+  pierwotnych starterów przechodzi właściwe bramki.
+- Blok escape hatches ukończony commitem `88d6b35` i wypchnięty na
+  `origin/feature/curriculum-react`.
+- React 11: reducery od prostych akcji domenowych przez niemutowalną listę zadań
+  po historię undo/redo z poprawnym czyszczeniem future.
+- React 12: aktualna składnia providerów React 19, bezpieczne custom hooki bez
+  fikcyjnych defaultów oraz osobne contexty stanu i dispatchu.
+- `module-01`: wieloplikowa lokalna tablica zadań z reducerem, contextami,
+  selektorami danych pochodnych, dostępnym formularzem, filtrami i testem
+  niemutowalności zamrożonych danych wejściowych.
+- React 13: rozłączne unie stanów UI, retry formularza bez utraty danych i checkout
+  z reducerem pilnującym legalnych przejść.
+- Stan częściowy React: 13 tematów, pierwszy moduł i 40 zadań; 40/40 rozwiązań oraz
+  40/40 pierwotnych starterów przechodzi właściwe bramki.
+- React 14: funkcyjne `form action`, walidacja i wynik przez `useActionState` oraz
+  sekwencyjna kolejka Actions zależna od poprzedniego wyniku.
+- React 15: `useFormStatus` w poprawnej granicy potomka formularza, odczyt
+  wysyłanego `FormData` i niezależne statusy operacji.
+- React 16: optimistic toggle z rollbackiem, atomowa aktualizacja powiązanych pól
+  oraz reducer listy rebazowany na świeższych danych z zewnątrz.
+- Stan częściowy React: 16 tematów, pierwszy moduł i 49 zadań; 49/49 rozwiązań oraz
+  49/49 pierwotnych starterów przechodzi właściwe bramki.
+- React 17: warunkowe czytanie contextu przez `use`, stabilna Promise pod Suspense
+  oraz odrzucony zasób przechodzący do Error Boundary z retry i resetem.
+- React 18: adapter external source, generyczny custom hook z cleanupem oraz store
+  koszyka z cache'owanym snapshotem i `getServerSnapshot` dla SSR.
+- Stan częściowy React: 18 tematów, pierwszy moduł i 55 zadań; 55/55 rozwiązań oraz
+  55/55 pierwotnych starterów przechodzi właściwe bramki.
+- React 19: debounce z cleanupem, trwały draft z lazy initializerem i domenowy
+  custom hook z odroczonym `useDebugValue`.
+- React 20: jedno źródło prawdy, sloty `children` i generyczny render prop
+  zachowujący wybór przez stabilne ID po reorderze.
+- React 21: fizyczna warstwa portalu, context i propagacja według drzewa React oraz
+  izolowane, resetowalne Error Boundaries dla widgetów.
+- `module-02`: wieloplikowy panel incydentów z listą pod Suspense, immutable external
+  store, draftem w storage, Form Action, pending, optimistic mutation i toastem
+  renderowanym przez portal.
+- Cały track React używa TypeScript/TSX; audyt rozszerzeń nie znalazł zadań `.js`
+  ani `.jsx`.
+- Harness ma trwałą bramkę odrzucającą źródła JavaScript/JSX w trackach React i
+  przyszłym Next.
+- Stan częściowy React: 21 tematów, dwa moduły i 65 zadań; 65/65 rozwiązań oraz
+  65/65 pierwotnych starterów przechodzi właściwe bramki.
+- Końcowe bramki checkpointu: harness 51/51, root lint i root `tsc --noEmit`
+  bez błędów.
+- React 22: pilne i nieblokujące aktualizacje przez `useTransition`, stare wyniki
+  pod Suspense przez `useDeferredValue` oraz zachowanie stanu przy sprzątaniu
+  Effectów przez stabilne `<Activity>` z React 19.2.
+- React 23: bezpośredni `ref` jako prop w React 19, ograniczone uchwyty przez
+  `useImperativeHandle` i pomiar tooltipa przed repaintem przez `useLayoutEffect`.
+- React 24: dodany prawdziwy harness React Compiler oparty na stabilnym
+  `babel-plugin-react-compiler@1.0.0` i Babel Core; zadania sprawdzają Rules of
+  Hooks, opt-in `"use memo"`, celowy brak kompilacji legacy oraz usunięcie
+  wadliwego cache'u ukrytego przez `"use no memo"`.
+- React 25: ręczne `useMemo`, `useCallback` i `memo` wyłącznie dla zmierzonego
+  kosztu albo jawnego kontraktu referencji z zewnętrznym API.
+- React 26: scenariusze debugowania wycieku subskrypcji, starego closure przez
+  niepełne zależności i zbędnych commitów wynikających ze złego właściciela stanu.
+- React 26b: startery optymalizacyjne są funkcjonalnie poprawne i oblewają tylko
+  testy `[quality]`; rozwiązania stosują kompozycję `children`, lokalizację stanu,
+  podział komponentów i memoizację dopiero po pomiarze.
+- Stan częściowy React: 27 tematów, dwa moduły i 83 zadania; 83/83 rozwiązania oraz
+  83/83 pierwotne startery przechodzą właściwe bramki.
+- Końcowe bramki checkpointu wydajności: harness 51/51, root lint, root
+  `tsc --noEmit`, `git diff --check` i kontrakt TypeScript-only bez błędów.
+- React 27: trzy zadania uczą pisania testów komponentów jako kodu produkcyjnego:
+  role i nazwy dostępne, `user-event`, kontrolowane Promise, zapytania `findBy` oraz
+  parametryzowane przypadki bez snapshotów i selektorów DOM.
+- React 28: live regions, ręcznie aktywowane taby z roving tabindex oraz modal z
+  pułapką focusu, Escape i przywróceniem focusu do triggera.
+- React 29: stabilne identity draftów po reorderze, matematyka fixed-size windowing
+  i aktualne API `react-window@2.2.7` (`List`, nie historyczne `FixedSizeList`).
+- React 30: rozdzielenie statycznych klas od wartości runtime, poprawne jednostki
+  inline style oraz wąsko typowane CSS custom properties dla motywów i wykresów.
+- React 31: elective server state na `@tanstack/react-query@5.101.2`: klucze cache'u,
+  `staleTime`, request cancellation, invalidacja oraz optimistic cache update z
+  rollbackiem zgodnym z aktualnymi callbackami Query 5.
+- `module-03`: wieloplikowa konsola operacyjna łącząca dostępne taby, osobne cache'e
+  filtrów, dynamiczne tokeny CSS, zarządzanie focusem w dialogu i optymistyczne
+  przypisanie rekordu z rollbackiem.
+- Końcowy stan tracka React: 32 tematy, trzy moduły i 99 zadań; cały kod ucznia i
+  rozwiązań pozostaje w TypeScript/TSX, bez wariantów JavaScript/JSX.
+- Pełna macierz końcowa: 99/99 wzorcowych rozwiązań oraz 99/99 pierwotnych
+  starterów przechodzi właściwe bramki zachowania, typów i lintu.
+- Końcowe bramki repo: harness 51/51, root lint, root `tsc --noEmit`,
+  `git diff --check`, zgodność slugów katalogu i kontrakt TypeScript-only bez błędów.
 
 ## Następne kroki
 
-1. Utworzyć osobny branch `feature/curriculum-react` z aktualnego fundamentu.
-2. Rozszerzyć harness React o środowisko DOM, bibliotekę testującą zachowanie
-   użytkownika, lint hooków i deterministyczne pomiary renderów.
-3. Realizować track React 19.2 od fundamentów UI do praktycznych modułów mida.
+1. Utworzyć osobny `feature/curriculum-next` z ukończonego fundamentu React.
+2. Przeprowadzić audyt zainstalowanej wersji Next 16 przed dodaniem pierwszych zadań.
+3. Rozszerzyć harness o App Router, granice server/client, Actions, cache i routing.
 
 ## Otwarte ryzyka
 
@@ -126,6 +249,6 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   do czasu wsparcia narzędzi repo musi utrzymywać TS 6 dla lintu i TS 7 dla
   dodatkowej bramki CLI.
 - Lokalny JDK 11 nie wystarczy do przyszłej ścieżki JDK 25.
-- Adaptery React, MySQL i Strapi wymagają zmian harnessu oraz nowych zależności.
+- Adaptery MySQL i Strapi wymagają zmian harnessu oraz nowych zależności.
 - Pełna liczba przyszłych zadań jest duża; praca musi pozostać iteracyjna i
   checkpointowana w Git.
