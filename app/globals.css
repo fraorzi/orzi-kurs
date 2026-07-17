@@ -497,8 +497,8 @@ a { color:inherit; text-decoration:none }
 @media (max-width:1200px) {
   .task-layout { grid-template-columns:minmax(0,1fr); grid-template-rows:auto auto auto }
   .task-layout > .task-brief { grid-column:1; grid-row:1 }
-  .task-context { grid-column:1; grid-row:2; position:static; max-height:none; margin-top:18px; overflow:visible }
-  .task-flow { grid-column:1; grid-row:3 }
+  .task-flow { grid-column:1; grid-row:2 }
+  .task-context { grid-column:1; grid-row:3; position:static; max-height:none; margin-top:18px; overflow:visible }
   .task-context-nav { display:grid; grid-template-columns:1fr 1fr; column-gap:20px }
   .task-context-nav .task-context-label { grid-column:1/-1 }
   .task-context-resources { display:grid; grid-template-columns:1fr 1fr; column-gap:20px }

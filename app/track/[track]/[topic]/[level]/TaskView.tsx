@@ -384,17 +384,6 @@ export default function TaskView({
             <Markdown content={taskMd} />
           </article>
 
-          <TaskContextPanel
-            level={level}
-            progress={progress}
-            resetting={resetting}
-            resources={resources}
-            hintsShown={hints.length}
-            hintsTotal={hintsTotal}
-            solutionAvailable={solution !== null}
-            onReset={handleResetProgress}
-          />
-
           <div className="task-flow">
 
             <section className="task-workbench" id="task-starter" aria-labelledby="workbench-title">
@@ -531,6 +520,17 @@ export default function TaskView({
               </div>
             )}
           </div>
+
+          <TaskContextPanel
+            level={level}
+            progress={progress}
+            resetting={resetting}
+            resources={resources}
+            hintsShown={hints.length}
+            hintsTotal={hintsTotal}
+            solutionAvailable={solution !== null}
+            onReset={handleResetProgress}
+          />
         </div>
       </div>
 
