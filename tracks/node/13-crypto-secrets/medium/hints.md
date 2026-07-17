@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Format waliduj regexem par hex: `/^(?:[0-9a-f]{2})+$/i` — łapie od razu
+nieparzystą długość i złe znaki (pusty string też ma nie przejść).
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+`Buffer.from(hex, "hex")` po walidacji; różnicę długości buforów zwróć jako
+`false` zanim dotkniesz `timingSafeEqual`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Dopiero ostatnia linia to `return timingSafeEqual(left, right)` — cała reszta
+zadania to doprowadzenie do stanu, w którym wolno je wywołać.

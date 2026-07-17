@@ -1,11 +1,15 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Stan managera: `let nextId = 1` i `Map<number, { resolve, reject }>`.
+Limit sprawdzasz przez `pending.size` **przed** rejestracją.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+`resolve(id, value)`: `pending.get(id)` — brak wpisu to zwykły `return`
+(spóźniona odpowiedź), inaczej `delete` z mapy i rozstrzygnięcie promisa.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+`fail(error)`: iteruj po `pending.values()`, odrzuć każdy, potem
+`pending.clear()` — kolejność ma znaczenie, żeby nowe żądania rejestrowane
+z callbacków odrzuceń nie zostały wyczyszczone.

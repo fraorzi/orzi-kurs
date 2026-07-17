@@ -1,5 +1,11 @@
-# Iteruj po liniach z chunków
+# Easy — iteruj po liniach z chunków
 
-Napisz async generator zwracający pełne linie, zachowujący resztę między chunkami i ostatnią linię bez newline.
+Chunki streamu nie respektują granic linii. Zaimplementuj async generator
+`solve(chunks)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- z `AsyncIterable<string>` yielduj **pełne linie** bez znaku `\n`;
+- linia przecięta między chunkami ma wyjść w całości; kilka linii w jednym
+  chunku — jako osobne yieldy;
+- końcówkę `\r` (CRLF) utnij;
+- po wyczerpaniu chunków wydaj ostatnią linię, nawet jeśli nie kończy się
+  znakiem nowej linii; pustej końcówki nie wydawaj.

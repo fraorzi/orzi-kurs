@@ -1,5 +1,11 @@
-# Zbuduj idempotentny shutdown
+# Easy — zbuduj idempotentny shutdown
 
-Uruchom listę cleanupów tylko raz, zachowując wspólny Promise dla równoległych wywołań.
+Sygnał zamknięcia może przyjść wiele razy i z wielu miejsc naraz.
+Zaimplementuj `solve(cleanups)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- zwróć funkcję `shutdown()`, która uruchamia wszystkie cleanupy
+  **dokładnie raz** — również gdy zostanie wywołana równolegle
+  lub po zakończeniu;
+- każde wywołanie `shutdown()` zwraca **ten sam** promise;
+- wszystkie cleanupy mają się wykonać nawet gdy któryś padnie
+  (`Promise.allSettled`), a pierwsza awaria ma odrzucić wynik.

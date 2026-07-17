@@ -1,11 +1,13 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Stan w domknięciu: `let cached: { value; expiresAt } | undefined`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Warunek przeładowania: `!cached || time >= cached.expiresAt` — równość
+należy do "wygasło", test graniczny to sprawdza.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+`now()` wywołuj raz na `get()` i używaj tej samej wartości do porównania
+i do wyliczenia nowego terminu.

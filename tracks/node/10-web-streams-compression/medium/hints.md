@@ -1,11 +1,15 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+`Readable.toWeb(source) as ReadableStream<Uint8Array>` — mostek jest jedną
+linią.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+`web.pipeThrough(new TransformStream({ transform(chunk, controller) {...} }))`
+— w transformie `Buffer.from(chunk).toString().toUpperCase()` i `enqueue`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Uważaj na dekodowanie per chunk: `Readable.from(["żół", "ty"])` daje chunki na
+granicach stringów, więc `toString()` per chunk tu wystarcza — ale zauważ,
+że dla chunków binarnych z sieci użyłbyś dekodera z tematu 04.

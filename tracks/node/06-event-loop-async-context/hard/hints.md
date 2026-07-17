@@ -1,11 +1,15 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Jedna instancja `new AsyncLocalStorage<string>()` w domknięciu fabryki;
+`run` deleguje do `storage.run(id, fn)`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+`current()` czyta `storage.getStore()`; `undefined` oznacza wywołanie poza
+kontekstem — wtedy `throw`, nie wartość domyślna.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Izolację równoległych kontekstów i przeżywanie `await` dostajesz od
+AsyncLocalStorage za darmo — jeżeli trzymasz ID w zwykłej zmiennej modułu,
+test równoległości to wykryje.

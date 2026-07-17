@@ -1,5 +1,11 @@
-# Zbuduj bezpieczny kanał zdarzeń
+# Hard — zbuduj bezpieczny kanał zdarzeń
 
-Fabryka emitera ma zawsze mieć listener `error`, logować Error bez sekretów i pozwalać subskrybentom na cleanup.
+Współdzielony kanał zdarzeń w usłudze ma dwa twarde wymagania: emisja `error`
+nie może ubić procesu, a raportowanie błędów nie może wyciekać danych.
+Zaimplementuj fabrykę `solve(report)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- zwróć `EventEmitter`, który **od chwili powstania** ma listener `error`;
+- listener przekazuje do `report` wyłącznie `error.message` — nie cały obiekt,
+  bo pola błędów (nagłówki, konfiguracja) potrafią nieść sekrety;
+- kanał pozostaje zwykłym emitterem: konsumenci mogą się subskrybować
+  i odsubskrybować bez wpływu na handler błędów.

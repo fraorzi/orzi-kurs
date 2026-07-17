@@ -1,5 +1,12 @@
-# Twórz logi strukturalne
+# Easy — twórz logi strukturalne
 
-Zbuduj jeden JSON line z timestampem, level, message, requestId i płytkimi polami; usuń undefined i zredaguj sekrety.
+Zaimplementuj serializator wpisu logu `solve(input, now)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- zwróć **jedną linię** JSON zakończoną `\n` z polami: `timestamp`
+  (z wstrzykniętego `now()`), `level`, `message`, opcjonalnie `requestId`
+  i płytkie pola z `input.fields`;
+- pola o wartości `undefined` mają zniknąć (nie stać się `null` ani
+  `"undefined"`);
+- wartości pól, których **klucz** zawiera `token`, `secret` lub `password`,
+  zastąp `"[REDACTED]"`;
+- brak `requestId` = brak klucza w JSON.

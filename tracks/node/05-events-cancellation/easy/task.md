@@ -1,5 +1,15 @@
-# Zwróć idempotentny cleanup
+# Easy — zwróć idempotentny cleanup
 
-Podepnij listener EventEmittera i zwróć funkcję, którą można bezpiecznie wywołać wiele razy.
+Moduł wystawia subskrypcję zdarzeń, a konsument dostaje funkcję sprzątającą.
+Zaimplementuj `solve(emitter, event, listener)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- podepnij `listener` na `event` przez `emitter.on`;
+- zwróć funkcję cleanup, która zdejmuje dokładnie ten listener;
+- cleanup wywołany wielokrotnie ma być bezpieczny: drugi i kolejny raz nic nie
+  robi (w szczególności nie zdejmuje innych listenerów tego samego zdarzenia).
+
+```ts
+const off = solve(bus, "job", onJob);
+off();
+off(); // bezpieczne, nic nie robi
+```

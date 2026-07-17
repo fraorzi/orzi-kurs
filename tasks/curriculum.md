@@ -271,6 +271,10 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 
 ## node (20 tematów + 2 moduły, 62 zadania) — Node 24 LTS
 
+Quality pass 2026-07-17: pełne README z modelem mentalnym, testy zachowania
+(3–5 na zadanie, oś czasu drain, [quality] w [O]), hinty per zadanie,
+moduły wieloplikowe. Szczegóły: `docs/curriculum/NODE_AUDIT.md`.
+
 - [x] 01 runtime i moduły: ESM/CJS, `type`, exports/imports oraz natywny TypeScript
 - [x] 02 process i konfiguracja: argv/env/cwd/exitCode, walidacja i sekrety
 - [x] 03 URL/path/fs: FileHandle, atomowy zapis, bezpieczne ścieżki i wyścigi

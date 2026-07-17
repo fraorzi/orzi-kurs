@@ -1,10 +1,7 @@
-# Moduł: produkcyjny analizator NDJSON
+# Moduł 01 — strumieniowy analizator NDJSON
 
-Łączy streamy, limity zasobów, anulowanie, błędy danych, agregację i kontrakt CLI. Rozwiązanie nie może zakładać, że cały plik mieści się w pamięci.
-
-## Kryteria ukończenia
-
-- przetwarzanie przyrostowe i limity bajtów oraz linii,
-- kontrolowana tolerancja błędnych rekordów,
-- propagacja AbortSignal,
-- deterministyczne agregaty i testy granic.
+Pierwszy moduł wieloplikowy tracka Node: realny ticket zamiast pojedynczej
+funkcji. Łączy framing linii (09), dekodowanie UTF-8 między chunkami (04),
+limity zasobów (16), tolerancję błędów z budżetem oraz anulowanie przez
+AbortSignal (05). Wejście jest strumieniowe — analiza działa w stałej
+pamięci niezależnie od rozmiaru logu.

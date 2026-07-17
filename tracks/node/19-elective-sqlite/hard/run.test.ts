@@ -1,23 +1,25 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { solve } from "./starter";
 
-describe("Zaplanuj migracje", () => {
-  it("spełnia kontrakt elective", async () => {
-    expect(
-      solve(1, [
-        { version: 3, sql: "c" },
-        { version: 2, sql: "b" },
-      ]),
-    ).toEqual([
-      { version: 2, sql: "b" },
-      { version: 3, sql: "c" },
-    ]);
-    expect(() => solve(1, [{ version: 3, sql: "c" }])).toThrow(/Luka/);
-    expect(() =>
-      solve(0, [
-        { version: 1, sql: "a" },
-        { version: 1, sql: "b" },
-      ]),
-    ).toThrow(/wersje/);
+const m = (version: number) => ({ version, sql: `-- v${version}` });
+
+describe("plan migracji", () => {
+  it("wybiera migracje nowsze od bieżącej wersji, posortowane rosnąco", () => {
+    expect(solve(1, [m(3), m(1), m(2)])).toEqual([m(2), m(3)]);
+  });
+
+  it("aktualna baza daje pusty plan", () => {
+    expect(solve(3, [m(1), m(2), m(3)])).toEqual([]);
+  });
+
+  it("odrzuca duplikaty i wersje niepoprawne", () => {
+    expect(() => solve(0, [m(1), m(1)])).toThrow();
+    expect(() => solve(0, [m(0)])).toThrow();
+    expect(() => solve(0, [{ version: 1.5, sql: "" }])).toThrow();
+  });
+
+  it("odrzuca lukę względem bieżącej wersji i wewnątrz planu", () => {
+    expect(() => solve(2, [m(4), m(5)])).toThrow();
+    expect(() => solve(0, [m(1), m(3)])).toThrow();
   });
 });

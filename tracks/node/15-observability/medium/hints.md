@@ -1,11 +1,12 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+1 ms = 1e6 ns. Dwa miejsca po przecinku: `Math.round(ns / 1e4) / 100`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+`degraded` porównuje **zaokrągloną** wartość `p99Ms` z budżetem — i jest
+ostrą nierównością (`>`), test graniczny to sprawdza.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Wydziel lokalną funkcję `nsToMs` — trzy pola, jedna konwersja, zero kopii.
