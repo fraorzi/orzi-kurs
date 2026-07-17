@@ -1,14 +1,11 @@
-export function sumAll() {
-
+export function sumAll(...nums) {
+    return nums.reduce((total, n) => total + n, 0);
 }
 
 export function applyEach(fns, x) {
-    if (fns === []) return fns;
-
-    for (let i = 0, len = fns.length; i < len; i++) {}
-
+    return fns.map((fn) => fn(x));
 }
 
 export function compose2(f, g) {
-    // TODO
+    return x => f(g(x));
 }
