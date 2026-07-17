@@ -24,6 +24,18 @@ interface Props {
 
 type SwitcherPhase = "closed" | "open" | "closing";
 
+const STAGE_PLURAL = new Intl.PluralRules("pl-PL");
+function stageWord(count: number): string {
+  switch (STAGE_PLURAL.select(count)) {
+    case "one":
+      return "etap";
+    case "few":
+      return "etapy";
+    default:
+      return "etapów";
+  }
+}
+
 export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
   const pathname = usePathname();
   const router = useRouter();
@@ -221,7 +233,7 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
         {track && (
           <>
             <div className="rail-cap">
-              Program · {modules.length} {modules.length === 1 ? "etap" : "etapów"}
+              Program · {modules.length} {stageWord(modules.length)}
             </div>
             {modules.map((module, index) => {
               const routeInModule = module.topics.some(
