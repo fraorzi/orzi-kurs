@@ -371,6 +371,44 @@ const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
       slugs: ["module-01", "module-02"],
     },
   ],
+  mysql: [
+    {
+      id: "fundamenty-sql",
+      title: "Fundamenty SQL i integralność danych",
+      description: "Zapytania, typy, relacje, agregacje, DML i constraints wykonywane na MySQL 8.4.",
+      range: [1, 8],
+    },
+    {
+      id: "transakcje-i-wspolbieznosc",
+      title: "Transakcje i współbieżność",
+      description: "Atomowość, savepointy, MVCC, locking reads oraz bezpieczne retry deadlocku.",
+      range: [9, 10],
+    },
+    {
+      id: "plany-i-paginacja",
+      title: "Indeksy, plany i paginacja",
+      description: "B-tree, EXPLAIN ANALYZE, statystyki i stabilne cursory dla rosnących zbiorów.",
+      range: [11, 13],
+    },
+    {
+      id: "schema-i-operacje",
+      title: "Schemat i operacje produkcyjne",
+      description: "Modelowanie, migracje, bezpieczeństwo, obserwowalność i testy bazy.",
+      range: [14, 19],
+    },
+    {
+      id: "integracja-i-jakosc",
+      title: "TypeScript, diagnostyka i optymalizacja",
+      description: "Typowana warstwa mysql2 oraz naprawa błędów i planów w zastanym kodzie.",
+      range: [20, 21],
+    },
+    {
+      id: "projekty",
+      title: "Projekty końcowe",
+      description: "Marketplace SQL i produkcyjna warstwa danych Node z testami integracyjnymi.",
+      slugs: ["module-01", "module-02"],
+    },
+  ],
 };
 
 export function trackProgress(track: CatalogTrack): TrackProgress {

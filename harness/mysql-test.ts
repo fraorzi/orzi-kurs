@@ -18,7 +18,8 @@ function connectionOptions(database?: string): ConnectionOptions {
   }
 
   const url = new URL(raw);
-  if (url.protocol !== "mysql:") throw new Error("URL bazy musi używać mysql://");
+  if (url.protocol !== "mysql:")
+    throw new Error("URL bazy musi używać mysql://");
   return {
     host: url.hostname,
     port: url.port ? Number(url.port) : 3306,
@@ -31,13 +32,24 @@ function connectionOptions(database?: string): ConnectionOptions {
   };
 }
 
-export function readTaskSql(moduleUrl: string, filename = "starter.sql"): string {
-  return readFileSync(join(dirname(fileURLToPath(moduleUrl)), filename), "utf8");
+export function readTaskSql(
+  moduleUrl: string,
+  filename = "starter.sql",
+): string {
+  return readFileSync(
+    join(dirname(fileURLToPath(moduleUrl)), filename),
+    "utf8",
+  );
+}
+
+export interface MySqlTestContext {
+  database: string;
+  connect(): Promise<Connection>;
 }
 
 export async function withMySql<T>(
   schemaSql: string,
-  run: (connection: Connection) => Promise<T>,
+  run: (connection: Connection, context: MySqlTestContext) => Promise<T>,
 ): Promise<T> {
   const database = `orzi_${process.pid}_${randomUUID().replaceAll("-", "")}`;
   const admin = await mysql.createConnection(connectionOptions());
@@ -45,10 +57,15 @@ export async function withMySql<T>(
     await admin.query(
       `CREATE DATABASE \`${database}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci`,
     );
-    const connection = await mysql.createConnection(connectionOptions(database));
+    const connection = await mysql.createConnection(
+      connectionOptions(database),
+    );
     try {
       if (schemaSql.trim()) await connection.query(schemaSql);
-      return await run(connection);
+      return await run(connection, {
+        database,
+        connect: () => mysql.createConnection(connectionOptions(database)),
+      });
     } finally {
       await connection.end();
     }

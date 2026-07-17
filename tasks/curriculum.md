@@ -331,13 +331,13 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] 06 funkcje okienkowe: ROW_NUMBER, RANK, LAG i jawne ramy okna
 - [x] 07 INSERT/UPDATE/DELETE, upsert, affected rows i bezpieczne zmiany zbiorcze
 - [x] 08 constraints, klucze, CHECK, ON DELETE/UPDATE i niezmienniki domeny
-- [ ] 09 transakcje, autocommit, savepoint i atomowa obsługa błędu
-- [ ] 10 izolacja, MVCC, locking reads, phantom rows i deadlock retry
-- [ ] 11 B-tree, selektywność, indeksy złożone, covering i leftmost prefix
-- [ ] 12 EXPLAIN ANALYZE, estymacje, histogramy i bezpieczne invisible indexes
-- [ ] 13 offset vs keyset, stabilny porządek i indeks wspierający paginację
-- [ ] 14 normalizacja, denormalizacja, klucze i audyt decyzji schematu
-- [ ] 15 expand/contract, online DDL, migracje, backup i restore drill
+- [x] 09 transakcje, autocommit, savepoint i atomowa obsługa błędu
+- [x] 10 izolacja, MVCC, locking reads, phantom rows i deadlock retry
+- [x] 11 B-tree, selektywność, indeksy złożone, covering i leftmost prefix
+- [x] 12 EXPLAIN ANALYZE, estymacje, histogramy i bezpieczne invisible indexes
+- [x] 13 offset vs keyset, stabilny porządek i indeks wspierający paginację
+- [x] 14 normalizacja, denormalizacja, klucze i audyt decyzji schematu
+- [x] 15 expand/contract, online DDL, migracje, backup i restore drill
 - [ ] 16 elective: views, generated columns, procedures i triggery z kosztem ukrytej logiki
 - [ ] 17 users, roles, GRANT, least privilege, rotacja i ochrona danych
 - [ ] 18 Performance Schema, slow query log, sys schema i diagnoza blokad

@@ -1,0 +1,1 @@
+SELECT id FROM posts ORDER BY created_at DESC, id DESC LIMIT 3 OFFSET 3;

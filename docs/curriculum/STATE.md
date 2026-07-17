@@ -353,6 +353,11 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   typy/JSON/czas, JOIN-y, agregacje i tryby SQL, CTE oraz operacje zbiorów,
   funkcje okienkowe, DML i constraints. Testy sprawdzają nie tylko wynik, ale też
   mutacje, ograniczenia i zachowanie relacji na prawdziwym MySQL 8.4.
+- Druga partia dodaje 21 zadań poziomu produkcyjnego: transakcje i savepointy,
+  izolację i blokady, retry deadlocku, indeksy złożone/covering, EXPLAIN ANALYZE,
+  histogramy, invisible indexes, keyset pagination, modelowanie oraz migracje z
+  restore drillem. Testy otwierają równoległe sesje dla wyścigu rezerwacji,
+  snapshotu i rzeczywistego deadlocku; komplet rozwiązań przechodzi 45/45.
 
 ## Następne kroki
 
