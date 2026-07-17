@@ -2,7 +2,9 @@
 
 Data audytu: 2026-07-17.
 
-## Stan zastany
+## Stan zastany przed realizacją
+
+Poniższa tabela jest historycznym snapshotem wejściowym, nie bieżącym statusem.
 
 | Track | Stan | Najważniejsza obserwacja |
 |---|---:|---|
@@ -22,7 +24,7 @@ Punkty odniesienia:
 - `pnpm verify:solutions ts`: 37/37,
 - pełna weryfikacja JS do ponowienia na branchu JavaScript.
 
-Stan po ukończeniu pierwszych sześciu etapów:
+Stan końcowy po ukończeniu etapów 1–10:
 
 - fundament procesu zapisany i wypchnięty,
 - JavaScript: 161/161 rozwiązań i 161/161 starterów,
@@ -46,6 +48,11 @@ Stan po ukończeniu pierwszych sześciu etapów:
 - MySQL: 22 tematy, dwa moduły i 68 zadań na MySQL 8.4.10/mysql2 3.23.0;
   obejmuje SQL, modelowanie, współbieżność, plany, operacje, bezpieczeństwo,
   obserwowalność, testy, TypeScript i dwa produkcyjne capstone'y.
+- Strapi: 15 tematów, moduł i 46 zadań TypeScript-first.
+- Combined: 13 projektów integracyjnych i produkcyjnych.
+- Java: 39 dużych zadań pokrywających 88 kompetencji PJATK oraz deltę JDK 25.
+- Całość: 9 tracków, 261 tematów i 645 zadań publicznych, w tym 27 modułów
+  projektowych/capstone'ów.
 
 Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetować
 `progress.json` ani starterów.
@@ -121,8 +128,8 @@ SQLite i WebSocket pozostają elective, zgodnie ze statusem API i rolą w typowy
 projektach. Oba moduły końcowe wymuszają limity zasobów, anulowanie, idempotencję,
 bezpieczne błędy oraz testy integracyjne.
 
-Każdy punkt jest osobnym branchem. Następny branch powstaje z aktualnego fundamentu,
-nie z niepowiązanego brancha tracka.
+Każdy punkt ma osobny, wypchnięty branch. Gałęzie są ułożone sekwencyjnie, a
+`feature/curriculum-final-audit` zawiera pełny stan oraz końcowe poprawki spójności.
 
 ## Najważniejsze luki po pierwszym audycie
 

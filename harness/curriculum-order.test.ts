@@ -1,9 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { learningModules } from "../app/lib/tracks";
+import { learningModules, TRACK_META } from "../app/lib/tracks";
 import type { CatalogTrack } from "../app/lib/types";
 import { compareTopicSlugs, TOPIC_ORDER, topicDisplayNumber } from "../curriculum/order";
 
 describe("curriculum order", () => {
+  it("has explicit UI metadata for every public curriculum track", () => {
+    expect(TRACK_META.map((track) => track.id).sort())
+      .toEqual(Object.keys(TOPIC_ORDER).sort());
+  });
+
   it("places prerequisites before dependent JavaScript topics", () => {
     expect(compareTopicSlugs("js", "17-map-set", "08-closures")).toBeLessThan(0);
     expect(compareTopicSlugs("js", "16-error-handling", "11-async-await")).toBeLessThan(0);
@@ -200,6 +205,22 @@ describe("curriculum order", () => {
       .toBeLessThan(0);
   });
 
+  it("keeps combined learning modules in exact catalog order", () => {
+    const track: CatalogTrack = {
+      id: "combined",
+      topics: TOPIC_ORDER.combined.map((slug) => ({
+        id: `combined/${slug}`,
+        title: slug,
+        levels: [],
+      })),
+    };
+
+    expect(
+      learningModules(track).flatMap((module) =>
+        module.topics.map((topic) => topic.id)),
+    ).toEqual(track.topics.map((topic) => topic.id));
+  });
+
   it("keeps the Java PJATK groups in prerequisite order", () => {
     expect(compareTopicSlugs("java", "ppj-07-oop-exceptions", "gui-01-abstractions-collections"))
       .toBeLessThan(0);
@@ -209,6 +230,22 @@ describe("curriculum order", () => {
       .toBeLessThan(0);
     expect(compareTopicSlugs("java", "module-skj-http-client", "tpo-01-scalable-nio-rmi"))
       .toBeLessThan(0);
+  });
+
+  it("keeps Java learning modules in exact catalog order", () => {
+    const track: CatalogTrack = {
+      id: "java",
+      topics: TOPIC_ORDER.java.map((slug) => ({
+        id: `java/${slug}`,
+        title: slug,
+        levels: [],
+      })),
+    };
+
+    expect(
+      learningModules(track).flatMap((module) =>
+        module.topics.map((topic) => topic.id)),
+    ).toEqual(track.topics.map((topic) => topic.id));
   });
 
 });

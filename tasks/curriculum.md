@@ -447,6 +447,7 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] Jakarta Messaging oraz EJB/Jakarta Enterprise w kontekście historycznym
 - [x] module-tpo: API/outbox + idempotentny worker + obserwowalność
 
-**Suma (minimum, nie limit): ~170 zagadnień ≈ 520–580 zadań + moduły przekrojowe.**
-Sesje treści i audyty (tasks/prompts.md) mają obowiązek dopisywać pozycje, gdy źródła
-pokazują więcej wariantów.
+**Stan końcowy: 9 publicznych tracków, 261 tematów i 645 zadań, w tym 27 modułów
+projektowych/capstone'ów.** Osiem dodatkowych zadań `_smoke` testuje sam harness i nie
+wchodzi do curriculum ucznia. Kolejne audyty mogą rozszerzać ten zakres, gdy zmienią
+się oficjalne API albo praktyki produkcyjne.

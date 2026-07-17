@@ -9,6 +9,7 @@ import {
   LogoNext,
   LogoStrapi,
   LogoMysql,
+  IconBoxes,
   IconPuzzle,
 } from "@/app/components/icons";
 
@@ -33,6 +34,7 @@ export const TRACK_META: TrackMeta[] = [
   { id: "java", name: "Java", category: "Języki", color: "#E8E6E1" },
   { id: "react", name: "React", category: "Frameworki", color: "#61DAFB" },
   { id: "next", name: "Next.js", category: "Frameworki", color: "#EDEBE7" },
+  { id: "node", name: "Node.js", category: "Backend & DB", color: "#5FA04E" },
   { id: "strapi", name: "Strapi", category: "Backend & DB", color: "#8B88FF" },
   { id: "mysql", name: "MySQL", category: "Backend & DB", color: "#7BB0CE" },
   { id: "combined", name: "Projekty łączone", category: "Projekty", color: "#B7B0A6" },
@@ -45,6 +47,7 @@ const TRACK_ICON: Record<string, IconComponent> = {
   java: LogoJava,
   react: LogoReact,
   next: LogoNext,
+  node: IconBoxes,
   strapi: LogoStrapi,
   mysql: LogoMysql,
   combined: IconPuzzle,
@@ -371,6 +374,44 @@ const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
       slugs: ["module-01", "module-02"],
     },
   ],
+  node: [
+    {
+      id: "runtime",
+      title: "Runtime i asynchroniczność",
+      description: "Moduły, konfiguracja, pliki, bufory, zdarzenia, event loop i kontekst żądania.",
+      range: [1, 6],
+    },
+    {
+      id: "http-i-streamy",
+      title: "HTTP i przetwarzanie strumieniowe",
+      description: "Odporni klienci i serwery, backpressure, Web Streams oraz kompresja.",
+      range: [7, 10],
+    },
+    {
+      id: "procesy-i-testy",
+      title: "Procesy, workery i testy",
+      description: "Izolacja pracy CPU, protokoły procesów i deterministyczne testy integracyjne.",
+      range: [11, 12],
+    },
+    {
+      id: "produkcja",
+      title: "Bezpieczeństwo i operacyjność",
+      description: "Sekrety, shutdown, obserwowalność, Permission Model, CLI, debug i optymalizacja.",
+      range: [13, 18],
+    },
+    {
+      id: "elective",
+      title: "Rozszerzenia runtime",
+      description: "SQLite i WebSocket jako jawnie oddzielone kompetencje dodatkowe.",
+      range: [19, 20],
+    },
+    {
+      id: "projekty",
+      title: "Projekty końcowe",
+      description: "Strumieniowy analizator NDJSON i produkcyjny rdzeń usługi HTTP.",
+      slugs: ["module-01", "module-02"],
+    },
+  ],
   mysql: [
     {
       id: "fundamenty-sql",
@@ -407,6 +448,61 @@ const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
       title: "Projekty końcowe",
       description: "Marketplace SQL i produkcyjna warstwa danych Node z testami integracyjnymi.",
       slugs: ["module-01", "module-02"],
+    },
+  ],
+  strapi: [
+    {
+      id: "content-api",
+      title: "Model treści i Content API",
+      description: "Projekt, typy, dokumenty, publikacja, locale oraz płaskie odpowiedzi REST v5.",
+      range: [1, 5],
+    },
+    {
+      id: "backend",
+      title: "Bezpieczny backend Strapi",
+      description: "Permissions, kontrolery, policies, middleware, walidacja i transakcje.",
+      range: [6, 10],
+    },
+    {
+      id: "integracje-i-jakosc",
+      title: "Integracje i jakość produkcyjna",
+      description: "Media, webhooki, testy HTTP, diagnostyka i optymalizacja po pomiarze.",
+      range: [11, 14],
+    },
+    {
+      id: "projekt",
+      title: "Projekt końcowy",
+      description: "Pionowy backend publikacji z authz, cleanupem i rewalidacją.",
+      slugs: ["module-01"],
+    },
+  ],
+  combined: [
+    {
+      id: "typed-ui",
+      title: "Typowany frontend",
+      description: "Kontrakty TypeScript–React, reducer, Context i dostępne komponenty.",
+      slugs: ["ts-react-01", "ts-react-02"],
+    },
+    {
+      id: "integracje",
+      title: "Integracje backendowe",
+      description: "Node, Next, Strapi i MySQL połączone przez rzeczywiste granice danych.",
+      slugs: [
+        "js-node-01", "react-next-01", "next-strapi-01", "next-strapi-02",
+        "node-mysql-01",
+      ],
+    },
+    {
+      id: "produkcja",
+      title: "Jakość produkcyjna",
+      description: "Regresje, security, delivery, obserwowalność, rollout i rollback.",
+      slugs: ["quality-01", "security-01", "delivery-01", "observability-01"],
+    },
+    {
+      id: "capstone",
+      title: "Capstone",
+      description: "Pionowe dostarczenie produktu i utrzymanie zastanego systemu.",
+      slugs: ["full-01", "full-02"],
     },
   ],
   java: [

@@ -203,7 +203,7 @@ const MYSQL_TOPIC_ORDER = [
   "18-observability-performance-schema",
   "19-database-testing",
   "20-mysql2-typescript",
-  "21-debugging-sql",
+  "21-debug-data-incidents",
   "21b-optimize-query-plans",
   "module-01",
   "module-02",

@@ -10,6 +10,12 @@ export function reducer(state: State, action: Action): State {
   }
 }
 const CartContext = createContext<State | null>(null);
-export function CartProvider({ children }: { children: ReactNode }) { const [state] = useReducer(reducer, { count: 0 }); return <CartContext value={state}>{children}</CartContext>; }
-export function useCart(): State { const state = useContext(CartContext); if (!state) throw new Error("useCart wymaga CartProvider"); return state; }
-
+export function CartProvider({ children }: { children: ReactNode }) {
+  const [state] = useReducer(reducer, { count: 0 });
+  return <CartContext value={state}>{children}</CartContext>;
+}
+export function useCart(): State {
+  const state = useContext(CartContext);
+  if (!state) throw new Error("useCart wymaga CartProvider");
+  return state;
+}

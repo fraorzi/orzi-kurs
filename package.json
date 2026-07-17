@@ -8,15 +8,16 @@
     "start": "next start",
     "lint": "eslint --ignore-pattern tracks",
     "test:harness": "vitest run harness",
-    "submit": "tsx harness/cli.ts submit",
-    "commit:task": "tsx harness/cli.ts commit",
-    "verify:solutions": "tsx harness/cli.ts verify",
-    "verify:starters": "tsx harness/cli.ts verify-starters",
-    "verify:solutions:ts7": "ORZI_TSC_PACKAGE=typescript7 tsx harness/cli.ts verify ts",
-    "verify:starters:ts7": "ORZI_TSC_PACKAGE=typescript7 tsx harness/cli.ts verify-starters ts",
+    "submit": "node --import tsx harness/cli.ts submit",
+    "commit:task": "node --import tsx harness/cli.ts commit",
+    "verify:solutions": "node --import tsx harness/cli.ts verify",
+    "verify:starters": "node --import tsx harness/cli.ts verify-starters",
+    "verify:solutions:ts7": "ORZI_TSC_PACKAGE=typescript7 node --import tsx harness/cli.ts verify ts",
+    "verify:starters:ts7": "ORZI_TSC_PACKAGE=typescript7 node --import tsx harness/cli.ts verify-starters ts",
     "verify:java:compile": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types harness/java-compile.ts",
     "verify:solutions:java": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types harness/java-compile.ts --run",
-    "verify:starters:java": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types harness/java-compile.ts --starters"
+    "verify:starters:java": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types harness/java-compile.ts --starters",
+    "audit:curriculum": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types harness/curriculum-audit.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "5.101.2",

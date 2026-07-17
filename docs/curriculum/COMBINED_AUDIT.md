@@ -34,8 +34,8 @@ w TypeScript/TSX. Dwa capstone’y są wieloplikowe i zawierają jawne typy dome
 - 13/13 artefaktów i 13/13 lokalnych plików testowych,
 - strict TypeScript przez `tracks/combined/tsconfig.json`: bez diagnostyki,
 - root lint i `git diff --check`: bez błędów,
-- dynamiczny Vitest/verify solutions/starters pozostaje obowiązkową bramką audytu
-  końcowego; bieżący limit rozszerzonych narzędzi uniemożliwił jego start.
+- pełny pipeline rozwiązań: 13/13,
+- pierwotne startery: 13/13 poprawnie nie przechodzi całej bramki.
 
 ## Źródła przekrojowe
 
