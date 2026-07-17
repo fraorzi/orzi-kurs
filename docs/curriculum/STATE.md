@@ -19,7 +19,17 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 
 ## Bieżący branch
 
-`feature/curriculum-next`
+`feature/curriculum-strapi`
+
+## Najnowszy ukończony etap
+
+- MySQL: 68/68 rozwiązań i 68/68 starterów na realnym MySQL 8.4.10.
+- Strapi 5.50.2: 15 tematów, moduł i 46 zadań TypeScript.
+- Strapi: 46/46 rozwiązań przeszło pełny pipeline przed dodaniem końcowego adaptera
+  HTTP; kontrakt treści i kolejność katalogu przeszły 17/17.
+- Efemeryczny adapter `node:http` oraz dodatkowy test modułu zostały sprawdzone
+  statycznie przez root TypeScript i lint. Ponowny dynamiczny przebieg jest wymagany
+  w audycie końcowym, ponieważ limit rozszerzonych narzędzi zablokował jego start.
 
 ## Ukończone w bieżącym etapie
 
