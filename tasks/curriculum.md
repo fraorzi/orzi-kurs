@@ -296,28 +296,28 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 
 ## next (~20 pozycji ≈ 60 zadań) — Next 16.2, App Router i Cache Components
 
-- [ ] 01 App Router: struktura, layouts, pages, route groups i colocation
-- [ ] 02 Server vs Client Components: serializowalne propsy, granica bundle i `"use client"`
-- [ ] 03 pobieranie danych na serwerze: async komponenty, równoległość i eliminacja waterfalls
-- [ ] 04 Cache Components: `cacheComponents`, static shell, dynamic holes i Suspense
-- [ ] 05 `use cache`, cacheLife, cacheTag oraz wymagania serializacji klucza
-- [ ] 06 rewalidacja: updateTag, revalidateTag, revalidatePath i read-your-own-writes
-- [ ] 07 dynamic routes, asynchroniczne params/searchParams i generateStaticParams
-- [ ] 08 nawigacja: Link, prefetch, useRouter, search params, filtry i paginacja w URL
-- [ ] 09 loading/error/not-found, expected errors i granice UI
-- [ ] 10 Server Actions: formularze, walidacja, authz, błędy i idempotencja
-- [ ] 11 Route Handlers i Backend for Frontend: metody, cookies, cache, CORS i limity
-- [ ] 12 metadata, Open Graph, Image, Font, Script i optymalizacja zasobów
-- [ ] 13 authn vs authz, DAL, sesje i bezpieczne sprawdzanie uprawnień blisko danych
-- [ ] 14 `proxy.ts` (nie middleware): redirect, rewrite, headers i ograniczenia auth-gate
-- [ ] 15 streaming, Suspense, `use` i sensowne granice skeletonów
-- [ ] 16 dostępność i walidacja formularzy, focus po błędzie i pending states
-- [ ] 17 testowanie: funkcje serwerowe, Route Handlers, komponenty i krytyczne e2e
-- [ ] 18 instrumentacja, logowanie, environment variables, deployment i self-hosting
-- [ ] 19 [D] debug: hydration, niepoprawna granica server/client, uncached data poza Suspense
-- [ ] 19b [O] optymalizacja: zbyt szeroki client bundle, waterfall i źle dobrany cache
-- [ ] module-01 (lista + szczegół + filtry URL + mutacja Action + authz)
-- [ ] module-02 (feature z Cache Components, tagami, streamingiem, testami i instrumentacją)
+- [x] 01 App Router: struktura, layouts, pages, route groups i colocation
+- [x] 02 Server vs Client Components: serializowalne propsy, granica bundle i `"use client"`
+- [x] 03 pobieranie danych na serwerze: async komponenty, równoległość i eliminacja waterfalls
+- [x] 04 Cache Components: `cacheComponents`, static shell, dynamic holes i Suspense
+- [x] 05 `use cache`, cacheLife, cacheTag oraz wymagania serializacji klucza
+- [x] 06 rewalidacja: updateTag, revalidateTag, revalidatePath i read-your-own-writes
+- [x] 07 dynamic routes, asynchroniczne params/searchParams i generateStaticParams
+- [x] 08 nawigacja: Link, prefetch, useRouter, search params, filtry i paginacja w URL
+- [x] 09 loading/error/not-found, expected errors i granice UI
+- [x] 10 Server Actions: formularze, walidacja, authz, błędy i idempotencja
+- [x] 11 Route Handlers i Backend for Frontend: metody, cookies, cache, CORS i limity
+- [x] 12 metadata, Open Graph, Image, Font, Script i optymalizacja zasobów
+- [x] 13 authn vs authz, DAL, sesje i bezpieczne sprawdzanie uprawnień blisko danych
+- [x] 14 `proxy.ts` (nie middleware): redirect, rewrite, headers i ograniczenia auth-gate
+- [x] 15 streaming, Suspense, `use` i sensowne granice skeletonów
+- [x] 16 dostępność i walidacja formularzy, focus po błędzie i pending states
+- [x] 17 testowanie: funkcje serwerowe, Route Handlers, komponenty i krytyczne e2e
+- [x] 18 instrumentacja, logowanie, environment variables, deployment i self-hosting
+- [x] 19 [D] debug: hydration, niepoprawna granica server/client, uncached data poza Suspense
+- [x] 19b [O] optymalizacja: zbyt szeroki client bundle, waterfall i źle dobrany cache
+- [x] module-01 (lista + szczegół + filtry URL + mutacja Action + authz)
+- [x] module-02 (feature z Cache Components, tagami, streamingiem, testami i instrumentacją)
 
 ## java — ścieżka zgodna z blokiem Java na PJATK (~88 zagadnień)
 

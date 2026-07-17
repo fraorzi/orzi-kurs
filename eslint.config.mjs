@@ -39,7 +39,9 @@ const eslintConfig = defineConfig([
   {
     files: [
       "tracks/react/**/*.{jsx,tsx}",
+      "tracks/next/**/*.{jsx,tsx}",
       "tracks/_smoke/05-react-tsx/**/*.{jsx,tsx}",
+      "tracks/_smoke/06-next-tsx/**/*.{jsx,tsx}",
     ],
     plugins: reactHooks.configs.flat["recommended-latest"].plugins,
     rules: reactHooks.configs.flat["recommended-latest"].rules,

@@ -19,7 +19,7 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 
 ## Bieżący branch
 
-`feature/curriculum-react`
+`feature/curriculum-next`
 
 ## Ukończone w bieżącym etapie
 
@@ -235,12 +235,88 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   starterów przechodzi właściwe bramki zachowania, typów i lintu.
 - Końcowe bramki repo: harness 51/51, root lint, root `tsc --noEmit`,
   `git diff --check`, zgodność slugów katalogu i kontrakt TypeScript-only bez błędów.
+- React ukończony commitem `513b85f`, kolejność dalszej nauki doprecyzowana w
+  `dfa1196`; oba commity wypchnięte na `origin/feature/curriculum-react`.
+- Utworzony i wypchnięty osobny branch `feature/curriculum-next` z ukończonego
+  fundamentu React.
+- Next: wykonany audyt dokładnie zainstalowanego `next@16.2.10`, lokalnych docs oraz
+  oficjalnego Next Learn. Zapisano model App Router, async route props, opt-in Cache
+  Components, semantykę `updateTag`/`revalidateTag`, `proxy.ts`, authz i testy.
+- Dodana kolejność 20 tematów oraz dwóch modułów Next i odpowiadające grupy katalogu.
+- Harness wybiera jsdom dla tracka Next, lint hooków obejmuje jego TSX, a wspólny
+  `@harness/next-test` i kontrakt treści pilnują przyszłych zadań.
+- Ukryty smoke Next przechodzi jako rozwiązanie 1/1 i starter 1/1; harness po
+  rozszerzeniu ma 55/55 zielonych testów.
+- Next 01: root layout, semantyczna struktura dokumentu, analizator ścieżek App
+  Routera oraz wieloplikowy refactor z route group i prywatnym katalogiem.
+- Next 02: wąskie Client Components, serializowalne DTO zamiast callbacków oraz
+  ochrona modułu DAL przez `server-only@0.0.1` i brak importu serwera do client graph.
+- Next 03: jawna walidacja odpowiedzi HTTP jako `unknown`, kontrolowane testy
+  niezależnych promise'ów i częściowo zależny graf user → orders wykonywany bez
+  zbędnego waterfallu.
+- Pierwszy blok Next ma 3 tematy i 9 zadań, wyłącznie w TypeScript/TSX. Lokalne
+  bramki tematów przechodzą 9/9 dla rozwiązań i 9/9 dla starterów.
+- Next 04: stabilna konfiguracja `cacheComponents`, wąskie granice Suspense
+  zachowujące static shell oraz audyt odróżniający async od runtime dynamic holes.
+- Next 05: `use cache` na poziomie funkcji, request-time API wyprowadzone poza
+  cached scope, jawny `cacheLife` i wielopoziomowe tagi z izolacją tenantów.
+- Next 06: planowanie `updateTag`, `revalidateTag` i `revalidatePath`, Server Action
+  z read-your-own-writes oraz uwierzytelniony webhook Route Handler z walidacją
+  `unknown` i natychmiastowym `{ expire: 0 }`.
+- Stan po bloku cache: 6 tematów i 18 zadań; 18/18 rozwiązań i 18/18 starterów
+  przechodzi właściwe bramki TypeScript, zachowania i kontraktów źródła.
+- Next 07–09: asynchroniczne params, bezpieczny catch-all, `generateStaticParams`,
+  URL jako źródło prawdy filtrów i paginacji oraz dostępne loading/error/not-found.
+- Expected errors są modelowane jako wyniki, a nieoczekiwane awarie obsługuje
+  Client Error Boundary z aktualnym w Next 16.2 propem `unstable_retry`.
+- Stan po bloku routingu: 9 tematów i 27 zadań; nowe 9/9 rozwiązań i 9/9 starterów
+  przechodzi lokalne bramki.
+- Next 10: walidacja `FormData` bez rzutowań, authn/authz przy zasobie przed mutacją
+  oraz atomowy kontrakt idempotencji zamówienia z replay, konfliktem i recovery.
+- Stan po Server Actions: 10 tematów i 30 zadań; temat przechodzi 3/3 dla rozwiązań
+  i 3/3 dla starterów.
+- Next 11: Route Handlers z walidacją query i cache policy, CORS/OPTIONS z allow-listą
+  i limitem body oraz BFF z sekretem, timeoutem, mapowaniem błędów i DTO upstreamu.
+- Next 12: dynamiczne metadata i noindex, bezpieczne remote images, lokalny font,
+  skrypt zawężony do layoutu dashboardu i generowany OG 1200×630.
+- Stan po warstwie HTTP i assets: 12 tematów i 36 zadań; nowe 6/6 rozwiązań i 6/6
+  starterów przechodzi właściwe bramki.
+- Next 13: minimalne i zweryfikowane payloady sesji, `server-only` DAL, authz przy
+  zasobie zamykające IDOR oraz role-aware DTO bez wycieku sekretów.
+- Next 14: statycznie analizowalny matcher, tani optimistic redirect zachowujący
+  docelowy URL oraz stabilny rewrite eksperymentu z testami oficjalnych helperów
+  Next 16.2; pełne authz celowo pozostaje w DAL i endpointach.
+- Next 15: dostępny page-level skeleton z rezerwacją miejsca, niezależne granice
+  Suspense oraz anulowalny eksport CSV przez `ReadableStream` bez buforowania
+  całości i z decyzją 404 przed rozpoczęciem streamu.
+- Next 16: wynik walidacji FormData jako stan, dostępne powiązanie komunikatów z
+  polami, pending oraz wielooperacyjny formularz z intentem submittera i skrótem
+  opartym na `requestSubmit()`.
+- Next 17: dobór unit/integration/E2E, harness kontraktu Route Handlera przez Web
+  Request/Response oraz krytyczny checkout E2E oparty na semantycznych locatorach.
+- Stan po bloku bezpieczeństwa i UX: 17 tematów i 51 zadań; nowe 15/15 rozwiązań
+  i 15/15 starterów przechodzi właściwe bramki.
+- Next 18: fail-fast env bez ekspozycji sekretów, runtime-specific instrumentation,
+  bezpieczne logi oraz audyt self-hostingu wielu instancji obejmujący build/action
+  keys, deployment ID, shared cache, tagi, streaming i graceful drain.
+- Next 19 `[D]`: realistyczne naprawy hydration mismatch, dyrektywy klienta w
+  barrellu oraz uncached data awaitowanego przed zbyt późnym Suspense.
+- Next 19b `[O]`: funkcjonalnie poprawne startery z osobnymi quality gates dla
+  wagi client graph, startu równoległych odczytów i cardinality cache key.
+- Next `module-01`: panel zgłoszeń z filtrem URL, scoped DAL/DTO, listą i szczegółem
+  bez enumeracji zasobów oraz Action odporną na sfałszowany `projectId`.
+- Next `module-02`: tenantowy Cache Component, mutacja stocku z dwoma tagami,
+  niezależny streaming katalogu/alertów i telemetry z allow-listą danych.
+- Końcowy stan tracka Next: 20 tematów, dwa moduły i 62 zadania wyłącznie w
+  TypeScript/TSX. Pełna macierz: 62/62 rozwiązania i 62/62 pierwotne startery;
+  harness 55/55, root lint, root `tsc --noEmit`, `git diff --check` oraz audyt
+  rozszerzeń bez `.js/.jsx` są zielone.
 
 ## Następne kroki
 
-1. Utworzyć osobny `feature/curriculum-next` z ukończonego fundamentu React.
-2. Przeprowadzić audyt zainstalowanej wersji Next 16 przed dodaniem pierwszych zadań.
-3. Rozszerzyć harness o App Router, granice server/client, Actions, cache i routing.
+1. Zatrzymać pracę po ukończeniu Next zgodnie z prośbą użytkownika.
+2. Przekazać branche JavaScript, TypeScript, React i Next do review/PR.
+3. Nie rozpoczynać Node.js przed kolejną decyzją użytkownika.
 
 ## Otwarte ryzyka
 

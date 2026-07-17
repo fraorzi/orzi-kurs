@@ -110,7 +110,9 @@ async function runVitest(
 }
 
 export function vitestEnvironmentForTask(taskDir: string): "jsdom" | "node" {
-  return relative(TRACKS_ROOT, taskDir).split(sep)[0] === "react"
+  return ["react", "next"].includes(
+    relative(TRACKS_ROOT, taskDir).split(sep)[0],
+  )
     ? "jsdom"
     : "node";
 }

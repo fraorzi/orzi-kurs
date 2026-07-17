@@ -132,10 +132,36 @@ const REACT_TOPIC_ORDER = [
   "module-03",
 ] as const;
 
+const NEXT_TOPIC_ORDER = [
+  "01-app-router-structure",
+  "02-server-client-boundaries",
+  "03-server-data-fetching",
+  "04-cache-components",
+  "05-use-cache",
+  "06-revalidation",
+  "07-dynamic-routes",
+  "08-navigation-url-state",
+  "09-loading-errors-not-found",
+  "10-server-actions",
+  "11-route-handlers",
+  "12-metadata-assets",
+  "13-auth-data-access",
+  "14-proxy",
+  "15-streaming",
+  "16-accessible-forms",
+  "17-testing",
+  "18-production-observability",
+  "19-debug-next-boundaries",
+  "19b-optimize-next",
+  "module-01",
+  "module-02",
+] as const;
+
 export const TOPIC_ORDER: Readonly<Record<string, readonly string[]>> = {
   js: JS_TOPIC_ORDER,
   ts: TS_TOPIC_ORDER,
   react: REACT_TOPIC_ORDER,
+  next: NEXT_TOPIC_ORDER,
 };
 
 export function compareTopicSlugs(track: string, left: string, right: string): number {
