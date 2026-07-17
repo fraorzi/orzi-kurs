@@ -75,8 +75,9 @@ architekturę stanu, async UI React 19, Suspense, external stores, custom hooks,
 kompozycję, concurrent UI, Compiler, wydajność, testowanie, dostępność, duże listy,
 style dynamiczne i server state wraz z trzema modułami. Etap Next.js jest aktywny:
 audyt wersji 16.2.10, kolejność i infrastruktura testowa są gotowe, a pierwszych
-36 zadań obejmuje App Router, granice Server/Client, dane i cache, routing,
-Server Actions, kontrakty HTTP BFF oraz metadata i optymalizację zasobów.
+51 zadań obejmuje App Router, granice Server/Client, dane i cache, routing,
+Server Actions, kontrakty HTTP BFF, assets, auth/DAL, Proxy, streaming, dostępne
+formularze oraz strategię testów od unit do krytycznego E2E.
 
 Każdy punkt jest osobnym branchem. Następny branch powstaje z aktualnego fundamentu,
 nie z niepowiązanego brancha tracka.

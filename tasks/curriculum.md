@@ -308,11 +308,11 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] 10 Server Actions: formularze, walidacja, authz, błędy i idempotencja
 - [x] 11 Route Handlers i Backend for Frontend: metody, cookies, cache, CORS i limity
 - [x] 12 metadata, Open Graph, Image, Font, Script i optymalizacja zasobów
-- [ ] 13 authn vs authz, DAL, sesje i bezpieczne sprawdzanie uprawnień blisko danych
-- [ ] 14 `proxy.ts` (nie middleware): redirect, rewrite, headers i ograniczenia auth-gate
-- [ ] 15 streaming, Suspense, `use` i sensowne granice skeletonów
-- [ ] 16 dostępność i walidacja formularzy, focus po błędzie i pending states
-- [ ] 17 testowanie: funkcje serwerowe, Route Handlers, komponenty i krytyczne e2e
+- [x] 13 authn vs authz, DAL, sesje i bezpieczne sprawdzanie uprawnień blisko danych
+- [x] 14 `proxy.ts` (nie middleware): redirect, rewrite, headers i ograniczenia auth-gate
+- [x] 15 streaming, Suspense, `use` i sensowne granice skeletonów
+- [x] 16 dostępność i walidacja formularzy, focus po błędzie i pending states
+- [x] 17 testowanie: funkcje serwerowe, Route Handlers, komponenty i krytyczne e2e
 - [ ] 18 instrumentacja, logowanie, environment variables, deployment i self-hosting
 - [ ] 19 [D] debug: hydration, niepoprawna granica server/client, uncached data poza Suspense
 - [ ] 19b [O] optymalizacja: zbyt szeroki client bundle, waterfall i źle dobrany cache

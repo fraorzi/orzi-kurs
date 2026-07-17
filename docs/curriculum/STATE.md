@@ -281,12 +281,27 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   skrypt zawężony do layoutu dashboardu i generowany OG 1200×630.
 - Stan po warstwie HTTP i assets: 12 tematów i 36 zadań; nowe 6/6 rozwiązań i 6/6
   starterów przechodzi właściwe bramki.
+- Next 13: minimalne i zweryfikowane payloady sesji, `server-only` DAL, authz przy
+  zasobie zamykające IDOR oraz role-aware DTO bez wycieku sekretów.
+- Next 14: statycznie analizowalny matcher, tani optimistic redirect zachowujący
+  docelowy URL oraz stabilny rewrite eksperymentu z testami oficjalnych helperów
+  Next 16.2; pełne authz celowo pozostaje w DAL i endpointach.
+- Next 15: dostępny page-level skeleton z rezerwacją miejsca, niezależne granice
+  Suspense oraz anulowalny eksport CSV przez `ReadableStream` bez buforowania
+  całości i z decyzją 404 przed rozpoczęciem streamu.
+- Next 16: wynik walidacji FormData jako stan, dostępne powiązanie komunikatów z
+  polami, pending oraz wielooperacyjny formularz z intentem submittera i skrótem
+  opartym na `requestSubmit()`.
+- Next 17: dobór unit/integration/E2E, harness kontraktu Route Handlera przez Web
+  Request/Response oraz krytyczny checkout E2E oparty na semantycznych locatorach.
+- Stan po bloku bezpieczeństwa i UX: 17 tematów i 51 zadań; nowe 15/15 rozwiązań
+  i 15/15 starterów przechodzi właściwe bramki.
 
 ## Następne kroki
 
-1. Dodać bezpieczne granice auth/DAL oraz sesje.
-2. Dodać `proxy.ts` jako coarse routing gate, nie pełne authz.
-3. Dodać streaming i sensowne granice Suspense.
+1. Dodać instrumentację, środowisko uruchomieniowe, deployment i self-hosting.
+2. Dodać blok debugowania granic Next oraz mierzoną optymalizację.
+3. Zbudować i zweryfikować dwa końcowe moduły przekrojowe.
 
 ## Otwarte ryzyka
 
