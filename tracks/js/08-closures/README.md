@@ -98,3 +98,9 @@ iterację — albo skopiowanie wartości do lokalnej stałej wewnątrz iteracji.
 - `debounce`/`throttle`/`memoize` (całe lodash/underscore to dekoratory na domknięciach),
 - hooki Reacta — stale closures to najczęstszy bug w `useEffect`,
 - moduły z prywatnym stanem.
+
+## Kiedy unikać
+
+- Nie ukrywaj dużego, długo żyjącego stanu w domknięciu bez jawnego API czyszczenia.
+- Nie używaj closure jako zamiennika prostego parametru, jeśli zależność może być jawna.
+- Uważaj na wrappery, które przypadkiem zmieniają `this`, argumenty albo wartość zwrotną.

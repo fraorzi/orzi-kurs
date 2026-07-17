@@ -46,3 +46,10 @@ retry wewnątrz poolu; batcher zostaje samodzielnym narzędziem, bo działa na i
 - **Nie ponawiaj** operacji nieidempotentnych bez zabezpieczenia (klucz idempotencji),
   a retry zawsze ograniczaj liczbą prób i backoffem — inaczej zamiast odporności masz
   „retry storm".
+
+## Pułapki
+
+- Slot poola nie może zostać zajęty na zawsze po odrzuceniu zadania.
+- Retry wewnątrz poola zachowuje limit; retry uruchamiane obok poola może go ominąć.
+- Batcher musi rozdzielić wyniki do właściwych oczekujących Promise i obsłużyć błąd partii.
+- `maxSize` bez automatycznego lub ręcznego flush może pozostawić zadania w kolejce.

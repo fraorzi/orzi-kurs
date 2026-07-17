@@ -15,7 +15,7 @@ describe("loadAll — poprawność", () => {
 });
 
 describe("loadAll — współbieżność", () => {
-  it("uruchamia operacje równolegle (maxActive > 1)", async () => {
+  it("[quality] uruchamia operacje równolegle (maxActive > 1)", async () => {
     let active = 0;
     let maxActive = 0;
     const loadOne = async (id) => {

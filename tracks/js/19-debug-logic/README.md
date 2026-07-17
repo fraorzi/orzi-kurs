@@ -59,6 +59,12 @@ w O(1), więc całość spada do O(n). Ten poziom łapie benchmark skalowania.
 - Debugowanie „działa na małych danych, psuje się na dużych" (off-by-one, mutacja)
   albo „działa, ale wolno" (O(n²)).
 
+## Kiedy unikać
+
+- Nie przepisuj całej funkcji, zanim nie zawęzisz błędu testem lub minimalnym przykładem.
+- Nie poprawiaj objawu dodatkowym warunkiem, jeśli źródłem jest mutacja podczas iteracji.
+- Nie nazywaj mikro-optymalizacją zmiany, która naprawia złożoność O(n²) na rosnących danych.
+
 ## Pułapki (jak szukać)
 
 - Uruchom test, przeczytaj **komunikat** — mówi, co konkretnie się nie zgadza.

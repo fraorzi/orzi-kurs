@@ -17,7 +17,7 @@ describe("countInBoth — poprawność", () => {
 });
 
 describe("countInBoth — złożoność", () => {
-  it("działa w czasie liniowym, nie kwadratowym", () => {
+  it("[quality] działa w czasie liniowym, nie kwadratowym", () => {
     expectScaling({
       fn: ({ a, b }) => countInBoth(a, b),
       makeInput: (n) => ({

@@ -43,3 +43,10 @@ a store dokłada do niej obserwowalność.
   na patche/diffy (command pattern) zamiast pełnych snapshotów.
 - **Nie mutuj** obiektów w historii po fakcie — to jedyny sposób, żeby zepsuć ten model.
   Cała gwarancja stoi na tym, że migawki są niezmienne.
+
+## Pułapki
+
+- Nowa zmiana po `undo` musi wyczyścić stos `future`.
+- `undo` i `redo` na granicy historii nie mogą niszczyć bieżącego stanu.
+- Subskrybenci powinni zobaczyć spójny stan dopiero po zakończonej zmianie.
+- Pełne migawki dużych obiektów wymagają limitu historii albo strukturalnego współdzielenia.

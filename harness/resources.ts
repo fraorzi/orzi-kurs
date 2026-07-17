@@ -40,6 +40,10 @@ const TOPIC_RESOURCES: Record<string, LearningResource[]> = {
   "09-array-methods": [
     { title: "Array", url: `${MDN}/Reference/Global_Objects/Array`, description: "Przegląd metod tablic, w tym map, filter i reduce." },
   ],
+  "09b-modules": [
+    { title: "Moduły JavaScript", url: `${MDN}/Guide/Modules`, description: "Importy, eksporty, żywe wiązania, re-eksport i dynamiczne ładowanie modułów." },
+    { title: "import", url: `${MDN}/Reference/Statements/import`, description: "Oficjalna składnia statycznych importów i zasady wiązań modułowych." },
+  ],
   "10-promises": [
     { title: "Promise", url: `${MDN}/Reference/Global_Objects/Promise`, description: "Model obietnic, łańcuchy i obsługa wyniku asynchronicznego." },
   ],

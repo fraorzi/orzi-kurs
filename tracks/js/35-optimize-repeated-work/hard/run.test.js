@@ -15,7 +15,7 @@ describe("firstUnique — poprawność", () => {
 });
 
 describe("firstUnique — złożoność", () => {
-  it("działa w czasie liniowym, nie kwadratowym", () => {
+  it("[quality] działa w czasie liniowym, nie kwadratowym", () => {
     expectScaling({
       fn: (arr) => firstUnique(arr),
       makeInput: (n) => {

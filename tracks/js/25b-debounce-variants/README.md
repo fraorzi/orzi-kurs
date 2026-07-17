@@ -74,6 +74,12 @@ istnieje w node; wariant do przećwiczenia w tracku react.
 - Scroll / resize / mousemove: `throttle` (regularne aktualizacje, ale nie na każdą klatkę).
 - Cleanup / odmontowanie: zawsze `cancel()` oczekującego wywołania.
 
+## Kiedy unikać
+
+- Nie debounce'uj akcji, która musi zostać zapisana przy każdym zdarzeniu bez utraty danych.
+- Nie używaj throttle do wyszukiwarki, jeśli liczy się dopiero ostateczna fraza po ciszy.
+- Nie ukrywaj ważnego feedbacku użytkownika za długim opóźnieniem bez stanu pending.
+
 ## Pułapki
 
 - `leading:false, trailing:false` to funkcja, która **nigdy** nie odpala — nie rób tego.

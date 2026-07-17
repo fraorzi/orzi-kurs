@@ -18,7 +18,7 @@ describe("styleItems — poprawność", () => {
 });
 
 describe("styleItems — niezmiennik poza pętlą", () => {
-  it("liczy styl raz, a nie dla każdego elementu", () => {
+  it("[quality] liczy styl raz, a nie dla każdego elementu", () => {
     let calls = 0;
     const computeStyle = (theme) => {
       calls += 1;

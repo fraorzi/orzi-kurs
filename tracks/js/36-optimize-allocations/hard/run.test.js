@@ -23,7 +23,7 @@ describe("removeAll — poprawność", () => {
 });
 
 describe("removeAll — złożoność", () => {
-  it("działa liniowo, nie zależnie od (liczba usuwanych × długość)", () => {
+  it("[quality] działa liniowo, nie zależnie od (liczba usuwanych × długość)", () => {
     expectScaling({
       fn: ({ arr, toRemove }) => removeAll(arr, toRemove),
       makeInput: (n) => ({

@@ -1,9 +1,10 @@
 # Event loop: mikrotaski i makrotaski
 
-JS wykonuje kod w jednym wątku. Silnik kręci pętlą: weź zadanie → wykonaj **do końca**
-(run-to-completion) → weź następne. Zadania czekają w dwóch kolejkach o różnym priorytecie.
+JS wykonuje kod w jednym wątku. W uproszczonym modelu przeglądarki host bierze zadanie,
+wykonuje je **do końca** (run-to-completion), opróżnia mikrotaski i przechodzi dalej.
+Node ma dodatkowe fazy event loopa, omawiane osobno w tracku Node.
 
-## Dwie kolejki
+## Dwa poziomy planowania
 
 **Makrotaski** (task queue): `setTimeout`/`setInterval`, I/O, zdarzenia UI.
 **Mikrotaski** (microtask queue): callbacki promisów (`then/catch/finally`),
@@ -75,3 +76,21 @@ function enqueue(job) {
   return result;
 }
 ```
+
+## Kiedy używać tej wiedzy
+
+- Gdy diagnozujesz kolejność `Promise`, `await`, timerów i zdarzeń.
+- Gdy dzielisz długą pracę, aby nie blokowała interfejsu ani obsługi requestów.
+- Gdy projektujesz kolejkę, batchowanie lub kontrolowaną serializację operacji.
+
+## Kiedy unikać
+
+- Nie polegaj na dokładnym czasie `setTimeout`; gwarantuje minimalne opóźnienie, nie termin.
+- Nie przenoś jeden do jednego modelu przeglądarki na fazy event loopa Node.
+- Nie rozwiązuj pracy CPU samym `await`; synchroniczne obliczenie nadal blokuje wątek.
+
+## Pułapki
+
+- Nieskończony łańcuch mikrotasków może zagłodzić timery i rendering.
+- `await Promise.resolve()` nie oddaje sterowania do następnego taska.
+- Długi callback blokuje pętlę niezależnie od tego, czy został uruchomiony przez timer.

@@ -44,3 +44,10 @@ jest trywialne.
   chyba że masz klucz idempotencji — inaczej retry zdubluje efekt.
 - **Nie ustawiaj** zbyt agresywnego retry bez backoffu i limitu prób — to prosta droga
   do „retry storm", który dobija już przeciążony serwis.
+
+## Pułapki
+
+- Timeout musi czyścić timer w `finally`, także po sukcesie i błędzie.
+- Zewnętrzny `AbortSignal` powinien być propagowany, jeśli klient dostanie taką funkcję.
+- Retry zmienia semantykę operacji; dla zapisu potrzebujesz idempotencji.
+- Kolejka musi zwalniać slot zarówno po resolve, jak i reject.

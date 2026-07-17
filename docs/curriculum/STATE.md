@@ -17,7 +17,7 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 
 ## Bieżący branch
 
-`feature/curriculum-foundation`
+`feature/curriculum-javascript`
 
 ## Ukończone w bieżącym etapie
 
@@ -30,14 +30,19 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 - Zapis modelu pracy, kompetencji mida i pierwszej roadmapy.
 - Modernizacja `tasks/curriculum.md` według audytu wersji i brakujących kompetencji.
 - Ujednolicenie katalogu TypeScript z planowanymi tematami migracji i TS 7.
+- Fundament zaktualizowany commitem `38f9880` i wypchnięty na
+  `origin/feature/curriculum-foundation`; poprzedni niezgodnie nazwany branch został
+  usunięty lokalnie i z origin.
+- JavaScript: 158/158 rozwiązań i 158/158 pierwotnych starterów na stanie wejściowym.
+- Dodana automatyczna bramka starterów odzyskująca ich stan z historii Git.
+- Rozpoczęty audyt core/elective oraz brakującego tematu modułów ESM.
+- JavaScript po zmianach: 161/161 rozwiązań i 161/161 bramek starterów.
 
 ## Następne kroki
 
-1. Uruchomić lint oraz testy zmian fundamentu.
-2. Commit i push fundamentu.
-3. Utworzyć `feature/curriculum-javascript`.
-4. Przeprowadzić pełny audyt JS, w tym `verify:solutions js`, starter gates,
-   priorytety core/elective i jakość modułów.
+1. Dokończyć końcową kontrolę zmian JavaScriptu.
+2. Commit i push brancha JavaScript.
+3. Utworzyć `feature/curriculum-typescript`.
 
 ## Otwarte ryzyka
 

@@ -43,3 +43,10 @@ więc reguły cache i anulowania żyją w jednym miejscu.
   dodałbyś TTL albo ręczne `clear()`.
 - **Nie zapominaj** anulować przy zmianie zapytania — „pierwsze wraca ostatnie"
   to jeden z najczęstszych, a najtrudniej powtarzalnych, bugów UI.
+
+## Pułapki
+
+- Klucz cache musi obejmować zarówno zapytanie, jak i stronę.
+- Odrzucony Promise nie powinien na stałe zatruć cache poprawnych kolejnych prób.
+- Abort poprzedniego requestu jest oczekiwanym sterowaniem przepływem, nie błędem UI.
+- Debounce wymaga cleanupu, inaczej callback może wykonać się po zakończeniu konsumenta.

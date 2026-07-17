@@ -12,6 +12,7 @@ import { runTask } from "./runner";
 import { readProgress, REPO_ROOT } from "./progress";
 import { changedProgressTaskIds } from "./progress-diff";
 import { resolveTaskDir, findStarter, findSolution, TRACKS_ROOT } from "./paths";
+import { withInitialArtifact } from "./initial-artifact";
 import type { Progress, SubmitResult } from "./types";
 
 const GREEN = "\x1b[32m";
@@ -252,6 +253,87 @@ async function cmdVerify(trackId?: string): Promise<number> {
   return failures === 0 ? 0 : 1;
 }
 
+function starterGatePassed(taskId: string, result: SubmitResult): {
+  passed: boolean;
+  reason?: string;
+} {
+  if (result.error) {
+    return { passed: false, reason: `błąd infrastruktury: ${result.error}` };
+  }
+
+  const topic = taskId.split("/")[1] ?? "";
+  if (!topic.includes("optimize")) {
+    return result.passed
+      ? { passed: false, reason: "starter przechodzi cały pipeline" }
+      : { passed: true };
+  }
+
+  const qualityTests = result.tests.filter((test) => test.name.includes("[quality]"));
+  if (qualityTests.length === 0) {
+    return { passed: false, reason: "zadanie [O] nie ma testu oznaczonego [quality]" };
+  }
+  const failedCorrectness = result.tests.filter(
+    (test) => !test.name.includes("[quality]") && test.status === "fail",
+  );
+  if (failedCorrectness.length > 0) {
+    return {
+      passed: false,
+      reason: `starter [O] oblewa poprawność: ${failedCorrectness.map((test) => test.name).join(", ")}`,
+    };
+  }
+  if (result.lint.errors.length > 0 || result.typecheck.errors.length > 0) {
+    return { passed: false, reason: "starter [O] nie jest lint/typecheck-clean" };
+  }
+  if (qualityTests.every((test) => test.status === "pass")) {
+    return { passed: false, reason: "starter [O] przechodzi wszystkie bramki jakościowe" };
+  }
+  return { passed: true };
+}
+
+async function verifyStarterOne(taskDir: string): Promise<boolean> {
+  const starter = findStarter(taskDir)!;
+  const taskId = relative(TRACKS_ROOT, taskDir).split("\\").join("/");
+  const result = await withInitialArtifact(
+    starter,
+    () => runTask(taskId, { recordProgress: false }),
+  );
+  const gate = starterGatePassed(taskId, result);
+
+  if (gate.passed) {
+    console.log(`  ${GREEN}✓${RESET} ${taskId} ${DIM}(${result.durationMs}ms)${RESET}`);
+    return true;
+  }
+
+  console.log(`  ${RED}✗${RESET} ${taskId}`);
+  console.log(`      ${DIM}${gate.reason}${RESET}`);
+  return false;
+}
+
+async function cmdVerifyStarters(trackId?: string): Promise<number> {
+  const root = trackId ? resolveTaskDir(trackId) : TRACKS_ROOT;
+  if (!existsSync(root)) {
+    console.error(`nie znaleziono: ${trackId ?? "tracks/"}`);
+    return 2;
+  }
+  const taskDirs = collectTaskDirs(root);
+  if (taskDirs.length === 0) {
+    console.log(`brak zadań ze starterem w ${trackId ?? "tracks/"}`);
+    return 0;
+  }
+
+  console.log(`verify starters: ${taskDirs.length} zadań w ${trackId ?? "tracks/"}\n`);
+  let failures = 0;
+  for (const dir of taskDirs) {
+    const ok = await verifyStarterOne(dir);
+    if (!ok) failures++;
+  }
+
+  console.log(
+    `\n${failures === 0 ? GREEN : RED}${taskDirs.length - failures}/${taskDirs.length} starterów ma poprawną bramkę${RESET}`,
+  );
+  return failures === 0 ? 0 : 1;
+}
+
 async function main(): Promise<void> {
   const [cmd, arg] = process.argv.slice(2);
   let code: number;
@@ -261,8 +343,12 @@ async function main(): Promise<void> {
     code = await cmdCommit(arg);
   } else if (cmd === "verify") {
     code = await cmdVerify(arg);
+  } else if (cmd === "verify-starters") {
+    code = await cmdVerifyStarters(arg);
   } else {
-    console.error("użycie: tsx harness/cli.ts <submit|commit|verify> [taskId|trackId]");
+    console.error(
+      "użycie: tsx harness/cli.ts <submit|commit|verify|verify-starters> [taskId|trackId]",
+    );
     code = 2;
   }
   process.exit(code);

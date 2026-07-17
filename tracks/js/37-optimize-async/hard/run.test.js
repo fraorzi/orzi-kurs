@@ -29,7 +29,7 @@ describe("batchFetch — poprawność", () => {
 });
 
 describe("batchFetch — liczba wywołań", () => {
-  it("woła fetchBatch ceil(n / size) razy, nie n razy", async () => {
+  it("[quality] woła fetchBatch ceil(n / size) razy, nie n razy", async () => {
     let calls = 0;
     const fetchBatch = async (chunk) => {
       calls += 1;
