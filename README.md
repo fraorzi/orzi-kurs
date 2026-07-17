@@ -46,6 +46,8 @@ tracks/js/01-closures/
 - `pnpm verify:solutions [track]` — dowód, że każdy wzorzec przechodzi swoje testy.
   Musi być zielone po każdej zmianie treści.
 - Konwencje treści i kontrakty harnessu: [SPEC.md](SPEC.md).
+- Długoterminowa roadmapa intern → mid:
+  [docs/curriculum/ROADMAP.md](docs/curriculum/ROADMAP.md).
 - Zadania są kurowane ze sprawdzonych źródeł (javascript.info, Exercism, MDN,
   oficjalne docs) — nie wymyślane. Testy pisane pod rozwiązania wzorcowe.
 - Review po module: rozwiązania zapisane komendą `pnpm commit:task` są w gicie

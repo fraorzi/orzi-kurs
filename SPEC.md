@@ -267,9 +267,11 @@ describe("tagCounts", () => {
 - Styling w zadaniach (gdy dojdą tracki UI): Tailwind 4; wyjątek — zadania uczące
   wprost `style` w JS/TS/React.
 
-## Podział własności plików (równoległa praca)
+## Podział odpowiedzialności
 
-- Harness (Opus): `harness/`, `app/api/`, `vitest.config.ts`, `eslint.config.mjs`,
+- Harness: `harness/`, `app/api/`, `vitest.config.ts`, `eslint.config.mjs`,
   scripts w `package.json`, `tracks/_smoke/`.
-- Treść (Fable): `tracks/**` poza `_smoke`.
-- UI (Sonnet): `app/**` poza `app/api/`.
+- Treść: `tracks/**` poza `_smoke`.
+- UI: `app/**` poza `app/api/`.
+- Całość rozwija wyłącznie GPT-5.6 Sol. Równoległa praca jest dozwolona tylko wtedy,
+  gdy dla każdego agenta można zagwarantować ten sam model i rozłączne zakresy plików.

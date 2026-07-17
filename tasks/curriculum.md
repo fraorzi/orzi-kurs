@@ -151,9 +151,11 @@ sortowanie katalogów. Etapy są ułożone według prerekwizytów:
 - [x] module-05 (feature: rate limiter + kolejka zadań — throttle, pool współbieżności,
       batching, backoff przy retry; skleja 25/10/37/32) (audyt)
 
-## ts (~31 pozycji ≈ 90 zadań) — TS 5.9, bramka `tsc --noEmit` w pipeline, od kodu runtime do programowania typów
+## ts (~33 pozycje ≈ 96 zadań) — TS 7.0, bramka `tsc --noEmit` w pipeline, od kodu runtime do programowania typów
 (01–12 + module-01 gotowe: verify:solutions ts = 37/37, każdy starter oblewa.
-Zostało: pozycje audytowe b/c, 13–19, module-02)
+Istniejąca treść i harness używają TS 5.9.3. Branch TypeScript ma najpierw sprawdzić
+ją na TS 6.0 i 7.0, poprawić regresje, a następnie utrwalić aktualną wersję.
+Zostało: pozycje audytowe b/c, 13–20, module-02)
 
 - [x] 01 typy podstawowe, inference, literal types, `as const`
 - [x] 02 unie, narrowing, type guards, discriminated unions
@@ -197,18 +199,20 @@ Zostało: pozycje audytowe b/c, 13–19, module-02)
       (audyt — Total TypeScript patterns)
 - [ ] 17b DOM i zdarzenia: EventTarget, HTMLElement, dataset, formularze i bezpieczne narrowing
 - [ ] 18 mix z type-challenges (medium) jako egzamin
-- [ ] 19 elective: dekoratory oraz `using`/DisposableStack — kiedy projekt realnie ich wymaga
+- [ ] 19 migracja TS 5.9 → 6.0 → 7.0: nowe domyślne opcje, usunięte/deprecated
+      konfiguracje, import attributes, zgodność narzędzi i diagnoza zmian inferencji
+- [ ] 20 elective: dekoratory oraz `using`/DisposableStack — kiedy projekt realnie ich wymaga
 - [ ] module-02 (typowany klient API — łączy z js/module-02)
 - Przyszłe (wymaga rozszerzenia harnessu): [O] wydajność typów mierzona liczbą
   instancjacji (`tsc --extendedDiagnostics`) — naiwna rekurencja vs tail-recursive.
 
-## react (~32 pozycje ≈ 96 zadań) — React 19.2, efekty jako escape hatch
+## react (~35 pozycji ≈ 105 zadań) — React 19.2, efekty jako escape hatch
 
 - [ ] 01 komponenty, props, kompozycja i czystość renderowania
 - [ ] 02 JSX, warunki, listy, keys, identity oraz reset stanu przez `key`
 - [ ] 03 state jako snapshot: useState, batching i updater function
 - [ ] 04 useState: obiekty i tablice (immutable updates)
-- [ ] 05 formularze kontrolowane, walidacja i dostępne etykiety
+- [ ] 05 formularze kontrolowane, walidacja, dostępne etykiety, focus i komunikaty błędów
 - [ ] 06 derived state, logika zdarzeń i „You Might Not Need an Effect”
 - [ ] 07 useEffect tylko do synchronizacji z systemem zewnętrznym: dependencies, cleanup
 - [ ] 08 useEffectEvent, stale closures i oddzielanie zdarzeń od efektów
@@ -218,59 +222,84 @@ Zostało: pozycje audytowe b/c, 13–19, module-02)
 - [ ] 11 useReducer (kiedy zamiast useState)
 - [ ] 12 useContext: kompozycja providerów, React 19 provider syntax, wydajność
 - [ ] module-01 (interaktywny widget wieloplikowy, bez fetchy)
-- [ ] 13 formularze i Actions: form `action`, useActionState
-- [ ] 14 useFormStatus i projektowanie stanów pending/error/success
-- [ ] 15 useOptimistic i bezpieczne optimistic updates
-- [ ] 16 `use`, Suspense i Error Boundary dla danych oraz contextu
-- [ ] 17 useSyncExternalStore (stores zewnętrzne)
-- [ ] 18 custom hooks: projektowanie API, useDebounce/useLocalStorage, useDebugValue
-- [ ] 19 podnoszenie stanu, kompozycja przez children, render props
-- [ ] 20 portale i granice błędów poza przepływem danych z Suspense
-- [ ] 21 useTransition, useDeferredValue i `<Activity>`
-- [ ] 22 ref jako prop, useImperativeHandle i useLayoutEffect do pomiarów layoutu
-- [ ] 23 React Compiler: automatyczna memoizacja, ograniczenia i migracja mentalnego modelu
-- [ ] 24 useMemo/useCallback/React.memo tylko po pomiarze lub dla kontraktu referencji
-- [ ] 25 [D] nadmiarowe re-rendery i zepsute zależności (Profiler + lint)
-- [ ] 25b [O] optymalizacja wolnego widoku: lokalizacja stanu, podział komponentów,
+- [ ] 13 modelowanie UI jako stanów: idle/pending/success/error/empty zamiast zestawu
+      niezależnych booleanów; przejścia i nieosiągalne kombinacje
+- [ ] 14 formularze i Actions: form `action`, useActionState
+- [ ] 15 useFormStatus i projektowanie stanów pending/error/success
+- [ ] 16 useOptimistic i bezpieczne optimistic updates
+- [ ] 17 `use`, Suspense i Error Boundary dla danych oraz contextu
+- [ ] 18 useSyncExternalStore (stores zewnętrzne)
+- [ ] 19 custom hooks: projektowanie API, useDebounce/useLocalStorage, useDebugValue
+- [ ] 20 podnoszenie stanu, kompozycja przez children, render props
+- [ ] 21 portale i granice błędów poza przepływem danych z Suspense
+- [ ] 22 useTransition, useDeferredValue i `<Activity>`
+- [ ] 23 ref jako prop, useImperativeHandle i useLayoutEffect do pomiarów layoutu
+- [ ] 24 React Compiler: automatyczna memoizacja, reguły Reacta, stopniowa adopcja
+      i diagnozowanie pominiętych optymalizacji
+- [ ] 25 useMemo/useCallback/React.memo tylko po pomiarze lub dla kontraktu referencji
+- [ ] 26 [D] nadmiarowe re-rendery, zepsute zależności i brak cleanup (Profiler + lint)
+- [ ] 26b [O] optymalizacja wolnego widoku: lokalizacja stanu, podział komponentów,
       memoizacja tam, gdzie pomiar wykazał koszt
-- [ ] 26 wzorce testowania komponentów (Testing Library idiomatycznie)
-- [ ] 27 wydajność list (klucze, memo, koncepcja windowing)
-- [ ] 28 style w JS/React (obiekt style, CSS variables z JS — wyjątek od Tailwinda)
-- [ ] 29 elective: server state z TanStack Query — query keys, staleTime, invalidation,
+- [ ] 27 wzorce testowania komponentów: role, nazwa dostępna, user-event, async UI,
+      unikanie testów szczegółów implementacji
+- [ ] 28 dostępność komponentów: klawiatura, focus management, live regions, dialog
+      i testy regresji dostępności
+- [ ] 29 wydajność list (klucze, memo, koncepcja windowing)
+- [ ] 30 style w JS/React (obiekt style, CSS variables z JS — wyjątek od Tailwinda)
+- [ ] 31 elective: server state z TanStack Query — query keys, staleTime, invalidation,
       mutations, cancellation i optimistic updates bez własnego `useEffect`
 - [ ] module-02 (feature: formularz Action + lista Suspense + optimistic mutation)
 - [ ] module-03 (feature: lista z serwerowym cache, filtrami i zewnętrznym store)
 
-## next (~12 pozycji ≈ 36 zadań)
+## node (~18 pozycji ≈ 54 zadania) — Node 24 LTS
 
-- [ ] 01 App Router: struktura, layouts, strony
-- [ ] 02 server vs client components (granica, "use client")
-- [ ] 03 pobieranie danych na serwerze + cache/revalidate
-- [ ] 04 dynamic routes, params, generateStaticParams
-- [ ] 05 loading/error/not-found (granice UI)
-- [ ] 06 server actions (formularze bez API)
-- [ ] 07 route handlers (API)
-- [ ] 08 metadata i SEO
-- [ ] 09 middleware (auth-gate, redirecty)
-- [ ] 10 streaming i Suspense
-- [ ] 11 [D] debug: hydration errors, złe granice client/server
-- [ ] module-01 (mała apka: lista + szczegół + mutacja przez action)
+- [ ] 01 ESM vs CJS, `package.json` type, package exports/imports i granice pakietu
+- [ ] 02 process: argv, env, cwd, exitCode, błędy konfiguracji i sekrety
+- [ ] 03 fs i path: async, FileHandle, atomowy zapis i bezpieczne ścieżki
+- [ ] 04 streams: Readable/Writable/Transform, pipeline i backpressure
+- [ ] 05 events: EventEmitter, once, error, listener cleanup i AbortSignal
+- [ ] 06 HTTP server bez frameworka: routing, body limit, statusy i poprawne zamykanie odpowiedzi
+- [ ] 07 buffers, TypedArray, kodowania tekstu i granice binarne
+- [ ] 08 child_process vs worker_threads vs zwykły async — I/O i praca CPU
+- [ ] 09 event loop Node: fazy, setImmediate, nextTick i starvation
+- [ ] 10 `node:test`: unit/integration, fixtures, mockowanie granic i coverage
+- [ ] 11 anulowanie, timeouty i propagacja AbortSignal przez warstwy
+- [ ] 12 sygnały procesu, graceful shutdown, zamykanie serwera i aktywnych zasobów
+- [ ] 13 diagnostyka: memoryUsage, CPU profile, heap snapshot, diagnostics_channel
+      i podstawy obserwowalności
+- [ ] 14 bezpieczeństwo runtime: nieufne wejście, path traversal, command injection,
+      limity zasobów i bezpieczne logowanie
+- [ ] 15 [D] debug: blokowanie event loopa, leak listenerów/streamów i porzucone Promise
+- [ ] 15b [O] optymalizacja: cały plik w pamięci → stream; synchroniczne fs w pętli
+      → kontrolowana współbieżność (kod działa, ale nie skaluje się)
+- [ ] 16 budowa CLI: stdin/stdout/stderr, exit codes, sygnały, format JSON i UX błędów
+- [ ] module-01 (produkcyjny analizator logów: stream, transform, worker opcjonalny,
+      anulowanie, testy i graceful shutdown)
 
-## node (~11 pozycji ≈ 33 zadania)
+## next (~20 pozycji ≈ 60 zadań) — Next 16.2, App Router i Cache Components
 
-- [ ] 01 moduły CJS vs ESM, process, argv, env
-- [ ] 02 fs i path (sync/async, strumieniowo)
-- [ ] 03 streams (pipe, transform, backpressure)
-- [ ] 04 events (EventEmitter node'owy)
-- [ ] 05 http server bez frameworka (routing ręczny)
-- [ ] 06 buffers i kodowania
-- [ ] 07 child_process i worker_threads (kiedy co)
-- [ ] 08 timery node'owe, setImmediate vs nextTick (event loop node)
-- [ ] 09 [D] debug: blokowanie event loopa, leaki
-- [ ] 09b [O] optymalizacja: wczytanie całego pliku do pamięci → strumień; synchroniczne
-      fs w pętli → równoległe/asynchroniczne (kod działa, ale nie skaluje się)
-- [ ] 10 budowa CLI (argumenty, exit codes, stdin/stdout)
-- [ ] module-01 (CLI tool wieloplikowy, np. analizator logów)
+- [ ] 01 App Router: struktura, layouts, pages, route groups i colocation
+- [ ] 02 Server vs Client Components: serializowalne propsy, granica bundle i `"use client"`
+- [ ] 03 pobieranie danych na serwerze: async komponenty, równoległość i eliminacja waterfalls
+- [ ] 04 Cache Components: `cacheComponents`, static shell, dynamic holes i Suspense
+- [ ] 05 `use cache`, cacheLife, cacheTag oraz wymagania serializacji klucza
+- [ ] 06 rewalidacja: updateTag, revalidateTag, revalidatePath i read-your-own-writes
+- [ ] 07 dynamic routes, asynchroniczne params/searchParams i generateStaticParams
+- [ ] 08 nawigacja: Link, prefetch, useRouter, search params, filtry i paginacja w URL
+- [ ] 09 loading/error/not-found, expected errors i granice UI
+- [ ] 10 Server Actions: formularze, walidacja, authz, błędy i idempotencja
+- [ ] 11 Route Handlers i Backend for Frontend: metody, cookies, cache, CORS i limity
+- [ ] 12 metadata, Open Graph, Image, Font, Script i optymalizacja zasobów
+- [ ] 13 authn vs authz, DAL, sesje i bezpieczne sprawdzanie uprawnień blisko danych
+- [ ] 14 `proxy.ts` (nie middleware): redirect, rewrite, headers i ograniczenia auth-gate
+- [ ] 15 streaming, Suspense, `use` i sensowne granice skeletonów
+- [ ] 16 dostępność i walidacja formularzy, focus po błędzie i pending states
+- [ ] 17 testowanie: funkcje serwerowe, Route Handlers, komponenty i krytyczne e2e
+- [ ] 18 instrumentacja, logowanie, environment variables, deployment i self-hosting
+- [ ] 19 [D] debug: hydration, niepoprawna granica server/client, uncached data poza Suspense
+- [ ] 19b [O] optymalizacja: zbyt szeroki client bundle, waterfall i źle dobrany cache
+- [ ] module-01 (lista + szczegół + filtry URL + mutacja Action + authz)
+- [ ] module-02 (feature z Cache Components, tagami, streamingiem, testami i instrumentacją)
 
 ## java — ścieżka zgodna z blokiem Java na PJATK (~88 zagadnień)
 
@@ -398,36 +427,53 @@ obieralnym, a nie częścią podstawowej nauki języka.
 - [ ] tpo-06 EJB/Jakarta Enterprise: komponenty, transakcje i kontekst historyczny technologii
 - [ ] module-tpo (rozproszony system: API + worker kolejki + idempotencja + obserwowalność)
 
-## strapi (~8 pozycji ≈ 24 zadania)
+## mysql (~20 pozycji ≈ 60 zadań) — MySQL 8.4 LTS
 
-- [ ] 01 struktura projektu, admin, content types
-- [ ] 02 relacje między typami, komponenty, dynamic zones
-- [ ] 03 REST API: populate, filters, sort, pagination
-- [ ] 04 auth: JWT, role, permissions
-- [ ] 05 custom controllers i services
-- [ ] 06 lifecycle hooks i walidacja
-- [ ] 07 [D] debug: N+1 populate, dziurawe permissions
-- [ ] module-01 (backend do realnego frontu — łączy z next/module-01)
+- [ ] 01 SELECT, WHERE, ORDER BY, LIMIT i poprawna obsługa NULL
+- [ ] 02 typy danych, DECIMAL, daty/strefy, tekst/collation i JSON
+- [ ] 03 JOINy (inner/left/self) — na porządnym schemacie
+- [ ] 04 GROUP BY, agregacje, HAVING i ONLY_FULL_GROUP_BY
+- [ ] 05 podzapytania, CTE i set operations
+- [ ] 06 funkcje okienkowe: ROW_NUMBER, RANK, LAG i ramy okna
+- [ ] 07 INSERT/UPDATE/DELETE, upsert i bezpieczne zmiany zbiorcze
+- [ ] 08 constraints, klucze, ON DELETE/UPDATE i niezmienniki domeny
+- [ ] 09 transakcje, ACID, autocommit, savepoint i obsługa błędu
+- [ ] 10 izolacja, MVCC, blokady, phantom reads i deadlock retry
+- [ ] 11 indeksy B-tree, selektywność, indeksy złożone i leftmost prefix
+- [ ] 12 EXPLAIN/EXPLAIN ANALYZE, estymacje vs wykonanie i koszt zapisu indeksu
+- [ ] 13 paginacja offset vs keyset, stabilny porządek i indeks wspierający
+- [ ] 14 projektowanie schematu, normalizacja, denormalizacja i audyt decyzji
+- [ ] 15 migracje schematu, kompatybilna zmiana i podstawy backup/restore
+- [ ] 16 widoki, procedury i triggery — zastosowania oraz koszt ukrytej logiki
+- [ ] 17 [D] debug: zły JOIN, NULL, utracona aktualizacja, deadlock i brakujący indeks
+- [ ] 17b [O] optymalizacja: poprawny wynik, lecz zły plan — przepisanie zapytania
+      lub indeks; bramka `EXPLAIN ANALYZE`
+- [ ] 18 mysql2 z Node: parametryzacja, pooling, transakcje i SQL injection
+- [ ] module-01 (schemat + migracje + raporty + transakcja + plan zapytania)
 
-## mysql (~13 pozycji ≈ 39 zadań)
+## strapi (~15 pozycji ≈ 45 zadań) — Strapi 5
 
-- [ ] 01 SELECT, WHERE, ORDER BY, LIMIT
-- [ ] 02 JOINy (inner/left/self) — na porządnym schemacie
-- [ ] 03 GROUP BY, agregacje, HAVING
-- [ ] 04 podzapytania i CTE
-- [ ] 05 INSERT/UPDATE/DELETE, transakcje
-- [ ] 06 constraints, klucze, ON DELETE
-- [ ] 07 indeksy + EXPLAIN (zadania wydajnościowe!)
-- [ ] 08 funkcje okienkowe (ROW_NUMBER, RANK, LAG)
-- [ ] 09 widoki i procedury (podstawy)
-- [ ] 10 projektowanie schematu, normalizacja
-- [ ] 11 [D] debug: slow query, N+1, brakujący indeks
-- [ ] 11b [O] optymalizacja zapytań: poprawne zapytanie zwracające dobry wynik, ale wolne
-      — przepisz (indeks, JOIN zamiast podzapytania, LIMIT/paginacja); bramka: EXPLAIN
-- [ ] 12 mysql2 z Node (parametryzacja, pooling, SQL injection)
-- [ ] module-01 (schemat + zapytania pod realną aplikację)
+- [ ] 01 struktura projektu, admin, content types i wygenerowane typy TypeScript
+- [ ] 02 relacje, komponenty, dynamic zones i modelowanie treści
+- [ ] 03 Document Service: `documentId`, find/create/update/delete i status dokumentu
+- [ ] 04 Draft & Publish, locale/i18n i różnica dokument vs wpis bazodanowy
+- [ ] 05 REST API v5: płaska odpowiedź, fields, populate, filters, sort i pagination
+- [ ] 06 authn, JWT/API tokens, role i permissions jako allow-list
+- [ ] 07 custom routes, controllers i services z cienkim kontrolerem
+- [ ] 08 policies i middleware HTTP: walidacja kontekstu, authz i współdzielona logika
+- [ ] 09 Document Service middleware; lifecycle hooks tylko ze świadomością wielu
+      operacji DB dla publish/unpublish/locales
+- [ ] 10 walidacja domenowa, błędy API i transakcje w custom service
+- [ ] 11 upload/media: limity, typy plików, uprawnienia i bezpieczne powiązanie
+- [ ] 12 webhooks i rewalidacja cache Next po zmianie treści
+- [ ] 13 testy API przez HTTP, fixture danych, izolacja bazy i test permissions
+- [ ] 14 [D] debug: `id` vs `documentId`, podwójne lifecycle, N+1 populate,
+      dziurawe permissions i wyciek draftu
+- [ ] 14b [O] optymalizacja: ograniczenie fields/populate, batching i cache/revalidation
+- [ ] module-01 (backend contentowy v5 do realnego frontu — authz, draft, media,
+      webhook, testy; łączy z next/module-02)
 
-## combined (~8 dużych zadań)
+## combined (~13 dużych zadań)
 
 - [ ] ts-react-01: typowanie komponentów i custom hooków (generyczne propsy)
 - [ ] ts-react-02: typowany reducer + context
@@ -436,8 +482,15 @@ obieralnym, a nie częścią podstawowej nauki języka.
 - [ ] next-strapi-01: pełny CRUD feature (front + backend + auth)
 - [ ] next-strapi-02: upload plików + Image
 - [ ] node-mysql-01: warstwa danych z transakcjami
-- [ ] full-01: kapston — feature przez wszystkie warstwy
+- [ ] quality-01: zastany feature — dodać test regresji, poprawić dostępność,
+      usunąć problem wydajnościowy i opisać decyzję
+- [ ] security-01: authn/authz, walidacja, rate limit, sekrety i bezpieczne logi
+- [ ] delivery-01: CI, migracje, konfiguracja środowisk, kontener, healthcheck i rollback
+- [ ] observability-01: correlation id, structured logs, metryki i diagnoza incydentu
+- [ ] full-01: capstone — pionowy feature przez wszystkie warstwy
+- [ ] full-02: capstone maintenance — wejście w obcy kod, bug report, fix, test,
+      optymalizacja i plan bezpiecznego wdrożenia
 
-**Suma (minimum, nie limit): ~223 zagadnienia ≈ 680–740 zadań + 20 testów modułowych.**
+**Suma (minimum, nie limit): ~258 zagadnień ≈ 780–840 zadań + moduły przekrojowe.**
 Sesje treści i audyty (tasks/prompts.md) mają obowiązek dopisywać pozycje, gdy źródła
 pokazują więcej wariantów.

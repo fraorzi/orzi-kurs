@@ -227,7 +227,7 @@ const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
     { id: "model-obiektowy", title: "Model obiektowy i bezpieczne API", description: "Klasy, enumy, const objects oraz satisfies.", range: [11, 12] },
     { id: "moduly-i-diagnostyka", title: "Moduły i diagnostyka typów", description: "Deklaracje modułów, ścisła konfiguracja i diagnozowanie złożonych typów.", range: [13, 14] },
     { id: "runtime", title: "Typy na granicy runtime", description: "Koszt wykonania, asynchroniczność, DOM i walidacja danych zewnętrznych.", range: [15, 17] },
-    { id: "mistrzostwo", title: "Zaawansowane konstrukcje", description: "Type challenges i najnowsze możliwości języka.", range: [18, 19] },
+    { id: "mistrzostwo", title: "Zaawansowane konstrukcje i migracja", description: "Type challenges, migracja między wersjami i najnowsze możliwości języka.", range: [18, 20] },
     { id: "projekt-runtime", title: "Projekt: bezpieczny runtime", description: "Końcowy moduł łączący typy statyczne z kodem wykonywanym.", slugs: ["module-02"] },
   ],
 };
