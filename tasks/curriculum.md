@@ -313,11 +313,11 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] 15 streaming, Suspense, `use` i sensowne granice skeletonów
 - [x] 16 dostępność i walidacja formularzy, focus po błędzie i pending states
 - [x] 17 testowanie: funkcje serwerowe, Route Handlers, komponenty i krytyczne e2e
-- [ ] 18 instrumentacja, logowanie, environment variables, deployment i self-hosting
-- [ ] 19 [D] debug: hydration, niepoprawna granica server/client, uncached data poza Suspense
-- [ ] 19b [O] optymalizacja: zbyt szeroki client bundle, waterfall i źle dobrany cache
-- [ ] module-01 (lista + szczegół + filtry URL + mutacja Action + authz)
-- [ ] module-02 (feature z Cache Components, tagami, streamingiem, testami i instrumentacją)
+- [x] 18 instrumentacja, logowanie, environment variables, deployment i self-hosting
+- [x] 19 [D] debug: hydration, niepoprawna granica server/client, uncached data poza Suspense
+- [x] 19b [O] optymalizacja: zbyt szeroki client bundle, waterfall i źle dobrany cache
+- [x] module-01 (lista + szczegół + filtry URL + mutacja Action + authz)
+- [x] module-02 (feature z Cache Components, tagami, streamingiem, testami i instrumentacją)
 
 ## mysql (~20 pozycji ≈ 60 zadań) — MySQL 8.4 LTS
 

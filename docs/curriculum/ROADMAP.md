@@ -73,11 +73,12 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 Etapy 1–4 są ukończone. React obejmuje infrastrukturę, fundamenty, escape hatches,
 architekturę stanu, async UI React 19, Suspense, external stores, custom hooks,
 kompozycję, concurrent UI, Compiler, wydajność, testowanie, dostępność, duże listy,
-style dynamiczne i server state wraz z trzema modułami. Etap Next.js jest aktywny:
-audyt wersji 16.2.10, kolejność i infrastruktura testowa są gotowe, a pierwszych
-51 zadań obejmuje App Router, granice Server/Client, dane i cache, routing,
+style dynamiczne i server state wraz z trzema modułami. Etap Next.js jest ukończony:
+audyt wersji 16.2.10, kolejność i infrastruktura testowa są gotowe, a kompletne
+62 zadania obejmują App Router, granice Server/Client, dane i cache, routing,
 Server Actions, kontrakty HTTP BFF, assets, auth/DAL, Proxy, streaming, dostępne
-formularze oraz strategię testów od unit do krytycznego E2E.
+formularze, strategię testów od unit do krytycznego E2E, produkcję, debugowanie,
+mierzoną optymalizację oraz dwa wieloplikowe moduły projektowe.
 
 Każdy punkt jest osobnym branchem. Następny branch powstaje z aktualnego fundamentu,
 nie z niepowiązanego brancha tracka.

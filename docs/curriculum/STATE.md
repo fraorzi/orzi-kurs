@@ -296,12 +296,27 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   Request/Response oraz krytyczny checkout E2E oparty na semantycznych locatorach.
 - Stan po bloku bezpieczeństwa i UX: 17 tematów i 51 zadań; nowe 15/15 rozwiązań
   i 15/15 starterów przechodzi właściwe bramki.
+- Next 18: fail-fast env bez ekspozycji sekretów, runtime-specific instrumentation,
+  bezpieczne logi oraz audyt self-hostingu wielu instancji obejmujący build/action
+  keys, deployment ID, shared cache, tagi, streaming i graceful drain.
+- Next 19 `[D]`: realistyczne naprawy hydration mismatch, dyrektywy klienta w
+  barrellu oraz uncached data awaitowanego przed zbyt późnym Suspense.
+- Next 19b `[O]`: funkcjonalnie poprawne startery z osobnymi quality gates dla
+  wagi client graph, startu równoległych odczytów i cardinality cache key.
+- Next `module-01`: panel zgłoszeń z filtrem URL, scoped DAL/DTO, listą i szczegółem
+  bez enumeracji zasobów oraz Action odporną na sfałszowany `projectId`.
+- Next `module-02`: tenantowy Cache Component, mutacja stocku z dwoma tagami,
+  niezależny streaming katalogu/alertów i telemetry z allow-listą danych.
+- Końcowy stan tracka Next: 20 tematów, dwa moduły i 62 zadania wyłącznie w
+  TypeScript/TSX. Pełna macierz: 62/62 rozwiązania i 62/62 pierwotne startery;
+  harness 55/55, root lint, root `tsc --noEmit`, `git diff --check` oraz audyt
+  rozszerzeń bez `.js/.jsx` są zielone.
 
 ## Następne kroki
 
-1. Dodać instrumentację, środowisko uruchomieniowe, deployment i self-hosting.
-2. Dodać blok debugowania granic Next oraz mierzoną optymalizację.
-3. Zbudować i zweryfikować dwa końcowe moduły przekrojowe.
+1. Zatrzymać pracę po ukończeniu Next zgodnie z prośbą użytkownika.
+2. Przekazać branche JavaScript, TypeScript, React i Next do review/PR.
+3. Nie rozpoczynać Node.js przed kolejną decyzją użytkownika.
 
 ## Otwarte ryzyka
 
