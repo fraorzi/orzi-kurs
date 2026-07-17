@@ -269,30 +269,36 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
       mutations, cancellation i optimistic updates bez własnego `useEffect`
 - [x] module-03 (feature: konsola z cache'em serwerowym, filtrami, dialogiem i rollbackiem)
 
-## node (~18 pozycji ≈ 54 zadania) — Node 24 LTS
+## node (20 tematów + 2 moduły, 62 zadania) — Node 24 LTS
 
-- [ ] 01 ESM vs CJS, `package.json` type, package exports/imports i granice pakietu
-- [ ] 02 process: argv, env, cwd, exitCode, błędy konfiguracji i sekrety
-- [ ] 03 fs i path: async, FileHandle, atomowy zapis i bezpieczne ścieżki
-- [ ] 04 streams: Readable/Writable/Transform, pipeline i backpressure
-- [ ] 05 events: EventEmitter, once, error, listener cleanup i AbortSignal
-- [ ] 06 HTTP server bez frameworka: routing, body limit, statusy i poprawne zamykanie odpowiedzi
-- [ ] 07 buffers, TypedArray, kodowania tekstu i granice binarne
-- [ ] 08 child_process vs worker_threads vs zwykły async — I/O i praca CPU
-- [ ] 09 event loop Node: fazy, setImmediate, nextTick i starvation
-- [ ] 10 `node:test`: unit/integration, fixtures, mockowanie granic i coverage
-- [ ] 11 anulowanie, timeouty i propagacja AbortSignal przez warstwy
-- [ ] 12 sygnały procesu, graceful shutdown, zamykanie serwera i aktywnych zasobów
-- [ ] 13 diagnostyka: memoryUsage, CPU profile, heap snapshot, diagnostics_channel
-      i podstawy obserwowalności
-- [ ] 14 bezpieczeństwo runtime: nieufne wejście, path traversal, command injection,
-      limity zasobów i bezpieczne logowanie
-- [ ] 15 [D] debug: blokowanie event loopa, leak listenerów/streamów i porzucone Promise
-- [ ] 15b [O] optymalizacja: cały plik w pamięci → stream; synchroniczne fs w pętli
-      → kontrolowana współbieżność (kod działa, ale nie skaluje się)
-- [ ] 16 budowa CLI: stdin/stdout/stderr, exit codes, sygnały, format JSON i UX błędów
-- [ ] module-01 (produkcyjny analizator logów: stream, transform, worker opcjonalny,
-      anulowanie, testy i graceful shutdown)
+Quality pass 2026-07-17: pełne README z modelem mentalnym, testy zachowania
+(3–5 na zadanie, oś czasu drain, [quality] w [O]), hinty per zadanie,
+moduły wieloplikowe. Szczegóły: `docs/curriculum/NODE_AUDIT.md`.
+
+- [x] 01 runtime i moduły: ESM/CJS, `type`, exports/imports oraz natywny TypeScript
+- [x] 02 process i konfiguracja: argv/env/cwd/exitCode, walidacja i sekrety
+- [x] 03 URL/path/fs: FileHandle, atomowy zapis, bezpieczne ścieżki i wyścigi
+- [x] 04 Buffer, TypedArray, TextEncoder/TextDecoder, kodowania i protokoły binarne
+- [x] 05 EventEmitter/EventTarget, `once`, `error`, cleanup i AbortSignal
+- [x] 06 event loop, timery, starvation oraz kontekst żądania przez AsyncLocalStorage
+- [x] 07 klient HTTP: stabilny `fetch`, Undici, timeout, retry, idempotencja i limity
+- [x] 08 serwer HTTP bez frameworka: routing, body limit, statusy i lifecycle odpowiedzi
+- [x] 09 klasyczne streamy: async iteration, pipeline, Transform i backpressure
+- [x] 10 Web Streams, adaptery, compression i poprawne zamykanie FileHandle
+- [x] 11 child_process vs worker_threads vs async: I/O, CPU, protokół i limity
+- [x] 12 `node:test`: unit/integration, fixtures, mockowanie granic i coverage
+- [x] 13 crypto i sekrety: randomUUID/randomBytes, hashing, timingSafeEqual i key handling
+- [x] 14 sygnały procesu, graceful shutdown, serwer i aktywne zasoby
+- [x] 15 obserwowalność: structured logs, memoryUsage, event-loop delay i diagnostics_channel
+- [x] 16 bezpieczeństwo i Permission Model: traversal, injection, limity i redakcja logów
+- [x] 17 CLI: stdin/stdout/stderr, exit codes, sygnały, JSON/NDJSON i ergonomia błędów
+- [x] 18 [D/O] blokowanie event loopa, leaki i optymalizacja pamięci/współbieżności
+- [x] 19 elective: `node:sqlite` — prepared statements, transakcje i migracje
+- [x] 20 elective: stabilny klient WebSocket — lifecycle, reconnect i backpressure kolejki
+- [x] module-01 (produkcyjny analizator NDJSON: stream, limity, agregacja, anulowanie,
+      diagnostyka, testy i bezpieczny interfejs CLI)
+- [x] module-02 (rdzeń usługi HTTP: routing, walidacja, idempotencja, kontekst,
+      bezpieczne błędy i test integracyjny bez frameworka)
 
 ## next (~20 pozycji ≈ 60 zadań) — Next 16.2, App Router i Cache Components
 

@@ -157,11 +157,37 @@ const NEXT_TOPIC_ORDER = [
   "module-02",
 ] as const;
 
+const NODE_TOPIC_ORDER = [
+  "01-runtime-modules-native-ts",
+  "02-process-config",
+  "03-url-path-fs",
+  "04-buffers-encoding",
+  "05-events-cancellation",
+  "06-event-loop-async-context",
+  "07-http-client",
+  "08-http-server",
+  "09-streams-backpressure",
+  "10-web-streams-compression",
+  "11-processes-workers",
+  "12-testing",
+  "13-crypto-secrets",
+  "14-graceful-shutdown",
+  "15-observability",
+  "16-security-permissions",
+  "17-cli",
+  "18-debug-optimize-node",
+  "19-elective-sqlite",
+  "20-elective-websocket",
+  "module-01",
+  "module-02",
+] as const;
+
 export const TOPIC_ORDER: Readonly<Record<string, readonly string[]>> = {
   js: JS_TOPIC_ORDER,
   ts: TS_TOPIC_ORDER,
   react: REACT_TOPIC_ORDER,
   next: NEXT_TOPIC_ORDER,
+  node: NODE_TOPIC_ORDER,
 };
 
 export function compareTopicSlugs(track: string, left: string, right: string): number {

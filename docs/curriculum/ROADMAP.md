@@ -1,6 +1,6 @@
 # Roadmapa intern → mid
 
-Data audytu: 2026-07-16.
+Data audytu: 2026-07-17.
 
 ## Stan zastany
 
@@ -22,7 +22,7 @@ Punkty odniesienia:
 - `pnpm verify:solutions ts`: 37/37,
 - pełna weryfikacja JS do ponowienia na branchu JavaScript.
 
-Stan po ukończeniu pierwszych czterech etapów:
+Stan po ukończeniu pierwszych sześciu etapów:
 
 - fundament procesu zapisany i wypchnięty,
 - JavaScript: 161/161 rozwiązań i 161/161 starterów,
@@ -39,6 +39,10 @@ Stan po ukończeniu pierwszych czterech etapów:
   dostępne widgety, windowing, dynamiczne style i architekturę server state na
   TanStack Query 5. Cały track jest napisany wyłącznie w TypeScript/TSX; 99/99
   rozwiązań i 99/99 starterów przechodzi właściwe bramki.
+- Next: 20 tematów, dwa moduły i 62 zadania TypeScript/TSX; 62/62 rozwiązań
+  i 62/62 starterów.
+- Node: 20 tematów, dwa moduły i 62 zadania TypeScript; pełny rdzeń runtime,
+  production concerns oraz jawnie oddzielone elective'y SQLite i WebSocket.
 
 Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetować
 `progress.json` ani starterów.
@@ -50,7 +54,7 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 | JavaScript | ECMAScript obsługiwany przez Node 24 LTS i współczesne przeglądarki; nowości oznaczane jako core lub elective |
 | TypeScript | TS 7.0 jako aktualny cel, TS 6.0 jako wiedza migracyjna; istniejący harness 5.9 wymaga kontrolowanej migracji |
 | React | React 19.2 i stabilny React Compiler 1.x; wyłącznie TypeScript/TSX po ukończeniu tracka TS |
-| Node.js | Node 24 LTS; Node 22 jako obecne środowisko zgodności |
+| Node.js | Node 24.18 LTS; `@types/node` 24.13.3; Node 22 jako dodatkowe środowisko zgodności |
 | Next.js | dokładna wersja repo z `node_modules/next/dist/docs/`, obecnie 16.2.10; wyłącznie TypeScript/TSX |
 | MySQL | MySQL 8.4 LTS; kompatybilność podstaw sprawdzana również lokalnie na 9.6 |
 | Strapi | Strapi 5 |
@@ -70,7 +74,7 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 10. Java/PJATK jako osobna, niezależna ścieżka; może być realizowana wcześniej po
     zmianie priorytetu użytkownika.
 
-Etapy 1–4 są ukończone. React obejmuje infrastrukturę, fundamenty, escape hatches,
+Etapy 1–6 są ukończone. React obejmuje infrastrukturę, fundamenty, escape hatches,
 architekturę stanu, async UI React 19, Suspense, external stores, custom hooks,
 kompozycję, concurrent UI, Compiler, wydajność, testowanie, dostępność, duże listy,
 style dynamiczne i server state wraz z trzema modułami. Etap Next.js jest ukończony:
@@ -79,6 +83,14 @@ audyt wersji 16.2.10, kolejność i infrastruktura testowa są gotowe, a komplet
 Server Actions, kontrakty HTTP BFF, assets, auth/DAL, Proxy, streaming, dostępne
 formularze, strategię testów od unit do krytycznego E2E, produkcję, debugowanie,
 mierzoną optymalizację oraz dwa wieloplikowe moduły projektowe.
+
+Etap Node.js jest ukończony: 20 tematów i dwa moduły prowadzą od kontraktu runtime,
+modułów i konfiguracji przez pliki, bufory, event loop, AsyncLocalStorage, HTTP,
+streamy, procesy/workery i testy do kryptografii, graceful shutdown,
+obserwowalności, Permission Model, CLI oraz mierzonego debugowania i optymalizacji.
+SQLite i WebSocket pozostają elective, zgodnie ze statusem API i rolą w typowych
+projektach. Oba moduły końcowe wymuszają limity zasobów, anulowanie, idempotencję,
+bezpieczne błędy oraz testy integracyjne.
 
 Każdy punkt jest osobnym branchem. Następny branch powstaje z aktualnego fundamentu,
 nie z niepowiązanego brancha tracka.
@@ -111,10 +123,11 @@ nie z niepowiązanego brancha tracka.
 
 ### Node.js
 
-- Dodać `node:test`, package exports, sygnały, graceful shutdown, AbortSignal,
-  diagnostykę, profiling, logowanie i bezpieczne przetwarzanie wejścia.
-- Moduł końcowy ma działać na plikach większych od pamięciowego happy path i mieć
-  scenariusz przerwania pracy.
+- Ukończone: `node:test`, package exports, native TypeScript, sygnały, graceful
+  shutdown, AbortSignal, AsyncLocalStorage, diagnostyka, logowanie i bezpieczne
+  przetwarzanie wejścia.
+- Ukończone: moduł analizatora działa przyrostowo, ma limity pamięciowe i scenariusz
+  przerwania; drugi moduł ćwiczy idempotentny rdzeń usługi HTTP bez frameworka.
 
 ### Next.js
 
@@ -155,6 +168,7 @@ nie z niepowiązanego brancha tracka.
 - TypeScript 6.0: <https://www.typescriptlang.org/docs/handbook/release-notes/typescript-6-0.html>
 - TypeScript 7.0 announcement: <https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/>
 - Node releases i API: <https://nodejs.org/en/about/previous-releases>, <https://nodejs.org/api/>
+- Node 24.18.0: <https://nodejs.org/en/blog/release/v24.18.0>
 - MySQL 8.4 Reference Manual: <https://dev.mysql.com/doc/refman/8.4/en/>
 - Strapi 5 docs: <https://docs.strapi.io/>
 - MDN Curriculum: <https://developer.mozilla.org/en-US/curriculum/>

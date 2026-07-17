@@ -311,16 +311,47 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   TypeScript/TSX. Pełna macierz: 62/62 rozwiązania i 62/62 pierwotne startery;
   harness 55/55, root lint, root `tsc --noEmit`, `git diff --check` oraz audyt
   rozszerzeń bez `.js/.jsx` są zielone.
+- Utworzony osobny branch `feature/curriculum-node` z ukończonego tracka Next.
+- Audyt Node 24.18 LTS objął oficjalne API runtime, native TypeScript, Permission
+  Model, Fetch/Undici, Web Streams, AsyncLocalStorage, `node:test`, diagnostykę,
+  stabilnego klienta WebSocket oraz status release candidate `node:sqlite`.
+- `@types/node` przypięto do 24.13.3; zadania ucznia i rozwiązania tracka Node są
+  wyłącznie w TypeScript.
+- Dodana kolejność 20 tematów i dwóch modułów oraz kontrakt treści pilnujący sekcji
+  zastosowań, pułapek, źródeł Node 24, startera, rozwiązania, testu i hintów.
+- Node 01–06: moduły ESM/CJS, package exports, native TypeScript, process/env/argv,
+  bezpieczne i atomowe pliki, bufory/UTF-8, zdarzenia, anulowanie, event loop,
+  fair yielding i izolowany request context przez AsyncLocalStorage.
+- Node 07–12: odporny klient fetch, retry i timeout, serwer HTTP bez frameworka,
+  limity body, klasyczne streamy i backpressure, Web Streams/compression,
+  child_process/worker protocol oraz testy z izolowanymi fixture'ami i portem 0.
+- Node 13–18: CSPRNG, timing-safe comparison i scrypt, idempotentny graceful
+  shutdown, structured logging, event-loop delay, diagnostics_channel, Permission
+  Model, resource limits, bezpieczne CLI/NDJSON oraz osobne quality gates dla
+  złożoności, bounded concurrency i leaków listenerów.
+- Node 19–20 pozostają elective: prepared statements/transakcje/migracje SQLite
+  oraz klient WebSocket z walidacją endpointu, jittered backoff i bounded queue.
+- `module-01` to strumieniowy analizator NDJSON z limitami, tolerancją błędów,
+  agregacją i AbortSignal. `module-02` to rdzeń usługi HTTP z routingiem,
+  walidacją, idempotencją, request ID, bezpiecznymi błędami i testem integracyjnym.
+- Końcowy stan tracka Node: 20 tematów, dwa moduły i 62 zadania. Pełna macierz
+  rozwiązań i pierwotnych starterów przechodzi 62/62.
+- Quality pass Node (2026-07-17): przepisane README, polecenia, testy i hinty
+  wszystkich 62 zadań; moduły przebudowane na wieloplikowe; kontrakt treści
+  wymusza testy zachowania, unikalne hinty i bramki [quality]; szczegóły
+  w `NODE_AUDIT.md`. Macierz nadal 62/62 + 62/62, harness 61/61.
 
 ## Następne kroki
 
-1. Zatrzymać pracę po ukończeniu Next zgodnie z prośbą użytkownika.
-2. Przekazać branche JavaScript, TypeScript, React i Next do review/PR.
-3. Nie rozpoczynać Node.js przed kolejną decyzją użytkownika.
+1. Zatrzymać pracę po ukończeniu Node zgodnie z prośbą użytkownika.
+2. Przekazać branche JavaScript, TypeScript, React, Next i Node do review/PR.
+3. Nie rozpoczynać MySQL przed kolejną decyzją użytkownika.
 
 ## Otwarte ryzyka
 
-- Aktualne środowisko ma Node 22, podczas gdy celem tracka będzie Node 24 LTS.
+- Bazowe środowisko ma Node 22; track utrzymuje tę zgodność, a kontrakt typów jest
+  przypięty do `@types/node@24.13.3`. Semantykę wyłącznie dla Node 24 opisują źródła
+  i zadania kontraktowe, a SQLite pozostaje elective.
 - TS 7 nie udostępnia jeszcze stabilnego API wymaganego przez `typescript-eslint`;
   do czasu wsparcia narzędzi repo musi utrzymywać TS 6 dla lintu i TS 7 dla
   dodatkowej bramki CLI.
