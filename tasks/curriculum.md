@@ -301,6 +301,132 @@ Zostało: pozycje audytowe b/c, 13–20, module-02)
 - [ ] module-01 (lista + szczegół + filtry URL + mutacja Action + authz)
 - [ ] module-02 (feature z Cache Components, tagami, streamingiem, testami i instrumentacją)
 
+## java — ścieżka zgodna z blokiem Java na PJATK (~88 zagadnień)
+
+Java pozostaje jednym trackiem w przełączniku języków. Wewnątrz tracku tematy są
+grupowane według przedmiotów, bo tak student szuka materiału przed kolokwium i projektem:
+**PPJ → GUI → UTP → SKJ**, a na końcu opcjonalne rozszerzenie **TPO**. Nie tworzymy
+osobnych top-level tracków „UTP” czy „SKJ” — nie są językami. Gdy powstaną pierwsze
+zadania Java, katalog i sidebar mają dostać nagłówki tych grup oraz filtr przedmiotu.
+
+Zakres technologii jest oparty na publicznym
+[programie studiów 2025/26](https://pja.edu.pl/wp-content/uploads/2026/01/Informatyka_stacjonarne_pierwszy_2025_rev2026-1.pdf),
+[opisach przedmiotów PJATK](https://pja.edu.pl/wp-content/uploads/2023/02/Opis_przedmiotow_Ist.pdf)
+oraz publicznym [kursie GUI PJATK Dojo](https://dojo.pjwstk.edu.pl/pl/gui).
+Z tych źródeł bierzemy wyłącznie zakres pojęć i używane technologie. Teoria, przykłady,
+testy i zadania w orzi-kurs mają być autorskie. Dla narzędzi uczymy aktualnego stabilnego
+JDK, ale zaznaczamy różnice względem wersji wymaganej na danych zajęciach.
+
+### PPJ — Podstawy programowania w Javie (~20 pozycji)
+
+- [ ] ppj-01 JDK, JVM, bytecode, kompilacja i uruchamianie z terminala; struktura klasy
+- [ ] ppj-02 typy proste, literały, zmienne, konwersje i przepełnienia
+- [ ] ppj-03 operatory arytmetyczne, logiczne, bitowe i kolejność wykonywania
+- [ ] ppj-04 wejście/wyjście: argumenty programu, Scanner, formatowanie wyniku
+- [ ] ppj-05 instrukcje warunkowe, switch jako instrukcja i wyrażenie
+- [ ] ppj-06 pętle, break/continue, pętle zagnieżdżone i koszt wykonania
+- [ ] ppj-07 tablice jednowymiarowe: tworzenie, kopiowanie, wyszukiwanie i agregacja
+- [ ] ppj-08 tablice wielowymiarowe i nieregularne; przejścia po macierzy
+- [ ] ppj-09 String, StringBuilder, char vs code point, porównywanie tekstu
+- [ ] ppj-10 metody, przeciążanie, varargs, zakres i przekazywanie wartości/referencji
+- [ ] ppj-11 rekurencja: warunek bazowy, stos wywołań i wariant iteracyjny
+- [ ] ppj-12 sortowanie i wyszukiwanie: implementacja, Comparator i Arrays
+- [ ] ppj-13 klasy i obiekty: pola, metody, konstruktory, this
+- [ ] ppj-14 enkapsulacja, modyfikatory dostępu, static, pakiety i importy
+- [ ] ppj-15 podstawy dziedziczenia, przesłanianie metod i polimorfizm
+- [ ] ppj-16 wyjątki: checked/unchecked, try/catch/finally, własny wyjątek
+- [ ] ppj-17 pliki tekstowe i binarne: bezpieczny odczyt/zapis, try-with-resources
+- [ ] ppj-18 [D] debug: indeksy tablic, porównywanie String, przepełnienie i błędna rekurencja
+- [ ] ppj-19 [O] optymalizacja: konkatenacja w pętli, zbędne kopie i złożoność wyszukiwania
+- [ ] module-ppj (aplikacja konsolowa: parser danych + model obiektowy + pliki + raport)
+
+### GUI — Programowanie obiektowe i aplikacje desktopowe (~19 pozycji)
+
+Technologie zgodne z publicznym kursem PJATK: **Swing**, **JavaFX**, FXML, JavaFX CSS,
+properties/binding oraz TableView w układzie MVC. Swing jest potrzebny do ćwiczeń z
+JFrame/Graphics i komponentów; JavaFX do głównego projektu aplikacji.
+
+- [ ] gui-01 interfejsy, klasy abstrakcyjne, klasy anonimowe i metody default
+- [ ] gui-02 generyczność oraz List/Set/Map w modelu aplikacji
+- [ ] gui-03 Swing: JFrame, cykl życia okna i bezpieczne zamykanie aplikacji
+- [ ] gui-04 Graphics/Graphics2D, własne rysowanie, repaint i układ współrzędnych
+- [ ] gui-05 programowanie zdarzeniowe: listenery, ActionEvent i rozdzielenie odpowiedzialności
+- [ ] gui-06 Swing: komponenty, modele, layout managers i formularze
+- [ ] gui-07 EDT i wątki w GUI: SwingUtilities, SwingWorker, anulowanie pracy
+- [ ] gui-08 JavaFX: Application, Stage, Scene, nodes i layout panes
+- [ ] gui-09 widoki FXML, FXMLLoader, wstrzykiwanie kontrolek i zasobów
+- [ ] gui-10 kontrolery JavaFX, obsługa zdarzeń i nawigacja między widokami
+- [ ] gui-11 JavaFX CSS: selektory, pseudo-klasy, theme i zasoby
+- [ ] gui-12 properties i binding: observable state, walidacja i computed values
+- [ ] gui-13 TableView, cell factories, edycja danych i rozdzielenie MVC
+- [ ] gui-14 serializacja stanu aplikacji oraz import/eksport danych
+- [ ] gui-15 wzorce w GUI: MVC, Observer, Command, Factory i Strategy
+- [ ] gui-16 [D] debug: blokowanie UI, aktualizacja spoza UI thread, wyciek listenera
+- [ ] gui-17 [O] optymalizacja: ciężkie renderowanie, duże listy i niepotrzebne odświeżenia
+- [ ] module-gui-01 (Swing: edytor/renderer obiektów z zapisem do pliku)
+- [ ] module-gui-02 (JavaFX: aplikacja CRUD z FXML, CSS, TableView, binding i MVC)
+
+### UTP — Uniwersalne techniki programowania w Javie (~23 pozycje)
+
+- [ ] utp-01 generyki: klasy/metody, ograniczenia, wildcards PECS i type erasure
+- [ ] utp-02 interfejsy funkcyjne, lambdy, method references i domknięcia
+- [ ] utp-03 Stream API: pipeline, lazy evaluation, map/filter/reduce
+- [ ] utp-04 Collectors: groupingBy, partitioningBy, downstream collectors i własny collector
+- [ ] utp-05 kolekcje zaawansowane: kolejki, deque, sorted collections i dobór struktury
+- [ ] utp-06 Comparator, porządek naturalny, stabilność i wielopolowe sortowanie
+- [ ] utp-07 java.io: strumienie bajtowe/znakowe, buforowanie i dekoratory
+- [ ] utp-08 NIO.2: Path, Files, walking drzewa, kanały i kodowania
+- [ ] utp-09 serializacja: Object streams, transient, wersjonowanie i bezpieczne alternatywy
+- [ ] utp-10 refleksja, adnotacje i dynamiczne odkrywanie klas/metod
+- [ ] utp-11 JavaBeans i programowanie komponentowe: properties, introspection, events
+- [ ] utp-12 współbieżność: Thread/Runnable, synchronizacja, locks i widoczność pamięci
+- [ ] utp-13 ExecutorService, Callable/Future, planowanie i poprawne zamykanie executorów
+- [ ] utp-14 CompletableFuture, kompozycja asynchroniczna i obsługa błędów
+- [ ] utp-15 concurrent collections, atomics i wzorce producer–consumer
+- [ ] utp-16 lokalizacja: Locale, ResourceBundle, formatowanie liczb/dat i pluralizacja
+- [ ] utp-17 XML: DOM, SAX/StAX, XPath, walidacja schematem i bezpieczne parsowanie
+- [ ] utp-18 JDBC: prepared statements, transakcje, batch, mapowanie i pule połączeń
+- [ ] utp-19 wzorce projektowe: tworzeniowe, strukturalne i behawioralne w kodzie Java
+- [ ] utp-20 [D] debug: race condition, deadlock, wyciek zasobu, błędny stream/collector
+- [ ] utp-21 [O] optymalizacja: boxing, zły collector, blokowanie puli i koszt refleksji
+- [ ] module-utp-01 (pipeline importu XML → walidacja → JDBC → raport lokalizowany)
+- [ ] module-utp-02 (współbieczny procesor zadań: executor, futures, retry i metryki)
+
+### SKJ — Sieci komputerowe i programowanie sieciowe w Javie (~19 pozycji)
+
+- [ ] skj-01 model warstwowy TCP/IP i OSI; enkapsulacja danych
+- [ ] skj-02 komutacja pakietów/kanałów, multipleksacja i opóźnienia
+- [ ] skj-03 adresacja IPv4/IPv6, podsieci, NAT i podstawy routingu
+- [ ] skj-04 warstwa łącza: Ethernet, ARP, CSMA/CD oraz Wi-Fi 802.11
+- [ ] skj-05 UDP vs TCP: niezawodność, kolejność, flow/congestion control
+- [ ] skj-06 DNS: rekordy, resolver, cache i diagnostyka
+- [ ] skj-07 HTTP: komunikaty, metody, statusy, nagłówki, keep-alive i wersje protokołu
+- [ ] skj-08 SMTP i FTP: role, przebieg sesji i projektowanie prostego protokołu tekstowego
+- [ ] skj-09 Java sockets TCP: klient, serwer, strumienie i half-close
+- [ ] skj-10 serwer wielu klientów: pule wątków, limity, timeout i kontrolowane zamknięcie
+- [ ] skj-11 UDP DatagramSocket: datagramy, utrata, duplikaty i własna niezawodność
+- [ ] skj-12 framing protokołu: delimitery vs length-prefix, kodowanie i wersjonowanie
+- [ ] skj-13 java.net.http.HttpClient: sync/async, redirecty, timeout i body handlers
+- [ ] skj-14 TLS, certyfikaty i podstawy poufności, integralności oraz uwierzytelnienia
+- [ ] skj-15 diagnostyka: ping/traceroute, nslookup/dig, netstat/ss i analiza pakietów
+- [ ] skj-16 [D] debug: zawieszony socket, partial read, brak flush, zły framing i timeout
+- [ ] skj-17 [O] optymalizacja: wątek per klient vs pula/NIO, bufory i backpressure
+- [ ] module-skj-01 (wieloklientowy serwer czatu z własnym protokołem i graceful shutdown)
+- [ ] module-skj-02 (klient HTTP pobierający równolegle dane z retry, limitem i cache)
+
+### TPO — technologie programowania rozproszonego (rozszerzenie, ~7 pozycji)
+
+To osobna grupa zaawansowana, ponieważ TPO jest w programie PJATK przedmiotem
+obieralnym, a nie częścią podstawowej nauki języka.
+
+- [ ] tpo-01 skalowalne serwery Java: NIO channels, selectors i pule zasobów
+- [ ] tpo-02 zdalne wywołania metod na przykładzie Java RMI
+- [ ] tpo-03 komunikacja przez wiadomości: broker, kolejki, publish/subscribe i delivery
+- [ ] tpo-04 aplikacje webowe Java: Servlet API, cykl żądania i sesja
+- [ ] tpo-05 Jakarta Messaging i niezawodne przetwarzanie komunikatów
+- [ ] tpo-06 EJB/Jakarta Enterprise: komponenty, transakcje i kontekst historyczny technologii
+- [ ] module-tpo (rozproszony system: API + worker kolejki + idempotencja + obserwowalność)
+
 ## mysql (~20 pozycji ≈ 60 zadań) — MySQL 8.4 LTS
 
 - [ ] 01 SELECT, WHERE, ORDER BY, LIMIT i poprawna obsługa NULL
@@ -365,6 +491,6 @@ Zostało: pozycje audytowe b/c, 13–20, module-02)
 - [ ] full-02: capstone maintenance — wejście w obcy kod, bug report, fix, test,
       optymalizacja i plan bezpiecznego wdrożenia
 
-**Suma (minimum, nie limit): ~170 zagadnień ≈ 520–580 zadań + moduły przekrojowe.**
+**Suma (minimum, nie limit): ~258 zagadnień ≈ 780–840 zadań + moduły przekrojowe.**
 Sesje treści i audyty (tasks/prompts.md) mają obowiązek dopisywać pozycje, gdy źródła
 pokazują więcej wariantów.

@@ -379,169 +379,158 @@ export default function TaskView({
           <strong>Praktyka · {level}</strong>
         </div>
 
-        <article className="task-brief">
-          <Markdown content={taskMd} />
-        </article>
+        <div className="task-layout">
+          <article className="task-brief" id="task-brief">
+            <Markdown content={taskMd} />
+          </article>
 
-        {resources.length > 0 && (
-          <aside className="resources" aria-label="Referencje">
-            <div className="resources-label">
-              <span className="resources-glyph" aria-hidden="true">↗</span>
-              <span>Referencje</span>
-            </div>
-            <div className="resource-links">
-              {resources.map((resource) => (
-                <a key={resource.url} href={resource.url} target="_blank" rel="noreferrer">
-                  <span>
-                    <strong>{resource.title}</strong>
-                    <small>{resource.description}</small>
-                  </span>
-                  <IconExternal />
-                </a>
-              ))}
-            </div>
-          </aside>
-        )}
+          <div className="task-flow">
+            <section className="task-workbench" id="task-starter" aria-labelledby="workbench-title">
+              <div className="task-workbench-head">
+                <div>
+                  <h2 id="workbench-title">Pracuj w WebStormie</h2>
+                  <p>Zapisz rozwiązanie w pliku startera, a potem wróć tutaj i uruchom sprawdzanie.</p>
+                </div>
+              </div>
 
-        <ProgressPanel
-          progress={progress}
-          resetting={resetting}
-          onReset={handleResetProgress}
-        />
-
-        <section className="task-workbench" id="task-starter" aria-labelledby="workbench-title">
-          <div className="task-workbench-head">
-            <div>
-              <h2 id="workbench-title">Pracuj w WebStormie</h2>
-              <p>Zapisz rozwiązanie w pliku startera, a potem wróć tutaj i uruchom sprawdzanie.</p>
-            </div>
-          </div>
-
-          <div className="starter-block">
-            <div className="lbl">{currentStarterPath?.endsWith("/src") ? "Katalog startera" : "Plik startera"}</div>
-            {currentStarterPath ? (
-              <>
-                <div className="starter">
-                  <code>{currentStarterRel ?? currentStarterPath}</code>
-                  {currentStarterRel && (
-                    <button
-                      className="btn-ghost"
-                      onClick={handleOpenEditor}
-                      disabled={openingEditor}
-                      title="Otwórz plik w WebStorm"
-                    >
-                      <IconExternal />
-                      {openingEditor ? "Otwieram…" : "Otwórz"}
-                    </button>
-                  )}
-                  <button className="btn-ghost" onClick={handleCopyPath}>
-                    {copied ? <IconCheck /> : <IconCopy />}
-                    {copied ? "Skopiowano" : "Kopiuj pełną ścieżkę"}
+              <div className="starter-block">
+                <div className="lbl">{currentStarterPath?.endsWith("/src") ? "Katalog startera" : "Plik startera"}</div>
+                {currentStarterPath ? (
+                  <>
+                    <div className="starter">
+                      <code>{currentStarterRel ?? currentStarterPath}</code>
+                      {currentStarterRel && (
+                        <button
+                          className="btn-ghost"
+                          onClick={handleOpenEditor}
+                          disabled={openingEditor}
+                          title="Otwórz plik w WebStorm"
+                        >
+                          <IconExternal />
+                          {openingEditor ? "Otwieram…" : "Otwórz"}
+                        </button>
+                      )}
+                      <button className="btn-ghost" onClick={handleCopyPath}>
+                        {copied ? <IconCheck /> : <IconCopy />}
+                        {copied ? "Skopiowano" : "Kopiuj pełną ścieżkę"}
+                      </button>
+                    </div>
+                    {editorError && <p className="inline-error" role="alert">{editorError}</p>}
+                  </>
+                ) : (
+                  <p className="inline-error" role="alert">Brak pliku startera.</p>
+                )}
+                <div className="starter-reset">
+                  <button className="btn-ghost" onClick={handleResetCode} disabled={resettingCode}>
+                    {resettingCode ? "Przywracam…" : "Przywróć kod początkowy"}
                   </button>
                 </div>
-                {editorError && <p className="inline-error" role="alert">{editorError}</p>}
-              </>
-            ) : (
-              <p className="inline-error" role="alert">Brak pliku startera.</p>
+              </div>
+
+              <div className="actions">
+                <button className="submit" onClick={handleSubmit} disabled={submitting}>
+                  <IconPlay />
+                  {submitting ? "Sprawdzam…" : "Sprawdź rozwiązanie"}
+                </button>
+              </div>
+              {submitting && <p className="submit-status" role="status">Uruchamiam testy i lint…</p>}
+            </section>
+
+            {submitError && (
+              <div className="request-error" role="alert">
+                <strong>Nie udało się wykonać operacji</strong>
+                <span>{submitError}</span>
+              </div>
             )}
-            <div className="starter-reset">
-              <button className="btn-ghost" onClick={handleResetCode} disabled={resettingCode}>
-                {resettingCode ? "Przywracam…" : "Przywróć kod początkowy"}
-              </button>
-            </div>
+
+            {result && (
+              <ResultPanel
+                result={result}
+                nextTaskHref={nextTaskHref}
+                hasSolution={solution !== null}
+                canOpenEditor={currentStarterRel !== null}
+                openingEditor={openingEditor}
+                onOpenEditor={handleOpenEditor}
+                onRetry={handleSubmit}
+              />
+            )}
+
+            {hints.length > 0 && (
+              <section className="hints" id="hints">
+                <div className="hints-head">
+                  <div>
+                    <h2>Wskazówki</h2>
+                    <p>Odkrywaj je pojedynczo, kiedy utkniesz.</p>
+                  </div>
+                  <span className="num">{hints.length}/{hintsTotal}</span>
+                </div>
+                {hints.map((hint, i) => (
+                  <div key={i} className="hint">
+                    <div className="hn">Wskazówka {i + 1}</div>
+                    <Markdown content={hint} />
+                  </div>
+                ))}
+              </section>
+            )}
+
+            {hintError && <p className="inline-error" role="alert">{hintError}</p>}
+
+            {solution && (
+              <section className="solution" id="solution">
+                <div className="solution-head">
+                  <div>
+                    <h2>Rozwiązanie wzorcowe</h2>
+                    <p>Porównaj strukturę i decyzje, nie tylko końcowy wynik.</p>
+                  </div>
+                  {passKind === "with-hint" && (
+                    <span className="pass-kind">zaliczone ze wskazówką</span>
+                  )}
+                </div>
+                {starter ? (
+                  <SolutionComparison starter={starter} solution={solution} />
+                ) : (
+                  <pre>
+                    <code>{solution}</code>
+                  </pre>
+                )}
+              </section>
+            )}
+
+            {(nextHintIndex < hintsTotal || passKind === "with-hint") && (
+              <div className="completion-actions">
+                <div>
+                  {nextHintIndex < hintsTotal && (
+                    <button
+                      className="btn-ghost"
+                      onClick={() => handleRevealHint(nextHintIndex + 1)}
+                      disabled={loadingHint}
+                    >
+                      {loadingHint ? "Odkrywam…" : `Odkryj wskazówkę ${nextHintIndex + 1}`}
+                    </button>
+                  )}
+                </div>
+                <div className="completion-actions-right">
+                  {passKind === "with-hint" && (
+                    <button className="btn-ghost" onClick={handleRetryWithoutHint}>
+                      Spróbuj bez hinta
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
 
-          <div className="actions">
-            <button className="submit" onClick={handleSubmit} disabled={submitting}>
-              <IconPlay />
-              {submitting ? "Sprawdzam…" : "Sprawdź rozwiązanie"}
-            </button>
-          </div>
-          {submitting && <p className="submit-status" role="status">Uruchamiam testy i lint…</p>}
-        </section>
-
-        {submitError && (
-          <div className="request-error" role="alert">
-            <strong>Nie udało się wykonać operacji</strong>
-            <span>{submitError}</span>
-          </div>
-        )}
-
-        {result && (
-          <ResultPanel
-            result={result}
-            nextTaskHref={nextTaskHref}
-            hasSolution={solution !== null}
-            canOpenEditor={currentStarterRel !== null}
-            openingEditor={openingEditor}
-            onOpenEditor={handleOpenEditor}
-            onRetry={handleSubmit}
+          <TaskContextPanel
+            level={level}
+            progress={progress}
+            resetting={resetting}
+            resources={resources}
+            hintsShown={hints.length}
+            hintsTotal={hintsTotal}
+            solutionAvailable={solution !== null}
+            onReset={handleResetProgress}
           />
-        )}
-
-        {hints.length > 0 && (
-          <section className="hints" id="hints">
-            <div className="hints-head">
-              <div>
-                <h2>Wskazówki</h2>
-                <p>Odkrywaj je pojedynczo, kiedy utkniesz.</p>
-              </div>
-              <span className="num">{hints.length}/{hintsTotal}</span>
-            </div>
-            {hints.map((hint, i) => (
-              <div key={i} className="hint">
-                <div className="hn">Wskazówka {i + 1}</div>
-                <Markdown content={hint} />
-              </div>
-            ))}
-          </section>
-        )}
-
-        {hintError && <p className="inline-error" role="alert">{hintError}</p>}
-
-        {solution && (
-          <section className="solution" id="solution">
-            <div className="solution-head">
-              <div>
-                <h2>Rozwiązanie wzorcowe</h2>
-                <p>Porównaj strukturę i decyzje, nie tylko końcowy wynik.</p>
-              </div>
-              {passKind === "with-hint" && (
-                <span className="pass-kind">zaliczone ze wskazówką</span>
-              )}
-            </div>
-            {starter ? (
-              <SolutionComparison starter={starter} solution={solution} />
-            ) : (
-              <pre>
-                <code>{solution}</code>
-              </pre>
-            )}
-          </section>
-        )}
-
-        {(nextHintIndex < hintsTotal || passKind === "with-hint") && (
-          <div className="completion-actions">
-            <div>
-              {nextHintIndex < hintsTotal && (
-                <button
-                  className="btn-ghost"
-                  onClick={() => handleRevealHint(nextHintIndex + 1)}
-                  disabled={loadingHint}
-                >
-                  {loadingHint ? "Odkrywam…" : `Odkryj wskazówkę ${nextHintIndex + 1}`}
-                </button>
-              )}
-            </div>
-            <div className="completion-actions-right">
-              {passKind === "with-hint" && (
-                <button className="btn-ghost" onClick={handleRetryWithoutHint}>
-                  Spróbuj bez hinta
-                </button>
-              )}
-            </div>
-          </div>
-        )}
+        </div>
       </div>
 
       {undoRecords.length > 0 && (
@@ -572,51 +561,119 @@ function formatProgressDate(
     : new Intl.DateTimeFormat("pl-PL", { ...options, timeZone: "Europe/Warsaw" }).format(date);
 }
 
-function ProgressPanel({
+function TaskContextPanel({
+  level,
   progress,
   resetting,
+  resources,
+  hintsShown,
+  hintsTotal,
+  solutionAvailable,
   onReset,
 }: {
+  level: string;
   progress: TaskProgress | null;
   resetting: boolean;
+  resources: LearningResource[];
+  hintsShown: number;
+  hintsTotal: number;
+  solutionAvailable: boolean;
   onReset: () => void;
 }) {
   const score = Math.max(0, Math.min(4, Math.round(progress?.masteryScore ?? 0)));
 
   return (
-    <section className="learning-progress" aria-labelledby="learning-progress-title">
-      <div className="mastery-summary">
-        <div>
-          <span className="lbl" id="learning-progress-title">Poziom opanowania</span>
+    <aside className="task-context" aria-label="Status i materiały zadania">
+      <div className="task-context-head">
+        <h2>Panel zadania</h2>
+        <span>{level}</span>
+      </div>
+
+      <section className="task-context-section" aria-labelledby="learning-progress-title">
+        <span className="task-context-label" id="learning-progress-title">Poziom opanowania</span>
+        <div className="mastery-heading">
           <strong>{MASTERY_LABELS[score] ?? MASTERY_LABELS[0]}</strong>
+          <span className="num">{score}/4</span>
         </div>
-        <div className="mastery-scale" aria-label={`Poziom opanowania ${score} z 4`}>
+        <div
+          className="mastery-scale"
+          role="progressbar"
+          aria-label="Poziom opanowania"
+          aria-valuemin={0}
+          aria-valuemax={4}
+          aria-valuenow={score}
+        >
           {[1, 2, 3, 4].map((step) => (
             <i key={step} className={step <= score ? "on" : ""} aria-hidden="true" />
           ))}
         </div>
-        <div className="mastery-meta">
-          {progress?.nextReviewAt && (
-            <span>
-              Powtórka: {formatProgressDate(progress.nextReviewAt, {
-                day: "numeric",
-                month: "short",
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </span>
-          )}
-        </div>
-      </div>
+        {progress?.nextReviewAt && (
+          <p className="task-context-note">
+            Powtórka {formatProgressDate(progress.nextReviewAt, {
+              day: "numeric",
+              month: "short",
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </p>
+        )}
 
-      {progress && (
-        <div className="progress-reset">
-          <button className="btn-ghost" onClick={onReset} disabled={resetting}>
+        {progress && (
+          <button className="task-context-action" onClick={onReset} disabled={resetting}>
             {resetting ? "Resetuję…" : "Resetuj postęp"}
           </button>
-        </div>
+        )}
+      </section>
+
+      <nav className="task-context-section task-context-nav" aria-label="Sekcje zadania">
+        <span className="task-context-label">Na tej stronie</span>
+        <a href="#task-brief">
+          <span>Polecenie</span>
+          <span aria-hidden="true">↓</span>
+        </a>
+        <a href="#task-starter">
+          <span>Edytor i testy</span>
+          <span aria-hidden="true">↓</span>
+        </a>
+        {hintsShown > 0 ? (
+          <a href="#hints">
+            <span>Wskazówki</span>
+            <span className="num">{hintsShown}/{hintsTotal}</span>
+          </a>
+        ) : hintsTotal > 0 ? (
+          <span className="task-context-locked">
+            <span>Wskazówki</span>
+            <span className="num">0/{hintsTotal}</span>
+          </span>
+        ) : null}
+        {solutionAvailable ? (
+          <a href="#solution">
+            <span>Rozwiązanie wzorcowe</span>
+            <span className="task-context-ready">dostępne</span>
+          </a>
+        ) : (
+          <span className="task-context-locked">
+            <span>Rozwiązanie wzorcowe</span>
+            <span>po zaliczeniu</span>
+          </span>
+        )}
+      </nav>
+
+      {resources.length > 0 && (
+        <section className="task-context-section task-context-resources" aria-labelledby="task-resources-title">
+          <span className="task-context-label" id="task-resources-title">Referencje</span>
+          {resources.map((resource) => (
+            <a key={resource.url} href={resource.url} target="_blank" rel="noreferrer">
+              <span>
+                <strong>{resource.title}</strong>
+                <small>{resource.description}</small>
+              </span>
+              <IconExternal />
+            </a>
+          ))}
+        </section>
       )}
-    </section>
+    </aside>
   );
 }
 
