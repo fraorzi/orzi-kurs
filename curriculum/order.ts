@@ -182,12 +182,40 @@ const NODE_TOPIC_ORDER = [
   "module-02",
 ] as const;
 
+const MYSQL_TOPIC_ORDER = [
+  "01-query-basics-null",
+  "02-types-time-text-json",
+  "03-joins",
+  "04-aggregates-sql-modes",
+  "05-subqueries-ctes-sets",
+  "06-window-functions",
+  "07-data-modification",
+  "08-constraints-relations",
+  "09-transactions-savepoints",
+  "10-isolation-locking-deadlocks",
+  "11-indexes",
+  "12-explain-statistics",
+  "13-pagination",
+  "14-schema-design",
+  "15-migrations-backups",
+  "16-views-generated-routines",
+  "17-users-roles-security",
+  "18-observability-performance-schema",
+  "19-database-testing",
+  "20-mysql2-typescript",
+  "21-debugging-sql",
+  "21b-optimize-query-plans",
+  "module-01",
+  "module-02",
+] as const;
+
 export const TOPIC_ORDER: Readonly<Record<string, readonly string[]>> = {
   js: JS_TOPIC_ORDER,
   ts: TS_TOPIC_ORDER,
   react: REACT_TOPIC_ORDER,
   next: NEXT_TOPIC_ORDER,
   node: NODE_TOPIC_ORDER,
+  mysql: MYSQL_TOPIC_ORDER,
 };
 
 export function compareTopicSlugs(track: string, left: string, right: string): number {

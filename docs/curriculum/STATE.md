@@ -336,12 +336,25 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   walidacją, idempotencją, request ID, bezpiecznymi błędami i testem integracyjnym.
 - Końcowy stan tracka Node: 20 tematów, dwa moduły i 62 zadania. Pełna macierz
   rozwiązań i pierwotnych starterów przechodzi 62/62.
+- Użytkownik jawnie wznowił pracę po checkpointcie Node; utworzono
+  `feature/curriculum-mysql` z właściwej bazy `feature/curriculum-node`.
+- Audyt MySQL rozszerzył plan do 22 tematów i dwóch modułów: dodano security/roles,
+  Performance Schema, testy bazy, histogramy/invisible indexes oraz osobną warstwę
+  danych mysql2, których brakowało w pierwszym planie.
+- Harness rozpoznaje `starter.sql`/`_solution.sql`, nie wysyła SQL do ESLinta ani
+  TypeScriptu i obsługuje reset/undo artefaktu SQL.
+- Przypięto `mysql2@3.23.0`; helper tworzy osobną bazę utf8mb4 dla każdego testu,
+  a następnie bezwarunkowo ją usuwa.
+- Zainstalowano keg-only MySQL 8.4.10 i uruchomiono izolowaną instancję testową na
+  localhost:33316. Smoke SQL przechodzi 1/1 dla rozwiązania i 1/1 dla startera.
+- Kontrakt treści MySQL wymaga zastosowań, pułapek, źródeł 8.4, progresywnych
+  hintów, startera, rozwiązania i lokalnego testu.
 
 ## Następne kroki
 
-1. Zatrzymać pracę po ukończeniu Node zgodnie z prośbą użytkownika.
-2. Przekazać branche JavaScript, TypeScript, React, Next i Node do review/PR.
-3. Nie rozpoczynać MySQL przed kolejną decyzją użytkownika.
+1. Ukończyć pełny track MySQL na osobnym branchu i prawdziwym MySQL 8.4.
+2. Po MySQL przejść do Strapi 5 zgodnie z roadmapą.
+3. Zachować niezależne zmiany UI użytkownika poza commitami curriculum.
 
 ## Otwarte ryzyka
 
@@ -352,6 +365,6 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   do czasu wsparcia narzędzi repo musi utrzymywać TS 6 dla lintu i TS 7 dla
   dodatkowej bramki CLI.
 - Lokalny JDK 11 nie wystarczy do przyszłej ścieżki JDK 25.
-- Adaptery MySQL i Strapi wymagają zmian harnessu oraz nowych zależności.
+- Adapter Strapi nadal wymaga zmian harnessu oraz nowych zależności.
 - Pełna liczba przyszłych zadań jest duża; praca musi pozostać iteracyjna i
   checkpointowana w Git.

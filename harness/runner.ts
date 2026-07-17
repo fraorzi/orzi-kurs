@@ -2,7 +2,7 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { readFileSync, existsSync, mkdtempSync, rmSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join, relative, sep } from "node:path";
+import { extname, join, relative, sep } from "node:path";
 import { ESLint } from "eslint";
 import type { SubmitResult, TestResult, LintIssue } from "./types";
 import { REPO_ROOT } from "./progress";
@@ -124,6 +124,9 @@ async function runLint(
   const errors: LintIssue[] = [];
   const warnings: LintIssue[] = [];
   if (!starter) return { errors, warnings };
+  if (!statSync(starter).isDirectory() && extname(starter) === ".sql") {
+    return { errors, warnings };
+  }
 
   // Multi-file tasks lint every source file under src/; single-file tasks
   // lint just starter.{js,jsx,ts,tsx}.

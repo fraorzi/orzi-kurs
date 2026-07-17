@@ -56,7 +56,7 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 | React | React 19.2 i stabilny React Compiler 1.x; wyłącznie TypeScript/TSX po ukończeniu tracka TS |
 | Node.js | Node 24.18 LTS; `@types/node` 24.13.3; Node 22 jako dodatkowe środowisko zgodności |
 | Next.js | dokładna wersja repo z `node_modules/next/dist/docs/`, obecnie 16.2.10; wyłącznie TypeScript/TSX |
-| MySQL | MySQL 8.4 LTS; kompatybilność podstaw sprawdzana również lokalnie na 9.6 |
+| MySQL | MySQL 8.4.10 LTS; realne wykonanie zadań na izolowanym schemacie przez mysql2 3.23.0 |
 | Strapi | Strapi 5 |
 | Java | JDK 25 LTS; osobne notatki zgodności z wymaganiami PJATK |
 
@@ -139,9 +139,11 @@ nie z niepowiązanego brancha tracka.
 
 ### MySQL
 
-- Uczyć na 8.4 LTS, a nie na szybko zmieniającej się linii Innovation.
-- Dodać typy danych/DECIMAL, izolację, blokady, deadlocki, `EXPLAIN ANALYZE`,
-  indeksy złożone, keyset pagination, migracje i backup/restore podstaw.
+- Uczyć i wykonywać zadania na 8.4 LTS, a nie na szybko zmieniającej się linii
+  Innovation; tekstowe porównywanie SQL nie jest wystarczającą bramką.
+- Zakres obejmuje typy danych/DECIMAL, izolację, blokady, deadlocki,
+  `EXPLAIN ANALYZE`, histogramy, invisible indexes, keyset pagination, online DDL,
+  backup/restore, least privilege, Performance Schema i typowaną warstwę mysql2.
 
 ### Strapi
 
