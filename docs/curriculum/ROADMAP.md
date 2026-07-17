@@ -43,6 +43,9 @@ Stan po ukończeniu pierwszych sześciu etapów:
   i 62/62 starterów.
 - Node: 20 tematów, dwa moduły i 62 zadania TypeScript; pełny rdzeń runtime,
   production concerns oraz jawnie oddzielone elective'y SQLite i WebSocket.
+- MySQL: 22 tematy, dwa moduły i 68 zadań na MySQL 8.4.10/mysql2 3.23.0;
+  obejmuje SQL, modelowanie, współbieżność, plany, operacje, bezpieczeństwo,
+  obserwowalność, testy, TypeScript i dwa produkcyjne capstone'y.
 
 Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetować
 `progress.json` ani starterów.
@@ -88,6 +91,12 @@ Etap Node.js jest ukończony: 20 tematów i dwa moduły prowadzą od kontraktu r
 modułów i konfiguracji przez pliki, bufory, event loop, AsyncLocalStorage, HTTP,
 streamy, procesy/workery i testy do kryptografii, graceful shutdown,
 obserwowalności, Permission Model, CLI oraz mierzonego debugowania i optymalizacji.
+
+Etap MySQL jest ukończony: każde zadanie ma starter, rozwiązanie, progresywne
+hinty i test uruchamiany na izolowanym schemacie MySQL 8.4. Track prowadzi od
+zapytań i constraints przez transakcje, deadlocki, indeksy, EXPLAIN ANALYZE,
+migracje i least privilege do typowanej warstwy mysql2 oraz dwóch modułów
+przekrojowych.
 SQLite i WebSocket pozostają elective, zgodnie ze statusem API i rolą w typowych
 projektach. Oba moduły końcowe wymuszają limity zasobów, anulowanie, idempotencję,
 bezpieczne błędy oraz testy integracyjne.

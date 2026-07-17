@@ -338,16 +338,16 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] 13 offset vs keyset, stabilny porządek i indeks wspierający paginację
 - [x] 14 normalizacja, denormalizacja, klucze i audyt decyzji schematu
 - [x] 15 expand/contract, online DDL, migracje, backup i restore drill
-- [ ] 16 elective: views, generated columns, procedures i triggery z kosztem ukrytej logiki
-- [ ] 17 users, roles, GRANT, least privilege, rotacja i ochrona danych
-- [ ] 18 Performance Schema, slow query log, sys schema i diagnoza blokad
-- [ ] 19 testy bazy: izolowane schematy, fixture, rollback i test kontraktu migracji
-- [ ] 20 mysql2 + TypeScript: execute, pooling, transakcje, retry i SQL injection
-- [ ] 21 [D] debug: zły JOIN/NULL, lost update, deadlock i błędna migracja
-- [ ] 21b [O] poprawny wynik, lecz zły plan — query rewrite, indeks lub statystyki
-- [ ] module-01 (schemat i raporty marketplace: constraints, migracja, transakcja,
+- [x] 16 elective: views, generated columns, procedures i triggery z kosztem ukrytej logiki
+- [x] 17 users, roles, GRANT, least privilege, rotacja i ochrona danych
+- [x] 18 Performance Schema, slow query log, sys schema i diagnoza blokad
+- [x] 19 testy bazy: izolowane schematy, fixture, rollback i test kontraktu migracji
+- [x] 20 mysql2 + TypeScript: execute, pooling, transakcje, retry i SQL injection
+- [x] 21 [D] debug: zły JOIN/NULL, lost update, deadlock i błędna migracja
+- [x] 21b [O] poprawny wynik, lecz zły plan — query rewrite, indeks lub statystyki
+- [x] module-01 (schemat i raporty marketplace: constraints, migracja, transakcja,
       keyset i EXPLAIN ANALYZE)
-- [ ] module-02 (typowana warstwa danych Node: pool, prepared statements,
+- [x] module-02 (typowana warstwa danych Node: pool, prepared statements,
       transakcja z retry, obserwowalność i test integracyjny)
 
 ## strapi (~15 pozycji ≈ 45 zadań) — Strapi 5

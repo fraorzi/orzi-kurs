@@ -1,0 +1,1 @@
+SELECT id FROM logs WHERE id > 500 ORDER BY id LIMIT 10;

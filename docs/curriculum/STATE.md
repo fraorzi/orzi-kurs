@@ -358,12 +358,20 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   histogramy, invisible indexes, keyset pagination, modelowanie oraz migracje z
   restore drillem. Testy otwierają równoległe sesje dla wyścigu rezerwacji,
   snapshotu i rzeczywistego deadlocku; komplet rozwiązań przechodzi 45/45.
+- Ostatnia partia obejmuje views/generated columns/triggery, users/roles i least
+  privilege, Performance Schema i lock waits, testy bazy, typowaną integrację
+  mysql2, debug incydentów oraz trzy zadania z odrębną bramką `[quality]` planu.
+- `module-01` łączy schemat marketplace, online migration ledger, constraints,
+  konkurencyjny zakup ostatniej sztuki, keyset i EXPLAIN ANALYZE. `module-02`
+  implementuje typowane repozytorium Node z prepared statements, transakcją,
+  ograniczonym retry, lifecycle puli i bezpiecznymi metrykami.
+- Końcowy stan tracka MySQL: 22 tematy, dwa moduły i 68 zadań wykonywanych na
+  MySQL 8.4.10. Pełna macierz rozwiązań i starterów jest weryfikowana przez CLI.
 
 ## Następne kroki
 
-1. Ukończyć pełny track MySQL na osobnym branchu i prawdziwym MySQL 8.4.
-2. Po MySQL przejść do Strapi 5 zgodnie z roadmapą.
-3. Zachować niezależne zmiany UI użytkownika poza commitami curriculum.
+1. Po MySQL przejść do Strapi 5 zgodnie z roadmapą.
+2. Zachować niezależne zmiany UI użytkownika poza commitami curriculum.
 
 ## Otwarte ryzyka
 

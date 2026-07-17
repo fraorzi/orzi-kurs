@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import mysql, {
   type Connection,
   type ConnectionOptions,
+  type Pool,
   type RowDataPacket,
 } from "mysql2/promise";
 import type { QueryValues } from "mysql2";
@@ -45,6 +46,7 @@ export function readTaskSql(
 export interface MySqlTestContext {
   database: string;
   connect(): Promise<Connection>;
+  createPool(): Pool;
 }
 
 export async function withMySql<T>(
@@ -65,6 +67,7 @@ export async function withMySql<T>(
       return await run(connection, {
         database,
         connect: () => mysql.createConnection(connectionOptions(database)),
+        createPool: () => mysql.createPool(connectionOptions(database)),
       });
     } finally {
       await connection.end();
