@@ -1,0 +1,1 @@
+class Solution{static long usableHosts(int prefix){if(prefix<0||prefix>32)throw new IllegalArgumentException("prefix");if(prefix>=31)return prefix==31?2:1;return (1L<<(32-prefix))-2;}static double transmissionMs(long bytes,long bitsPerSecond){if(bytes<0||bitsPerSecond<=0)throw new IllegalArgumentException();return bytes*8_000.0/bitsPerSecond;}}

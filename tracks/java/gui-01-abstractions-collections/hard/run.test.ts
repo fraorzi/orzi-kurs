@@ -1,0 +1,3 @@
+import { describe, expect, it } from "vitest"; import { runJavaTask } from "@harness/java-test";
+const TEST_MAIN="import java.util.*; public class TestMain { record Row(String id) implements Solution.Identified{} public static void main(String[] args){ var map=Solution.index(List.of(new Row(\"a\"),new Row(\"b\"))); if(!map.keySet().equals(new LinkedHashSet<>(List.of(\"a\",\"b\")))) throw new AssertionError(); try{Solution.index(List.of(new Row(\"a\"),new Row(\"a\")));throw new AssertionError();}catch(IllegalArgumentException expected){} System.out.print(\"OK\");}}";
+describe("Abstrakcje, generyki i kolekcje modelu",()=>{it("spełnia kontrakt GUI bez uruchamiania okna",async()=>{await expect(runJavaTask(import.meta.dirname,TEST_MAIN)).resolves.toBe("OK");});});

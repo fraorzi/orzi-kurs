@@ -1,0 +1,1 @@
+import java.beans.*; import java.util.*; class Solution { static class Model { private int quantity; int total(int price){return 0;} void setQuantity(int value){quantity=value;} } static List<String> rows(Map<String,Integer> data){return List.of();} }

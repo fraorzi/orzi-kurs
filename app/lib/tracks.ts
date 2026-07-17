@@ -409,6 +409,59 @@ const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
       slugs: ["module-01", "module-02"],
     },
   ],
+  java: [
+    {
+      id: "ppj",
+      title: "PPJ — podstawy programowania",
+      description: "JVM, typy, sterowanie, tablice, tekst, algorytmy, OOP, wyjątki i pliki.",
+      slugs: [
+        "ppj-01-runtime-numbers", "ppj-02-control-io", "ppj-03-arrays-matrices",
+        "ppj-04-text-unicode", "ppj-05-methods-recursion", "ppj-06-sorting-searching",
+        "ppj-07-oop-exceptions", "ppj-08-files-debug-performance", "module-ppj",
+      ],
+    },
+    {
+      id: "gui",
+      title: "GUI — programowanie obiektowe i desktop",
+      description: "Swing, EDT, JavaFX/FXML/CSS, binding, TableView, MVC i projekty desktopowe.",
+      slugs: [
+        "gui-01-abstractions-collections", "gui-02-swing-event-rendering",
+        "gui-03-edt-workers", "gui-04-javafx-fxml-css", "gui-05-binding-table-mvc",
+        "module-gui-swing", "module-gui-javafx",
+      ],
+    },
+    {
+      id: "utp",
+      title: "UTP — uniwersalne techniki programowania",
+      description: "Generyki, streamy, NIO, refleksja, współbieżność, i18n, XML i JDBC.",
+      slugs: [
+        "utp-01-generics-pecs", "utp-02-functional-streams",
+        "utp-03-collectors-collections", "utp-04-io-nio-serialization",
+        "utp-05-reflection-beans", "utp-06-concurrency-memory",
+        "utp-07-executors-futures", "utp-08-i18n-xml-jdbc-patterns",
+        "utp-09-jdk25-modern", "module-utp-import", "module-utp-processor",
+      ],
+    },
+    {
+      id: "skj",
+      title: "SKJ — sieci i Java networking",
+      description: "Protokoły, TCP/UDP, framing, HttpClient, TLS, NIO, backpressure i serwery.",
+      slugs: [
+        "skj-01-network-foundations", "skj-02-application-protocols",
+        "skj-03-tcp-servers", "skj-04-udp-framing", "skj-05-http-tls",
+        "skj-06-diagnostics-nio", "module-skj-chat", "module-skj-http-client",
+      ],
+    },
+    {
+      id: "tpo",
+      title: "TPO — rozszerzenie rozproszone",
+      description: "NIO/RMI, messaging, Servlet/JMS/EJB w kontekście i idempotentny worker.",
+      slugs: [
+        "tpo-01-scalable-nio-rmi", "tpo-02-messaging-web",
+        "tpo-03-jakarta-context", "module-tpo",
+      ],
+    },
+  ],
 };
 
 export function trackProgress(track: CatalogTrack): TrackProgress {

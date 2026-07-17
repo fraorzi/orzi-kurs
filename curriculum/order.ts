@@ -244,6 +244,25 @@ const COMBINED_TOPIC_ORDER = [
   "full-02",
 ] as const;
 
+const JAVA_TOPIC_ORDER = [
+  "ppj-01-runtime-numbers", "ppj-02-control-io", "ppj-03-arrays-matrices",
+  "ppj-04-text-unicode", "ppj-05-methods-recursion", "ppj-06-sorting-searching",
+  "ppj-07-oop-exceptions", "ppj-08-files-debug-performance", "module-ppj",
+  "gui-01-abstractions-collections", "gui-02-swing-event-rendering",
+  "gui-03-edt-workers", "gui-04-javafx-fxml-css", "gui-05-binding-table-mvc",
+  "module-gui-swing", "module-gui-javafx",
+  "utp-01-generics-pecs", "utp-02-functional-streams", "utp-03-collectors-collections",
+  "utp-04-io-nio-serialization", "utp-05-reflection-beans",
+  "utp-06-concurrency-memory", "utp-07-executors-futures",
+  "utp-08-i18n-xml-jdbc-patterns", "utp-09-jdk25-modern",
+  "module-utp-import", "module-utp-processor",
+  "skj-01-network-foundations", "skj-02-application-protocols", "skj-03-tcp-servers",
+  "skj-04-udp-framing", "skj-05-http-tls", "skj-06-diagnostics-nio",
+  "module-skj-chat", "module-skj-http-client",
+  "tpo-01-scalable-nio-rmi", "tpo-02-messaging-web", "tpo-03-jakarta-context",
+  "module-tpo",
+] as const;
+
 export const TOPIC_ORDER: Readonly<Record<string, readonly string[]>> = {
   js: JS_TOPIC_ORDER,
   ts: TS_TOPIC_ORDER,
@@ -253,6 +272,7 @@ export const TOPIC_ORDER: Readonly<Record<string, readonly string[]>> = {
   mysql: MYSQL_TOPIC_ORDER,
   strapi: STRAPI_TOPIC_ORDER,
   combined: COMBINED_TOPIC_ORDER,
+  java: JAVA_TOPIC_ORDER,
 };
 
 export function compareTopicSlugs(track: string, left: string, right: string): number {

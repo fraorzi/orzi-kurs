@@ -1,0 +1,3 @@
+# Pliki, debugowanie i wydajność
+
+Uzupełnij klasę pakietową `Solution`. Zachowaj publiczny kontrakt metod, obsłuż przypadki brzegowe i nie używaj zewnętrznych bibliotek.

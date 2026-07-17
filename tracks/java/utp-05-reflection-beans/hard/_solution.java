@@ -1,0 +1,1 @@
+import java.lang.annotation.*;import java.lang.reflect.*;import java.util.*;class Solution{@Retention(RetentionPolicy.RUNTIME)@Target(ElementType.METHOD)@interface Task{}static List<String> tasks(Class<?>type){return Arrays.stream(type.getMethods()).filter(method->method.isAnnotationPresent(Task.class)&&method.getParameterCount()==0).map(Method::getName).sorted().toList();}}

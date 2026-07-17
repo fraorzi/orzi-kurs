@@ -19,7 +19,7 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 
 ## Bieżący branch
 
-`feature/curriculum-combined`
+`feature/curriculum-java`
 
 ## Najnowszy ukończony etap
 
@@ -33,6 +33,11 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 - Combined: 13 dużych projektów TypeScript/TSX, w tym dwa wieloplikowe capstone’y.
 - Combined przechodzi osobny strict TypeScript config oraz root lint; dynamiczna
   macierz Vitest pozostaje do ponowienia w audycie końcowym po odblokowaniu narzędzi.
+- Java: 39 dużych zadań/projektów, 39 starterów, 39 rozwiązań i 39 klas testowych;
+  jawne grupy PPJ, GUI, UTP, SKJ i TPO w nawigacji.
+- Java targetuje Java SE 25. Lokalny fallback JDK 24.0.1 potwierdził wspólny stabilny
+  core: 39/39 rozwiązań przechodzi kompilację i runtime, a 39/39 starterów ma
+  poprawną bramkę. Test zgodności na fizycznym JDK 25 pozostaje w audycie globalnym.
 
 ## Ukończone w bieżącym etapie
 

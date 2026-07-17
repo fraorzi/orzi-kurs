@@ -1,0 +1,3 @@
+import { describe, expect, it } from "vitest"; import { runJavaTask } from "@harness/java-test";
+const TEST_MAIN="import java.util.*; public class TestMain { public static void main(String[] args){var editor=new Solution.Editor();editor.add(\" A \");editor.add(\"B\");if(!editor.values().equals(List.of(\"A\",\"B\")))throw new AssertionError();editor.undo();if(!editor.values().equals(List.of(\"A\")))throw new AssertionError();try{editor.values().add(\"x\");throw new AssertionError();}catch(UnsupportedOperationException expected){}System.out.print(\"OK\");}}";
+describe("Moduł Swing: edytor z undo i zapisem",()=>{it("spełnia kontrakt GUI bez uruchamiania okna",async()=>{await expect(runJavaTask(import.meta.dirname,TEST_MAIN)).resolves.toBe("OK");});});

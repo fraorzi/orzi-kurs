@@ -1,0 +1,3 @@
+import { describe, expect, it } from "vitest"; import { runJavaTask } from "@harness/java-test";
+const TEST_MAIN="public class TestMain { public static void main(String[] args){var vm=new Solution.ViewModel();vm.save(\"1\",\" Ada \");vm.save(\"2\",\"Lin\");if(!vm.selected(\"1\").orElseThrow().name().equals(\"Ada\"))throw new AssertionError();vm.save(\"1\",\"Grace\");if(vm.rows().size()!=2||!vm.selected(\"1\").orElseThrow().name().equals(\"Grace\"))throw new AssertionError();vm.delete(\"2\");if(vm.selected(\"2\").isPresent())throw new AssertionError();System.out.print(\"OK\");}}";
+describe("Moduł JavaFX: CRUD ViewModel",()=>{it("spełnia kontrakt GUI bez uruchamiania okna",async()=>{await expect(runJavaTask(import.meta.dirname,TEST_MAIN)).resolves.toBe("OK");});});

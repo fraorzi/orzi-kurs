@@ -77,7 +77,7 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 10. Java/PJATK jako osobna, niezależna ścieżka; może być realizowana wcześniej po
     zmianie priorytetu użytkownika.
 
-Etapy 1–8 są ukończone. React obejmuje infrastrukturę, fundamenty, escape hatches,
+Etapy 1–10 są ukończone. React obejmuje infrastrukturę, fundamenty, escape hatches,
 architekturę stanu, async UI React 19, Suspense, external stores, custom hooks,
 kompozycję, concurrent UI, Compiler, wydajność, testowanie, dostępność, duże listy,
 style dynamiczne i server state wraz z trzema modułami. Etap Next.js jest ukończony:
@@ -110,6 +110,13 @@ Etap combined jest ukończony jako 13 projektów TypeScript/TSX. Pierwsze siedem
 i observability, a dwa końcowe capstone’y sprawdzają pionowe dostarczenie oraz
 maintenance zastanego kodu. Artefakty obejmują idempotencję, kompensację po częściowej
 awarii, minimalizację DTO, a11y, batching, bezpieczne logi, rollout i rollback.
+
+Etap Java jest ukończony jako 39 większych zadań: 38 pokrywa 88 kompetencji
+z bloków PJATK PPJ → GUI → UTP → SKJ → elective TPO, a dodatkowe zadanie opisuje
+deltę JDK 25 i oddziela stabilny core od preview. Runner obsługuje źródła `.java`,
+kompilację rozwiązania wraz z `TestMain`, headless Swing oraz osobną bramkę
+kompilacyjną. JavaFX jest uczone jako architektura FXML/CSS/ViewModel i wymaga
+OpenJFX w pełnym projekcie, nie jest udawane przez klasę ze standardowego JDK.
 SQLite i WebSocket pozostają elective, zgodnie ze statusem API i rolą w typowych
 projektach. Oba moduły końcowe wymuszają limity zasobów, anulowanie, idempotencję,
 bezpieczne błędy oraz testy integracyjne.

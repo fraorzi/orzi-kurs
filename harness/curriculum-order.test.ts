@@ -200,4 +200,15 @@ describe("curriculum order", () => {
       .toBeLessThan(0);
   });
 
+  it("keeps the Java PJATK groups in prerequisite order", () => {
+    expect(compareTopicSlugs("java", "ppj-07-oop-exceptions", "gui-01-abstractions-collections"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("java", "module-gui-javafx", "utp-01-generics-pecs"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("java", "module-utp-processor", "skj-01-network-foundations"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("java", "module-skj-http-client", "tpo-01-scalable-nio-rmi"))
+      .toBeLessThan(0);
+  });
+
 });

@@ -1,0 +1,1 @@
+class Solution { static abstract class Shape { abstract double area(); } static class Circle extends Shape { double radius; Circle(double radius){this.radius=radius;} double area(){return 0;} } static double total(Shape... shapes){return 0;} }

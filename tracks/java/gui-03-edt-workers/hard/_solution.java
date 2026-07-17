@@ -1,0 +1,1 @@
+import javax.swing.*; class Solution { static void onEdt(Runnable task){ if(SwingUtilities.isEventDispatchThread()) task.run(); else { try { SwingUtilities.invokeAndWait(task); } catch(Exception error){ throw new IllegalStateException(error); } } } }

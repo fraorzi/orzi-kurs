@@ -4,7 +4,7 @@ export interface StarterFileSnapshot {
 }
 
 export interface StarterSnapshot {
-  artifactName: "starter.ts" | "starter.js" | "starter.sql" | "src";
+  artifactName: "starter.ts" | "starter.js" | "starter.sql" | "starter.java" | "src";
   kind: "file" | "directory" | "missing";
   files: StarterFileSnapshot[];
 }

@@ -1,0 +1,1 @@
+import java.util.*;class Solution{static String scope(String state){return switch(state){case "request-data"->"request";case "login"->"session";case "shared-config"->"application";default->throw new IllegalArgumentException("state");};}static List<String>transactionPlan(){return List.of("validate","begin","database-write","outbox-write","commit","publish-outbox");}}

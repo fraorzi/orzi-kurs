@@ -1,0 +1,1 @@
+import java.lang.annotation.*;import java.lang.reflect.*;import java.util.*;class Solution{@Retention(RetentionPolicy.RUNTIME)@interface Task{}static List<String> tasks(Class<?>type){return List.of();}}

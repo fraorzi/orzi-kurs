@@ -1,0 +1,1 @@
+import java.util.*; class Solution { record Item(String id,String name,int quantity){} static List<Item> parse(List<String> lines){return List.of();} static String report(List<Item> items){return "";}}

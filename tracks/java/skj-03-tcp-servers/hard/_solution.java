@@ -1,0 +1,1 @@
+import java.util.concurrent.*;class Solution{static class Sessions{private final Semaphore slots;Sessions(int limit){if(limit<1)throw new IllegalArgumentException("limit");slots=new Semaphore(limit,true);}boolean tryOpen(){return slots.tryAcquire();}void close(){slots.release();}int available(){return slots.availablePermits();}}}
