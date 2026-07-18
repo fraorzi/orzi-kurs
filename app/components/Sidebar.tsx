@@ -6,20 +6,29 @@ import { usePathname, useRouter } from "next/navigation";
 import type { Catalog } from "@/app/lib/types";
 import {
   learningModules,
+  STATUS_LABEL,
   topicSlug,
   topicNumber,
   topicTag,
   trackMeta,
   TRACK_META,
 } from "@/app/lib/tracks";
-import { IconCheck } from "./icons";
+import { IconCheck, IconClose } from "./icons";
 import TrackBadge from "./TrackBadge";
 import TopicTag from "./TopicTag";
+import styles from "./shell.module.css";
 
 interface Props {
   catalog: Catalog | null;
+  catalogStatus: "loading" | "error" | "success";
   collapsed: boolean;
+  isMobile: boolean;
+  mobileOpen: boolean;
   onToggle: () => void;
+  onMobileClose: () => void;
+  onMobileNavigate: () => void;
+  onRetryCatalog: () => void;
+  inert: boolean;
 }
 
 type SwitcherPhase = "closed" | "open" | "closing";
@@ -36,7 +45,18 @@ function stageWord(count: number): string {
   }
 }
 
-export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
+export default function Sidebar({
+  catalog,
+  catalogStatus,
+  collapsed,
+  isMobile,
+  mobileOpen,
+  onToggle,
+  onMobileClose,
+  onMobileNavigate,
+  onRetryCatalog,
+  inert,
+}: Props) {
   const pathname = usePathname();
   const router = useRouter();
   const seg = pathname.split("/").filter(Boolean);
@@ -59,6 +79,9 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
   const switcherRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const switcherOpen = switcherPhase === "open";
+  if (isMobile && !mobileOpen && switcherPhase !== "closed") {
+    setSwitcherPhase("closed");
+  }
 
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (pathname !== prevPathname) {
@@ -69,10 +92,12 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
   const positionPop = useCallback(() => {
     const r = triggerRef.current?.getBoundingClientRect();
     if (r) {
-      const top = Math.max(8, Math.min(r.top, window.innerHeight - 340));
-      setPopPos({ top, left: r.right + 8 });
+      const top = isMobile
+        ? Math.max(8, Math.min(r.bottom + 8, window.innerHeight - 340))
+        : Math.max(8, Math.min(r.top, window.innerHeight - 340));
+      setPopPos({ top, left: isMobile ? 8 : r.right + 8 });
     }
-  }, []);
+  }, [isMobile]);
 
   function openSwitcher() {
     positionPop();
@@ -126,27 +151,36 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
   const meta = track ? trackMeta(track.id) : null;
   const modules = track ? learningModules(track) : [];
 
-  function toggleTopic(slug: string, href: string) {
-    if (openSlug === slug) {
-      setOpenSlug(undefined);
-    } else {
-      setOpenSlug(slug);
-      router.push(href);
-    }
+  function toggleTopic(slug: string) {
+    setOpenSlug((current) => current === slug ? undefined : slug);
   }
 
   return (
-    <nav className="rail" aria-label="Nawigacja kursu">
+    <aside
+      id="course-navigation"
+      className={`rail${mobileOpen ? ` ${styles.mobileOpen}` : ""}${isMobile && !mobileOpen ? ` ${styles.mobileHidden}` : ""}`}
+      role={isMobile && mobileOpen ? "dialog" : "navigation"}
+      aria-modal={isMobile && mobileOpen ? true : undefined}
+      aria-label="Nawigacja kursu"
+      aria-hidden={isMobile && !mobileOpen ? true : undefined}
+      inert={inert || (isMobile && !mobileOpen) ? true : undefined}
+    >
       <div className="rail-head">
         <button
+          type="button"
           className="icon-btn"
-          onClick={onToggle}
-          aria-label={collapsed ? "Rozwiń panel" : "Zwiń panel"}
+          onClick={isMobile ? onMobileClose : onToggle}
+          aria-label={isMobile ? "Zamknij nawigację" : collapsed ? "Rozwiń panel" : "Zwiń panel"}
           title="Panel  [ ]"
         >
-          {collapsed ? "›" : "‹"}
+          {isMobile ? <IconClose /> : collapsed ? "›" : "‹"}
         </button>
-        <Link className="brand" href="/">
+        <Link
+          className="brand"
+          href="/"
+          aria-current={pathname === "/" ? "page" : undefined}
+          onClick={onMobileNavigate}
+        >
           orzi<span className="d">·</span>kurs
         </Link>
       </div>
@@ -155,9 +189,11 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
         {meta && track && (
           <div className="trackswitch-wrap" ref={switcherRef}>
             <button
+              type="button"
               ref={triggerRef}
               className="trackswitch"
               aria-expanded={switcherOpen}
+              aria-controls="track-switcher"
               onClick={() => (switcherOpen ? closeSwitcher() : openSwitcher())}
             >
               <TrackBadge id={track.id} />
@@ -168,7 +204,8 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
             {switcherPhase !== "closed" && popPos && (
               <div
                 className={`trackpop${switcherPhase === "closing" ? " closing" : ""}`}
-                role="listbox"
+                id="track-switcher"
+                role="group"
                 aria-label="Wybierz track"
                 aria-hidden={switcherPhase === "closing"}
                 inert={switcherPhase === "closing" ? true : undefined}
@@ -184,12 +221,13 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
                   const isCurrent = t.id === track.id;
                   return (
                     <button
+                      type="button"
                       key={t.id}
                       className={`trackpop-item${isCurrent ? " on" : ""}`}
-                      role="option"
-                      aria-selected={isCurrent}
+                      aria-current={isCurrent ? "true" : undefined}
                       onClick={() => {
                         closeSwitcher();
+                        onMobileNavigate();
                         router.push(`/track/${t.id}`);
                       }}
                     >
@@ -211,9 +249,7 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
                         <div
                           key={m.id}
                           className="trackpop-item is-soon"
-                          role="option"
                           aria-disabled="true"
-                          aria-selected="false"
                         >
                           <TrackBadge id={m.id} size="sm" />
                           <span>{m.name}</span>
@@ -228,7 +264,18 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
           </div>
         )}
 
-        {!catalog && <div className="rail-cap">ładowanie…</div>}
+        {catalogStatus === "loading" && (
+          <div className={styles.catalogState} role="status">Ładowanie programu…</div>
+        )}
+        {catalogStatus === "error" && (
+          <div className={styles.catalogState} role="alert">
+            <span>Nie udało się wczytać programu.</span>
+            <button type="button" onClick={onRetryCatalog}>Spróbuj ponownie</button>
+          </div>
+        )}
+        {catalogStatus === "success" && catalog?.tracks.length === 0 && (
+          <div className={styles.catalogState}>Brak dostępnych ścieżek.</div>
+        )}
 
         {track && (
           <>
@@ -268,19 +315,44 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
                       const open = slug === openSlug;
                       const tag = topicTag(topic.id);
                       const topicHref = `/track/${track.id}/${slug}`;
+                      const toggleId = `topic-toggle-${track.id}-${slug}`;
+                      const levelsId = `topic-levels-${track.id}-${slug}`;
                       return (
                         <div key={topic.id} className={`topic${open ? " open" : ""}`}>
-                          <button
-                            className="topic-btn"
-                            aria-expanded={open}
-                            onClick={() => toggleTopic(slug, topicHref)}
+                          <div className="topic-row">
+                            <Link
+                              className="topic-link"
+                              href={topicHref}
+                              aria-current={slug === curTopicSlug && !curLevel ? "page" : undefined}
+                              onClick={() => {
+                                setOpenSlug(slug);
+                                onMobileNavigate();
+                              }}
+                            >
+                              <span className="topic-num mono">{topicNumber(topic.id)}</span>
+                              <span className="topic-title">{topic.title}</span>
+                              {tag && <TopicTag tag={tag} />}
+                            </Link>
+                            <button
+                              type="button"
+                              id={toggleId}
+                              className="topic-toggle"
+                              aria-label={`${open ? "Ukryj" : "Pokaż"} poziomy: ${topic.title}`}
+                              aria-expanded={open}
+                              aria-controls={levelsId}
+                              onClick={() => toggleTopic(slug)}
+                            >
+                              <span className="caret" aria-hidden="true">▶</span>
+                            </button>
+                          </div>
+                          <div
+                            className="levels"
+                            id={levelsId}
+                            role="region"
+                            aria-labelledby={toggleId}
+                            aria-hidden={open ? undefined : true}
+                            inert={open ? undefined : true}
                           >
-                            <span className="topic-num mono">{topicNumber(topic.id)}</span>
-                            <span className="topic-title">{topic.title}</span>
-                            {tag && <TopicTag tag={tag} />}
-                            <span className="caret">▶</span>
-                          </button>
-                          <div className="levels">
                             <div>
                               {topic.levels.map((level) => {
                                 const active =
@@ -291,8 +363,11 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
                                     className={`lvl${active ? " active" : ""}`}
                                     href={`${topicHref}/${level.id}`}
                                     aria-current={active ? "page" : undefined}
+                                    aria-label={`${level.id}: ${STATUS_LABEL[level.status]}`}
+                                    tabIndex={open ? undefined : -1}
+                                    onClick={onMobileNavigate}
                                   >
-                                    <span className={`sdot ${level.status}`} />
+                                    <span className={`sdot ${level.status}`} aria-hidden="true" />
                                     <span>{level.id}</span>
                                   </Link>
                                 );
@@ -309,6 +384,6 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
           </>
         )}
       </div>
-    </nav>
+    </aside>
   );
 }

@@ -22,5 +22,17 @@
     "attempts": 1,
     "firstPassedAt": "2026-07-15T15:46:49.049Z",
     "lastRunAt": "2026-07-15T15:46:49.049Z"
+  },
+  "react/01-components-props-purity/easy": {
+    "status": "passed",
+    "attempts": 11,
+    "masteryScore": 3,
+    "cleanPassStreak": 3,
+    "nextReviewAt": "2026-07-25T15:18:09.450Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-07-18T00:33:07.681Z",
+    "firstPassedWithoutHintAt": "2026-07-18T00:33:07.681Z",
+    "verifiedStarter": "export interface ProfileCardProps {\n  readonly name: string;\n  readonly role: string;\n  readonly online: boolean;\n}\n\nexport function ProfileCard({name, role, online}: ProfileCardProps) {\n  return (\n    <article aria-label={`Profil ${name}`}>\n      <h2>\n        {name}\n      </h2>\n      <p>\n        {role}\n      </p>\n      <p>\n        {online ? 'Dostępny' : 'Offline'}\n      </p>\n    </article>\n  );\n}\n",
+    "lastRunAt": "2026-07-18T15:18:09.450Z"
   }
 }
