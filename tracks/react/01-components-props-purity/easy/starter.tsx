@@ -4,6 +4,16 @@ export interface ProfileCardProps {
   readonly online: boolean;
 }
 
-export function ProfileCard(_props: ProfileCardProps) {
-  return <div>TODO: profil</div>;
+export function ProfileCard({
+  name,
+  role,
+  online,
+}: ProfileCardProps) {
+  return (
+    <article aria-label={`Profil ${name}`}>
+      <h2>{name}</h2>
+      <p>{role}</p>
+      <p>{online ? "Dostępny" : "Offline"}</p>
+    </article>
+  );
 }

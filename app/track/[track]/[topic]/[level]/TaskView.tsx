@@ -1,12 +1,19 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import Link from "next/link";
+import AnimatedDisclosure from "@/app/components/AnimatedDisclosure";
 import Markdown from "@/app/components/Markdown";
+import RouteBreadcrumbs from "@/app/components/RouteBreadcrumbs";
 import SearchButton from "@/app/components/SearchButton";
 import UndoToast from "@/app/components/UndoToast";
 import { IconArrowRight, IconCopy, IconCheck, IconExternal, IconPlay } from "@/app/components/icons";
 import { openInEditor } from "@/app/lib/actions";
+import {
+  buildCodeDiff,
+  type CodeDiffChangeReason,
+  type CodeDiffRow,
+} from "@/app/lib/code-diff";
 import {
   loadUndoRecords,
   removeUndoRecord,
@@ -14,7 +21,7 @@ import {
   UNDO_DURATION_MS,
 } from "@/app/lib/task-undo";
 import type { LearningResource, SubmitResult, TaskProgress, TaskResponse } from "@/app/lib/types";
-import { trackMeta, topicNumber } from "@/app/lib/tracks";
+import { topicNumber } from "@/app/lib/tracks";
 import type { StarterSnapshot, TaskUndoRecord } from "@/shared/task-undo";
 
 interface Props {
@@ -359,17 +366,18 @@ export default function TaskView({
   return (
     <>
       <div className="topbar">
-        <nav className="crumbs">
-          <Link href="/">orzi-kurs</Link>
-          <span className="sep">/</span>
-          <Link href={`/track/${track}`}>{trackMeta(track).name}</Link>
-          <span className="sep">/</span>
-          <Link href={`/track/${track}/${topic}`}>
-            {topicNumber(`${track}/${topic}`)} {topicTitle}
-          </Link>
-          <span className="sep">/</span>
-          <span className="cur">{level}</span>
-        </nav>
+        <RouteBreadcrumbs
+          trackId={track}
+          topic={{
+            id: topic,
+            number: topicNumber(`${track}/${topic}`),
+            title: topicTitle,
+          }}
+          level={{
+            label: level,
+            compactLabel: `${topicNumber(`${track}/${topic}`)} ${topicTitle} · ${level}`,
+          }}
+        />
         <span className="grow" />
         <SearchButton />
       </div>
@@ -381,8 +389,27 @@ export default function TaskView({
 
         <div className="task-layout">
           <article className="task-brief" id="task-brief">
-            <Markdown content={taskMd} />
+            {taskMd ? (
+              <Markdown content={taskMd} />
+            ) : (
+              <div className="task-empty">
+                <h1>Brak opisu zadania</h1>
+                <p>To zadanie nie ma jeszcze polecenia. Wróć do tematu i wybierz inny poziom.</p>
+                <Link className="btn-ghost" href={`/track/${track}/${topic}`}>Wróć do tematu</Link>
+              </div>
+            )}
           </article>
+
+          <TaskContextPanel
+            level={level}
+            progress={progress}
+            resetting={resetting}
+            resources={resources}
+            hintsShown={hints.length}
+            hintsTotal={hintsTotal}
+            solutionAvailable={solution !== null}
+            onReset={handleResetProgress}
+          />
 
           <div className="task-flow">
             <section className="task-workbench" id="task-starter" aria-labelledby="workbench-title">
@@ -420,15 +447,17 @@ export default function TaskView({
                 ) : (
                   <p className="inline-error" role="alert">Brak pliku startera.</p>
                 )}
-                <div className="starter-reset">
-                  <button className="btn-ghost" onClick={handleResetCode} disabled={resettingCode}>
-                    {resettingCode ? "Przywracam…" : "Przywróć kod początkowy"}
-                  </button>
-                </div>
+                {currentStarterPath && (
+                  <div className="starter-reset">
+                    <button className="btn-ghost" onClick={handleResetCode} disabled={resettingCode}>
+                      {resettingCode ? "Przywracam…" : "Przywróć kod początkowy"}
+                    </button>
+                  </div>
+                )}
               </div>
 
               <div className="actions">
-                <button className="submit" onClick={handleSubmit} disabled={submitting}>
+                <button className="submit" onClick={handleSubmit} disabled={submitting || !currentStarterPath}>
                   <IconPlay />
                   {submitting ? "Sprawdzam…" : "Sprawdź rozwiązanie"}
                 </button>
@@ -486,7 +515,7 @@ export default function TaskView({
                     <span className="pass-kind">zaliczone ze wskazówką</span>
                   )}
                 </div>
-                {starter ? (
+                {starter !== null ? (
                   <SolutionComparison starter={starter} solution={solution} />
                 ) : (
                   <pre>
@@ -512,7 +541,7 @@ export default function TaskView({
                 <div className="completion-actions-right">
                   {passKind === "with-hint" && (
                     <button className="btn-ghost" onClick={handleRetryWithoutHint}>
-                      Spróbuj bez hinta
+                      Spróbuj bez wskazówki
                     </button>
                   )}
                 </div>
@@ -520,16 +549,6 @@ export default function TaskView({
             )}
           </div>
 
-          <TaskContextPanel
-            level={level}
-            progress={progress}
-            resetting={resetting}
-            resources={resources}
-            hintsShown={hints.length}
-            hintsTotal={hintsTotal}
-            solutionAvailable={solution !== null}
-            onReset={handleResetProgress}
-          />
         </div>
       </div>
 
@@ -659,10 +678,10 @@ function TaskContextPanel({
         )}
       </nav>
 
-      {resources.length > 0 && (
-        <section className="task-context-section task-context-resources" aria-labelledby="task-resources-title">
-          <span className="task-context-label" id="task-resources-title">Referencje</span>
-          {resources.map((resource) => (
+      <section className="task-context-section task-context-resources" aria-labelledby="task-resources-title">
+        <span className="task-context-label" id="task-resources-title">Referencje</span>
+        {resources.length > 0 ? (
+          resources.map((resource) => (
             <a key={resource.url} href={resource.url} target="_blank" rel="noreferrer">
               <span>
                 <strong>{resource.title}</strong>
@@ -670,131 +689,95 @@ function TaskContextPanel({
               </span>
               <IconExternal />
             </a>
-          ))}
-        </section>
-      )}
+          ))
+        ) : (
+          <p className="task-context-resources-empty">Brakuje referencji</p>
+        )}
+      </section>
     </aside>
   );
 }
 
-interface DiffRow {
-  left: { number: number; text: string } | null;
-  right: { number: number; text: string } | null;
-  kind: "same" | "remove" | "add" | "changed";
-}
-
-function buildDiff(leftText: string, rightText: string): DiffRow[] {
-  const left = leftText.replace(/\r\n/g, "\n").split("\n");
-  const right = rightText.replace(/\r\n/g, "\n").split("\n");
-
-  if (left.length * right.length > 250_000) {
-    return Array.from({ length: Math.max(left.length, right.length) }, (_, index) => ({
-      left: index < left.length ? { number: index + 1, text: left[index] } : null,
-      right: index < right.length ? { number: index + 1, text: right[index] } : null,
-      kind: left[index] === right[index] ? "same" : "changed",
-    }));
-  }
-
-  const width = right.length + 1;
-  const lengths = new Uint32Array((left.length + 1) * width);
-  for (let i = left.length - 1; i >= 0; i--) {
-    for (let j = right.length - 1; j >= 0; j--) {
-      lengths[i * width + j] = left[i] === right[j]
-        ? lengths[(i + 1) * width + j + 1] + 1
-        : Math.max(lengths[(i + 1) * width + j], lengths[i * width + j + 1]);
-    }
-  }
-
-  const rows: DiffRow[] = [];
-  let i = 0;
-  let j = 0;
-  while (i < left.length || j < right.length) {
-    if (i < left.length && j < right.length && left[i] === right[j]) {
-      rows.push({
-        left: { number: i + 1, text: left[i] },
-        right: { number: j + 1, text: right[j] },
-        kind: "same",
-      });
-      i++;
-      j++;
-    } else if (i < left.length && (j === right.length || lengths[(i + 1) * width + j] >= lengths[i * width + j + 1])) {
-      rows.push({ left: { number: i + 1, text: left[i] }, right: null, kind: "remove" });
-      i++;
-    } else {
-      rows.push({ left: null, right: { number: j + 1, text: right[j] }, kind: "add" });
-      j++;
-    }
-  }
-  const alignedRows: DiffRow[] = [];
-  for (let index = 0; index < rows.length;) {
-    if (rows[index].kind === "same") {
-      alignedRows.push(rows[index]);
-      index++;
-      continue;
-    }
-
-    const changedBlock: DiffRow[] = [];
-    while (index < rows.length && rows[index].kind !== "same") {
-      changedBlock.push(rows[index]);
-      index++;
-    }
-    const removed = changedBlock.flatMap((row) => row.left ? [row.left] : []);
-    const added = changedBlock.flatMap((row) => row.right ? [row.right] : []);
-    for (let lineIndex = 0; lineIndex < Math.max(removed.length, added.length); lineIndex++) {
-      alignedRows.push({
-        left: removed[lineIndex] ?? null,
-        right: added[lineIndex] ?? null,
-        kind: removed[lineIndex] && added[lineIndex]
-          ? "changed"
-          : removed[lineIndex]
-            ? "remove"
-            : "add",
-      });
-    }
-  }
-  return alignedRows;
-}
+const DIFF_REASON_LABEL: Record<Exclude<CodeDiffChangeReason, "content">, string> = {
+  whitespace: "różnica białych znaków",
+  "end-of-file-newline": "znak końca linii",
+};
 
 function SolutionComparison({ starter, solution }: { starter: string; solution: string }) {
-  const rows = useMemo(() => buildDiff(starter, solution), [starter, solution]);
-  const [comparisonOpen, setComparisonOpen] = useState(false);
+  return (
+    <AnimatedDisclosure
+      className="solution-comparison"
+      lazy
+      triggerClassName="solution-comparison-trigger"
+      trigger={<span>Porównaj z własnym rozwiązaniem</span>}
+    >
+      <SolutionDiff starter={starter} solution={solution} />
+    </AnimatedDisclosure>
+  );
+}
+
+function SolutionDiff({ starter, solution }: { starter: string; solution: string }) {
+  const diff = useMemo(() => buildCodeDiff(starter, solution), [starter, solution]);
+  const headingId = useId();
 
   return (
-    <div className={`solution-comparison${comparisonOpen ? " open" : ""}`}>
-      <button
-        className="solution-comparison-trigger"
-        aria-expanded={comparisonOpen}
-        aria-controls="solution-comparison-content"
-        onClick={() => setComparisonOpen((open) => !open)}
-      >
-        <span>Porównaj z własnym rozwiązaniem</span>
-        <span className="solution-comparison-mark" aria-hidden="true">+</span>
-      </button>
-      <div
-        className="solution-comparison-reveal"
-        id="solution-comparison-content"
-        aria-hidden={!comparisonOpen}
-      >
-        <div className="solution-comparison-inner">
-          <div className="compare-head" aria-hidden="true">
-            <span>Twoje rozwiązanie</span>
-            <span>Rozwiązanie wzorcowe</span>
-          </div>
-          <div className="compare-code" role="table" aria-label="Porównanie rozwiązania linia po linii">
-            {rows.map((row, index) => (
-              <div className={`compare-row ${row.kind}`} role="row" key={index}>
-                <code role="cell">
-                  <span className="line-no">{row.left?.number ?? ""}</span>
-                  <span>{row.left?.text ?? ""}</span>
-                </code>
-                <code role="cell">
-                  <span className="line-no">{row.right?.number ?? ""}</span>
-                  <span>{row.right?.text ?? ""}</span>
-                </code>
-              </div>
-            ))}
-          </div>
+    <>
+      {diff.limited && (
+        <p className="compare-limited" role="status">
+          Porównanie jest bardzo duże, więc pokazujemy wspólny początek i koniec bez szczegółowego parowania środka.
+        </p>
+      )}
+      <div className="compare-code" role="group" aria-label="Porównanie rozwiązania linia po linii">
+        <div className="compare-code-head">
+          <div id={`${headingId}-own`}>Twoje rozwiązanie</div>
+          <div id={`${headingId}-reference`}>Rozwiązanie wzorcowe</div>
         </div>
+        <div className="compare-code-body">
+          <DiffPane headingId={`${headingId}-own`} rows={diff.rows} side="left" />
+          <DiffPane headingId={`${headingId}-reference`} rows={diff.rows} side="right" />
+        </div>
+      </div>
+    </>
+  );
+}
+
+function DiffPane({
+  headingId,
+  rows,
+  side,
+}: {
+  headingId: string;
+  rows: CodeDiffRow[];
+  side: "left" | "right";
+}) {
+  return (
+    <div className={`compare-pane compare-pane-${side}`} role="region" aria-labelledby={headingId}>
+      <div className="compare-lines">
+        {rows.map((row, index) => {
+          const line = side === "left" ? row.left : row.right;
+          const status = !line
+            ? "Brak odpowiadającej linii."
+            : row.kind === "context"
+              ? `Linia ${line.number}, bez zmian.`
+              : row.kind === "change"
+                ? `Linia ${line.number}, zmieniona.`
+                : `Linia ${line.number}, ${side === "left" ? "usunięta" : "dodana"}.`;
+
+          return (
+            <div className={`compare-row compare-row-${row.kind}`} key={index}>
+              <code>
+                <span className="sr-only">{status}</span>
+                <span className="line-no" aria-hidden="true">{line?.number ?? ""}</span>
+                <span className="compare-line">
+                  <span>{line?.text ?? ""}</span>
+                  {side === "right" && row.changeReason && row.changeReason !== "content" && (
+                    <span className="compare-reason">{DIFF_REASON_LABEL[row.changeReason]}</span>
+                  )}
+                </span>
+              </code>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -828,9 +811,12 @@ function ResultPanel({
 
   if (result.passed) {
     return (
-      <section className="result-shell result-success" aria-live="polite">
+      <section className="result-shell result-success">
+        <p className="sr-only" role="status">
+          {result.usedHint ? "Zadanie zaliczone ze wskazówką." : "Zadanie zaliczone."}
+        </p>
         <div className="result-success-main">
-          <span className="result-mark"><IconCheck /></span>
+          <span className="result-mark" aria-hidden="true"><IconCheck /></span>
           <div>
             <h2>{result.usedHint ? "Zadanie zaliczone ze wskazówką" : "Zadanie zaliczone"}</h2>
             <p>Testy i lint potwierdziły rozwiązanie. Możesz porównać wzorzec albo przejść dalej.</p>
@@ -860,7 +846,8 @@ function ResultPanel({
   }
 
   return (
-    <section className="result-shell result-failure" aria-live="polite">
+    <section className="result-shell result-failure">
+      <p className="sr-only" role="status">Zadanie nie jest jeszcze zaliczone. {firstBlocker}</p>
       <div className="result-failure-head">
         <div>
           <h2>Jeszcze nie przechodzi</h2>
@@ -893,15 +880,23 @@ function ResultPanel({
       </div>
 
       {result.error && (
-        <details className="result-details" open>
-          <summary>Błąd uruchomienia</summary>
+        <AnimatedDisclosure
+          className="result-details"
+          defaultOpen
+          trigger="Błąd uruchomienia"
+          triggerClassName="result-details-trigger"
+        >
           <pre className="infra-error">{result.error}</pre>
-        </details>
+        </AnimatedDisclosure>
       )}
 
       {result.tests.length > 0 && (
-        <details className="result-details" open={failedTests.length > 0}>
-          <summary>Testy <span className="num">{passedTests}/{result.tests.length}</span></summary>
+        <AnimatedDisclosure
+          className="result-details"
+          defaultOpen={failedTests.length > 0}
+          trigger={<span>Testy <span className="num">{passedTests}/{result.tests.length}</span></span>}
+          triggerClassName="result-details-trigger"
+        >
           <div className="tests">
             {result.tests.map((test, index) => (
               <div key={index} className={`test ${test.status === "pass" ? "p" : "f"}`}>
@@ -910,12 +905,16 @@ function ResultPanel({
               </div>
             ))}
           </div>
-        </details>
+        </AnimatedDisclosure>
       )}
 
       {result.typecheck.errors.length > 0 && (
-        <details className="result-details" open={failedTests.length === 0}>
-          <summary>Typy <span className="num">{result.typecheck.errors.length}</span></summary>
+        <AnimatedDisclosure
+          className="result-details"
+          defaultOpen={failedTests.length === 0}
+          trigger={<span>Typy <span className="num">{result.typecheck.errors.length}</span></span>}
+          triggerClassName="result-details-trigger"
+        >
           <div className="lint">
             {result.typecheck.errors.map((issue, index) => (
               <div key={index} className="li err">
@@ -925,12 +924,16 @@ function ResultPanel({
               </div>
             ))}
           </div>
-        </details>
+        </AnimatedDisclosure>
       )}
 
       {(result.lint.errors.length > 0 || result.lint.warnings.length > 0) && (
-        <details className="result-details" open={failedTests.length === 0 && result.typecheck.errors.length === 0}>
-          <summary>Lint <span className="num">{result.lint.errors.length + result.lint.warnings.length}</span></summary>
+        <AnimatedDisclosure
+          className="result-details"
+          defaultOpen={failedTests.length === 0 && result.typecheck.errors.length === 0}
+          trigger={<span>Lint <span className="num">{result.lint.errors.length + result.lint.warnings.length}</span></span>}
+          triggerClassName="result-details-trigger"
+        >
           <div className="lint">
             {result.lint.errors.map((issue, index) => (
               <div key={`e${index}`} className="li err">
@@ -945,7 +948,7 @@ function ResultPanel({
               </div>
             ))}
           </div>
-        </details>
+        </AnimatedDisclosure>
       )}
     </section>
   );

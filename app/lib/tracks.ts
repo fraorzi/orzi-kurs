@@ -92,10 +92,24 @@ export function topicTag(topicId: string): "D" | "O" | null {
 
 export const STATUS_LABEL: Record<TaskStatus, string> = {
   passed: "zaliczone",
-  "passed-with-hint": "zaliczone z hintem",
-  failed: "próbowane",
-  "not-started": "nie zaczęte",
+  "passed-with-hint": "zaliczone ze wskazówką",
+  failed: "do poprawy",
+  "not-started": "nierozpoczęte",
 };
+
+export function isCompletedStatus(status: TaskStatus): boolean {
+  return status === "passed" || status === "passed-with-hint";
+}
+
+export function isReviewDue(
+  level: Pick<CatalogTrack["topics"][number]["levels"][number], "status" | "nextReviewAt">,
+  now: Date | string = new Date(),
+): boolean {
+  if (!level.nextReviewAt) return level.status === "passed-with-hint";
+  const reviewAt = new Date(level.nextReviewAt).getTime();
+  const current = typeof now === "string" ? new Date(now).getTime() : now.getTime();
+  return Number.isFinite(reviewAt) && Number.isFinite(current) && reviewAt <= current;
+}
 
 export interface TrackProgress {
   passed: number;
@@ -375,13 +389,17 @@ const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
 
 export function trackProgress(track: CatalogTrack): TrackProgress {
   const levels = track.topics.flatMap((t) => t.levels);
-  return { passed: levels.filter((l) => l.status === "passed").length, total: levels.length };
+  return {
+    passed: levels.filter((level) => isCompletedStatus(level.status)).length,
+    total: levels.length,
+  };
 }
 
-export function learningModules(track: CatalogTrack): LearningModule[] {
-  const currentTopic = track.topics.find((topic) =>
-    topic.levels.some((level) => level.status !== "passed"),
-  );
+export function learningModules(
+  track: CatalogTrack,
+  now: Date | string = new Date(),
+): LearningModule[] {
+  const currentTopic = nextLearningTarget(track, now)?.topic;
   const definitions = LEARNING_MODULES[track.id];
 
   if (!definitions) {
@@ -439,9 +457,42 @@ export function activeTrack(catalog: Catalog): CatalogTrack | undefined {
   return catalog.tracks[0];
 }
 
-/** Następne niezaliczone zagadnienie (pierwsze z poziomem ≠ passed). */
+/** Następne nieukończone zagadnienie. Ukończenie ze wskazówką nadal trafia do powtórek. */
 export function nextTopic(track: CatalogTrack) {
-  return (
-    track.topics.find((t) => t.levels.some((l) => l.status !== "passed")) ?? track.topics[0]
+  return track.topics.find((topic) =>
+    topic.levels.some((level) => !isCompletedStatus(level.status)),
   );
+}
+
+export type LearningTargetIntent = "resume" | "review" | "start";
+
+export interface LearningTarget {
+  topic: CatalogTopic;
+  level: CatalogTopic["levels"][number];
+  intent: LearningTargetIntent;
+}
+
+/** Jedna rekomendowana decyzja: wróć do próby, zrób powtórkę albo zacznij kolejny poziom. */
+export function nextLearningTarget(
+  track: CatalogTrack,
+  now: Date | string = new Date(),
+): LearningTarget | null {
+  for (const topic of track.topics) {
+    const level = topic.levels.find((item) => item.status === "failed");
+    if (level) return { topic, level, intent: "resume" };
+  }
+
+  for (const topic of track.topics) {
+    const level = topic.levels.find(
+      (item) => isCompletedStatus(item.status) && isReviewDue(item, now),
+    );
+    if (level) return { topic, level, intent: "review" };
+  }
+
+  for (const topic of track.topics) {
+    const level = topic.levels.find((item) => !isCompletedStatus(item.status));
+    if (level) return { topic, level, intent: level.attempts > 0 ? "resume" : "start" };
+  }
+
+  return null;
 }

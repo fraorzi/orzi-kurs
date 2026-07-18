@@ -61,6 +61,21 @@ export const IconPlay = (p: SVGProps<SVGSVGElement>) => (
   </Svg>
 );
 
+export const IconMenu = (p: SVGProps<SVGSVGElement>) => (
+  <Svg {...p}>
+    <path d="M4 7h16" />
+    <path d="M4 12h16" />
+    <path d="M4 17h16" />
+  </Svg>
+);
+
+export const IconClose = (p: SVGProps<SVGSVGElement>) => (
+  <Svg {...p}>
+    <path d="m6 6 12 12" />
+    <path d="m18 6-12 12" />
+  </Svg>
+);
+
 /* category icons — „Wkrótce" list grouping */
 export const IconCode = (p: SVGProps<SVGSVGElement>) => (
   <Svg {...p}>
