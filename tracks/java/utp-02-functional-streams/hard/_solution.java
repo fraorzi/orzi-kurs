@@ -1,1 +1,0 @@
-import java.util.*; class Solution { static List<String> active(Map<String,Integer> values){return values.entrySet().stream().filter(entry->entry.getValue()>0).sorted(Map.Entry.comparingByKey()).map(entry->entry.getKey()+":"+entry.getValue()).toList();} static long total(Map<String,Integer> values){return values.values().stream().mapToLong(Integer::longValue).sum();} }

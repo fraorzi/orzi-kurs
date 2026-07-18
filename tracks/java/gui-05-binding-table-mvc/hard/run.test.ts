@@ -1,3 +1,0 @@
-import { describe, expect, it } from "vitest"; import { runJavaTask } from "@harness/java-test";
-const TEST_MAIN="import java.util.*; public class TestMain { public static void main(String[] args){ var model=new Solution.Model(); int[] changes={0}; model.addListener(event -> changes[0]++); model.setQuantity(3); if(model.total(4)!=12||changes[0]!=1) throw new AssertionError(); if(!Solution.rows(Map.of(\"b\",2,\"a\",1)).equals(List.of(\"a:1\",\"b:2\")))throw new AssertionError(); System.out.print(\"OK\");}}";
-describe("Binding, TableView i MVC",()=>{it("spełnia kontrakt GUI bez uruchamiania okna",async()=>{await expect(runJavaTask(import.meta.dirname,TEST_MAIN)).resolves.toBe("OK");});});

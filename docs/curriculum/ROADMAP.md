@@ -50,9 +50,10 @@ Stan końcowy po ukończeniu etapów 1–10:
   obserwowalność, testy, TypeScript i dwa produkcyjne capstone'y.
 - Strapi: 15 tematów, moduł i 46 zadań TypeScript-first.
 - Combined: 13 projektów integracyjnych i produkcyjnych.
-- Java: 39 dużych zadań pokrywających 88 kompetencji PJATK oraz deltę JDK 25.
-- Całość: 9 tracków, 261 tematów i 645 zadań publicznych, w tym 27 modułów
-  projektowych/capstone'ów.
+- Java: przeniesiona do osobnego repo `orzi-kurs_java` (2026-07-18); plan 39
+  zadań / 88 kompetencji PJATK zachowany w README tamtego repo.
+- Całość w tym repo: 8 tracków, 222 tematy i 606 zadań publicznych, w tym
+  19 modułów projektowych/capstone'ów.
 
 Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetować
 `progress.json` ani starterów.

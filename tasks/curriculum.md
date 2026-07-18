@@ -390,64 +390,14 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 - [x] full-02: capstone maintenance — wejście w obcy kod, bug report, fix, test,
       optymalizacja i plan bezpiecznego wdrożenia
 
-## java (39 dużych zadań: 88 kompetencji PJATK + delta JDK 25) — Java SE 25
+## java — przeniesione do osobnego repo
 
-### PPJ
+Ścieżka Java/PJATK żyje w repo `orzi-kurs_java` (Gradle + JUnit 5 + IntelliJ).
+Pełny plan — audyt, struktura 39 zadań i syllabus 88 kompetencji PJATK —
+jest w README tamtego repo. Decyzja 2026-07-18: mid w Javie wymaga natywnego
+toolchainu, nie adaptera w harnessie pnpm.
 
-- [x] runtime/JVM/bytecode, typy, konwersje, overflow, operatory i flagi bitowe
-- [x] argumenty, wejście/wyjście, warunki, switch expressions i pętle
-- [x] tablice jedno- i wielowymiarowe, jagged arrays, kopiowanie i agregacja
-- [x] String/StringBuilder, porównanie, Unicode code points i koszt konkatenacji
-- [x] metody, overload/varargs, zakres, referencje, rekurencja i stos
-- [x] sortowanie, Comparator, Arrays/Collections i binary search
-- [x] klasy, konstruktory, enkapsulacja, pakiety, dziedziczenie, polimorfizm i wyjątki
-- [x] pliki tekstowe/binarne, try-with-resources, debug i optymalizacja
-- [x] module-ppj: konsolowy parser danych, model obiektowy i raport
-
-### GUI
-
-- [x] interfejsy/abstrakcje, klasy anonimowe/default, generyki i kolekcje modelu
-- [x] Swing JFrame/Graphics, komponenty, modele, layouts, listenery i formularze
-- [x] EDT, SwingUtilities, worker, anulowanie i bezpieczny shutdown
-- [x] JavaFX Application/Stage/Scene/layout, FXML, kontrolery, zasoby i CSS
-- [x] properties/binding, TableView, cell factories, MVC, serializacja, debug i wydajność
-- [x] module-gui-swing: edytor Command/undo z zapisem
-- [x] module-gui-javafx: CRUD ViewModel dla FXML/TableView
-
-### UTP
-
-- [x] generyki, bounds, PECS i type erasure
-- [x] interfejsy funkcyjne, lambdy, method references i Stream API
-- [x] collectors, grouping/partitioning, kolejki/deque/sorted collections i Comparator
-- [x] java.io, NIO.2, kodowania, walking tree i bezpieczna serializacja
-- [x] refleksja, adnotacje, discovery, JavaBeans i events
-- [x] threads, synchronizacja, locks, memory visibility, atomics i concurrent collections
-- [x] ExecutorService, Callable/Future, scheduling, CompletableFuture i cleanup
-- [x] Locale/ResourceBundle, XML DOM/SAX/StAX/XPath/XSD, JDBC i wzorce z debug/optimize
-- [x] JDK 25 delta: stabilne module imports/compact source/flexible constructors/Scoped Values
-      vs preview Structured Concurrency i primitive patterns
-- [x] module-utp-import: walidowany import → transakcja → raport
-- [x] module-utp-processor: executor, futures, retry i metryki
-
-### SKJ
-
-- [x] OSI/TCP-IP, enkapsulacja, switching, adresacja, NAT, routing, Ethernet/Wi-Fi
-- [x] TCP/UDP, DNS, HTTP, SMTP/FTP i projektowanie protokołu tekstowego
-- [x] sockets TCP, wielu klientów, pule, timeout, half-close i graceful shutdown
-- [x] DatagramSocket, utrata/duplikaty oraz bezpieczny framing length-prefix
-- [x] HttpClient sync/async, redirecty, timeout, body handlers, TLS i certyfikaty
-- [x] diagnostyka i optymalizacja: NIO/selectors, bufory i backpressure
-- [x] module-skj-chat: wersjonowany protokół wieloklientowego czatu
-- [x] module-skj-http-client: retry, limit i cache
-
-### TPO — elective
-
-- [x] skalowalne NIO/selectors, pule zasobów i kontrakt RMI
-- [x] broker, queue/pub-sub, delivery, idempotencja i warstwa web/Servlet
-- [x] Jakarta Messaging oraz EJB/Jakarta Enterprise w kontekście historycznym
-- [x] module-tpo: API/outbox + idempotentny worker + obserwowalność
-
-**Stan końcowy: 9 publicznych tracków, 261 tematów i 645 zadań, w tym 27 modułów
-projektowych/capstone'ów.** Osiem dodatkowych zadań `_smoke` testuje sam harness i nie
+**Stan końcowy w tym repo: 8 publicznych tracków, 222 tematy i 606 zadań, w tym
+19 modułów projektowych/capstone'ów (Java: osobne repo orzi-kurs_java).** Osiem dodatkowych zadań `_smoke` testuje sam harness i nie
 wchodzi do curriculum ucznia. Kolejne audyty mogą rozszerzać ten zakres, gdy zmienią
 się oficjalne API albo praktyki produkcyjne.

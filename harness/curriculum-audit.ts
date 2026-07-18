@@ -4,8 +4,8 @@ import { dirname, join, resolve } from "node:path";
 import { TOPIC_ORDER } from "../curriculum/order.ts";
 
 const TRACKS_ROOT = resolve("tracks");
-const STARTERS = ["starter.ts", "starter.tsx", "starter.js", "starter.sql", "starter.java", "src"];
-const SOLUTIONS = ["_solution.ts", "_solution.tsx", "_solution.js", "_solution.sql", "_solution.java", "_solution"];
+const STARTERS = ["starter.ts", "starter.tsx", "starter.js", "starter.sql", "src"];
+const SOLUTIONS = ["_solution.ts", "_solution.tsx", "_solution.js", "_solution.sql", "_solution"];
 const TESTS = ["run.test.ts", "run.test.tsx", "run.test.js"];
 const errors: string[] = [];
 

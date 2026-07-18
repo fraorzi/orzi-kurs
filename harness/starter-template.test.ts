@@ -52,36 +52,6 @@ afterEach(() => {
 });
 
 describe("starter reset and undo", () => {
-  it("restores and snapshots a Java starter", () => {
-    const repoRoot = createRepo({
-      "tracks/java/01-types/easy/starter.java": "class Starter { static int answer() { return 0; } }\n",
-    });
-    const starterPath = join(
-      repoRoot,
-      "tracks/java/01-types/easy/starter.java",
-    );
-    writeFileSync(
-      starterPath,
-      "class Starter { static int answer() { return 42; } }\n",
-      "utf8",
-    );
-
-    const snapshot = captureStarterSnapshotInRepo(
-      "java/01-types/easy",
-      repoRoot,
-    );
-    restoreStarterCodeInRepo("java/01-types/easy", repoRoot);
-
-    expect(readFileSync(starterPath, "utf8"))
-      .toBe("class Starter { static int answer() { return 0; } }\n");
-    restoreStarterSnapshotInRepo(
-      "java/01-types/easy",
-      snapshot!,
-      repoRoot,
-    );
-    expect(readFileSync(starterPath, "utf8"))
-      .toBe("class Starter { static int answer() { return 42; } }\n");
-  });
 
   it("restores and snapshots a SQL starter", () => {
     const repoRoot = createRepo({

@@ -221,31 +221,6 @@ describe("curriculum order", () => {
     ).toEqual(track.topics.map((topic) => topic.id));
   });
 
-  it("keeps the Java PJATK groups in prerequisite order", () => {
-    expect(compareTopicSlugs("java", "ppj-07-oop-exceptions", "gui-01-abstractions-collections"))
-      .toBeLessThan(0);
-    expect(compareTopicSlugs("java", "module-gui-javafx", "utp-01-generics-pecs"))
-      .toBeLessThan(0);
-    expect(compareTopicSlugs("java", "module-utp-processor", "skj-01-network-foundations"))
-      .toBeLessThan(0);
-    expect(compareTopicSlugs("java", "module-skj-http-client", "tpo-01-scalable-nio-rmi"))
-      .toBeLessThan(0);
-  });
 
-  it("keeps Java learning modules in exact catalog order", () => {
-    const track: CatalogTrack = {
-      id: "java",
-      topics: TOPIC_ORDER.java.map((slug) => ({
-        id: `java/${slug}`,
-        title: slug,
-        levels: [],
-      })),
-    };
-
-    expect(
-      learningModules(track).flatMap((module) =>
-        module.topics.map((topic) => topic.id)),
-    ).toEqual(track.topics.map((topic) => topic.id));
-  });
 
 });

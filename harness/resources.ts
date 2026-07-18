@@ -263,18 +263,12 @@ const TS_MODULE_RESOURCES: LearningResource[] = [
   { title: "Moduły w TypeScript", url: `${TS_HANDBOOK}/modules/introduction.html`, description: "Import, export i organizacja typowanego kodu w wielu plikach." },
 ];
 
-const JAVA_RESOURCES: LearningResource[] = [
-  { title: "Java SE 25 API", url: "https://docs.oracle.com/en/java/javase/25/docs/api/", description: "Oficjalna referencja modułów i klas Java 25." },
-  { title: "Java Language Specification 25", url: "https://docs.oracle.com/javase/specs/jls/se25/html/", description: "Normatywna semantyka języka Java 25." },
-];
-
 export function resourcesForTask(taskId: string): LearningResource[] {
   const [track, topic] = taskId.split("/");
   if (!topic) return [];
   if (track === "ts") {
     return topic.startsWith("module-") ? TS_MODULE_RESOURCES : (TOPIC_RESOURCES[topic] ?? TS_FALLBACK_RESOURCES);
   }
-  if (track === "java") return JAVA_RESOURCES;
   if (topic.startsWith("module-")) return MODULE_RESOURCES;
   return TOPIC_RESOURCES[topic] ?? [
     { title: "Przewodnik po JavaScript", url: `${MDN}/Guide`, description: "Dokumentacja podstaw języka i jego najważniejszych mechanizmów." },

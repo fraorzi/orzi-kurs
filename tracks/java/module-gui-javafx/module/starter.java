@@ -1,1 +1,0 @@
-import java.util.*; class Solution { record Item(String id,String name){} static class ViewModel { List<Item> items=new ArrayList<>(); void save(String id,String name){} Optional<Item> selected(String id){return Optional.empty();} } }

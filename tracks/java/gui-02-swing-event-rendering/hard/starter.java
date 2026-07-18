@@ -1,1 +1,0 @@
-import javax.swing.*; class Solution { static DefaultListModel<String> add(DefaultListModel<String> model,String value){return model;} static JButton button(Runnable action){return new JButton("Save");} }

@@ -1,1 +1,0 @@
-import java.util.*; class Solution { interface Identified { String id(); } static <T extends Identified> Map<String,T> index(List<T> values){ Map<String,T> result=new LinkedHashMap<>(); for(T value:values) if(result.putIfAbsent(value.id(),value)!=null) throw new IllegalArgumentException("duplicate id"); return Collections.unmodifiableMap(result); } }

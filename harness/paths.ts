@@ -81,7 +81,7 @@ export function isMultiFile(taskDir: string): boolean {
  * tasks, or the `src/` directory for multi-file tasks. `null` if neither exists.
  */
 export function findStarter(taskDir: string): string | null {
-  for (const ext of ["tsx", "ts", "jsx", "js", "sql", "java"]) {
+  for (const ext of ["tsx", "ts", "jsx", "js", "sql"]) {
     const p = resolve(taskDir, `starter.${ext}`);
     if (existsSync(p)) return p;
   }
@@ -95,7 +95,7 @@ export function findStarter(taskDir: string): string | null {
  * tasks, or the `_solution/` directory for multi-file tasks. `null` if neither.
  */
 export function findSolution(taskDir: string): string | null {
-  for (const ext of ["tsx", "ts", "jsx", "js", "sql", "java"]) {
+  for (const ext of ["tsx", "ts", "jsx", "js", "sql"]) {
     const p = resolve(taskDir, `_solution.${ext}`);
     if (existsSync(p)) return p;
   }

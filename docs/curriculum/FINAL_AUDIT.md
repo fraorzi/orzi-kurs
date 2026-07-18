@@ -5,7 +5,7 @@ Data: 2026-07-17. Branch: `feature/curriculum-final-audit`.
 ## Wynik
 
 Curriculum jest kompletne jako ścieżka od wiedzy internowej do praktycznej
-samodzielności mida. Publiczny katalog ma 9 tracków, 261 tematów i 645 zadań.
+samodzielności mida. Publiczny katalog ma 8 tracków, 222 tematy i 606 zadań (Java: osobne repo orzi-kurs_java).
 Każde zadanie ma starter, rozwiązanie, test i hinty; 27 pozycji to moduły projektowe
 lub capstone'y. Osiem dodatkowych zadań `_smoke` testuje harness i nie wchodzi do
 materiału ucznia.
@@ -20,8 +20,7 @@ materiału ucznia.
 | MySQL | 24 | 68 | 2 | 68/68 |
 | Strapi | 16 | 46 | 1 | 46/46 |
 | Combined | 13 | 13 | 2 | 13/13 |
-| Java | 39 | 39 | 8 | 39/39 |
-| **Razem** | **261** | **645** | **27** | **645/645** |
+| **Razem** | **222** | **606** | **19** | **606/606** |
 
 ## Kolejność i doświadczenie nauki
 
@@ -31,7 +30,7 @@ materiału ucznia.
 - Node → MySQL → Strapi rozwija runtime, bazę i CMS po fundamentach języka.
 - Combined nie powtarza składni: ćwiczy granice systemu, security, delivery,
   obserwowalność, awarie częściowe, rollout i maintenance.
-- Java prowadzi PPJ → GUI → UTP → SKJ, z TPO jako rozszerzeniem.
+- Java wyprowadzona do repo `orzi-kurs_java` (Gradle/JUnit/IntelliJ) — 2026-07-18.
 - UI ma jawne metadane wszystkich aktywnych tracków i semantyczne etapy nauki.
 - `TOPIC_ORDER` dokładnie odpowiada katalogom. Audyt naprawił stary slug MySQL
   `21-debugging-sql` na rzeczywisty `21-debug-data-incidents`.

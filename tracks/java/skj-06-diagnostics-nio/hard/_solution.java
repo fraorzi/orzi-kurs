@@ -1,1 +1,0 @@
-import java.util.concurrent.*;class Solution{static class Buffer{private final ArrayBlockingQueue<byte[]>queue;Buffer(int limit){queue=new ArrayBlockingQueue<>(limit);}boolean offer(byte[]data){return queue.offer(data.clone());}byte[]poll(){byte[]value=queue.poll();return value==null?null:value.clone();}int size(){return queue.size();}}}

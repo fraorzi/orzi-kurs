@@ -126,7 +126,7 @@ async function runLint(
   if (!starter) return { errors, warnings };
   if (
     !statSync(starter).isDirectory() &&
-    [".sql", ".java"].includes(extname(starter))
+    [".sql"].includes(extname(starter))
   ) {
     return { errors, warnings };
   }

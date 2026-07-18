@@ -1,3 +1,0 @@
-import { describe, expect, it } from "vitest"; import { runJavaTask } from "@harness/java-test";
-const TEST_MAIN="import javax.swing.*; public class TestMain { public static void main(String[] args){ var model=new DefaultListModel<String>(); Solution.add(model,\" A \"); if(model.size()!=1||!model.get(0).equals(\"A\")) throw new AssertionError(); int[] calls={0}; var button=Solution.button(() -> calls[0]++); button.doClick(); if(calls[0]!=1||!button.getName().equals(\"save\")) throw new AssertionError(); System.out.print(\"OK\");}}";
-describe("Swing: model, zdarzenia i renderowanie",()=>{it("spełnia kontrakt GUI bez uruchamiania okna",async()=>{await expect(runJavaTask(import.meta.dirname,TEST_MAIN)).resolves.toBe("OK");});});

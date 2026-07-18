@@ -1,1 +1,0 @@
-import java.util.*;class Solution{interface Store{boolean done(String id);void effect(String payload);void mark(String id);}static boolean process(String id,String payload,Store store){store.effect(payload);store.mark(id);return true;}}

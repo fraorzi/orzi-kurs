@@ -1,1 +1,0 @@
-import java.util.*; class Solution { static <T> void copy(Iterable<? extends T> source,Collection<? super T> target){for(T value:source)target.add(value);} static <T extends Comparable<? super T>> T max(List<? extends T> values){if(values.isEmpty())throw new NoSuchElementException();T best=values.get(0);for(T value:values)if(value.compareTo(best)>0)best=value;return best;} }

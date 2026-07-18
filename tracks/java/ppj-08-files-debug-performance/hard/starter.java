@@ -1,1 +1,0 @@
-import java.io.*; import java.nio.file.*; class Solution { static String report(Path path) throws IOException { String output=""; for(String line:Files.readAllLines(path)) output += line.toUpperCase()+"\n"; return output; } }

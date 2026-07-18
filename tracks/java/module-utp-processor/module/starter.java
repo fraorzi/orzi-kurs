@@ -1,1 +1,0 @@
-import java.util.*;import java.util.concurrent.*;class Solution{interface Worker{String run(String value)throws Exception;}record Result(List<String>values,int retries){}static Result process(List<String>items,Worker worker)throws Exception{return new Result(List.of(),0);}}

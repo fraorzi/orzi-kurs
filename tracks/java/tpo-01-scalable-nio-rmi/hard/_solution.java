@@ -1,1 +1,0 @@
-import java.util.*;class Solution{record Connection(String id,int pendingBytes){Connection{if(pendingBytes<0)throw new IllegalArgumentException();}}static List<String>writable(List<Connection>items){return items.stream().filter(item->item.pendingBytes()>0).sorted(Comparator.comparing(Connection::id)).map(Connection::id).toList();}}

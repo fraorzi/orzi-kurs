@@ -1,1 +1,0 @@
-import java.util.concurrent.atomic.*;class Solution{static class Counter{private final AtomicInteger value=new AtomicInteger();void increment(){value.incrementAndGet();}int get(){return value.get();}}}

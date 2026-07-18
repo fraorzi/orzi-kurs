@@ -11,8 +11,10 @@ sprawdza sam harness i nie jest widoczne jako materiał ucznia.
 
 Kolejność frontendu jest zgodna z planem użytkownika:
 JavaScript → TypeScript → React w TypeScript/TSX → Next.js w TypeScript/TSX.
-Node, MySQL i Strapi rozwijają backend, combined ćwiczy pracę przekrojową, a Java
-realizuje PPJ → GUI → UTP → SKJ z elective TPO.
+Node, MySQL i Strapi rozwijają backend, a combined ćwiczy pracę przekrojową.
+Java (PPJ → GUI → UTP → SKJ + TPO) została 2026-07-18 przeniesiona do osobnego
+repo `orzi-kurs_java` z natywnym toolchainem Gradle/JUnit/IntelliJ; `tracks/java`
+i adapter kompilacji usunięto z tego repo, plan zachowany w README tamtego repo.
 
 ## Branche
 
