@@ -134,7 +134,7 @@ async function runLint(
     ? join(starter, "**/*.{js,jsx,ts,tsx}")
     : starter;
 
-  const eslint = new ESLint({ cwd: REPO_ROOT });
+  const eslint = new ESLint({ cwd: REPO_ROOT, errorOnUnmatchedPattern: false });
   const results = await eslint.lintFiles([target]);
   for (const res of results) {
     for (const m of res.messages) {
