@@ -28,13 +28,9 @@ export function createBankAccount(initialBalance = 0) {
     return balance;
   }
 
-  function getBalance() {
-    return balance;
-  }
-
   return {
     deposit,
     withdraw,
-    getBalance,
+    getBalance: () => balance,
   };
 }
