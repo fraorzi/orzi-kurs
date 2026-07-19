@@ -34,5 +34,17 @@
     "firstPassedWithoutHintAt": "2026-07-18T00:33:07.681Z",
     "verifiedStarter": "export interface ProfileCardProps {\n  readonly name: string;\n  readonly role: string;\n  readonly online: boolean;\n}\n\nexport function ProfileCard({name, role, online}: ProfileCardProps) {\n  return (\n    <article aria-label={`Profil ${name}`}>\n      <h2>\n        {name}\n      </h2>\n      <p>\n        {role}\n      </p>\n      <p>\n        {online ? 'Dostępny' : 'Offline'}\n      </p>\n    </article>\n  );\n}\n",
     "lastRunAt": "2026-07-18T15:18:09.450Z"
+  },
+  "js/02-scope/medium": {
+    "status": "passed",
+    "attempts": 5,
+    "masteryScore": 4,
+    "cleanPassStreak": 4,
+    "nextReviewAt": "2026-08-09T16:45:49.364Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-07-19T16:40:21.287Z",
+    "firstPassedWithoutHintAt": "2026-07-19T16:40:21.287Z",
+    "verifiedStarter": "export function createBankAccount(initialBalance = 0) {\n  let balance = initialBalance;\n\n  const assertPositiveAmount = (amount) => {\n    if (amount <= 0)\n      throw new RangeError(\"Kwota mniejsza lub równa zero\");\n    return amount;\n  };\n\n  function deposit(amount) {\n    assertPositiveAmount(amount);\n\n    balance += amount;\n\n    return balance;\n  }\n\n  function withdraw(amount) {\n    assertPositiveAmount(amount);\n\n    if (amount > balance)\n      throw new RangeError(\n        \"Brak wystarczających środków na końcie\",\n      );\n\n    balance -= amount;\n\n    return balance;\n  }\n\n  function getBalance() {\n    return balance;\n  }\n\n  return {\n    deposit,\n    withdraw,\n    getBalance,\n  };\n}\n",
+    "lastRunAt": "2026-07-19T16:45:49.364Z"
   }
 }
