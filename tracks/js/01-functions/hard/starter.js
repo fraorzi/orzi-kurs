@@ -1,7 +1,25 @@
 export function spy(fn) {
-  // TODO
+  wrapper.calls = [];
+  function wrapper(...args) {
+    const temp = [];
+    temp.push(...args);
+    wrapper.calls.push(temp);
+
+    return fn.apply(this, args);
+  }
+  return wrapper;
 }
 
 export function once(fn) {
-  // TODO
+  let called = false;
+  let result;
+
+  function wrapper(...args) {
+    if (called) return result;
+    called = true;
+    result = fn.apply(this, args);
+    return result;
+  }
+
+  return wrapper;
 }

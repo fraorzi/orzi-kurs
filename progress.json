@@ -58,5 +58,18 @@
     "firstPassedWithHintAt": "2026-07-20T13:16:08.527Z",
     "verifiedStarter": "export function makeArmy() {\n  const shooters = [];\n\n  for (let i = 0; i < 10; i++) {\n    shooters.push(() => i);\n  }\n\n  return shooters;\n}\n",
     "lastRunAt": "2026-07-20T13:18:57.714Z"
+  },
+  "js/01-functions/hard": {
+    "status": "passed",
+    "attempts": 20,
+    "masteryScore": 2,
+    "cleanPassStreak": 1,
+    "nextReviewAt": "2026-07-23T19:00:38.650Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-07-20T18:36:44.927Z",
+    "firstPassedWithHintAt": "2026-07-20T18:36:44.927Z",
+    "firstPassedWithoutHintAt": "2026-07-20T19:00:38.650Z",
+    "verifiedStarter": "export function spy(fn) {\n  wrapper.calls = [];\n  function wrapper(...args) {\n    const temp = [];\n    temp.push(...args);\n    wrapper.calls.push(temp);\n\n    return fn.apply(this, args);\n  }\n  return wrapper;\n}\n\nexport function once(fn) {\n  let called = false;\n  let result;\n\n  function wrapper(...args) {\n    if (called) return result;\n    called = true;\n    result = fn.apply(this, args);\n    return result;\n  }\n\n  return wrapper;\n}\n",
+    "lastRunAt": "2026-07-20T19:00:38.650Z"
   }
 }
