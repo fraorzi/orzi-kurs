@@ -67,6 +67,31 @@ describe("starter reset and undo", () => {
     expect(readFileSync(starterPath, "utf8")).toBe("export const answer = 42;\n");
   });
 
+  it("restores the original TODO starter even after a solved version was committed", () => {
+    const repoRoot = createRepo({
+      "tracks/js/01-functions/hard/starter.js": "export function once(fn) {\n  // TODO\n}\n",
+    });
+    const starterPath = join(repoRoot, "tracks/js/01-functions/hard/starter.js");
+    writeFileSync(starterPath, "export function once(fn) {\n  return fn;\n}\n", "utf8");
+    execFileSync("git", ["-C", repoRoot, "add", "."]);
+    execFileSync("git", [
+      "-C",
+      repoRoot,
+      "-c",
+      "user.name=orzi-test",
+      "-c",
+      "user.email=orzi-test@example.com",
+      "commit",
+      "-qm",
+      "solve task",
+    ]);
+
+    restoreStarterCodeInRepo("js/01-functions/hard", repoRoot);
+
+    expect(readFileSync(starterPath, "utf8"))
+      .toBe("export function once(fn) {\n  // TODO\n}\n");
+  });
+
   it("restores the complete src tree including extra student files", () => {
     const repoRoot = createRepo({
       "tracks/js/module-01/module/src/index.js": "export { createStore } from './store.js';\n",

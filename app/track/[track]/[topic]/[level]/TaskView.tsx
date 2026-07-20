@@ -32,6 +32,7 @@ interface Props {
   level: string;
   taskMd: string;
   hintsTotal: number;
+  initialHints: string[];
   starterPath: string | null;
   starterRel: string | null;
   initialSolution: string | null;
@@ -50,6 +51,7 @@ export default function TaskView({
   level,
   taskMd,
   hintsTotal,
+  initialHints,
   starterPath,
   starterRel,
   initialSolution,
@@ -68,7 +70,7 @@ export default function TaskView({
   const [progress, setProgress] = useState<TaskProgress | null>(initialProgress);
   const [passKind, setPassKind] = useState(initialPassKind);
   const [copied, setCopied] = useState(false);
-  const [hints, setHints] = useState<string[]>([]);
+  const [hints, setHints] = useState<string[]>(initialHints);
   const [hintError, setHintError] = useState<string | null>(null);
   const [loadingHint, setLoadingHint] = useState(false);
   const [openingEditor, setOpeningEditor] = useState(false);
@@ -127,7 +129,7 @@ export default function TaskView({
       setProgress(data.progress ?? null);
       window.dispatchEvent(new CustomEvent("orzi:progress"));
       if (data.passed) {
-        setPassKind(hints.length > 0 ? "with-hint" : "without-hint");
+        setPassKind(data.usedHint === true ? "with-hint" : "without-hint");
         try {
           const taskRes = await fetch(`/api/task?id=${encodeURIComponent(taskId)}`);
           const taskData: TaskResponse = await taskRes.json();
@@ -173,17 +175,27 @@ export default function TaskView({
     setLoadingHint(true);
     setHintError(null);
     try {
-      const res = await fetch(`/api/hint?id=${encodeURIComponent(taskId)}&n=${n}`);
-      const data = await res.json();
+      const res = await fetch("/api/hint", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ taskId, n }),
+      });
+      const data: { hint?: string; progress?: TaskProgress; error?: string } = await res.json();
       if (!res.ok) {
         setHintError(data.error ?? "nie udało się pobrać hinta");
         return;
       }
+      const hint = data.hint;
+      if (!hint) {
+        setHintError("Serwer nie zwrócił treści wskazówki.");
+        return;
+      }
       setHints((prev) => {
         const next = [...prev];
-        next[n - 1] = data.hint;
+        next[n - 1] = hint;
         return next;
       });
+      setProgress(data.progress ?? null);
     } catch {
       setHintError("Nie udało się pobrać wskazówki. Spróbuj ponownie.");
     } finally {
@@ -192,18 +204,6 @@ export default function TaskView({
   }
 
   const nextHintIndex = hints.length;
-
-  function handleRetryWithoutHint() {
-    setResult(null);
-    setSolution(null);
-    setStarter(null);
-    setPassKind(null);
-    setHints([]);
-    document.getElementById("task-starter")?.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-      block: "center",
-    });
-  }
 
   async function handleResetProgress() {
     if (!progress) return;
@@ -247,7 +247,6 @@ export default function TaskView({
       setSolution(null);
       setStarter(null);
       setPassKind(null);
-      setHints([]);
       window.dispatchEvent(new CustomEvent("orzi:progress"));
       activateUndoRecord({
         ...undoRecord,
@@ -261,8 +260,7 @@ export default function TaskView({
     }
   }
 
-  async function handleResetCode() {
-    setResettingCode(true);
+  async function restoreInitialCode(revealedHints?: string[]): Promise<boolean> {
     setSubmitError(null);
     let undoRecord: TaskUndoRecord<TaskProgress> | null = null;
     try {
@@ -273,7 +271,7 @@ export default function TaskView({
         setSubmitError(
           snapshotData.error ?? "Nie udało się przygotować kopii kodu. Kod nie został zresetowany.",
         );
-        return;
+        return false;
       }
       const now = Date.now();
       undoRecord = {
@@ -282,12 +280,13 @@ export default function TaskView({
         kind: "code",
         message: "Przywrócono kod początkowy.",
         payload: snapshotData.snapshot,
+        revealedHints,
         createdAt: now,
         expiresAt: now + 60_000,
       };
       if (!storeUndoRecord(undoRecord)) {
         setSubmitError("Nie udało się przygotować cofnięcia. Kod nie został zresetowany.");
-        return;
+        return false;
       }
 
       const res = await fetch("/api/starter", {
@@ -305,7 +304,7 @@ export default function TaskView({
         if (data.mutated === false) removeUndoRecord(undoRecord.id);
         else activateUndoRecord(undoRecord);
         setSubmitError(data.error ?? "nie udało się przywrócić kodu początkowego");
-        return;
+        return false;
       }
       setResult(null);
       setSolution(null);
@@ -314,9 +313,54 @@ export default function TaskView({
       setCurrentStarterPath(data.starterPath ?? null);
       setCurrentStarterRel(data.starterRel ?? null);
       activateUndoRecord(undoRecord);
+      return true;
     } catch {
       if (undoRecord) activateUndoRecord(undoRecord);
       setSubmitError("Nie udało się przywrócić kodu początkowego. Spróbuj ponownie.");
+      return false;
+    }
+  }
+
+  async function handleResetCode() {
+    setResettingCode(true);
+    try {
+      await restoreInitialCode();
+    } finally {
+      setResettingCode(false);
+    }
+  }
+
+  async function handleRetryWithoutHint() {
+    setResettingCode(true);
+    setSubmitError(null);
+    try {
+      if (!await restoreInitialCode([...hints])) return;
+
+      const res = await fetch("/api/hint", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ taskId }),
+      });
+      const data: { progress?: TaskProgress | null; error?: string } = await res.json();
+      if (!res.ok) {
+        setSubmitError(
+          data.error ?? "Kod został przywrócony, ale nie udało się wyczyścić stanu wskazówek.",
+        );
+        return;
+      }
+
+      setProgress(data.progress ?? null);
+      setHints([]);
+      setResult(null);
+      setSolution(null);
+      setStarter(null);
+      setPassKind(null);
+      document.getElementById("task-starter")?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "center",
+      });
+    } catch {
+      setSubmitError("Nie udało się rozpocząć próby bez wskazówek. Spróbuj ponownie.");
     } finally {
       setResettingCode(false);
     }
@@ -349,6 +393,20 @@ export default function TaskView({
       if (record.kind === "code") {
         setCurrentStarterPath(data.starterPath ?? null);
         setCurrentStarterRel(data.starterRel ?? null);
+        if (record.revealedHints && record.revealedHints.length > 0) {
+          const hintRes = await fetch("/api/hint", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ taskId: record.taskId, n: record.revealedHints.length }),
+          });
+          const hintData: { progress?: TaskProgress; error?: string } = await hintRes.json();
+          if (!hintRes.ok) {
+            setSubmitError(hintData.error ?? "Kod przywrócono, ale nie udało się odtworzyć wskazówek.");
+            return;
+          }
+          setHints(record.revealedHints);
+          setProgress(hintData.progress ?? null);
+        }
       } else {
         setProgress(data.progress ?? record.payload);
         window.dispatchEvent(new CustomEvent("orzi:progress"));
@@ -525,7 +583,7 @@ export default function TaskView({
               </section>
             )}
 
-            {(nextHintIndex < hintsTotal || passKind === "with-hint") && (
+            {(nextHintIndex < hintsTotal || hints.length > 0 || passKind === "with-hint") && (
               <div className="completion-actions">
                 <div>
                   {nextHintIndex < hintsTotal && (
@@ -539,9 +597,13 @@ export default function TaskView({
                   )}
                 </div>
                 <div className="completion-actions-right">
-                  {passKind === "with-hint" && (
-                    <button className="btn-ghost" onClick={handleRetryWithoutHint}>
-                      Spróbuj bez wskazówki
+                  {(hints.length > 0 || passKind === "with-hint") && (
+                    <button
+                      className="btn-ghost"
+                      onClick={handleRetryWithoutHint}
+                      disabled={resettingCode}
+                    >
+                      {resettingCode ? "Przywracam starter…" : "Zacznij od nowa bez wskazówek"}
                     </button>
                   )}
                 </div>

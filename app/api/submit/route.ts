@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { runTask } from "@/harness/runner";
+import { readProgress } from "@/harness/progress";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -17,6 +18,7 @@ export async function POST(req: NextRequest) {
     return Response.json({ error: "wymagane pole taskId" }, { status: 400 });
   }
 
-  const result = await runTask(taskId, { usedHint: body.usedHint === true });
-  return Response.json({ ...result, usedHint: body.usedHint === true });
+  const usedHint = body.usedHint === true || (readProgress()[taskId]?.revealedHints ?? 0) > 0;
+  const result = await runTask(taskId, { usedHint });
+  return Response.json({ ...result, usedHint });
 }

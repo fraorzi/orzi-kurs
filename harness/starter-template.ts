@@ -11,18 +11,13 @@ import { execFileSync } from "node:child_process";
 import { dirname, relative, resolve, sep } from "node:path";
 import { assertPathWithinRoot, findStarter, resolveTaskDir } from "./paths";
 import { REPO_ROOT } from "./progress";
+import { readInitialArtifact, writeArtifact } from "./initial-artifact";
 import type { StarterSnapshot } from "../shared/task-undo";
 
 const STARTER_CANDIDATES = ["starter.ts", "starter.js", "src"] as const;
 
 function toGitPath(path: string): string {
   return path.split(sep).join("/");
-}
-
-function git(repoRoot: string, args: string[]): Buffer {
-  return execFileSync("git", ["-C", repoRoot, ...args], {
-    maxBuffer: 32 * 1024 * 1024,
-  });
 }
 
 function trackedAtHead(repoRoot: string, relativePath: string): boolean {
@@ -110,31 +105,6 @@ export function captureStarterSnapshotInRepo(
   };
 }
 
-function restoreDirectory(repoRoot: string, relativePath: string, destination: string): void {
-  const files = git(repoRoot, ["ls-tree", "-r", "--name-only", "HEAD", "--", relativePath])
-    .toString("utf8")
-    .trim()
-    .split("\n")
-    .filter(Boolean);
-
-  removeDestinationForWrite(destination, resolve(repoRoot, "tracks"));
-  mkdirSync(destination, { recursive: true });
-
-  for (const file of files) {
-    if (!file.startsWith(`${relativePath}/`)) {
-      throw new Error(`nieprawidłowa ścieżka startera w Git: ${file}`);
-    }
-    const outputPath = resolve(repoRoot, file);
-    const withinDestination =
-      outputPath === destination || outputPath.startsWith(destination + sep);
-    if (!withinDestination) {
-      throw new Error(`plik startera poza katalogiem docelowym: ${file}`);
-    }
-    mkdirSync(dirname(outputPath), { recursive: true });
-    writeFileSync(outputPath, git(repoRoot, ["show", `HEAD:${file}`]));
-  }
-}
-
 export interface RestoredStarter {
   starterPath: string | null;
   starterRel: string | null;
@@ -148,14 +118,9 @@ export function restoreStarterCodeInRepo(taskId: string, repoRoot: string): Rest
   }
 
   const destination = resolve(repoRoot, templateRelative);
-
-  if (templateRelative.endsWith("/src")) {
-    restoreDirectory(repoRoot, templateRelative, destination);
-  } else {
-    removeDestinationForWrite(destination, taskDir);
-    mkdirSync(dirname(destination), { recursive: true });
-    writeFileSync(destination, git(repoRoot, ["show", `HEAD:${templateRelative}`]));
-  }
+  const initial = readInitialArtifact(destination, repoRoot);
+  if (!initial) throw new Error("nie udało się odczytać pierwotnej wersji startera z Git");
+  writeArtifact(destination, initial);
 
   return {
     starterPath: destination,

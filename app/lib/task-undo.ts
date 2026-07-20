@@ -9,6 +9,7 @@ export const UNDO_DURATION_MS = 12_000;
 function isUndoRecord(value: unknown): value is TaskUndoRecord<TaskProgress> {
   if (!value || typeof value !== "object") return false;
   const record = value as Partial<TaskUndoRecord<TaskProgress>>;
+  const revealedHints = (value as { revealedHints?: unknown }).revealedHints;
   return (
     typeof record.id === "string" &&
     typeof record.taskId === "string" &&
@@ -16,6 +17,9 @@ function isUndoRecord(value: unknown): value is TaskUndoRecord<TaskProgress> {
     typeof record.createdAt === "number" &&
     typeof record.expiresAt === "number" &&
     (record.kind === "code" || record.kind === "progress") &&
+    (record.kind !== "code" ||
+      revealedHints === undefined ||
+      (Array.isArray(revealedHints) && revealedHints.every((hint) => typeof hint === "string"))) &&
     record.payload !== null &&
     typeof record.payload === "object"
   );

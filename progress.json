@@ -60,15 +60,15 @@
     "lastRunAt": "2026-07-20T13:18:57.714Z"
   },
   "js/01-functions/hard": {
-    "status": "passed",
+    "status": "passed-with-hint",
     "attempts": 26,
-    "masteryScore": 4,
-    "cleanPassStreak": 4,
-    "nextReviewAt": "2026-08-10T19:07:08.192Z",
+    "masteryScore": 1,
+    "cleanPassStreak": 0,
+    "nextReviewAt": "2026-07-20T19:07:08.192Z",
     "lastAttemptPassed": true,
     "firstPassedAt": "2026-07-20T18:36:44.927Z",
     "firstPassedWithHintAt": "2026-07-20T18:36:44.927Z",
-    "firstPassedWithoutHintAt": "2026-07-20T19:00:38.650Z",
+    "revealedHints": 1,
     "verifiedStarter": "export function spy(fn) {\n  wrapper.calls = [];\n  function wrapper(...args) {\n    wrapper.calls.push(args);\n    return fn.apply(this, args);\n  }\n  return wrapper;\n}\n\nexport function once(fn) {\n  let called = false;\n  let result;\n\n  return function (...args) {\n    if (called) return result;\n    called = true;\n    result = fn.apply(this, args);\n    return result;\n  };\n}\n",
     "lastRunAt": "2026-07-20T19:07:08.192Z"
   }
