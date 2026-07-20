@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import type { Catalog } from "@/app/lib/types";
+import { sortTracksByLearningOrder } from "@/curriculum/order";
 import {
   learningModules,
   STATUS_LABEL,
@@ -146,8 +147,9 @@ export default function Sidebar({
     };
   }, [closeSwitcher, switcherOpen, positionPop]);
 
+  const orderedTracks = sortTracksByLearningOrder(catalog?.tracks ?? []);
   const track =
-    catalog?.tracks.find((t) => t.id === curTrackId) ?? catalog?.tracks[0] ?? null;
+    orderedTracks.find((t) => t.id === curTrackId) ?? orderedTracks[0] ?? null;
   const meta = track ? trackMeta(track.id) : null;
   const modules = track ? learningModules(track) : [];
 
@@ -216,7 +218,7 @@ export default function Sidebar({
                   }
                 }}
               >
-                {catalog?.tracks.map((t) => {
+                {orderedTracks.map((t) => {
                   const m = trackMeta(t.id);
                   const isCurrent = t.id === track.id;
                   return (
@@ -239,7 +241,7 @@ export default function Sidebar({
                 })}
                 {(() => {
                   const upcoming = TRACK_META.filter(
-                    (m) => !catalog?.tracks.some((t) => t.id === m.id),
+                    (m) => !orderedTracks.some((t) => t.id === m.id),
                   );
                   if (upcoming.length === 0) return null;
                   return (

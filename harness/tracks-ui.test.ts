@@ -125,6 +125,50 @@ describe("track UI learning semantics", () => {
 });
 
 describe("sidebar topic disclosure", () => {
+  it("shows available and upcoming tracks in learning order", () => {
+    render(
+      createElement(Sidebar, {
+        catalog: {
+          tracks: ["next", "react", "js", "ts"].map((id) => ({
+            id,
+            topics: [{
+              id: `${id}/01-topic`,
+              title: "Topic",
+              levels: [level("easy", "not-started")],
+            }],
+          })),
+        },
+        catalogStatus: "success",
+        collapsed: false,
+        isMobile: false,
+        mobileOpen: false,
+        onToggle: vi.fn(),
+        onMobileClose: vi.fn(),
+        onMobileNavigate: vi.fn(),
+        onRetryCatalog: vi.fn(),
+        inert: false,
+      }),
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: /JavaScript.*zmień/i }));
+
+    const labels = Array.from(
+      document.querySelectorAll<HTMLElement>("#track-switcher .trackpop-item > span:nth-child(2)"),
+      (element) => element.textContent,
+    );
+    expect(labels).toEqual([
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Next.js",
+      "Node.js",
+      "MySQL",
+      "Strapi",
+      "Projekty łączone",
+      "Java",
+    ]);
+  });
+
   it("keeps closed levels inert and toggles them without closing the mobile drawer", () => {
     const onMobileNavigate = vi.fn();
     const { container } = render(

@@ -279,35 +279,6 @@
   text-align: right;
 }
 
-.progressMoreTrigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  min-height: 44px;
-  width: 100%;
-  padding: 0 10px;
-  border-bottom: 1px solid var(--line);
-  border-top: 0;
-  border-right: 0;
-  border-left: 0;
-  background: none;
-  color: var(--faint);
-  cursor: pointer;
-  font-size: 11.5px;
-  text-align: left;
-  transition: color var(--dur), background var(--dur);
-}
-
-.progressMoreTrigger:hover {
-  background: var(--raised);
-  color: var(--ink);
-}
-
-.progressMore .progressList {
-  border-top: 0;
-}
-
 @keyframes progress-reveal {
   from { transform: scaleX(0); }
   to { transform: scaleX(var(--progress)); }
@@ -413,35 +384,17 @@
   color: var(--faint);
 }
 
-.upcomingGroups {
+.upcomingList {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px 32px;
+  gap: 8px 32px;
+  margin: 0;
   padding: 16px 10px 20px;
   border-top: 1px solid var(--line);
-}
-
-.upcomingGroup {
-  min-width: 0;
-}
-
-.upcomingGroup h3 {
-  margin: 0 0 8px;
-  color: var(--faint);
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.upcomingGroup ul {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
   list-style: none;
 }
 
-.upcomingGroup li {
+.upcomingList li {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -450,9 +403,16 @@
   font-size: 12px;
 }
 
-.upcomingGroup li > span:last-child {
+.upcomingList li > span {
   min-width: 0;
   overflow-wrap: anywhere;
+}
+
+.upcomingList small {
+  margin-left: auto;
+  color: var(--faint);
+  font-size: 10.5px;
+  white-space: nowrap;
 }
 
 @container dashboard (max-width: 760px) {
@@ -511,7 +471,7 @@
     min-height: 66px;
   }
 
-  .upcomingGroups {
+  .upcomingList {
     grid-template-columns: minmax(0, 1fr);
   }
 }

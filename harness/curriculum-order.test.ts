@@ -1,9 +1,29 @@
 import { describe, expect, it } from "vitest";
-import { learningModules } from "../app/lib/tracks";
+import { learningModules, trackIcon, TRACK_META } from "../app/lib/tracks";
+import { LogoCombined, LogoNode } from "../app/components/icons";
 import type { CatalogTrack } from "../app/lib/types";
-import { compareTopicSlugs, TOPIC_ORDER, topicDisplayNumber } from "../curriculum/order";
+import {
+  compareTopicSlugs,
+  compareTrackIds,
+  TOPIC_ORDER,
+  topicDisplayNumber,
+  TRACK_ORDER,
+} from "../curriculum/order";
 
 describe("curriculum order", () => {
+  it("keeps every track list in the documented learning order", () => {
+    expect([...TRACK_ORDER].reverse().sort(compareTrackIds)).toEqual(TRACK_ORDER);
+    expect(TRACK_META.map((track) => track.id)).toEqual(TRACK_ORDER);
+  });
+
+  it("uses the dedicated Node.js mark", () => {
+    expect(trackIcon("node")).toBe(LogoNode);
+  });
+
+  it("uses the dedicated combined-projects mark", () => {
+    expect(trackIcon("combined")).toBe(LogoCombined);
+  });
+
   it("places prerequisites before dependent JavaScript topics", () => {
     expect(compareTopicSlugs("js", "17-map-set", "08-closures")).toBeLessThan(0);
     expect(compareTopicSlugs("js", "16-error-handling", "11-async-await")).toBeLessThan(0);

@@ -9,7 +9,6 @@ import SharedTrackIdentity from "@/app/components/SharedTrackIdentity";
 import TrackBadge from "@/app/components/TrackBadge";
 import { IconArrowRight } from "@/app/components/icons";
 import {
-  CATEGORIES,
   TRACK_META,
   isCompletedStatus,
   isReviewDue,
@@ -21,10 +20,10 @@ import {
   trackProgress,
 } from "@/app/lib/tracks";
 import type { CatalogLevel, CatalogTopic, CatalogTrack } from "@/app/lib/types";
+import { sortTracksByLearningOrder } from "@/curriculum/order";
 import styles from "./home.module.css";
 
 const POLISH_PLURALS = new Intl.PluralRules("pl-PL");
-const VISIBLE_PROGRESS_TRACKS = 4;
 
 interface DashboardTask {
   track: CatalogTrack;
@@ -112,7 +111,9 @@ export default async function Home() {
   const activeIds = new Set(catalog.tracks.map((track) => track.id));
   const upcoming = TRACK_META.filter((track) => !activeIds.has(track.id));
   const now = new Date();
-  const dashboardTracks: DashboardTrack[] = catalog.tracks.map((track) => {
+  const dashboardTracks: DashboardTrack[] = sortTracksByLearningOrder(
+    catalog.tracks,
+  ).map((track) => {
     const tasks = track.topics.flatMap((topic) =>
       topic.levels.map((level) => ({ track, topic, level })),
     );
@@ -156,27 +157,7 @@ export default async function Home() {
         : focusTrack && focusTrack.touched > 0
           ? "continue"
           : "start";
-  const orderedProgressEntries = focusTrack
-    ? [
-        focusTrack,
-        ...dashboardTracks.filter(({ track }) => track.id !== focusTrack.track.id),
-      ]
-    : dashboardTracks;
-  const startedProgressEntries = orderedProgressEntries.filter(({ touched }) => touched > 0);
-  const untouchedProgressEntries = orderedProgressEntries.filter(({ touched }) => touched === 0);
-  const visibleProgressEntries = [
-    ...startedProgressEntries,
-    ...untouchedProgressEntries.slice(
-      0,
-      Math.max(0, VISIBLE_PROGRESS_TRACKS - startedProgressEntries.length),
-    ),
-  ];
-  const visibleProgressIds = new Set(
-    visibleProgressEntries.map(({ track }) => track.id),
-  );
-  const additionalProgressTracks = orderedProgressEntries
-    .filter(({ track }) => !visibleProgressIds.has(track.id))
-    .map(({ track }) => track);
+  const startedProgressEntries = dashboardTracks.filter(({ touched }) => touched > 0);
 
   return (
     <>
@@ -278,21 +259,7 @@ export default async function Home() {
             </div>
           </header>
 
-          <ProgressTrackList tracks={visibleProgressEntries.map(({ track }) => track)} />
-          {additionalProgressTracks.length > 0 && (
-            <AnimatedDisclosure
-              className={styles.progressMore}
-              triggerClassName={styles.progressMoreTrigger}
-              trigger={countLabel(
-                additionalProgressTracks.length,
-                "pozostała ścieżka",
-                "pozostałe ścieżki",
-                "pozostałych ścieżek",
-              )}
-            >
-              <ProgressTrackList tracks={additionalProgressTracks} />
-            </AnimatedDisclosure>
-          )}
+          <ProgressTrackList tracks={dashboardTracks.map(({ track }) => track)} />
         </section>
 
         <div className={styles.secondary}>
@@ -331,26 +298,15 @@ export default async function Home() {
                 </span>
               }
             >
-              <div className={styles.upcomingGroups}>
-                {CATEGORIES.map((category) => {
-                  const items = upcoming.filter((track) => track.category === category);
-                  if (items.length === 0) return null;
-
-                  return (
-                    <section className={styles.upcomingGroup} key={category}>
-                      <h3>{category}</h3>
-                      <ul>
-                        {items.map((track) => (
-                          <li key={track.id}>
-                            <TrackBadge id={track.id} size="sm" />
-                            <span>{track.name}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </section>
-                  );
-                })}
-              </div>
+              <ul className={styles.upcomingList}>
+                {upcoming.map((track) => (
+                  <li key={track.id}>
+                    <TrackBadge id={track.id} size="sm" />
+                    <span>{track.name}</span>
+                    <small>{track.category}</small>
+                  </li>
+                ))}
+              </ul>
             </AnimatedDisclosure>
           )}
         </div>

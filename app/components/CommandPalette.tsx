@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Catalog, TaskStatus } from "@/app/lib/types";
 import { topicSlug, topicNumber } from "@/app/lib/tracks";
+import { sortTracksByLearningOrder } from "@/curriculum/order";
 import { IconClose } from "./icons";
 import styles from "./shell.module.css";
 
@@ -38,7 +39,7 @@ export default function CommandPalette({ catalog, catalogStatus, onClose, onRetr
   const items = useMemo<Item[]>(() => {
     if (!catalog) return [];
     const out: Item[] = [];
-    for (const track of catalog.tracks) {
+    for (const track of sortTracksByLearningOrder(catalog.tracks)) {
       for (const topic of track.topics) {
         const slug = topicSlug(topic.id);
         for (const level of topic.levels) {
