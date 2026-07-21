@@ -83,5 +83,17 @@
     "firstPassedWithoutHintAt": "2026-07-21T15:11:25.539Z",
     "verifiedStarter": "export function compact(arr) {\n  return arr.filter(Boolean);\n}\n\nexport function typeOf(value) {\n  return value === null ? \"null\" : typeof value;\n}\n\nexport function isNumericString(s) {\n  if (typeof s !== \"string\" || s.trim().length === 0) {\n    return false;\n  }\n  return Number.isFinite(Number(s));\n}\n",
     "lastRunAt": "2026-07-21T15:14:29.179Z"
+  },
+  "js/03-types-coercion/medium": {
+    "status": "passed",
+    "attempts": 6,
+    "masteryScore": 1,
+    "cleanPassStreak": 1,
+    "nextReviewAt": "2026-07-22T16:05:16.055Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-07-21T16:05:16.055Z",
+    "firstPassedWithoutHintAt": "2026-07-21T16:05:16.055Z",
+    "verifiedStarter": "export function sameValue(a, b) {\n  if (Number.isNaN(a) && Number.isNaN(b)) return true;\n  if (a === 0 || b === 0) {\n    return 1 / a === 1 / b;\n  }\n  return a === b;\n}\n\nexport function defaultTo(value, fallback) {\n  if (\n    value === undefined ||\n    value === null ||\n    Number.isNaN(value)\n  ) {\n    return fallback;\n  }\n  return value;\n}\n",
+    "lastRunAt": "2026-07-21T16:05:16.055Z"
   }
 }
