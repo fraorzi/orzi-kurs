@@ -1,11 +1,14 @@
 export function compact(arr) {
-  // TODO
+  return arr.filter(Boolean);
 }
 
 export function typeOf(value) {
-  // TODO
+  return value === null ? "null" : typeof value;
 }
 
 export function isNumericString(s) {
-  // TODO
+  if (typeof s !== "string" || s.trim().length === 0) {
+    return false;
+  }
+  return Number.isFinite(Number(s));
 }

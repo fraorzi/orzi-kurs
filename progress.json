@@ -71,5 +71,17 @@
     "revealedHints": 1,
     "verifiedStarter": "export function spy(fn) {\n  wrapper.calls = [];\n  function wrapper(...args) {\n    wrapper.calls.push(args);\n    return fn.apply(this, args);\n  }\n  return wrapper;\n}\n\nexport function once(fn) {\n  let called = false;\n  let result;\n\n  return function (...args) {\n    if (called) return result;\n    called = true;\n    result = fn.apply(this, args);\n    return result;\n  };\n}\n",
     "lastRunAt": "2026-07-20T19:07:08.192Z"
+  },
+  "js/03-types-coercion/easy": {
+    "status": "passed",
+    "attempts": 6,
+    "masteryScore": 3,
+    "cleanPassStreak": 3,
+    "nextReviewAt": "2026-07-28T15:14:29.179Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-07-21T15:11:25.539Z",
+    "firstPassedWithoutHintAt": "2026-07-21T15:11:25.539Z",
+    "verifiedStarter": "export function compact(arr) {\n  return arr.filter(Boolean);\n}\n\nexport function typeOf(value) {\n  return value === null ? \"null\" : typeof value;\n}\n\nexport function isNumericString(s) {\n  if (typeof s !== \"string\" || s.trim().length === 0) {\n    return false;\n  }\n  return Number.isFinite(Number(s));\n}\n",
+    "lastRunAt": "2026-07-21T15:14:29.179Z"
   }
 }
