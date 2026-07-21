@@ -1,14 +1,15 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik bezpieczeństwa lub warstwy, zanim zaczniesz implementować.
+Szkielet to `try { await update(); await audit(); await commit(); } catch (error) { await rollback(); throw error; }`
+— jeden `try` obejmujący obie operacje zapisu.
 
 ## Hint 2
 
-Wstrzyknij zależności i przetestuj kolejność wywołań oraz ścieżkę odmowy/błędu.
+Nie potrzebujesz osobnych `try` dla `update` i `audit` — pierwszy błąd
+w którymkolwiek z nich trafia do tego samego `catch` i uruchamia ten
+sam `rollback`.
 
 ## Hint 3
 
-Sprawdź oficjalny kontrakt Strapi 5 wskazany w README i nie opieraj decyzji na danych klienta.
-
+`throw error` w `catch` musi być ostatnią instrukcją — `rollback()` ma
+się wykonać **przed** ponownym rzuceniem, nie po nim.

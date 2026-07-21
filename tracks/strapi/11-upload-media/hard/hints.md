@@ -1,14 +1,14 @@
-# Hints
-
 ## Hint 1
 
-Zacznij od testu negatywnego na granicy HTTP lub bezpieczeństwa.
+Pierwszy wiersz funkcji to strażnik: `if (!await deps.authorize()) throw new Error("Forbidden")`
+— zanim cokolwiek innego się wydarzy.
 
 ## Hint 2
 
-Uporządkuj kolejność: authorize, validate, efekt, cleanup albo rewalidacja.
+`try/catch` obejmuje wyłącznie `link(id)`, nie `upload()` — sprzątanie
+(`remove(id)`) ma sens dopiero, gdy `id` istnieje.
 
 ## Hint 3
 
-Użyj allow-list i jawnego statusu zamiast polegać na domyślnych danych klienta.
-
+W `catch` najpierw `await deps.remove(id)`, potem `throw error` — kolejność
+odwrotna zostawiłaby nierzucony błąd albo osierocony plik.

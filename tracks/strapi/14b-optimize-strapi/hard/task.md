@@ -1,6 +1,14 @@
-# Zawęź rewalidację cache
+# [O] Hard — zawęź rewalidację cache
 
-Zachowaj precyzyjne tagi dokumentu/listy/kategorii i usuń globalny purge.
+Po każdej edycji artykułu handler unieważnia globalny tag `content`, przez
+co CDN wyrzuca cały cache strony przy każdej drobnej zmianie.
 
-Starter jest poprawny funkcjonalnie. Zmiana ma przejść testy poprawności i mierzalną bramkę oznaczoną `[quality]`.
+Starter jest funkcjonalnie poprawny (unieważnia właściwe rzeczy), ale robi to
+zbyt szeroko. Zaimplementuj `solve(documentId, locale, category?)`:
 
+- zwróć precyzyjne tagi: `article:<documentId>`, `articles:<locale>` oraz —
+  jeśli podano — `category:<category>:<locale>`;
+- **nie** dodawaj globalnego `content`;
+- brak kategorii = brak jej tagu.
+
+Bramka `[quality]`: wynik nie zawiera globalnego purge.

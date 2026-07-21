@@ -1,6 +1,20 @@
-# Skomponuj middleware z poprawną kolejnością
+# Hard — skomponuj middleware w poprawnej kolejności
 
-Zwróć runner realizujący onion model: before A,B, handler, after B,A; przerwanie nie może wywołać dalszego łańcucha.
+Strapi wykonuje middleware jako stos onion: każdy wpis owija kolejny,
+robi coś **przed** `next()` i coś **po** nim, w odwrotnej kolejności.
+Zaimplementuj `solve(middlewares, handler)`, który zwraca gotowy do
+wywołania runner złożony z listy `Middleware`.
 
-Kod ma być TypeScript-first, deterministyczny i testowalny bez panelu administracyjnego ani zewnętrznych usług.
+Wymagania:
 
+- dla `[a, b]` i `handler` kolejność wywołań to: `before-a`, `before-b`,
+  `handler`, `after-b`, `after-a` — dokładnie onion, nie kolejka;
+- pusta lista middleware ma po prostu wywołać `handler` bez żadnego
+  opakowania;
+- middleware, który **nie wywołuje** `next()` (świadomy short-circuit,
+  np. odrzucenie żądania), musi przerwać cały dalszy łańcuch — żaden
+  kolejny middleware ani `handler`, ani „after” wcześniejszych warstw
+  nie mogą się wykonać;
+- błąd rzucony przez `handler` albo przez dowolny middleware ma
+  propagować się na zewnątrz `solve(...)()` — bez łykania go i bez
+  wykonania „after” warstw, które jeszcze czekały na `next()`.

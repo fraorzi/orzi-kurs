@@ -1,6 +1,14 @@
-# Zaplanuj publikację lokalizacji
+# Medium — zaplanuj publikację lokalizacji
 
-Zwróć unikalne istniejące locale do publikacji; `*` jest dozwolone wyłącznie dla wszystkich lokalizacji.
+Redaktor wybiera, które wersje językowe dokumentu opublikować jednym
+kliknięciem — backend musi ograniczyć żądanie do locale, które faktycznie
+istnieją. Zaimplementuj `solve(existing, requested)`:
 
-Kod ma być TypeScript-first, deterministyczny i możliwy do testowania bez uruchamiania panelu administracyjnego ani zewnętrznych usług.
-
+- `requested === "*"` oznacza "wszystkie istniejące locale" — zwróć `"*"`
+  wprost, bez rozwijania do listy (rozwinięciem zajmuje się warstwa niżej,
+  bliżej zapisu);
+- w przeciwnym razie zwróć podzbiór `requested`, który **istnieje** w
+  `existing` — nieznane locale (literówka, usunięta lokalizacja) są ciszej
+  pomijane, nie powodują błędu;
+- usuń duplikaty i zwróć wynik posortowany alfabetycznie — kolejność
+  wejścia nie ma znaczenia dla operacji publikacji.

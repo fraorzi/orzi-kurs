@@ -1,6 +1,13 @@
-# Wylicz stan workflow dokumentu
+# Hard — wylicz stan workflow dokumentu
 
-Dla wersji draft/published zwróć `new`, `modified` albo `published`, porównując treść w danym locale.
+Panel redakcyjny pokazuje badge stanu przy każdej lokalizacji dokumentu:
+`new`, `modified` albo `published`. Zaimplementuj
+`solve(draft, published)`, porównując treść (nie metadane) obu wersji w
+jednym locale:
 
-Kod ma być TypeScript-first, deterministyczny i możliwy do testowania bez uruchamiania panelu administracyjnego ani zewnętrznych usług.
-
+- `published === null` (ta lokalizacja nigdy nie była publikowana) →
+  `"new"`, niezależnie od treści draftu;
+- `draft === published` (treść draftu identyczna z opublikowaną) →
+  `"published"` — nic do zatwierdzenia;
+- w pozostałych przypadkach (treści się różnią) → `"modified"` —
+  są niezatwierdzone zmiany czekające na publikację.

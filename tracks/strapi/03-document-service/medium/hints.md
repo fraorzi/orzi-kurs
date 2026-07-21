@@ -1,14 +1,17 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik Strapi 5 obowiązujący na granicy funkcji.
+Dwa oddzielne wywołania z osobnymi kształtami payloadu — `update` niesie
+`data`, `publish` go nie potrzebuje, bo tylko zmienia status wersji już
+zapisanej.
 
 ## Hint 2
 
-Oddziel walidację wejścia od transformacji i sprawdź wariant błędny.
+Zwykłe `await` w kolejności zapisuje kontrakt "najpierw update, potem
+publish" — nie potrzebujesz `Promise.all` ani ręcznego `try/catch`, żeby
+zatrzymać się na błędzie.
 
 ## Hint 3
 
-Porównaj rozwiązanie z oficjalnym kontraktem API wskazanym w README.
-
+Nie łap wyjątku z `update` wewnątrz `solve` — brak `try/catch` oznacza, że
+odrzucona obietnica automatycznie propaguje się do wywołującego, a
+`publish` nigdy się nie wykona.

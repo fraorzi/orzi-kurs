@@ -352,6 +352,9 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 
 ## strapi (15 tematów + moduł, 46 zadań) — Strapi 5.50
 
+Quality pass 2026-07-20: testy zachowania 3–6/zadanie, README z teorią,
+hinty per zadanie, kontrakt treści. Szczegóły: `docs/curriculum/STRAPI_AUDIT.md`.
+
 - [x] 01 struktura projektu, admin, content types i wygenerowane typy TypeScript
 - [x] 02 relacje, komponenty, dynamic zones i modelowanie treści
 - [x] 03 Document Service: `documentId`, find/create/update/delete i status dokumentu

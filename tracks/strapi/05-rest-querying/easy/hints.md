@@ -1,14 +1,15 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik Strapi 5 obowiązujący na granicy funkcji.
+Strapi 5 nie ma warstwy `attributes` — `title` leży bezpośrednio na
+elemencie `data`, nie pod `item.attributes.title`.
 
 ## Hint 2
 
-Oddziel walidację wejścia od transformacji i sprawdź wariant błędny.
+To pojedynczy `response.data.map(...)` — nie potrzebujesz `?.` do
+`attributes`, bo tego klucza w ogóle nie ma w typie odpowiedzi v5.
 
 ## Hint 3
 
-Porównaj rozwiązanie z oficjalnym kontraktem API wskazanym w README.
-
+Test HTTP parsuje realny `Response.json()` z efemerycznego serwera —
+upewnij się, że `solve` działa na już sparsowanym obiekcie JS, nie na
+surowym `Response`.

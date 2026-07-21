@@ -26,6 +26,9 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 - MySQL: 68/68 rozwiązań i 68/68 starterów na realnym MySQL 8.4.10.
 - Strapi 5.50.2: 15 tematów, moduł i 46 zadań TypeScript.
 - Strapi: 46/46 rozwiązań przeszło pełny pipeline przed dodaniem końcowego adaptera
+- Strapi quality pass (2026-07-20): przepisana warstwa dydaktyczna 15 tematów
+  i modułu (testy zachowania, README, hinty per zadanie, kontrakt treści);
+  rozwiązania bez zmian. Macierz 46/46 + 46/46, kontrakt 4/4. Zob. STRAPI_AUDIT.md.
   HTTP; kontrakt treści i kolejność katalogu przeszły 17/17.
 - Efemeryczny adapter `node:http` oraz dodatkowy test modułu zostały sprawdzone
   statycznie przez root TypeScript i lint. Ponowny dynamiczny przebieg jest wymagany
