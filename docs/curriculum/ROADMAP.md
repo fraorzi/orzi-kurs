@@ -43,7 +43,7 @@ Stan po ukończeniu pierwszych sześciu etapów:
   i 62/62 starterów.
 - Node: 20 tematów, dwa moduły i 62 zadania TypeScript; pełny rdzeń runtime,
   production concerns oraz jawnie oddzielone elective'y SQLite i WebSocket.
-- MySQL: 22 tematy, dwa moduły i 68 zadań na MySQL 8.4.10/mysql2 3.23.0;
+- MySQL: 22 tematy, dwa moduły i 68 zadań na MySQL 8.4.10/mysql2 3.23.1;
   obejmuje SQL, modelowanie, współbieżność, plany, operacje, bezpieczeństwo,
   obserwowalność, testy, TypeScript i dwa produkcyjne capstone'y.
 
@@ -59,7 +59,7 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 | React | React 19.2 i stabilny React Compiler 1.x; wyłącznie TypeScript/TSX po ukończeniu tracka TS |
 | Node.js | Node 24.18 LTS; `@types/node` 24.13.3; Node 22 jako dodatkowe środowisko zgodności |
 | Next.js | dokładna wersja repo z `node_modules/next/dist/docs/`, obecnie 16.2.10; wyłącznie TypeScript/TSX |
-| MySQL | MySQL 8.4.10 LTS; realne wykonanie zadań na izolowanym schemacie przez mysql2 3.23.0 |
+| MySQL | MySQL 8.4.10 LTS; realne wykonanie zadań na izolowanym schemacie przez mysql2 3.23.1 |
 | Strapi | Strapi 5 |
 | Java | JDK 25 LTS; osobne notatki zgodności z wymaganiami PJATK |
 

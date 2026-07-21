@@ -1,8 +1,22 @@
-# Zbuduj covering index
+# Hard — zbuduj covering index dla feedu
 
-Dodaj ix_orders_cover, aby feed mógł zwrócić id,total bez odczytu pełnego rekordu tabeli.
+Feed zamówień z zadania medium już nie robi pełnego skanu, ale wciąż dla
+każdego dopasowanego wiersza wraca do klastrowanego indeksu po `total` —
+kolumnę spoza `ix_orders_feed`. Przy szerokim wierszu (`note` bywa długim
+tekstem) ten dodatkowy odczyt jest kosztowny, a zapytanie zwraca tylko
+`id` i `total`.
 
-## Kryteria akceptacji
+Dodaj indeks `ix_orders_cover`, który:
 
-- SQL działa na MySQL 8.4 i zachowuje wskazany niezmiennik także przy błędzie lub współbieżności.
-- Rozwiązanie nie wyłącza constraints ani globalnych zabezpieczeń serwera.
+- zachowuje dokładnie prefiks filtrów i sortowania z zadania medium:
+  `tenant_id, status, created_at, id`,
+- dokłada na końcu kolumnę `total`, żeby `SELECT id, total ... WHERE
+  tenant_id = ? AND status = ? ORDER BY created_at DESC, id DESC`
+  odpowiadał wyłącznie z indeksu — bez zaglądania do klastrowanego
+  indeksu (`Extra` ma pokazać `Using index`),
+- nie zmienia kolejności ani nie usuwa żadnej z pierwszych czterech
+  kolumn — `total` dokłada się na końcu, nie zamiast.
+
+`total` na końcu indeksu nic nie kosztuje przy wyszukiwaniu (nie jest
+częścią filtra ani sortowania), ale zamienia zapytanie z "seek + lookup"
+w czysty odczyt indeksu.

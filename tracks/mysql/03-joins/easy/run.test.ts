@@ -1,18 +1,67 @@
 import { describe, expect, it } from "vitest";
-import { readTaskSql, withMySql } from "@harness/mysql-test";
+import { readTaskSql, rows, withMySql } from "@harness/mysql-test";
 
-describe("Połącz zamówienie z klientem", () => {
-  it("wykonuje poprawny kontrakt na MySQL 8.4", async () => {
+const schema = `
+  CREATE TABLE customers (
+    id BIGINT PRIMARY KEY,
+    email VARCHAR(120) NOT NULL
+  );
+  CREATE TABLE orders (
+    id BIGINT PRIMARY KEY,
+    customer_id BIGINT NULL
+  );
+`;
+
+describe("Połącz zamówienie z klientem przez INNER JOIN", () => {
+  it("łączy zamówienie z emailem klienta po customer_id", async () => {
     await withMySql(
-      "CREATE TABLE customers (id BIGINT PRIMARY KEY, email VARCHAR(120) NOT NULL); CREATE TABLE orders (id BIGINT PRIMARY KEY, customer_id BIGINT NULL); INSERT INTO customers VALUES (1,'a@example.com'),(2,'b@example.com'); INSERT INTO orders VALUES (10,2),(11,1),(12,NULL);",
+      `${schema}
+       INSERT INTO customers VALUES (1, 'a@example.com'), (2, 'b@example.com');
+       INSERT INTO orders VALUES (10, 2), (11, 1);`,
       async (connection) => {
-        const sql = readTaskSql(import.meta.url);
-        const [result] =
-          await connection.query<import("mysql2").RowDataPacket[]>(sql);
-        expect(result).toEqual([
+        expect(await rows(connection, readTaskSql(import.meta.url))).toEqual([
           { id: 10, email: "b@example.com" },
           { id: 11, email: "a@example.com" },
         ]);
+      },
+    );
+  });
+
+  it("pomija zamówienie bez przypisanego klienta (customer_id NULL)", async () => {
+    await withMySql(
+      `${schema}
+       INSERT INTO customers VALUES (1, 'a@example.com');
+       INSERT INTO orders VALUES (10, 1), (11, NULL);`,
+      async (connection) => {
+        expect(await rows(connection, readTaskSql(import.meta.url))).toEqual([
+          { id: 10, email: "a@example.com" },
+        ]);
+      },
+    );
+  });
+
+  it("pomija zamówienie wskazujące na nieistniejącego klienta", async () => {
+    await withMySql(
+      `${schema}
+       INSERT INTO customers VALUES (1, 'a@example.com');
+       INSERT INTO orders VALUES (10, 1), (11, 999);`,
+      async (connection) => {
+        expect(await rows(connection, readTaskSql(import.meta.url))).toEqual([
+          { id: 10, email: "a@example.com" },
+        ]);
+      },
+    );
+  });
+
+  it("zwraca pusty wynik, gdy żadne zamówienie nie ma dopasowanego klienta", async () => {
+    await withMySql(
+      `${schema}
+       INSERT INTO customers VALUES (1, 'a@example.com');
+       INSERT INTO orders VALUES (10, NULL), (11, 999);`,
+      async (connection) => {
+        expect(await rows(connection, readTaskSql(import.meta.url))).toEqual(
+          [],
+        );
       },
     );
   });

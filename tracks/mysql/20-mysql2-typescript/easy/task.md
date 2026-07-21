@@ -1,8 +1,24 @@
-# Parametryzuj lookup i typuj RowDataPacket
+# Easy — parametryzuj lookup i typuj RowDataPacket
 
-Zaimplementuj findUserByEmail przez pool.execute z markerem ?. Zwracaj User lub null bez interpolowania danych do SQL.
+Endpoint logowania szuka użytkownika po e-mailu wprost z `req.body` —
+`starter.ts` buduje zapytanie przez interpolację stringa. Dwa realne
+problemy naraz: e-mail z apostrofem (`o'brien@example.com`, zupełnie
+legalny) psuje składnię zapytania, a spreparowany input zamienia dane
+w kod SQL, którego nikt nie napisał.
 
-## Kryteria akceptacji
+Zaimplementuj `findUserByEmail(pool, email)` tak, aby:
 
-- Kod przechodzi strict TypeScript i wykonuje test integracyjny na MySQL 8.4.
-- Połączenia, transakcje i błędy zachowują się poprawnie również poza happy pathem.
+- używała `pool.execute` z markerem `?` — dane nigdy nie trafiają do
+  tekstu zapytania, niezależnie od zawartości `email`,
+- zwracała dokładnie jeden wiersz jako `User` (`id`, `email`), gdy
+  dopasowanie istnieje,
+- zwracała `null`, gdy żaden wiersz nie pasuje — bez rzucania wyjątku,
+- poprawnie obsługiwała e-mail zawierający apostrof jako zwykłą wartość
+  danych, nie fragment składni SQL,
+- typowała wynik przez interfejs rozszerzający `RowDataPacket` — sam typ
+  `User[]` bez tego rozszerzenia nie odpowiada temu, co faktycznie zwraca
+  `mysql2` w trybie strict.
+
+Ciąg `"' OR 1=1 -- "` jako wartość `email` ma się zachować jak zwykły,
+niepasujący tekst — zapytanie ma zwrócić `null`, nie wszystkie wiersze
+tabeli.

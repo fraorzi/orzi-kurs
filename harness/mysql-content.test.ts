@@ -36,6 +36,10 @@ describe("MySQL content contract", () => {
       expect(readme, `${readmePath} nie podaje źródeł`).toMatch(/^## Źródła/m);
       expect(readme, `${readmePath} nie wskazuje dokumentacji MySQL 8.4`)
         .toContain("dev.mysql.com/doc/refman/8.4");
+      expect(
+        readme.split("\n").length,
+        `${readmePath} jest szkieletem — README ma tłumaczyć model mentalny`,
+      ).toBeGreaterThanOrEqual(30);
     }
   });
 
@@ -52,12 +56,49 @@ describe("MySQL content contract", () => {
       expect(existsSync(join(task, "run.test.ts")), `${task} nie ma run.test.ts`)
         .toBe(true);
 
+      const testCount =
+        readFileSync(join(task, "run.test.ts"), "utf8").match(/^\s*it\(/gm)
+          ?.length ?? 0;
+      const multiFile = starter !== null && extname(starter) === "";
+      const minimum = multiFile ? 6 : 3;
+      expect(
+        testCount,
+        `${task} ma ${testCount} testów; wymagane co najmniej ${minimum} testów zachowania`,
+      ).toBeGreaterThanOrEqual(minimum);
+
       const hintsPath = join(task, "hints.md");
       expect(existsSync(hintsPath), `${task} nie ma hints.md`).toBe(true);
       expect(
         readFileSync(hintsPath, "utf8").match(/^## Hint \d+/gm)?.length ?? 0,
-        `${task} powinien mieć co najmniej dwa progresywne hinty`,
-      ).toBeGreaterThanOrEqual(2);
+        `${task} powinien mieć co najmniej trzy progresywne hinty`,
+      ).toBeGreaterThanOrEqual(3);
+    }
+  });
+
+  it("keeps hints task-specific — no copy-pasted hint files", () => {
+    if (!existsSync(MYSQL_ROOT)) return;
+
+    const seen = new Map<string, string>();
+    for (const task of taskDirectories(MYSQL_ROOT)) {
+      const hints = readFileSync(join(task, "hints.md"), "utf8").trim();
+      const previous = seen.get(hints);
+      expect(
+        previous,
+        `hints.md w ${task} jest kopią ${previous ?? ""}`,
+      ).toBeUndefined();
+      seen.set(hints, task);
+    }
+  });
+
+  it("keeps [quality] gates in the optimization topic", () => {
+    const optimizeRoot = join(MYSQL_ROOT, "21b-optimize-query-plans");
+    if (!existsSync(optimizeRoot)) return;
+
+    for (const task of taskDirectories(optimizeRoot)) {
+      expect(
+        readFileSync(join(task, "run.test.ts"), "utf8").includes("[quality]"),
+        `${task} jest zadaniem [O] i wymaga testów oznaczonych [quality]`,
+      ).toBe(true);
     }
   });
 });
