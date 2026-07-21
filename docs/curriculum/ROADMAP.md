@@ -77,7 +77,7 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 10. Java/PJATK jako osobna, niezależna ścieżka; może być realizowana wcześniej po
     zmianie priorytetu użytkownika.
 
-Etapy 1–6 są ukończone. React obejmuje infrastrukturę, fundamenty, escape hatches,
+Etapy 1–8 są ukończone. React obejmuje infrastrukturę, fundamenty, escape hatches,
 architekturę stanu, async UI React 19, Suspense, external stores, custom hooks,
 kompozycję, concurrent UI, Compiler, wydajność, testowanie, dostępność, duże listy,
 style dynamiczne i server state wraz z trzema modułami. Etap Next.js jest ukończony:
@@ -97,6 +97,13 @@ hinty i test uruchamiany na izolowanym schemacie MySQL 8.4. Track prowadzi od
 zapytań i constraints przez transakcje, deadlocki, indeksy, EXPLAIN ANALYZE,
 migracje i least privilege do typowanej warstwy mysql2 oraz dwóch modułów
 przekrojowych.
+
+Etap Strapi jest ukończony na wersji 5.50.2: 15 tematów i moduł końcowy dają
+46 zadań TypeScript. Track obejmuje model treści, Document Service, stabilne
+`documentId`, Draft & Publish, i18n, płaski REST v5, permissions, custom backend,
+policies/middleware, transakcje, media, webhooki, testy HTTP, debugowanie i mierzoną
+optymalizację. Moduł końcowy przechodzi przez efemeryczną granicę HTTP i łączy
+authz, walidację, update draftu, publish, sanitization, cleanup media i rewalidację.
 SQLite i WebSocket pozostają elective, zgodnie ze statusem API i rolą w typowych
 projektach. Oba moduły końcowe wymuszają limity zasobów, anulowanie, idempotencję,
 bezpieczne błędy oraz testy integracyjne.

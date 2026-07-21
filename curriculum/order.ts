@@ -209,6 +209,24 @@ const MYSQL_TOPIC_ORDER = [
   "module-02",
 ] as const;
 
+const STRAPI_TOPIC_ORDER = [
+  "01-project-types",
+  "02-content-modeling",
+  "03-document-service",
+  "04-publication-locales",
+  "05-rest-querying",
+  "06-auth-permissions",
+  "07-custom-api-layers",
+  "08-policies-http-middleware",
+  "09-document-middleware-lifecycles",
+  "10-validation-errors-transactions",
+  "11-upload-media",
+  "12-webhooks-revalidation",
+  "13-http-testing",
+  "14-debug-strapi",
+  "14b-optimize-strapi",
+  "module-01",
+] as const;
 /** Kolejność ścieżek zgodna z zależnościami programu nauki. */
 export const TRACK_ORDER = [
   "js",
@@ -247,6 +265,7 @@ export const TOPIC_ORDER: Readonly<Record<string, readonly string[]>> = {
   next: NEXT_TOPIC_ORDER,
   node: NODE_TOPIC_ORDER,
   mysql: MYSQL_TOPIC_ORDER,
+  strapi: STRAPI_TOPIC_ORDER,
 };
 
 export function compareTopicSlugs(track: string, left: string, right: string): number {

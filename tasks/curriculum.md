@@ -483,26 +483,29 @@ moduły wieloplikowe, kontrakt treści. Szczegóły: `docs/curriculum/MYSQL_AUDI
 - [x] module-02 (typowana warstwa danych Node: pool, prepared statements,
       transakcja z retry, obserwowalność i test integracyjny)
 
-## strapi (~15 pozycji ≈ 45 zadań) — Strapi 5
+## strapi (15 tematów + moduł, 46 zadań) — Strapi 5.50
 
-- [ ] 01 struktura projektu, admin, content types i wygenerowane typy TypeScript
-- [ ] 02 relacje, komponenty, dynamic zones i modelowanie treści
-- [ ] 03 Document Service: `documentId`, find/create/update/delete i status dokumentu
-- [ ] 04 Draft & Publish, locale/i18n i różnica dokument vs wpis bazodanowy
-- [ ] 05 REST API v5: płaska odpowiedź, fields, populate, filters, sort i pagination
-- [ ] 06 authn, JWT/API tokens, role i permissions jako allow-list
-- [ ] 07 custom routes, controllers i services z cienkim kontrolerem
-- [ ] 08 policies i middleware HTTP: walidacja kontekstu, authz i współdzielona logika
-- [ ] 09 Document Service middleware; lifecycle hooks tylko ze świadomością wielu
+Quality pass 2026-07-20: testy zachowania 3–6/zadanie, README z teorią,
+hinty per zadanie, kontrakt treści. Szczegóły: `docs/curriculum/STRAPI_AUDIT.md`.
+
+- [x] 01 struktura projektu, admin, content types i wygenerowane typy TypeScript
+- [x] 02 relacje, komponenty, dynamic zones i modelowanie treści
+- [x] 03 Document Service: `documentId`, find/create/update/delete i status dokumentu
+- [x] 04 Draft & Publish, locale/i18n i różnica dokument vs wpis bazodanowy
+- [x] 05 REST API v5: płaska odpowiedź, fields, populate, filters, sort i pagination
+- [x] 06 authn, JWT/API tokens, role i permissions jako allow-list
+- [x] 07 custom routes, controllers i services z cienkim kontrolerem
+- [x] 08 policies i middleware HTTP: walidacja kontekstu, authz i współdzielona logika
+- [x] 09 Document Service middleware; lifecycle hooks tylko ze świadomością wielu
       operacji DB dla publish/unpublish/locales
-- [ ] 10 walidacja domenowa, błędy API i transakcje w custom service
-- [ ] 11 upload/media: limity, typy plików, uprawnienia i bezpieczne powiązanie
-- [ ] 12 webhooks i rewalidacja cache Next po zmianie treści
-- [ ] 13 testy API przez HTTP, fixture danych, izolacja bazy i test permissions
-- [ ] 14 [D] debug: `id` vs `documentId`, podwójne lifecycle, N+1 populate,
+- [x] 10 walidacja domenowa, błędy API i transakcje w custom service
+- [x] 11 upload/media: limity, typy plików, uprawnienia i bezpieczne powiązanie
+- [x] 12 webhooks i rewalidacja cache Next po zmianie treści
+- [x] 13 testy API przez HTTP, fixture danych, izolacja bazy i test permissions
+- [x] 14 [D] debug: `id` vs `documentId`, podwójne lifecycle, N+1 populate,
       dziurawe permissions i wyciek draftu
-- [ ] 14b [O] optymalizacja: ograniczenie fields/populate, batching i cache/revalidation
-- [ ] module-01 (backend contentowy v5 do realnego frontu — authz, draft, media,
+- [x] 14b [O] optymalizacja: ograniczenie fields/populate, batching i cache/revalidation
+- [x] module-01 (backend contentowy v5 do realnego frontu — authz, draft, media,
       webhook, testy; łączy z next/module-02)
 
 ## combined (~13 dużych zadań)

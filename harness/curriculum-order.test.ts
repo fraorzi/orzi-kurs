@@ -182,4 +182,31 @@ describe("curriculum order", () => {
     ).toEqual(track.topics.map((topic) => topic.id));
   });
 
+  it("keeps Strapi document semantics before customization and production work", () => {
+    expect(compareTopicSlugs("strapi", "03-document-service", "07-custom-api-layers"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("strapi", "06-auth-permissions", "08-policies-http-middleware"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("strapi", "13-http-testing", "14-debug-strapi"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("strapi", "14b-optimize-strapi", "module-01"))
+      .toBeLessThan(0);
+  });
+
+  it("keeps Strapi learning modules in exact catalog order", () => {
+    const track: CatalogTrack = {
+      id: "strapi",
+      topics: TOPIC_ORDER.strapi.map((slug) => ({
+        id: `strapi/${slug}`,
+        title: slug,
+        levels: [],
+      })),
+    };
+
+    expect(
+      learningModules(track).flatMap((module) =>
+        module.topics.map((topic) => topic.id)),
+    ).toEqual(track.topics.map((topic) => topic.id));
+  });
+
 });
