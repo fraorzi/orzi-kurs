@@ -95,5 +95,17 @@
     "firstPassedWithoutHintAt": "2026-07-21T16:05:16.055Z",
     "verifiedStarter": "export function sameValue(a, b) {\n  if (Number.isNaN(a) && Number.isNaN(b)) return true;\n  if (a === 0 || b === 0) {\n    return 1 / a === 1 / b;\n  }\n  return a === b;\n}\n\nexport function defaultTo(value, fallback) {\n  if (\n    value === undefined ||\n    value === null ||\n    Number.isNaN(value)\n  ) {\n    return fallback;\n  }\n  return value;\n}\n",
     "lastRunAt": "2026-07-21T16:05:16.055Z"
+  },
+  "js/03-types-coercion/hard": {
+    "status": "passed",
+    "attempts": 30,
+    "masteryScore": 3,
+    "cleanPassStreak": 2,
+    "nextReviewAt": "2026-07-28T19:07:38.824Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-07-21T18:14:28.070Z",
+    "firstPassedWithoutHintAt": "2026-07-21T18:14:28.070Z",
+    "verifiedStarter": "function toPrimitive(obj) {\n  const newObj = obj.valueOf();\n  return (typeof newObj === \"object\" ||\n    typeof newObj === \"function\") &&\n    newObj !== null\n    ? String(obj)\n    : newObj;\n}\n\nfunction isNullOrUndefined(value) {\n  return value === null || value === undefined;\n}\n\nfunction isPairStringAndNumber(a, b) {\n  return (\n    (typeof a === \"string\" && typeof b === \"number\") ||\n    (typeof a === \"number\" && typeof b === \"string\")\n  );\n}\n\nexport function looseEq(a, b) {\n  if (typeof a === typeof b) return a === b;\n  if (isNullOrUndefined(a) || isNullOrUndefined(b)) {\n    return isNullOrUndefined(a) === isNullOrUndefined(b);\n  }\n  if (typeof a === \"boolean\") {\n    return looseEq(Number(a), b);\n  }\n  if (typeof b === \"boolean\") {\n    return looseEq(a, Number(b));\n  }\n  if (isPairStringAndNumber(a, b)) {\n    return Number(a) === Number(b);\n  }\n  if (typeof a === \"object\") {\n    return looseEq(toPrimitive(a), b);\n  }\n  if (typeof b === \"object\") {\n    return looseEq(a, toPrimitive(b));\n  }\n  return false;\n}\n",
+    "lastRunAt": "2026-07-21T19:07:38.824Z"
   }
 }
