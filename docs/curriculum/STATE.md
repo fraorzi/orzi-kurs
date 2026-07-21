@@ -31,6 +31,9 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   statycznie przez root TypeScript i lint. Ponowny dynamiczny przebieg jest wymagany
   w audycie końcowym, ponieważ limit rozszerzonych narzędzi zablokował jego start.
 - Combined: 13 dużych projektów TypeScript/TSX, w tym dwa wieloplikowe capstone’y.
+- Combined quality pass (2026-07-20): 4–6 testów zachowania/projekt, README
+  z sekcjami, rozwiązania zreformatowane (naprawa lint). 13/13 + 13/13,
+  kontrakt 3/3, harness 74/74. Zob. COMBINED_AUDIT.md.
 - Combined przechodzi osobny strict TypeScript config oraz root lint; dynamiczna
   macierz Vitest pozostaje do ponowienia w audycie końcowym po odblokowaniu narzędzi.
 

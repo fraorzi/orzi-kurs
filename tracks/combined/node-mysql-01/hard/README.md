@@ -39,11 +39,11 @@ bo druga transakcja zdążyła się już zamknąć.
 - Ponawianie każdego błędu (nie tylko deadlocku) zamienia trwałą awarię
   w nieskończoną pętlę.
 - Brak limitu prób = zawieszenie żądania przy uporczywym konflikcie.
-- Sprawdzanie komunikatu błędu zamiast kodu jest kruche — kody
-  (`ER_LOCK_DEADLOCK`, errno 1213) są stabilnym kontraktem, treść komunikatu nie.
+- Sprawdzanie komunikatu błędu zamiast kodu jest kruche — kody (`ER_LOCK_DEADLOCK`,
+  errno 1213) są stabilnym kontraktem, treść komunikatu nie.
 
 ## Źródła (audyt 2026-07-20)
 
 - [MySQL 8.4: Deadlocks in InnoDB](https://dev.mysql.com/doc/refman/8.4/en/innodb-deadlocks.html)
-- [MySQL 8.4: Handling deadlocks](https://dev.mysql.com/doc/refman/8.4/en/innodb-deadlocks-handling.html)
+- [MySQL 8.4: Server error reference (1213 ER_LOCK_DEADLOCK)](https://dev.mysql.com/doc/mysql-errors/8.4/en/server-error-reference.html)
 - [mysql2: transakcje i połączenia](https://sidorares.github.io/node-mysql2/docs)

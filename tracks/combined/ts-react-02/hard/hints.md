@@ -1,14 +1,16 @@
-# Hints
-
 ## Hint 1
 
-Narysuj granice danych i zaznacz, która warstwa odpowiada za walidację, authz oraz efekt.
+Reducer startera zwraca `state` bez zmian. Rozpisz `switch (action.type)`
+na `add`/`remove`/`reset`, a w `default` zwróć `action satisfies never` —
+to wymusi obsługę wszystkich wariantów unii.
 
 ## Hint 2
 
-Najpierw zachowaj zachowanie testem, potem zmieniaj strukturę lub wydajność.
+Clamp na zero w dwóch miejscach: `Math.max(0, amount)` chroni przed ujemnym
+wejściem, `Math.max(0, count - amount)` chroni przed ujemnym stanem.
 
 ## Hint 3
 
-Zminimalizuj DTO i wstrzyknij zależności, aby awarie i kolejność były deterministyczne.
-
+`useCart` startera cicho zwraca fallback `{ count: 0 }` — zamień na odczyt
+Contextu i `throw new Error("useCart wymaga CartProvider")`, gdy wartość
+jest `null`. Cichy fallback ukrywa błąd braku Providera.

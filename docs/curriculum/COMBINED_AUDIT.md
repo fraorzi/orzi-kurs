@@ -47,3 +47,31 @@ w TypeScript/TSX. Dwa capstone’y są wieloplikowe i zawierają jawne typy dome
 - [Docker build best practices](https://docs.docker.com/build/building/best-practices/)
 - [OpenTelemetry JS](https://opentelemetry.io/docs/languages/js/)
 - [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/)
+
+## Quality pass (2026-07-20)
+
+Pierwotna wersja tracka miała 13 projektów z poprawnym zamysłem, ale
+warstwą dydaktyczną poniżej standardu i rozwiązaniami zapisanymi w jednej
+linii (część oblewała lint sonarjs). Quality pass przepisał całość:
+
+- **Reformatowanie rozwiązań** do czytelnej wieloliniowej postaci — naprawia
+  `sonarjs/no-unenclosed-multiline-block` i `no-nested-conditional`, które
+  wywracały baseline (5 z 13 rozwiązań oblewało lint na wejściu).
+- **Testy**: 4–6 nazwanych testów zachowania per projekt (poprzednio 1),
+  osie czasu efektów, kompensacje, granice authz/walidacji, przypadki brzegowe
+  wielu warstw. Projekty React (.tsx) testowane pod jsdom przez
+  `@testing-library/react`.
+- **task.md** jako ticket: kontekst produktowy, wymagania funkcjonalne
+  i niefunkcjonalne, kryteria akceptacji.
+- **README** każdego projektu: Kontekst / Decyzje / Pułapki / Źródła
+  (40–70 linii) tłumaczące, jakie warstwy projekt spina i dlaczego.
+- **Capstone'y** `full-01` (pionowa publikacja: idempotencja, authz,
+  rezerwacja zapasu, kompensacja) i `full-02` (naprawa incydentu webhooka
+  z notatką postmortem) rozbudowane o pełny kontrakt i test regresji.
+  W `full-02` naprawiono niespójność: test regresji wymagał słowa „retry",
+  którego brakowało w notatce decyzyjnej rozwiązania.
+- **Kontrakt treści** (`harness/combined-content.test.ts`): wymusza sekcje
+  README + objętość, ≥4 testy per projekt, ≥3 hinty, unikalność hints.
+
+Macierz końcowa: 13/13 rozwiązań i 13/13 starterów, kontrakt treści 3/3,
+harness 74/74, root `tsc --noEmit` i lint czyste.

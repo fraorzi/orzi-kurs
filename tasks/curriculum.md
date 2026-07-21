@@ -374,6 +374,9 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 
 ## combined (13 dużych projektów TypeScript/TSX)
 
+Quality pass 2026-07-20: 4–6 testów zachowania/projekt, README Kontekst/Decyzje/
+Pułapki/Źródła, rozwiązania zreformatowane. Szczegóły: `docs/curriculum/COMBINED_AUDIT.md`.
+
 - [x] ts-react-01: typowanie komponentów i custom hooków (generyczne propsy)
 - [x] ts-react-02: typowany reducer + context
 - [x] js-node-01: narzędzie CLI używające wzorców z js (pool, retry)
