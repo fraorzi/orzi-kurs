@@ -62,6 +62,39 @@ describe("backend contentowy Strapi 5", () => {
     expect(events).toEqual(["upload", "update", "remove:media-1"]);
   });
 
+  it("waliduje wejście przed jakimkolwiek efektem ubocznym", async () => {
+    const events: string[] = [];
+    const badId = await publishArticle(fixture(events), {
+      role: "editor", documentId: "krótki", locale: "pl", title: "Artykuł",
+    });
+    expect(badId).toEqual({ status: 400, body: { error: "INVALID_DOCUMENT_ID" } });
+    const badLocale = await publishArticle(fixture(events), {
+      role: "editor", documentId: DOCUMENT_ID, locale: "Polska", title: "Artykuł",
+    });
+    expect(badLocale).toEqual({ status: 400, body: { error: "INVALID_LOCALE" } });
+    const badTitle = await publishArticle(fixture(events), {
+      role: "editor", documentId: DOCUMENT_ID, locale: "pl", title: 42,
+    });
+    expect(badTitle).toEqual({ status: 400, body: { error: "INVALID_TITLE" } });
+    expect(events).toEqual([]);
+  });
+
+  it("publikacja bez pliku pomija media, a webhook niesie komplet danych", async () => {
+    const events: string[] = [];
+    const payloads: unknown[] = [];
+    const dependencies = fixture(events, {
+      webhook: async (event) => { events.push("webhook"); payloads.push(event); },
+    });
+    const response = await publishArticle(dependencies, {
+      role: "admin", documentId: DOCUMENT_ID, locale: "pl-PL", title: "  Tytuł  ",
+    });
+    expect(response.status).toBe(200);
+    expect(events).toEqual(["update", "publish", "sanitize", "webhook"]);
+    expect(payloads).toEqual([
+      { documentId: DOCUMENT_ID, locale: "pl-PL", action: "publish" },
+    ]);
+  });
+
   it("przechodzi przez rzeczywistą granicę HTTP", async () => {
     const events: string[] = [];
     await withStrapiHttp(async (request) => {

@@ -1,14 +1,17 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik bezpieczeństwa lub warstwy, zanim zaczniesz implementować.
+Trzy kroki w ścisłej kolejności: normalizacja, walidacja formatu,
+sprawdzenie konfliktu — dopiero po wszystkich trzech woła się `update`.
 
 ## Hint 2
 
-Wstrzyknij zależności i przetestuj kolejność wywołań oraz ścieżkę odmowy/błędu.
+Regex kotwiczony `^[a-z0-9]+(?:-[a-z0-9]+)*$` odrzuca wiodący/końcowy
+myślnik i podwójny myślnik naraz — segment między myślnikami nie może być
+pusty.
 
 ## Hint 3
 
-Sprawdź oficjalny kontrakt Strapi 5 wskazany w README i nie opieraj decyzji na danych klienta.
-
+`repo.exists(normalized, documentId)` — drugi argument to dokument, który
+ma być **wykluczony** z porównania unikalności, nie dodatkowy filtr do
+zapisania gdzie indziej; zapis tego samego sluga do tego samego dokumentu
+nie powinien nigdy wyglądać jak konflikt.

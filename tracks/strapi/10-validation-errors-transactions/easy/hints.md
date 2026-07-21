@@ -1,14 +1,15 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik bezpieczeństwa lub warstwy, zanim zaczniesz implementować.
+Trzy strażniki po kolei, każdy z własnym `throw new Error("Nieprawidłowe: <pole>")`
+— `typeof input !== "object" || input === null` łapie non-obiekty przed
+jakimkolwiek dostępem do właściwości.
 
 ## Hint 2
 
-Wstrzyknij zależności i przetestuj kolejność wywołań oraz ścieżkę odmowy/błędu.
+Rzutuj dopiero po strażniku kształtu: `const value = input as Record<string, unknown>`,
+inaczej TypeScript nie pozwoli czytać `value.title`.
 
 ## Hint 3
 
-Sprawdź oficjalny kontrakt Strapi 5 wskazany w README i nie opieraj decyzji na danych klienta.
-
+`value.title.trim().length < 3` sprawdza **po** trymowaniu — sam string
+z samych spacji (`"   "`) ma po trymowaniu 0 znaków i musi zostać odrzucony.

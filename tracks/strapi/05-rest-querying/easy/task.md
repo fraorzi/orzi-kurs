@@ -1,6 +1,10 @@
-# Odczytaj płaską odpowiedź REST v5
+# Easy — odczytaj płaską odpowiedź REST v5
 
-Zwróć tytuły z `data`; nie oczekuj warstwy `attributes` znanej ze Strapi v4.
+Klient napisany od zera pod Strapi 5 nie ma warstwy `attributes` znanej ze
+Strapi v4 — pola wpisu leżą wprost w każdym elemencie `data`. Zaimplementuj
+`solve(response)`:
 
-Kod ma być TypeScript-first, deterministyczny i możliwy do testowania bez uruchamiania panelu administracyjnego ani zewnętrznych usług.
-
+- zwróć `title` każdego elementu `response.data`, w tej samej kolejności;
+- nie sięgaj po `item.attributes` — w Strapi 5 ten klucz nie istnieje, więc
+  odczyt przez niego zawsze da `undefined`, nie błąd kompilacji;
+- pusta tablica `data` daje pustą tablicę wyników.

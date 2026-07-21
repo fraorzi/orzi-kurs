@@ -1,14 +1,17 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik Strapi 5 obowiązujący na granicy funkcji.
+Zbierz zbiór wszystkich UID z obu wejść naraz (np. `new Set([...keys(schema),
+...keys(generated)])`) — inaczej ominiesz UID-y istniejące tylko po jednej
+stronie.
 
 ## Hint 2
 
-Oddziel walidację wejścia od transformacji i sprawdź wariant błędny.
+`undefined !== "1"` jest prawdą w JavaScripcie, więc brakujący klucz w
+jednym z obiektów naturalnie liczy się jako różnica — nie potrzebujesz
+osobnej gałęzi na "brakuje".
 
 ## Hint 3
 
-Porównaj rozwiązanie z oficjalnym kontraktem API wskazanym w README.
-
+Filtruj po nierówności fingerprintów, potem sortuj wynik — sortowanie na
+wejściu nic nie da, bo `Set` i tak nie gwarantuje kolejności iteracji między
+przeglądarkami tak samo jak w Node, więc porządkuj dopiero na wyjściu.

@@ -2,13 +2,19 @@
 
 ## Hint 1
 
-Zacznij od testu negatywnego na granicy HTTP lub bezpieczeństwa.
+Sprawdź `seen.has(eventId)` jako pierwszy krok i zwróć `"duplicate"` od
+razu — dopiero po tym strażniku wchodzisz w pętlę prób.
 
 ## Hint 2
 
-Uporządkuj kolejność: authorize, validate, efekt, cleanup albo rewalidacja.
+Pętla `for (attempt = 1; attempt <= options.maxAttempts; attempt++)` z
+`try/catch` wewnątrz: sukces — dodaj do `seen` i zwróć `"processed"`
+natychmiast, z **wnętrza** pętli. Błąd — zapamiętaj go i idź dalej, chyba
+że to była ostatnia próba.
 
 ## Hint 3
 
-Użyj allow-list i jawnego statusu zamiast polegać na domyślnych danych klienta.
-
+`options.backoff(attempt)` woła się tylko między próbami, czyli gdy
+`attempt < options.maxAttempts` — po ostatniej nieudanej próbie pętla się
+kończy i rzucasz zapamiętany błąd, zamiast czekać przed rezygnacją.
+`seen.add(eventId)` ma się wykonać wyłącznie na ścieżce sukcesu.

@@ -1,6 +1,15 @@
-# Zamknij wyciek draftu i pól prywatnych
+# [D] Hard — zamknij wyciek draftów i pól prywatnych
 
-Dla publicznego wyniku pozostaw tylko published oraz allow-list pól; editor może zobaczyć draft, nadal bez sekretu.
+Zgłoszenie bezpieczeństwa: publiczne REST API zwraca wersje robocze
+artykułów i pole `secret` z konfiguracji. Diagnoza: handler oddaje surowe
+dokumenty z Document Service bez filtra statusu i bez sanitizacji pól.
 
-Kod ma być TypeScript-first, deterministyczny i testowalny bez panelu administracyjnego ani zewnętrznych usług.
+Zaimplementuj `solve(docs, role)`:
 
+- dla `role === "public"` zwróć **wyłącznie** dokumenty `published` —
+  drafty nie mogą wyciec;
+- dla `role === "editor"` przepuść też drafty (podgląd redakcyjny);
+- w obu przypadkach każdy dokument ograniczasz do allow-listy pól
+  `documentId`, `status`, `title`, `slug` — `secret` i inne pola spoza listy
+  nigdy nie trafiają do odpowiedzi;
+- kolejność dokumentów zachowana.

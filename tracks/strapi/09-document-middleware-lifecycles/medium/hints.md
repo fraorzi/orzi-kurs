@@ -1,14 +1,14 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik bezpieczeństwa lub warstwy, zanim zaczniesz implementować.
+Klucz to string złożony z trzech pól: `` `${documentId}:${action}:${locale}` ``
+— dwa zdarzenia o tym samym kluczu są duplikatem tego samego efektu.
 
 ## Hint 2
 
-Wstrzyknij zależności i przetestuj kolejność wywołań oraz ścieżkę odmowy/błędu.
+`Set<string>` na widzianych kluczach plus `Array.prototype.filter` daje
+deduplikację w jednym przejściu, zachowując kolejność wejścia.
 
 ## Hint 3
 
-Sprawdź oficjalny kontrakt Strapi 5 wskazany w README i nie opieraj decyzji na danych klienta.
-
+Nie normalizuj ani nie sortuj `locale` — `"pl"` i `"pl-PL"` to różne,
+uprawnione klucze, nie warianty tego samego zdarzenia.

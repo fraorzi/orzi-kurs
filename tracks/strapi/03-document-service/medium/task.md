@@ -1,6 +1,14 @@
-# Wykonaj update i publish
+# Medium — wykonaj update i publish
 
-Zaktualizuj draft przez `update`, a dopiero po sukcesie opublikuj ten sam dokument i locale.
+Redaktor zapisuje zmianę i publikuje ją jednym kliknięciem — backend musi
+najpierw zaktualizować draft, a dopiero po jego sukcesie opublikować ten
+sam dokument i locale. Zaimplementuj
+`solve(service, documentId, locale, data)`:
 
-Kod ma być TypeScript-first, deterministyczny i możliwy do testowania bez uruchamiania panelu administracyjnego ani zewnętrznych usług.
-
+- wywołaj `service.update` z `{ documentId, locale, data }` — zaktualizowana
+  treść, nie surowe dane wejściowe bez kontekstu;
+- dopiero po zakończeniu `update` wywołaj `service.publish` z
+  `{ documentId, locale }`;
+- gdy `update` odrzuci obietnicę, `publish` **nie** może zostać wywołany, a
+  błąd ma propagować się do wywołującego — publikacja nieudanej zmiany
+  byłaby gorsza niż brak publikacji.

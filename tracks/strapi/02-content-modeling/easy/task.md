@@ -1,6 +1,13 @@
-# Zweryfikuj kardynalność relacji
+# Easy — zweryfikuj kardynalność relacji
 
-Dopuść tylko wspierane pary cardinality i wymagaj `mappedBy` lub `inversedBy` dla relacji dwukierunkowej.
+Panel administracyjny pozwala zapisać konfigurację relacji, zanim schemat
+jest w pełni spójny — walidacja musi to złapać przed zapisem do bazy.
+Zaimplementuj `solve(relation)`:
 
-Kod ma być TypeScript-first, deterministyczny i możliwy do testowania bez uruchamiania panelu administracyjnego ani zewnętrznych usług.
-
+- odrzuć (`false`) każdą wartość `relation` spoza zbioru `oneToOne`,
+  `oneToMany`, `manyToOne`, `manyToMany`;
+- dla relacji jednokierunkowej (`bidirectional: false`) `mappedBy` i
+  `inversedBy` są opcjonalne — zwróć `true`, gdy typ jest wspierany;
+- dla relacji dwukierunkowej (`bidirectional: true`) wymagaj dokładnie
+  jednego wskazania właściciela: `mappedBy` lub `inversedBy` — brak obu
+  oznacza, że Strapi nie wie, która strona trzyma klucz obcy.

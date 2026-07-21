@@ -1,14 +1,16 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik bezpieczeństwa lub warstwy, zanim zaczniesz implementować.
+Tablica wiedzy to mapa `kind → { status, code, message }` — trzy znane
+wpisy, żaden z nich nie czyta `error.message`.
 
 ## Hint 2
 
-Wstrzyknij zależności i przetestuj kolejność wywołań oraz ścieżkę odmowy/błędu.
+Domyślny przypadek (`kind` brak albo nieznany) zwraca stałą wartość
+`{ status: 500, code: "INTERNAL_ERROR", message: "Błąd serwera" }` —
+zapisaną wprost w kodzie, nie zbudowaną z `error.message`.
 
 ## Hint 3
 
-Sprawdź oficjalny kontrakt Strapi 5 wskazany w README i nie opieraj decyzji na danych klienta.
-
+Test celowo wsadza w `error.message` treść, która nie może wyciec
+(`"password=secret"`, `"SQL secret"`) — jeśli Twój `message` w odpowiedzi
+kiedykolwiek zawiera fragment oryginalnego `error.message`, to bug.

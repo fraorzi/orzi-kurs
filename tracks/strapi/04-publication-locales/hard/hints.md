@@ -1,14 +1,16 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik Strapi 5 obowiązujący na granicy funkcji.
+Sprawdź `published === null` jako pierwszy, samodzielny warunek — reszta
+logiki (porównanie treści) ma sens tylko wtedy, gdy published istnieje.
 
 ## Hint 2
 
-Oddziel walidację wejścia od transformacji i sprawdź wariant błędny.
+Porównanie `draft === published` działa na wartościach `string`, nie na
+referencjach obiektów — oba parametry to już wyekstrahowana treść, nie
+całe encje.
 
 ## Hint 3
 
-Porównaj rozwiązanie z oficjalnym kontraktem API wskazanym w README.
-
+Tylko trzy możliwe wyniki, dwa warunki: `published === null` rozstrzyga
+`new`, `draft === published` rozstrzyga `published`, reszta to `modified`
+— nie potrzebujesz trzeciego jawnego `if`.

@@ -1,6 +1,14 @@
-# Zbuduj ograniczone query REST
+# Medium — zbuduj ograniczone query REST
 
-Zbuduj deterministyczny query string dla fields, statusu, locale, sort i page pagination.
+Klient publicznej listy artykułów nie ufa domyślnemu zachowaniu endpointu
+— wymienia jawnie, czego potrzebuje. Zaimplementuj `solve(locale, page)`,
+zwracający query string (bez wiodącego `?`):
 
-Kod ma być TypeScript-first, deterministyczny i możliwy do testowania bez uruchamiania panelu administracyjnego ani zewnętrznych usług.
-
+- `fields[0]=title`, `fields[1]=slug` — tylko te dwa pola, nic więcej;
+- `locale=<locale>` i `status=published` — publiczny odczyt nigdy nie
+  pyta o draft;
+- `sort[0]=publishedAt:desc` — najnowsze najpierw;
+- `pagination[page]=<page>`, `pagination[pageSize]=20` — stały rozmiar
+  strony, tryb page-based (nie mieszaj z `pagination[start]`/`[limit]`);
+- `page` musi być całkowitą liczbą ≥ 1 — inna wartość rzuca błąd
+  wspominający stronę.
