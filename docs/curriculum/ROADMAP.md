@@ -104,6 +104,12 @@ Etap Strapi jest ukończony na wersji 5.50.2: 15 tematów i moduł końcowy daj�
 policies/middleware, transakcje, media, webhooki, testy HTTP, debugowanie i mierzoną
 optymalizację. Moduł końcowy przechodzi przez efemeryczną granicę HTTP i łączy
 authz, walidację, update draftu, publish, sanitization, cleanup media i rewalidację.
+
+Etap combined jest ukończony jako 13 projektów TypeScript/TSX. Pierwsze siedem
+łączy konkretne pary tracków, kolejne cztery wymuszają quality, security, delivery
+i observability, a dwa końcowe capstone’y sprawdzają pionowe dostarczenie oraz
+maintenance zastanego kodu. Artefakty obejmują idempotencję, kompensację po częściowej
+awarii, minimalizację DTO, a11y, batching, bezpieczne logi, rollout i rollback.
 SQLite i WebSocket pozostają elective, zgodnie ze statusem API i rolą w typowych
 projektach. Oba moduły końcowe wymuszają limity zasobów, anulowanie, idempotencję,
 bezpieczne błędy oraz testy integracyjne.

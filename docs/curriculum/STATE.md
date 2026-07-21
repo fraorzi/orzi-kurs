@@ -19,20 +19,23 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 
 ## Bieżący branch
 
-`feature/curriculum-strapi`
+`feature/curriculum-combined`
 
 ## Najnowszy ukończony etap
 
 - MySQL: 68/68 rozwiązań i 68/68 starterów na realnym MySQL 8.4.10.
 - Strapi 5.50.2: 15 tematów, moduł i 46 zadań TypeScript.
-- Strapi: 46/46 rozwiązań przeszło pełny pipeline przed dodaniem końcowego adaptera
 - Strapi quality pass (2026-07-20): przepisana warstwa dydaktyczna 15 tematów
   i modułu (testy zachowania, README, hinty per zadanie, kontrakt treści);
-  rozwiązania bez zmian. Macierz 46/46 + 46/46, kontrakt 4/4. Zob. STRAPI_AUDIT.md.
-  HTTP; kontrakt treści i kolejność katalogu przeszły 17/17.
-- Efemeryczny adapter `node:http` oraz dodatkowy test modułu zostały sprawdzone
-  statycznie przez root TypeScript i lint. Ponowny dynamiczny przebieg jest wymagany
-  w audycie końcowym, ponieważ limit rozszerzonych narzędzi zablokował jego start.
+  rozwiązania bez zmian. Macierz 46/46 rozwiązań i 46/46 starterów, kontrakt
+  treści i kolejność 17/17; root TypeScript i lint bez błędów. Zob.
+  `STRAPI_AUDIT.md`.
+- Combined: 13 dużych projektów TypeScript/TSX, w tym dwa wieloplikowe capstone’y.
+- Combined quality pass (2026-07-20): 4–6 testów zachowania/projekt, README
+  z sekcjami, rozwiązania zreformatowane (naprawa lint). 13/13 + 13/13,
+  kontrakt 3/3, harness 74/74. Zob. COMBINED_AUDIT.md.
+- Combined przechodzi osobny strict TypeScript config oraz root lint; dynamiczna
+  macierz Vitest pozostaje do ponowienia w audycie końcowym po odblokowaniu narzędzi.
 
 ## Ukończone w bieżącym etapie
 
