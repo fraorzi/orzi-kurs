@@ -1,8 +1,27 @@
-# Zablokuj stan przed rezerwacją
+# Easy — zablokuj stan przed rezerwacją
 
-Utwórz reserve_stock z SELECT ... FOR UPDATE, aby dwa równoległe żądania nie zatwierdziły rezerwacji tego samego zapasu.
+Dwóch klientów klika "zarezerwuj" na ostatnie sztuki tego samego towaru
+w tej samej sekundzie. Zwykłe "odczytaj stan, sprawdź, czy starczy,
+zapisz nowy stan" pozwala obu żądaniom przeczytać ten sam stan **przed**
+zapisaniem któregokolwiek z nich — oba widzą "starczy", oba rezerwują,
+magazyn schodzi poniżej zera. Transakcja sama w sobie tego nie
+powstrzyma: problem nie leży w atomowości zapisu, tylko w tym, że zwykły
+odczyt nic nie blokuje.
 
-## Kryteria akceptacji
+Napisz procedurę `reserve_stock(p_request, p_sku, p_qty)`, która:
 
-- SQL działa na MySQL 8.4 i zachowuje wskazany niezmiennik także przy błędzie lub współbieżności.
-- Rozwiązanie nie wyłącza constraints ani globalnych zabezpieczeń serwera.
+- w jednej transakcji blokuje wiersz `inventory` odczytywanego towaru
+  przez `SELECT ... FOR UPDATE`, tak żeby drugie równoległe wywołanie na
+  ten sam `sku` poczekało na zakończenie pierwszego, zamiast czytać stary
+  stan,
+- gdy dostępna ilość jest mniejsza niż żądana, sygnalizuje błąd
+  (`SIGNAL SQLSTATE '45000'`) i nie zapisuje żadnej zmiany,
+- w przeciwnym razie zmniejsza `quantity` o `p_qty` i wstawia wiersz do
+  `reservations`,
+- z dwóch równoległych żądań o tę samą, ograniczoną ilość zapasu — dokładnie
+  jedno kończy się sukcesem, drugie widzi już zmniejszony stan i zostaje
+  odrzucone przez `SIGNAL`, nie zatwierdzone z ujemnym zapasem.
+
+Blokada z `FOR UPDATE` trzyma się do końca transakcji (`COMMIT`), nie do
+końca samego `SELECT` — to ona, nie żaden `CHECK`, wymusza kolejkowanie
+dwóch równoległych żądań o ten sam wiersz.

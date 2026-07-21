@@ -1,9 +1,6 @@
-# Typowana warstwa danych Node — moduł końcowy
+# Moduł 02 — repozytorium mysql2 w TypeScript
 
-Repozytorium marketplace łączy mysql2, parametryzację, typy wierszy, pool lifecycle, transakcję, retry i obserwowalność bez logowania danych wrażliwych.
-
-## Źródła
-
-- [mysql2: documentation](https://sidorares.github.io/node-mysql2/docs/documentation)
-- [MySQL 8.4: locking reads](https://dev.mysql.com/doc/refman/8.4/en/innodb-locking-reads.html)
-- [MySQL 8.4: deadlocks](https://dev.mysql.com/doc/refman/8.4/en/innodb-deadlocks.html)
+Capstone integracji: warstwa dostępu do danych na `mysql2/promise` —
+prepared statements, transakcja z blokadą wiersza, retry wyłącznie błędów
+przejściowych (deadlock/lock timeout) i metryki bez danych klienta.
+Łączy tematy 09, 10, 17, 18 i 20 w jeden kontrakt produkcyjny.

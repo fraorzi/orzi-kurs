@@ -1,8 +1,26 @@
-# Ogranicz konto usługi
+# Medium — ogranicz konto usługi
 
-Utwórz orzi_service@localhost z REQUIRE SSL, limitem pięciu połączeń i wyłącznie SELECT/INSERT/UPDATE na app_data.*.
+Worker synchronizujący zamówienia z zewnętrznym systemem łączy się dziś
+przez `orzi_service'@'localhost'` z `GRANT ALL ... WITH GRANT OPTION` —
+konto może nie tylko czytać i zapisywać cokolwiek w instancji, ale też
+rozdawać własne uprawnienia dalej. To dokładnie odwrotność tego, czego
+potrzebuje proces bez interakcji z człowiekiem.
 
-## Kryteria akceptacji
+Przepisz `starter.sql` tak, aby konto `orzi_service'@'localhost'`:
 
-- Rozwiązanie działa na MySQL 8.4 i ogranicza zakres ukrytej logiki lub uprawnień.
-- Test sprawdza zachowanie wykonywalne albo stan metadanych serwera, nie tylko obecność słowa kluczowego.
+- wymagało szyfrowanego transportu (`REQUIRE SSL`) — worker łączy się przez
+  sieć, nie przez lokalny socket,
+- miało twardy limit `MAX_USER_CONNECTIONS 5` — awaria workera nie powinna
+  móc wyczerpać pulę połączeń serwera,
+- miało tylko `SELECT`, `INSERT`, `UPDATE` na `app_data.*` — bez `DELETE`
+  (worker nigdy nie usuwa zamówień) i bez `GRANT OPTION` (nie deleguje
+  dalej własnych uprawnień),
+- nie zachowało żadnego globalnego uprawnienia (`*.*`) z poprzedniej wersji
+  konta,
+- wymuszało rotację hasła co 90 dni (`PASSWORD EXPIRE INTERVAL 90 DAY`) —
+  konto usługowe bez wygasającego hasła to hasło, które nikt nigdy nie
+  zmieni, dopóki nie będzie za późno.
+
+`WITH GRANT OPTION` w starterze to nie literówka — to typowy skrót
+"na razie dajmy wszystko", który w produkcji zamienia jeden wyciekły
+sekret w kompromitację całej instancji.

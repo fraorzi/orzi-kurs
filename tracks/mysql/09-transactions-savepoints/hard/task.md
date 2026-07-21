@@ -1,8 +1,25 @@
-# Wycofaj całość po błędzie procedury
+# Hard — wycofaj całość po błędzie procedury
 
-Utwórz procedurę transfer_funds. Przy dowolnym błędzie ma wycofać całą transakcję i przekazać błąd klientowi przez RESIGNAL.
+Procedura `transfer_funds` robi dwa `UPDATE` i jeden `INSERT` wewnątrz
+jednej transakcji. Jeśli obciążenie nadawcy naruszy `CHECK
+(balance >= 0)` (transfer większy niż dostępne środki), błąd tego jednego
+statementu **nie** wycofuje automatycznie wcześniejszego uznania
+odbiorcy — bez własnej obsługi błędu odbiorca zostaje z podwyższonym
+saldem, transakcja zostaje otwarta, a najbliższy `START TRANSACTION`
+(np. z kolejnego wywołania procedury) cicho zatwierdzi tę resztkę.
 
-## Kryteria akceptacji
+Napisz procedurę `transfer_funds(p_from, p_to, p_amount)`, która:
 
-- SQL działa na MySQL 8.4 i zachowuje wskazany niezmiennik także przy błędzie lub współbieżności.
-- Rozwiązanie nie wyłącza constraints ani globalnych zabezpieczeń serwera.
+- w jednej transakcji zwiększa saldo `p_to`, zmniejsza saldo `p_from`
+  i wstawia wiersz do `ledger`,
+- przy dowolnym błędzie (np. naruszeniu `CHECK`) wykonuje pełny
+  `ROLLBACK` całej transakcji — łącznie z już wykonanym uznaniem odbiorcy
+  — i przekazuje oryginalny błąd wywołującemu przez `RESIGNAL`, a nie
+  generyczny sukces ani inny kod błędu,
+- po nieudanej próbie zostawia konta i `ledger` w stanie sprzed wywołania
+  — kolejne, poprawne wywołanie procedury ma liczyć od czystego stanu, bez
+  śladu po nieudanej próbie.
+
+`DECLARE EXIT HANDLER FOR SQLEXCEPTION` musi kończyć procedurę od razu po
+`ROLLBACK` — `CONTINUE HANDLER` wykonałby `ROLLBACK`, ale wróciłby do
+dalszego kodu procedury, jakby nic się nie stało.

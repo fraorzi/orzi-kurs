@@ -1,5 +1,20 @@
-# Użyj EXISTS bez duplikatów
+# Easy — użyj EXISTS bez duplikatów
 
-Zwróć klientów mających co najmniej jedno opłacone zamówienie, dokładnie raz.
+Segment mailingowy ma trafić do każdego klienta z co najmniej jednym
+opłaconym zamówieniem — dokładnie raz. Klient z dwoma opłaconymi
+zamówieniami, który dostanie tę samą wiadomość dwa razy, to zgłoszenie
+do supportu, nie drobiazg.
 
-Zapytanie musi działać przy domyślnym rygorystycznym sql_mode MySQL 8.4.
+Napisz zapytanie, które:
+
+- zwraca `id` klientów mających co najmniej jedno zamówienie o
+  statusie `paid`,
+- zwraca każdego pasującego klienta dokładnie raz, niezależnie od
+  liczby jego opłaconych zamówień,
+- pomija klientów bez żadnego zamówienia oraz klientów, których
+  zamówienia mają wyłącznie inny status,
+- sortuje wynik rosnąco po `id`.
+
+Starter odpowiada na pytanie "czy istnieje" przez `JOIN` i filtr w
+`WHERE` — to zwielokrotnia wiersz klienta tyle razy, ile ma pasujących
+zamówień, zamiast dać dokładnie jeden wiersz na klienta.

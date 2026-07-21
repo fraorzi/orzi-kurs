@@ -1,11 +1,15 @@
 ## Hint 1
 
-Nie usuwaj ani nie publikuj indeksu od razu.
+Nie usuwaj ani nie publikuj indeksu na oślep — dodaj go tak, żeby nie
+wpływał na plany innych zapytań, dopóki go nie ocenisz.
 
 ## Hint 2
 
-Dodaj słowo INVISIBLE do definicji.
+`ALTER TABLE orders ADD INDEX ix_orders_candidate(customer_id, created_at)
+INVISIBLE`.
 
 ## Hint 3
 
-Do pojedynczego planu użyj SET_VAR(use_invisible_indexes=on), nie zmiany globalnej.
+Do jednorazowej oceny planu użyj
+`/*+ SET_VAR(optimizer_switch='use_invisible_indexes=on') */` w samym
+`EXPLAIN` — nie zmieniaj globalnego `optimizer_switch` sesji.
