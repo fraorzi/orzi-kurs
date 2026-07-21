@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw zapisz niezmiennik bezpieczeństwa i przypadek błędny.
+Kształt: walidacja → `BEGIN IMMEDIATE` → `try { debet; kredyt; COMMIT }
+catch { ROLLBACK; throw }`.
 
 ## Hint 2
 
-Oddziel dane użytkownika od elementów protokołu lub składni.
+Warunek środków to część SQL debetu (`AND balance >= ?`), a sygnałem
+niepowodzenia jest `changes !== 1` — nie osobny SELECT.
 
 ## Hint 3
 
-Sprawdź lifecycle, limit i cleanup, nie tylko happy path.
+`IMMEDIATE` bierze lock zapisu na starcie — konflikt współbieżności
+objawia się na BEGIN, nie w połowie przelewu.

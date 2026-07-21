@@ -1,11 +1,13 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Trzymaj `pending` między chunkami: doklej chunk, wycinaj w pętli wszystko do
+pierwszego `\n`, resztę zostaw w `pending`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+`pending.indexOf("\n")` w `while` — jeden chunk może nieść wiele linii.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Po pętli `for await`: `if (pending) yield pending` — to obsługa pliku bez
+końcowego newline; `\r` utnij regexem `/\r$/` przy yieldzie.

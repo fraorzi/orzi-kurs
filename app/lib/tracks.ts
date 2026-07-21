@@ -1,20 +1,19 @@
 import type { ComponentType, SVGProps } from "react";
 import type { Catalog, CatalogTopic, CatalogTrack, TaskStatus } from "./types";
-import { topicDisplayNumber } from "../../curriculum/order";
+import { TRACK_ORDER, topicDisplayNumber } from "../../curriculum/order";
 import {
   LogoJs,
   LogoTs,
   LogoReact,
   LogoNext,
+  LogoNode,
+  LogoCombined,
   LogoStrapi,
   LogoMysql,
-  IconBoxes,
   IconPuzzle,
 } from "@/app/components/icons";
 
 export type Category = "Języki" | "Frameworki" | "Backend & DB" | "Projekty";
-
-export const CATEGORIES: Category[] = ["Języki", "Frameworki", "Backend & DB", "Projekty"];
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -26,17 +25,25 @@ export interface TrackMeta {
   color: string;
 }
 
+const TRACK_META_BY_ID: Record<
+  (typeof TRACK_ORDER)[number],
+  Omit<TrackMeta, "id">
+> = {
+  js: { name: "JavaScript", category: "Języki", color: "#F7DF1E" },
+  ts: { name: "TypeScript", category: "Języki", color: "#4C93E8" },
+  react: { name: "React", category: "Frameworki", color: "#61DAFB" },
+  next: { name: "Next.js", category: "Frameworki", color: "#EDEBE7" },
+  node: { name: "Node.js", category: "Backend & DB", color: "#83CD29" },
+  mysql: { name: "MySQL", category: "Backend & DB", color: "#7BB0CE" },
+  strapi: { name: "Strapi", category: "Backend & DB", color: "#8B88FF" },
+  combined: { name: "Projekty łączone", category: "Projekty", color: "#91A7FF" },
+};
+
 /** Pełna lista tracków (także jeszcze bez treści → „Wkrótce"). */
-export const TRACK_META: TrackMeta[] = [
-  { id: "js", name: "JavaScript", category: "Języki", color: "#F7DF1E" },
-  { id: "ts", name: "TypeScript", category: "Języki", color: "#4C93E8" },
-  { id: "react", name: "React", category: "Frameworki", color: "#61DAFB" },
-  { id: "next", name: "Next.js", category: "Frameworki", color: "#EDEBE7" },
-  { id: "node", name: "Node.js", category: "Backend & DB", color: "#5FA04E" },
-  { id: "strapi", name: "Strapi", category: "Backend & DB", color: "#8B88FF" },
-  { id: "mysql", name: "MySQL", category: "Backend & DB", color: "#7BB0CE" },
-  { id: "combined", name: "Projekty łączone", category: "Projekty", color: "#B7B0A6" },
-];
+export const TRACK_META: TrackMeta[] = TRACK_ORDER.map((id) => ({
+  id,
+  ...TRACK_META_BY_ID[id],
+}));
 
 /** Oficjalne logo per track (simple-icons). */
 const TRACK_ICON: Record<string, IconComponent> = {
@@ -44,10 +51,10 @@ const TRACK_ICON: Record<string, IconComponent> = {
   ts: LogoTs,
   react: LogoReact,
   next: LogoNext,
-  node: IconBoxes,
+  node: LogoNode,
   strapi: LogoStrapi,
   mysql: LogoMysql,
-  combined: IconPuzzle,
+  combined: LogoCombined,
 };
 
 export function trackIcon(id: string): IconComponent {
@@ -92,10 +99,24 @@ export function topicTag(topicId: string): "D" | "O" | null {
 
 export const STATUS_LABEL: Record<TaskStatus, string> = {
   passed: "zaliczone",
-  "passed-with-hint": "zaliczone z hintem",
-  failed: "próbowane",
-  "not-started": "nie zaczęte",
+  "passed-with-hint": "zaliczone ze wskazówką",
+  failed: "do poprawy",
+  "not-started": "nierozpoczęte",
 };
+
+export function isCompletedStatus(status: TaskStatus): boolean {
+  return status === "passed" || status === "passed-with-hint";
+}
+
+export function isReviewDue(
+  level: Pick<CatalogTrack["topics"][number]["levels"][number], "status" | "nextReviewAt">,
+  now: Date | string = new Date(),
+): boolean {
+  if (!level.nextReviewAt) return level.status === "passed-with-hint";
+  const reviewAt = new Date(level.nextReviewAt).getTime();
+  const current = typeof now === "string" ? new Date(now).getTime() : now.getTime();
+  return Number.isFinite(reviewAt) && Number.isFinite(current) && reviewAt <= current;
+}
 
 export interface TrackProgress {
   passed: number;
@@ -371,148 +392,21 @@ const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
       slugs: ["module-01", "module-02"],
     },
   ],
-  node: [
-    {
-      id: "runtime",
-      title: "Runtime i asynchroniczność",
-      description: "Moduły, konfiguracja, pliki, bufory, zdarzenia, event loop i kontekst żądania.",
-      range: [1, 6],
-    },
-    {
-      id: "http-i-streamy",
-      title: "HTTP i przetwarzanie strumieniowe",
-      description: "Odporni klienci i serwery, backpressure, Web Streams oraz kompresja.",
-      range: [7, 10],
-    },
-    {
-      id: "procesy-i-testy",
-      title: "Procesy, workery i testy",
-      description: "Izolacja pracy CPU, protokoły procesów i deterministyczne testy integracyjne.",
-      range: [11, 12],
-    },
-    {
-      id: "produkcja",
-      title: "Bezpieczeństwo i operacyjność",
-      description: "Sekrety, shutdown, obserwowalność, Permission Model, CLI, debug i optymalizacja.",
-      range: [13, 18],
-    },
-    {
-      id: "elective",
-      title: "Rozszerzenia runtime",
-      description: "SQLite i WebSocket jako jawnie oddzielone kompetencje dodatkowe.",
-      range: [19, 20],
-    },
-    {
-      id: "projekty",
-      title: "Projekty końcowe",
-      description: "Strumieniowy analizator NDJSON i produkcyjny rdzeń usługi HTTP.",
-      slugs: ["module-01", "module-02"],
-    },
-  ],
-  mysql: [
-    {
-      id: "fundamenty-sql",
-      title: "Fundamenty SQL i integralność danych",
-      description: "Zapytania, typy, relacje, agregacje, DML i constraints wykonywane na MySQL 8.4.",
-      range: [1, 8],
-    },
-    {
-      id: "transakcje-i-wspolbieznosc",
-      title: "Transakcje i współbieżność",
-      description: "Atomowość, savepointy, MVCC, locking reads oraz bezpieczne retry deadlocku.",
-      range: [9, 10],
-    },
-    {
-      id: "plany-i-paginacja",
-      title: "Indeksy, plany i paginacja",
-      description: "B-tree, EXPLAIN ANALYZE, statystyki i stabilne cursory dla rosnących zbiorów.",
-      range: [11, 13],
-    },
-    {
-      id: "schema-i-operacje",
-      title: "Schemat i operacje produkcyjne",
-      description: "Modelowanie, migracje, bezpieczeństwo, obserwowalność i testy bazy.",
-      range: [14, 19],
-    },
-    {
-      id: "integracja-i-jakosc",
-      title: "TypeScript, diagnostyka i optymalizacja",
-      description: "Typowana warstwa mysql2 oraz naprawa błędów i planów w zastanym kodzie.",
-      range: [20, 21],
-    },
-    {
-      id: "projekty",
-      title: "Projekty końcowe",
-      description: "Marketplace SQL i produkcyjna warstwa danych Node z testami integracyjnymi.",
-      slugs: ["module-01", "module-02"],
-    },
-  ],
-  strapi: [
-    {
-      id: "content-api",
-      title: "Model treści i Content API",
-      description: "Projekt, typy, dokumenty, publikacja, locale oraz płaskie odpowiedzi REST v5.",
-      range: [1, 5],
-    },
-    {
-      id: "backend",
-      title: "Bezpieczny backend Strapi",
-      description: "Permissions, kontrolery, policies, middleware, walidacja i transakcje.",
-      range: [6, 10],
-    },
-    {
-      id: "integracje-i-jakosc",
-      title: "Integracje i jakość produkcyjna",
-      description: "Media, webhooki, testy HTTP, diagnostyka i optymalizacja po pomiarze.",
-      range: [11, 14],
-    },
-    {
-      id: "projekt",
-      title: "Projekt końcowy",
-      description: "Pionowy backend publikacji z authz, cleanupem i rewalidacją.",
-      slugs: ["module-01"],
-    },
-  ],
-  combined: [
-    {
-      id: "typed-ui",
-      title: "Typowany frontend",
-      description: "Kontrakty TypeScript–React, reducer, Context i dostępne komponenty.",
-      slugs: ["ts-react-01", "ts-react-02"],
-    },
-    {
-      id: "integracje",
-      title: "Integracje backendowe",
-      description: "Node, Next, Strapi i MySQL połączone przez rzeczywiste granice danych.",
-      slugs: [
-        "js-node-01", "react-next-01", "next-strapi-01", "next-strapi-02",
-        "node-mysql-01",
-      ],
-    },
-    {
-      id: "produkcja",
-      title: "Jakość produkcyjna",
-      description: "Regresje, security, delivery, obserwowalność, rollout i rollback.",
-      slugs: ["quality-01", "security-01", "delivery-01", "observability-01"],
-    },
-    {
-      id: "capstone",
-      title: "Capstone",
-      description: "Pionowe dostarczenie produktu i utrzymanie zastanego systemu.",
-      slugs: ["full-01", "full-02"],
-    },
-  ],
 };
 
 export function trackProgress(track: CatalogTrack): TrackProgress {
   const levels = track.topics.flatMap((t) => t.levels);
-  return { passed: levels.filter((l) => l.status === "passed").length, total: levels.length };
+  return {
+    passed: levels.filter((level) => isCompletedStatus(level.status)).length,
+    total: levels.length,
+  };
 }
 
-export function learningModules(track: CatalogTrack): LearningModule[] {
-  const currentTopic = track.topics.find((topic) =>
-    topic.levels.some((level) => level.status !== "passed"),
-  );
+export function learningModules(
+  track: CatalogTrack,
+  now: Date | string = new Date(),
+): LearningModule[] {
+  const currentTopic = nextLearningTarget(track, now)?.topic;
   const definitions = LEARNING_MODULES[track.id];
 
   if (!definitions) {
@@ -570,9 +464,42 @@ export function activeTrack(catalog: Catalog): CatalogTrack | undefined {
   return catalog.tracks[0];
 }
 
-/** Następne niezaliczone zagadnienie (pierwsze z poziomem ≠ passed). */
+/** Następne nieukończone zagadnienie. Ukończenie ze wskazówką nadal trafia do powtórek. */
 export function nextTopic(track: CatalogTrack) {
-  return (
-    track.topics.find((t) => t.levels.some((l) => l.status !== "passed")) ?? track.topics[0]
+  return track.topics.find((topic) =>
+    topic.levels.some((level) => !isCompletedStatus(level.status)),
   );
+}
+
+export type LearningTargetIntent = "resume" | "review" | "start";
+
+export interface LearningTarget {
+  topic: CatalogTopic;
+  level: CatalogTopic["levels"][number];
+  intent: LearningTargetIntent;
+}
+
+/** Jedna rekomendowana decyzja: wróć do próby, zrób powtórkę albo zacznij kolejny poziom. */
+export function nextLearningTarget(
+  track: CatalogTrack,
+  now: Date | string = new Date(),
+): LearningTarget | null {
+  for (const topic of track.topics) {
+    const level = topic.levels.find((item) => item.status === "failed");
+    if (level) return { topic, level, intent: "resume" };
+  }
+
+  for (const topic of track.topics) {
+    const level = topic.levels.find(
+      (item) => isCompletedStatus(item.status) && isReviewDue(item, now),
+    );
+    if (level) return { topic, level, intent: "review" };
+  }
+
+  for (const topic of track.topics) {
+    const level = topic.levels.find((item) => !isCompletedStatus(item.status));
+    if (level) return { topic, level, intent: level.attempts > 0 ? "resume" : "start" };
+  }
+
+  return null;
 }

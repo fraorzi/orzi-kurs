@@ -1,11 +1,15 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+`Promise.race` między `cleanup.then(() => "clean")` a promisem timeoutu,
+którego executor zapisuje uchwyt timera do zmiennej z zewnątrz.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+W callbacku timera: najpierw `force()`, potem `resolve("forced")` —
+kolejność jest obserwowalna w testach.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+`timer.unref()` zaraz po utworzeniu; `clearTimeout(timer)` po rozstrzygnięciu
+race'a — obie rzeczy sprawdza test źródłowy, bo skutków unref nie widać
+w vitest wprost.

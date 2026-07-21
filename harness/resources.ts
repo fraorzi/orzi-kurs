@@ -1,3 +1,7 @@
+import { NEXT_TOPIC_RESOURCES } from "./resources-next";
+import { REACT_TOPIC_RESOURCES } from "./resources-react";
+import { TS_BASE_TOPIC_RESOURCES } from "./resources-typescript";
+
 export interface LearningResource {
   title: string;
   url: string;
@@ -254,12 +258,12 @@ const MODULE_RESOURCES: LearningResource[] = [
 
 const TS_HANDBOOK = "https://www.typescriptlang.org/docs/handbook";
 
-const TS_FALLBACK_RESOURCES: LearningResource[] = [
+const TS_CORE_RESOURCES: LearningResource[] = [
   { title: "TypeScript Handbook", url: `${TS_HANDBOOK}/intro.html`, description: "Oficjalny przewodnik po systemie typów TypeScript." },
 ];
 
 const TS_MODULE_RESOURCES: LearningResource[] = [
-  ...TS_FALLBACK_RESOURCES,
+  ...TS_CORE_RESOURCES,
   { title: "Moduły w TypeScript", url: `${TS_HANDBOOK}/modules/introduction.html`, description: "Import, export i organizacja typowanego kodu w wielu plikach." },
 ];
 
@@ -267,10 +271,14 @@ export function resourcesForTask(taskId: string): LearningResource[] {
   const [track, topic] = taskId.split("/");
   if (!topic) return [];
   if (track === "ts") {
-    return topic.startsWith("module-") ? TS_MODULE_RESOURCES : (TOPIC_RESOURCES[topic] ?? TS_FALLBACK_RESOURCES);
+    return topic.startsWith("module-")
+      ? TS_MODULE_RESOURCES
+      : (TS_BASE_TOPIC_RESOURCES[topic] ?? TOPIC_RESOURCES[topic] ?? []);
   }
-  if (topic.startsWith("module-")) return MODULE_RESOURCES;
-  return TOPIC_RESOURCES[topic] ?? [
-    { title: "Przewodnik po JavaScript", url: `${MDN}/Guide`, description: "Dokumentacja podstaw języka i jego najważniejszych mechanizmów." },
-  ];
+  if (track === "js") {
+    return topic.startsWith("module-") ? MODULE_RESOURCES : (TOPIC_RESOURCES[topic] ?? []);
+  }
+  if (track === "react") return REACT_TOPIC_RESOURCES[topic] ?? [];
+  if (track === "next") return NEXT_TOPIC_RESOURCES[topic] ?? [];
+  return [];
 }

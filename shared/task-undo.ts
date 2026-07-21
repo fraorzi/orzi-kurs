@@ -21,6 +21,7 @@ export type TaskUndoRecord<TProgress> =
   | (TaskUndoRecordBase & {
       kind: "code";
       payload: StarterSnapshot;
+      revealedHints?: string[];
     })
   | (TaskUndoRecordBase & {
       kind: "progress";

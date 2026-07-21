@@ -1,0 +1,499 @@
+.page {
+  container: dashboard / inline-size;
+  width: 100%;
+  max-width: 960px;
+  min-width: 0;
+  margin: 0 auto;
+  padding: 28px 28px 44px;
+}
+
+.today {
+  min-width: 0;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line-2);
+}
+
+.todayHeader,
+.sectionHeader {
+  display: flex;
+  min-width: 0;
+}
+
+.todayHeader {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.todayHeader h1,
+.sectionHeader h2 {
+  margin: 0;
+  color: var(--ink);
+  font-weight: 670;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+
+.todayHeader h1 {
+  font-size: 20px;
+}
+
+.todayHeader p,
+.sectionHeader p {
+  margin: 0;
+  color: var(--faint);
+  font-size: 12.5px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.focus,
+.emptyState {
+  min-width: 0;
+  margin-top: 17px;
+  padding: 18px 20px;
+  border-radius: var(--r-sm);
+  background: var(--panel);
+}
+
+.focus {
+  display: grid;
+  grid-template-columns: minmax(150px, 180px) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+}
+
+.focusTrack {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.focusTrack > div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.focusTrack strong {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 650;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.focusTrack span {
+  margin-top: 2px;
+  color: var(--faint);
+  font-size: 10.5px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.focusDetails {
+  min-width: 0;
+}
+
+.focusLabel {
+  margin: 0 0 2px;
+  color: var(--accent-2);
+  font-size: 11.5px;
+  font-weight: 640;
+}
+
+.level {
+  font-family: var(--mono);
+  font-size: .92em;
+  letter-spacing: 0;
+  text-transform: lowercase;
+}
+
+.focusDetails h2,
+.emptyState h2 {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 660;
+  letter-spacing: -.018em;
+  text-wrap: balance;
+}
+
+.focusCopy,
+.emptyState p {
+  max-width: 68ch;
+  margin: 3px 0 0;
+  color: var(--dim);
+  font-size: 12.5px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.primaryAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 40px;
+  max-width: 100%;
+  padding: 9px 14px;
+  border-radius: var(--r-sm);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 12.5px;
+  font-weight: 680;
+  line-height: 1.35;
+  white-space: nowrap;
+  transition: background var(--dur);
+}
+
+.primaryAction:hover {
+  background: var(--accent-2);
+}
+
+.primaryAction svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+
+.progress {
+  min-width: 0;
+  margin-top: 26px;
+}
+
+.sectionHeader {
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.sectionHeader > div {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.sectionHeader h2 {
+  font-size: 16px;
+}
+
+.progressList {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.progressItem {
+  min-width: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.progressLink {
+  display: grid;
+  grid-template-columns: minmax(150px, 190px) minmax(120px, 1fr);
+  grid-template-areas:
+    "name stats"
+    "name bar";
+  align-items: center;
+  gap: 6px 20px;
+  min-width: 0;
+  min-height: 60px;
+  padding: 10px 10px 11px;
+  transition: background var(--dur);
+}
+
+.progressLink:hover {
+  background: color-mix(in oklch, var(--progress-color) 4%, var(--raised));
+}
+
+.progressName {
+  grid-area: name;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.progressName strong {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: 630;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color var(--dur);
+}
+
+.progressBar {
+  grid-area: bar;
+  width: 100%;
+  height: 7px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: color-mix(in oklch, var(--progress-color) 11%, var(--overlay));
+  box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--progress-color) 10%, var(--line));
+}
+
+.progressFill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--progress-color);
+  transform: scaleX(var(--progress));
+  transform-origin: left;
+  animation: progress-reveal 520ms var(--ease) both;
+}
+
+.progressStats {
+  grid-area: stats;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 14px;
+  min-width: 0;
+  color: var(--faint);
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.progressStats strong {
+  min-width: 32px;
+  color: var(--progress-color);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 650;
+  text-align: right;
+}
+
+@keyframes progress-reveal {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(var(--progress)); }
+}
+
+.secondary {
+  margin-top: 24px;
+  border-top: 1px solid var(--line-2);
+}
+
+.disclosure {
+  min-width: 0;
+  border-bottom: 1px solid var(--line-2);
+}
+
+.disclosureTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-width: 0;
+  min-height: 48px;
+  width: 100%;
+  padding: 0 2px;
+  border: 0;
+  background: none;
+  color: var(--dim);
+  cursor: pointer;
+  text-align: left;
+  transition: color var(--dur);
+}
+
+.disclosureTrigger:hover {
+  color: var(--ink);
+}
+
+.disclosureTrigger > span {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  min-width: 0;
+}
+
+.disclosureTitle {
+  color: currentColor;
+  font-size: 12.5px;
+  font-weight: 640;
+}
+
+.disclosureTrigger small {
+  color: var(--faint);
+  font-size: 11px;
+}
+
+.disclosureTrigger small::before {
+  content: "·";
+  margin-right: 10px;
+}
+
+.queueList {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0 0 4px;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.queueList li {
+  border-bottom: 1px solid var(--line);
+}
+
+.queueList li:last-child {
+  border-bottom: 0;
+}
+
+.queueList a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  min-height: 42px;
+  padding: 7px 10px;
+  color: var(--dim);
+  font-size: 12px;
+  transition: color var(--dur), background var(--dur);
+}
+
+.queueList a:hover {
+  background: var(--raised);
+  color: var(--ink);
+}
+
+.queueList a > span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.queueList small {
+  flex: none;
+  color: var(--faint);
+}
+
+.upcomingList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 32px;
+  margin: 0;
+  padding: 16px 10px 20px;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.upcomingList li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--dim);
+  font-size: 12px;
+}
+
+.upcomingList li > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.upcomingList small {
+  margin-left: auto;
+  color: var(--faint);
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+@container dashboard (max-width: 760px) {
+  .focus {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 16px 20px;
+  }
+
+  .focusTrack {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .focusDetails {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .primaryAction {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .progressLink {
+    grid-template-columns: minmax(130px, 170px) minmax(100px, 1fr);
+    gap: 12px;
+  }
+}
+
+@container dashboard (max-width: 520px) {
+  .focus {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .focusDetails {
+    order: 2;
+  }
+
+  .primaryAction {
+    order: 3;
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+  }
+
+  .progressLink {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "name stats"
+      "bar bar";
+    gap: 8px 12px;
+    min-height: 66px;
+  }
+
+  .upcomingList {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding: 24px 16px 40px;
+  }
+}
+
+@media (max-width: 360px) {
+  .page {
+    padding-inline: 10px;
+  }
+
+  .progressStats > span {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressFill {
+    animation: none;
+  }
+}

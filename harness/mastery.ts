@@ -26,15 +26,16 @@ export function evolveTaskProgress(
   attempt: RecordedAttempt,
   now = new Date().toISOString(),
 ): TaskProgress {
+  const usedHint = attempt.usedHint || (previous?.revealedHints ?? 0) > 0;
   const previousScore = masteryScore(previous);
   const score = attempt.passed
-    ? attempt.usedHint
+    ? usedHint
       ? Math.max(1, previousScore - 1)
       : Math.min(4, previousScore + 1)
     : Math.max(0, previousScore - 1);
   return {
     status: attempt.passed
-      ? attempt.usedHint
+      ? usedHint
         ? "passed-with-hint"
         : "passed"
       : previous?.status === "passed" || previous?.status === "passed-with-hint"
@@ -43,21 +44,22 @@ export function evolveTaskProgress(
     attempts: (previous?.attempts ?? 0) + 1,
     masteryScore: score,
     cleanPassStreak:
-      attempt.passed && !attempt.usedHint ? (previous?.cleanPassStreak ?? 0) + 1 : 0,
+      attempt.passed && !usedHint ? (previous?.cleanPassStreak ?? 0) + 1 : 0,
     nextReviewAt:
-      attempt.passed && !attempt.usedHint ? addDays(now, REVIEW_DAYS[score]) : now,
+      attempt.passed && !usedHint ? addDays(now, REVIEW_DAYS[score]) : now,
     lastAttemptPassed: attempt.passed,
     resetCount: previous?.resetCount,
     lastResetAt: previous?.lastResetAt,
     firstPassedAt: attempt.passed ? (previous?.firstPassedAt ?? now) : previous?.firstPassedAt,
     firstPassedWithHintAt:
-      attempt.passed && attempt.usedHint
+      attempt.passed && usedHint
         ? (previous?.firstPassedWithHintAt ?? now)
         : previous?.firstPassedWithHintAt,
     firstPassedWithoutHintAt:
-      attempt.passed && !attempt.usedHint
+      attempt.passed && !usedHint
         ? (previous?.firstPassedWithoutHintAt ?? now)
         : previous?.firstPassedWithoutHintAt,
+    revealedHints: previous?.revealedHints,
     verifiedStarter: attempt.passed
       ? (attempt.verifiedStarter ?? previous?.verifiedStarter)
       : previous?.verifiedStarter,

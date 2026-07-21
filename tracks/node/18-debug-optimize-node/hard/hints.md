@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Stan: `Map<string, listener>` per fabryka. Przy subskrypcji sprawdź, czy
+klient ma już listener — jeżeli tak, najpierw `emitter.off` starej referencji.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Cleanup zdejmuje listener **i** czyści wpis w mapie — ale tylko jeśli wpis
+nadal wskazuje na ten listener (klient mógł się już ponownie zapisać).
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Test różnych klientów pilnuje, żeby mapa była per `clientId`, nie globalnym
+"ostatnim listenerem".

@@ -1,5 +1,12 @@
-# Testuj przez port efemeryczny
+# Hard — testuj przez port efemeryczny
 
-Uruchom przekazaną fabrykę serwera na porcie 0, wykonaj callback z origin i zawsze zamknij serwer.
+Test integracyjny serwera HTTP nie może hardkodować portu. Zaimplementuj
+`solve(server, run)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- wystartuj przekazany `http.Server` na porcie **0** (system przydziela wolny
+  port) i adresie `127.0.0.1`;
+- odczytaj przydzielony port z `server.address()` i zbuduj origin
+  `http://127.0.0.1:<port>`;
+- wykonaj `run(origin)` i zwróć jego wynik;
+- zamknij serwer w `finally` — również gdy `run` rzuci; błąd nasłuchu
+  (np. zajęty adres) ma odrzucić całość.

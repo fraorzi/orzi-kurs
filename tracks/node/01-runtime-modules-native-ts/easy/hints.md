@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Wyodrębnij rozszerzenie od ostatniej kropki (`file.slice(file.lastIndexOf("."))`)
+— nazwa pliku może zawierać wiele kropek.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Najpierw rozstrzygnij cztery jednoznaczne rozszerzenia (`.mjs`, `.mts`, `.cjs`,
+`.cts`); tylko reszta patrzy na `packageType`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Zwróć uwagę, że mapowanie `packageType` → wynik to pojedynczy ternary:
+`packageType === "module" ? "esm" : "cjs"`.

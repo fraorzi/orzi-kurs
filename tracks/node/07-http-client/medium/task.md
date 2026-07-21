@@ -1,5 +1,11 @@
-# Dodaj timeout bez wycieku
+# Medium — dodaj timeout bez wycieku
 
-Połącz opcjonalny sygnał rodzica z timeoutem i przekaż wynik do fetch; anulowanie rodzica ma zachować się jak AbortError.
+Żądanie ma budżet czasowy, ale wywołujący może też anulować je własnym
+sygnałem. Zaimplementuj `solve(url, timeoutMs, fetcher, parent?)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- zbuduj sygnał timeoutu przez `AbortSignal.timeout(timeoutMs)`;
+- gdy podano `parent`, połącz oba przez `AbortSignal.any([...])` — przerwanie
+  któregokolwiek anuluje żądanie;
+- przekaż wynikowy sygnał do `fetcher(url, { signal })` i zwróć odpowiedź;
+- żadnych własnych `setTimeout` — składanie sygnałów zostaw platformie,
+  wtedy nie ma czego wyciekać.

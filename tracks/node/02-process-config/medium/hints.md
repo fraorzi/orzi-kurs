@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Waliduj w kolejności pól: najpierw wymagany `API_URL` (`new URL` sam rzuci dla
+złego formatu), potem timeout, na końcu sekret.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+`Number(env.TIMEOUT_MS ?? "5000")` załatwia domyślną wartość; potem sprawdź
+`Number.isInteger(x) && x >= 100`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Warunek produkcyjny czytaj wprost z `env.NODE_ENV`, a wynik opakuj w
+`Object.freeze({ ... })` — test sprawdza `Object.isFrozen`.

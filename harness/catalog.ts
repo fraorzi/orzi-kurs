@@ -4,7 +4,7 @@ import type { Progress } from "./types";
 import { readProgress } from "./progress";
 import { TRACKS_ROOT } from "./paths";
 import { masteryScore } from "./mastery";
-import { compareTopicSlugs } from "../curriculum/order";
+import { compareTopicSlugs, compareTrackIds } from "../curriculum/order";
 
 export interface CatalogLevel {
   id: string;
@@ -92,7 +92,7 @@ function collectLevels(topicDir: string, progress: Progress): CatalogLevel[] {
 export function buildCatalog(progress: Progress = readProgress()): Catalog {
   const tracks: CatalogTrack[] = [];
 
-  for (const trackName of dirsIn(TRACKS_ROOT)) {
+  for (const trackName of dirsIn(TRACKS_ROOT).sort(compareTrackIds)) {
     if (trackName.startsWith("_")) continue;
     const trackDir = join(TRACKS_ROOT, trackName);
     const topics: CatalogTopic[] = [];

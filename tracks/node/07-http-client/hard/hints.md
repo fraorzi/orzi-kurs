@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Pętla `for attempt in 1..attempts`; wychodzisz `return response`, gdy status
+nie jest w `[429, 503]` **albo** to była ostatnia próba.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+`Number(response.headers.get("retry-after") ?? "0")` plus strażnik
+`Number.isFinite` — nagłówek bywa śmieciem, a `sleep(NaN)` to bug.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Sekundy → milisekundy przy wywołaniu `sleep`. Test sprawdza dokładne
+argumenty kolejnych wywołań.

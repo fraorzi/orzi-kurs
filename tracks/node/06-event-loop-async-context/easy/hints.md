@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Pętla po `index += batchSize`, wewnątrz `items.slice(index, index + batchSize)`
+mapowane synchronicznie do tablicy wyników.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Po każdej partii: `await setImmediate()` z `node:timers/promises` — to wersja
+promisowa, nie globalny `setImmediate(callback)`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Test przeplotu oblejesz i wtedy, gdy yieldujesz mikrotaskiem
+(`await Promise.resolve()`) — mikrotask nie oddaje sterowania fazie check.

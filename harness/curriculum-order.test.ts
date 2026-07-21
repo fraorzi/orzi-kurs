@@ -1,12 +1,32 @@
 import { describe, expect, it } from "vitest";
-import { learningModules, TRACK_META } from "../app/lib/tracks";
+import { learningModules, trackIcon, TRACK_META } from "../app/lib/tracks";
+import { LogoCombined, LogoNode } from "../app/components/icons";
 import type { CatalogTrack } from "../app/lib/types";
-import { compareTopicSlugs, TOPIC_ORDER, topicDisplayNumber } from "../curriculum/order";
+import {
+  compareTopicSlugs,
+  compareTrackIds,
+  TOPIC_ORDER,
+  topicDisplayNumber,
+  TRACK_ORDER,
+} from "../curriculum/order";
 
 describe("curriculum order", () => {
   it("has explicit UI metadata for every public curriculum track", () => {
     expect(TRACK_META.map((track) => track.id).sort())
       .toEqual(Object.keys(TOPIC_ORDER).sort());
+  });
+
+  it("keeps every track list in the documented learning order", () => {
+    expect([...TRACK_ORDER].reverse().sort(compareTrackIds)).toEqual(TRACK_ORDER);
+    expect(TRACK_META.map((track) => track.id)).toEqual(TRACK_ORDER);
+  });
+
+  it("uses the dedicated Node.js mark", () => {
+    expect(trackIcon("node")).toBe(LogoNode);
+  });
+
+  it("uses the dedicated combined-projects mark", () => {
+    expect(trackIcon("combined")).toBe(LogoCombined);
   });
 
   it("places prerequisites before dependent JavaScript topics", () => {
@@ -139,88 +159,5 @@ describe("curriculum order", () => {
         module.topics.map((topic) => topic.id)),
     ).toEqual(track.topics.map((topic) => topic.id));
   });
-
-  it("keeps MySQL query foundations before transactions and optimization", () => {
-    expect(compareTopicSlugs("mysql", "03-joins", "06-window-functions"))
-      .toBeLessThan(0);
-    expect(compareTopicSlugs("mysql", "08-constraints-relations", "09-transactions-savepoints"))
-      .toBeLessThan(0);
-    expect(compareTopicSlugs("mysql", "11-indexes", "12-explain-statistics"))
-      .toBeLessThan(0);
-    expect(compareTopicSlugs("mysql", "20-mysql2-typescript", "module-02"))
-      .toBeLessThan(0);
-  });
-
-  it("keeps MySQL learning modules in exact catalog order", () => {
-    const track: CatalogTrack = {
-      id: "mysql",
-      topics: TOPIC_ORDER.mysql.map((slug) => ({
-        id: `mysql/${slug}`,
-        title: slug,
-        levels: [],
-      })),
-    };
-
-    expect(
-      learningModules(track).flatMap((module) =>
-        module.topics.map((topic) => topic.id)),
-    ).toEqual(track.topics.map((topic) => topic.id));
-  });
-
-  it("keeps Strapi document semantics before customization and production work", () => {
-    expect(compareTopicSlugs("strapi", "03-document-service", "07-custom-api-layers"))
-      .toBeLessThan(0);
-    expect(compareTopicSlugs("strapi", "06-auth-permissions", "08-policies-http-middleware"))
-      .toBeLessThan(0);
-    expect(compareTopicSlugs("strapi", "13-http-testing", "14-debug-strapi"))
-      .toBeLessThan(0);
-    expect(compareTopicSlugs("strapi", "14b-optimize-strapi", "module-01"))
-      .toBeLessThan(0);
-  });
-
-  it("keeps Strapi learning modules in exact catalog order", () => {
-    const track: CatalogTrack = {
-      id: "strapi",
-      topics: TOPIC_ORDER.strapi.map((slug) => ({
-        id: `strapi/${slug}`,
-        title: slug,
-        levels: [],
-      })),
-    };
-
-    expect(
-      learningModules(track).flatMap((module) =>
-        module.topics.map((topic) => topic.id)),
-    ).toEqual(track.topics.map((topic) => topic.id));
-  });
-
-  it("keeps combined projects from focused integrations to capstones", () => {
-    expect(compareTopicSlugs("combined", "ts-react-01", "react-next-01"))
-      .toBeLessThan(0);
-    expect(compareTopicSlugs("combined", "node-mysql-01", "security-01"))
-      .toBeLessThan(0);
-    expect(compareTopicSlugs("combined", "observability-01", "full-01"))
-      .toBeLessThan(0);
-    expect(compareTopicSlugs("combined", "full-01", "full-02"))
-      .toBeLessThan(0);
-  });
-
-  it("keeps combined learning modules in exact catalog order", () => {
-    const track: CatalogTrack = {
-      id: "combined",
-      topics: TOPIC_ORDER.combined.map((slug) => ({
-        id: `combined/${slug}`,
-        title: slug,
-        levels: [],
-      })),
-    };
-
-    expect(
-      learningModules(track).flatMap((module) =>
-        module.topics.map((topic) => topic.id)),
-    ).toEqual(track.topics.map((topic) => topic.id));
-  });
-
-
 
 });

@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw zapisz niezmiennik bezpieczeństwa i przypadek błędny.
+Kolejność kroków: posortuj kopię, zwaliduj wersje (całkowite ≥ 1, bez
+duplikatów przez `Set`), przefiltruj `> current`, sprawdź ciągłość.
 
 ## Hint 2
 
-Oddziel dane użytkownika od elementów protokołu lub składni.
+Ciągłość planu: element na pozycji `index` musi mieć wersję
+`current + index + 1` — jedna pętla, jeden warunek.
 
 ## Hint 3
 
-Sprawdź lifecycle, limit i cleanup, nie tylko happy path.
+Sortuj kopię (`[...migrations].sort(...)`) — wejście jest `readonly`
+i mutowanie go byłoby efektem ubocznym widocznym u wywołującego.

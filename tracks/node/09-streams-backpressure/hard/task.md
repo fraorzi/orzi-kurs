@@ -1,5 +1,12 @@
-# Zbuduj pipeline transformacji
+# Hard — zbuduj pipeline transformacji
 
-Przepuść Readable przez Transform NDJSON, pomiń puste linie i zakończ pipeline z propagacją błędów.
+Złóż z klasycznych streamów potok NDJSON → uppercase. Zaimplementuj
+`solve(lines)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- źródło: `Readable.from(lines)` — elementy tablicy to **chunki**, które mogą
+  nieść wiele linii albo ułamek linii;
+- `Transform` skleja chunki, dzieli po `\n`, pomija linie puste/białe
+  i przepuszcza pozostałe uppercase z `\n`;
+- `flush` obsługuje końcówkę bez newline;
+- ujście zbiera bajty; całość spina `pipeline` z `node:stream/promises` —
+  wynik to zebrany string.

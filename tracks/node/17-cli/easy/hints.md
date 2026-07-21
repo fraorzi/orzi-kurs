@@ -1,11 +1,12 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Dwie gałęzie po `result.ok`; wewnątrz każdej mały ternary po `json`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Mapowanie kodów: `usage → 2`, `internal → 1` — to konwencja UNIX,
+skrypty wołające CLI decydują po kodzie, nie po treści.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+`\n` doklejaj na końcu budowanego stringa, w obu formatach.

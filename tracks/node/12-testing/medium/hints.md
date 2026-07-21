@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+`mkdtemp(join(tmpdir(), "prefiks-"))` — sufiks losowy dokleja system,
+stąd unikalność katalogów.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Kształt to try/finally: `try { return await run(directory); } finally
+{ await rm(...); }` — bez `catch`, błąd ma lecieć dalej.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+`rm(directory, { recursive: true, force: true })` — recursive dla zawartości,
+force żeby sprzątanie nie wybuchło przy nietypowych stanach.

@@ -1,5 +1,11 @@
-# Ogranicz zasoby wejścia
+# Medium — ogranicz zasoby wejścia
 
-Waliduj rekord zadania: maksymalna długość tekstu, skończony koszt, allow-lista typu i głębokość metadanych.
+Rekord z kolejki kosztuje zasoby zanim go przetworzysz. Zaimplementuj
+walidator `solve(input)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- wejście musi być zwykłym obiektem, inaczej `Error`;
+- `type` z allow-listy: `"email"` albo `"report"`;
+- `text`: string o rozmiarze maksymalnie 1024 **bajtów** (nie znaków!);
+- `cost`: skończona liczba w zakresie 0–1000 (`NaN`/`Infinity` odpadają);
+- zwróć wąski obiekt `{ type, text, cost }` — bez przepuszczania
+  dodatkowych pól wejścia.

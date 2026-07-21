@@ -1,11 +1,13 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Trzy ogniwa w `await pipeline(...)`: `Readable.from(input)`, `createGzip()`
+i `new Writable({ write(chunk, _enc, cb) { chunks.push(...); cb(); } })`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Wynik to `Buffer.concat(chunks)` po zakończeniu pipeline'u.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Propagację błędu dostajesz od `pipeline` za darmo — jeżeli łapiesz błąd
+i zwracasz częściowy wynik, psujesz kontrakt zadania.

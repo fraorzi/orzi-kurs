@@ -244,6 +244,36 @@ const COMBINED_TOPIC_ORDER = [
   "full-02",
 ] as const;
 
+/** Kolejność ścieżek zgodna z zależnościami programu nauki. */
+export const TRACK_ORDER = [
+  "js",
+  "ts",
+  "react",
+  "next",
+  "node",
+  "mysql",
+  "strapi",
+  "combined",
+] as const;
+
+export function compareTrackIds(left: string, right: string): number {
+  const leftIndex = TRACK_ORDER.indexOf(left as (typeof TRACK_ORDER)[number]);
+  const rightIndex = TRACK_ORDER.indexOf(right as (typeof TRACK_ORDER)[number]);
+
+  if (leftIndex === -1 || rightIndex === -1) {
+    if (leftIndex === -1 && rightIndex === -1) return left.localeCompare(right);
+    return leftIndex === -1 ? 1 : -1;
+  }
+
+  return leftIndex - rightIndex;
+}
+
+export function sortTracksByLearningOrder<T extends { id: string }>(
+  tracks: readonly T[],
+): T[] {
+  return [...tracks].sort((left, right) => compareTrackIds(left.id, right.id));
+}
+
 export const TOPIC_ORDER: Readonly<Record<string, readonly string[]>> = {
   js: JS_TOPIC_ORDER,
   ts: TS_TOPIC_ORDER,

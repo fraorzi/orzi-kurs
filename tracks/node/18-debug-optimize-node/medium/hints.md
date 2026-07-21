@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Pula: `Math.min(limit, items.length)` workerów; każdy w pętli bierze
+`const index = next++` i pisze `results[index] = await run(items[index])`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Wspólny licznik `next` w domknięciu jest bezpieczny — JS jest jednowątkowy,
+inkrement przed pierwszym `await` nie ma wyścigu.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Wyniki na pozycjach wejścia (`results[index] = ...`), nie `push` — kolejność
+ukończenia bywa dowolna, kolejność wyników nie.
