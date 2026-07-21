@@ -1,6 +1,6 @@
 # Audyt tracka Strapi 5
 
-Data: 2026-07-17. Wersja sprawdzona w npm: `@strapi/strapi@5.50.2`.
+Data: 2026-07-21. Wersja sprawdzona w npm: `@strapi/strapi@5.50.2`.
 
 ## Zakres i kolejność
 
@@ -19,6 +19,8 @@ Service ani numerycznym `id`, zanim zrozumie `documentId` i warianty dokumentu.
   oraz co najmniej trzy progresywne hinty na zadanie.
 - Document Service jest domyślną warstwą contentu; lifecycle hooks są omawiane
   razem z ryzykiem wielokrotnych operacji bazowych.
+- Teoria obejmuje bieżące `publicationFilter`, `documents.strictParams`,
+  `findFirst` i `deleteMany` oraz ograniczenie dla repeatable components.
 - Własne kontrolery muszą sanitizować niesanitizowany output Document Service.
 - Publiczne odczyty jawnie wybierają `published` i allow-listę pól.
 - Startery `[O]` są poprawne funkcjonalnie i oblewają wyłącznie testy `[quality]`
@@ -29,9 +31,7 @@ Service ani numerycznym `id`, zanim zrozumie `documentId` i warianty dokumentu.
 ## Dowody
 
 - kontrakt treści i kolejność: 17/17,
-- rozwiązania przed końcowym rozszerzeniem HTTP: 46/46,
-- pierwotne startery po naprawie dwóch zbyt łatwych bramek: sprawdzone punktowo;
-  pełny przebieg pozostaje częścią audytu końcowego,
+- rozwiązania: 46/46, startery: 46/46,
 - root `tsc --noEmit` i lint: bez błędów po dodaniu adaptera HTTP.
 
 ## Źródła pierwotne

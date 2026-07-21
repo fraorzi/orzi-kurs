@@ -14,6 +14,11 @@ językowa dokumentu względem czytelnika: **new** (nigdy niepublikowana),
 zmiany). Panel administracyjny pokazuje ten stan jako badge przy każdej
 lokalizacji.
 
+Document Service potrafi filtrować tę relację przez `publicationFilter`,
+zanim zastosuje `status`. To właściwy mechanizm do kolejki redakcyjnej typu
+„pokaż nowe albo zmodyfikowane dokumenty”; sam `status: "draft"` zwraca drafty,
+ale nie mówi, czy istnieje i różni się odpowiadająca im wersja published.
+
 Granica bezpieczeństwa: publiczny endpoint bez jawnego `status: "published"`
 odziedziczy domyślne zachowanie Document Service i może zwrócić draft.
 Preview (podgląd niepublikowanej treści) wymaga więc świadomej autoryzacji
@@ -54,9 +59,12 @@ parze z rolą uprawnioną do oglądania draftów.
 - Stan `modified` wymaga porównania treści, nie samej obecności wersji
   published — dokument może mieć published i wciąż być identyczny z
   draftem (żadnych niezatwierdzonych zmian).
+- `publicationFilter` i `status` odpowiadają na różne pytania; nie zastępuj
+  filtra relacji draft/published zwykłym wyborem statusu.
 
-## Źródła (audyt 2026-07-20, Strapi 5)
+## Źródła (audyt 2026-07-21, Strapi 5.50.2)
 
 - [Draft & Publish](https://docs.strapi.io/cms/features/draft-and-publish)
 - [Internationalization (i18n)](https://docs.strapi.io/cms/features/internationalization)
 - [Document Service — status](https://docs.strapi.io/cms/api/document-service/status)
+- [Document Service — publication filter](https://docs.strapi.io/cms/api/document-service/publication-filter)

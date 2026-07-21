@@ -15,11 +15,17 @@ zawsze ustawić `status: "published"` i konkretne `locale` explicite,
 inaczej ujawni niepublikowaną treść. Dane zwrócone przez Document Service
 nie są sanitizowane — trafiają do własnego kontrolera surowe, łącznie z
 polami `private`, dopóki nie przejdą przez warstwę `sanitize` (temat 7).
+Opcjonalne `documents.strictParams` w `config/api.ts` włącza ścisłą walidację
+parametrów metod i pomaga wykrywać literówki zamiast je tolerować.
 
-`update` i `publish` to osobne operacje: `update` zapisuje zmiany w
-wersji draft, `publish` tworzy z niej wersję published dla wskazanego
-locale. Wołanie samego `publish` bez wcześniejszego `update` publikuje
-**starą** treść draftu — kolejność ma znaczenie.
+`update` domyślnie zapisuje draft, a `publish` publikuje jego bieżącą wersję.
+Można też przekazać `status: "published"` do `create` lub `update`, aby wykonać
+publikację od razu. Opublikowany wariant jest tylko do odczytu; aktualizacja
+zawsze przechodzi przez draft. Wołanie samego `publish` bez wcześniejszego
+`update` publikuje **starą** treść draftu — kolejność ma znaczenie. Poza
+podstawowym CRUD API udostępnia również `findFirst`, `deleteMany`, `count`,
+`unpublish` i `discardDraft`. Aktualizowanie repeatable components przez
+Document Service nie jest obecnie rekomendowane przez dokumentację Strapi.
 
 ## Kiedy używać
 
@@ -42,6 +48,8 @@ locale. Wołanie samego `publish` bez wcześniejszego `update` publikuje
 
 ## Pułapki
 
+- `deleteMany` wymaga szczególnie ostrożnej walidacji filtrów — pusty lub
+  zbyt szeroki filtr ma znacznie większy blast radius niż `delete` po ID.
 - `documentId` bez walidacji formatu (24 znaki, alfanumeryczne) łatwo
   pomylić z numerycznym `id` w URL-u albo w logu błędu.
 - Publikacja jednego locale nie publikuje innych — każdy wpis
@@ -52,7 +60,7 @@ locale. Wołanie samego `publish` bez wcześniejszego `update` publikuje
   `id` — porównywanie po `id` zamiast po `documentId`+`locale`+`status`
   gubi właściwą wersję.
 
-## Źródła (audyt 2026-07-20, Strapi 5)
+## Źródła (audyt 2026-07-21, Strapi 5.50.2)
 
 - [Document Service API](https://docs.strapi.io/cms/api/document-service)
 - [Document Service — status](https://docs.strapi.io/cms/api/document-service/status)
