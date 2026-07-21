@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Pętla `while (true)` z `const { done, value } = await reader.read()` i `break`
+przy `done`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Limit: `size += value.byteLength`; po przekroczeniu `await reader.cancel(...)`
+**przed** `throw`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Sklejanie bez Buffer.concat: zaalokuj `new Uint8Array(size)` i wypełnij przez
+`out.set(chunk, offset)`. `releaseLock()` idzie w `finally`.

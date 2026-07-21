@@ -1,5 +1,14 @@
-# Porównaj podpisy stałoczasowo
+# Medium — porównaj podpisy stałoczasowo
 
-Przyjmij dwa hex stringi, odrzuć zły format/długość bez wywołania `timingSafeEqual` na różnych buforach.
+Webhook przysyła podpis HMAC w hex; porównujesz go z własnym wyliczeniem.
+Zaimplementuj `solve(leftHex, rightHex)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- niepoprawny hex (nieparzysta długość, znaki spoza `[0-9a-f]`) → `false`,
+  bez wyjątku;
+- różna długość → `false` **przed** wywołaniem `timingSafeEqual` — na
+  buforach różnej długości ono rzuca;
+- równej długości poprawne wejścia porównaj przez `crypto.timingSafeEqual`;
+- wielkość liter w hex nie może mieć znaczenia.
+
+Zwykłe `===` kończy na pierwszej różnicy i zdradza czasem odpowiedzi, ile
+znaków się zgadza — stąd cały ten kontrakt.

@@ -1,5 +1,10 @@
-# Wymuś deadline zamykania
+# Hard — wymuś deadline zamykania
 
-Ścigaj cleanup z deadline i wywołaj `force` tylko po przekroczeniu czasu; timer nie może utrzymywać procesu.
+Sprzątanie potrafi zawisnąć, a orkiestrator i tak zaraz przyśle SIGKILL.
+Zaimplementuj `solve(cleanup, timeoutMs, force)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- gdy `cleanup` zakończy się przed upływem `timeoutMs` → zwróć `"clean"`,
+  `force` nie może zostać wywołane;
+- gdy deadline minie pierwszy → wywołaj `force()` i zwróć `"forced"`;
+- timer deadline'u ma być `unref()` — watchdog nie może sam podtrzymywać
+  procesu przy życiu — i posprzątany (`clearTimeout`) po rozstrzygnięciu.

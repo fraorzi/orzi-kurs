@@ -1,5 +1,13 @@
-# Zatrzymaj path traversal
+# Medium — zatrzymaj path traversal
 
-Zwróć bezpieczną ścieżkę pod rootem albo rzuć błąd dla `..`, ścieżki absolutnej i prefiksu tylko tekstowo podobnego do root.
+Serwis zapisuje pliki użytkowników pod `root`. Nazwa pliku przychodzi
+z requestu, więc bywa złośliwa. Zaimplementuj `solve(root, input)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- zwróć bezwzględną, znormalizowaną ścieżkę kandydata, jeżeli leży w `root`
+  (lub jest samym `root`);
+- rzuć `Error` dla ucieczki przez `..`, dla ścieżki absolutnej poza rootem
+  i dla rodzeństwa o zbieżnym prefiksie (`/data-evil` przy root `/data`);
+- porównanie wykonaj **po** `path.resolve` — nigdy na surowym stringu.
+
+To standardowa bramka przed każdym `readFile`/`writeFile` na nazwie
+pochodzącej z zewnątrz.

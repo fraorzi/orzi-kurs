@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Szkielet to jedna pętla: `for await (const chunk of chunks)` z zapisem
+i warunkowym czekaniem.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+`if (!writable.write(chunk)) await once(writable, "drain")` — `once`
+z `node:events` zwraca promise jednego zdarzenia.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Jeżeli timeline w teście pokazuje `write:b` przed `drain`, twoja pętla nie
+zatrzymała się po `false` — dokładnie to jest bug backpressure.

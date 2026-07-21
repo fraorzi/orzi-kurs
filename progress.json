@@ -6,14 +6,70 @@
     "lastRunAt": "2026-07-14T15:19:44.468Z"
   },
   "js/01-functions/medium": {
-    "status": "failed",
-    "attempts": 1,
-    "lastRunAt": "2026-07-14T15:33:00.413Z"
+    "status": "passed",
+    "attempts": 6,
+    "masteryScore": 2,
+    "cleanPassStreak": 2,
+    "nextReviewAt": "2026-07-20T17:39:42.387Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-07-17T17:34:43.923Z",
+    "firstPassedWithoutHintAt": "2026-07-17T17:34:43.923Z",
+    "verifiedStarter": "export function sumAll(...nums) {\n    return nums.reduce((total, n) => total + n, 0);\n}\n\nexport function applyEach(fns, x) {\n    return fns.map((elementWfns) => elementWfns(x));\n}\n\nexport function compose2(f, g) {\n    return x => f(g(x));\n}\n",
+    "lastRunAt": "2026-07-17T17:39:42.387Z"
   },
   "js/02-scope/easy": {
     "status": "passed",
     "attempts": 1,
     "firstPassedAt": "2026-07-15T15:46:49.049Z",
     "lastRunAt": "2026-07-15T15:46:49.049Z"
+  },
+  "react/01-components-props-purity/easy": {
+    "status": "passed",
+    "attempts": 11,
+    "masteryScore": 3,
+    "cleanPassStreak": 3,
+    "nextReviewAt": "2026-07-25T15:18:09.450Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-07-18T00:33:07.681Z",
+    "firstPassedWithoutHintAt": "2026-07-18T00:33:07.681Z",
+    "verifiedStarter": "export interface ProfileCardProps {\n  readonly name: string;\n  readonly role: string;\n  readonly online: boolean;\n}\n\nexport function ProfileCard({name, role, online}: ProfileCardProps) {\n  return (\n    <article aria-label={`Profil ${name}`}>\n      <h2>\n        {name}\n      </h2>\n      <p>\n        {role}\n      </p>\n      <p>\n        {online ? 'Dostępny' : 'Offline'}\n      </p>\n    </article>\n  );\n}\n",
+    "lastRunAt": "2026-07-18T15:18:09.450Z"
+  },
+  "js/02-scope/medium": {
+    "status": "passed",
+    "attempts": 6,
+    "masteryScore": 4,
+    "cleanPassStreak": 5,
+    "nextReviewAt": "2026-08-09T17:04:21.452Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-07-19T16:40:21.287Z",
+    "firstPassedWithoutHintAt": "2026-07-19T16:40:21.287Z",
+    "verifiedStarter": "export function createBankAccount(initialBalance = 0) {\n  let balance = initialBalance;\n\n  function assertPositiveAmount(amount) {\n    if (amount <= 0)\n      throw new RangeError(\"Kwota mniejsza lub równa zero\");\n    return amount;\n  }\n\n  function deposit(amount) {\n    assertPositiveAmount(amount);\n\n    balance += amount;\n\n    return balance;\n  }\n\n  function withdraw(amount) {\n    assertPositiveAmount(amount);\n\n    if (amount > balance)\n      throw new RangeError(\n        \"Brak wystarczających środków na końcie\",\n      );\n\n    balance -= amount;\n\n    return balance;\n  }\n\n  return {\n    deposit,\n    withdraw,\n    getBalance: () => balance,\n  };\n}\n",
+    "lastRunAt": "2026-07-19T17:04:21.452Z"
+  },
+  "js/02-scope/hard": {
+    "status": "passed-with-hint",
+    "attempts": 14,
+    "masteryScore": 1,
+    "cleanPassStreak": 0,
+    "nextReviewAt": "2026-07-20T13:18:57.714Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-07-20T13:16:08.527Z",
+    "firstPassedWithHintAt": "2026-07-20T13:16:08.527Z",
+    "verifiedStarter": "export function makeArmy() {\n  const shooters = [];\n\n  for (let i = 0; i < 10; i++) {\n    shooters.push(() => i);\n  }\n\n  return shooters;\n}\n",
+    "lastRunAt": "2026-07-20T13:18:57.714Z"
+  },
+  "js/01-functions/hard": {
+    "status": "passed-with-hint",
+    "attempts": 26,
+    "masteryScore": 1,
+    "cleanPassStreak": 0,
+    "nextReviewAt": "2026-07-20T19:07:08.192Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-07-20T18:36:44.927Z",
+    "firstPassedWithHintAt": "2026-07-20T18:36:44.927Z",
+    "revealedHints": 1,
+    "verifiedStarter": "export function spy(fn) {\n  wrapper.calls = [];\n  function wrapper(...args) {\n    wrapper.calls.push(args);\n    return fn.apply(this, args);\n  }\n  return wrapper;\n}\n\nexport function once(fn) {\n  let called = false;\n  let result;\n\n  return function (...args) {\n    if (called) return result;\n    called = true;\n    result = fn.apply(this, args);\n    return result;\n  };\n}\n",
+    "lastRunAt": "2026-07-20T19:07:08.192Z"
   }
 }

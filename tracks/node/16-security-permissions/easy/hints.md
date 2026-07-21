@@ -1,11 +1,13 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Zacznij od `const args = ["--permission"]` i dokładaj flagi pętlami po
+`access.read ?? []` i `access.write ?? []`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Flagi zdolności to zwykłe `if (access.worker) args.push("--allow-worker")`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Zwróć `[...args, entry]` — entry po flagach, bo Node czyta uprawnienia
+przed uruchomieniem skryptu.

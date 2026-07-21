@@ -1,5 +1,16 @@
-# Zamień URL modułu na ścieżkę
+# Easy — zamień URL modułu na ścieżkę
 
-Rozwiąż plik względem `import.meta.url` przez URL, bez konkatenacji separatorów systemowych.
+Moduł ESM chce wczytać plik leżący obok siebie. Zaimplementuj
+`solve(moduleUrl, relativeFile)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- `moduleUrl` to wartość w formacie `import.meta.url`
+  (np. `"file:///app/src/index.js"`);
+- zwróć **pathname** pliku rozwiązanego względem modułu przez konstruktor
+  `new URL(relative, base)`;
+- względne segmenty (`./`, `../`) mają działać jak w imporcie — bez ręcznego
+  sklejania separatorów.
+
+```ts
+solve("file:///app/src/index.js", "./data.json"); // "/app/src/data.json"
+solve("file:///app/src/index.js", "../config.yml"); // "/app/config.yml"
+```

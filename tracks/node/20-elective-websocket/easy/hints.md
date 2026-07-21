@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw zapisz niezmiennik bezpieczeństwa i przypadek błędny.
+`new URL(rawUrl)` parsuje i waliduje składnię; potem sprawdzasz
+`url.protocol` (z dwukropkiem: `"wss:"`).
 
 ## Hint 2
 
-Oddziel dane użytkownika od elementów protokołu lub składni.
+Credentials to `url.username || url.password` — URL parsuje je za darmo,
+ty masz je tylko odrzucić.
 
 ## Hint 3
 
-Sprawdź lifecycle, limit i cleanup, nie tylko happy path.
+Deduplikacja z zachowaniem kolejności to `[...new Set(protocols)]`;
+allow-listę trzymaj w `Set` i sprawdzaj `some(p => !allowed.has(p))`.

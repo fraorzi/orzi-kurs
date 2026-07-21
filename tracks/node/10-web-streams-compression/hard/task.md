@@ -1,5 +1,13 @@
-# Kompresuj przez pipeline
+# Hard — kompresuj przez pipeline
 
-Skompresuj dane gzipem i rozpakuj testowo bez buforowania pośrednich stringów; pipeline ma propagować błędy.
+Eksport danych ma być kompresowany w locie, bez buforowania całości.
+Zaimplementuj `solve(input)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- źródłem jest `AsyncIterable<Uint8Array>` (np. generator rekordów);
+- zepnij `Readable.from(input)` → `createGzip()` → ujście zbierające chunki,
+  używając `pipeline` z `node:stream/promises`;
+- zwróć skompresowany `Buffer`;
+- błąd źródła ma odrzucić całość (pipeline propaguje błędy i sprząta ogniwa).
+
+Poprawność sprawdza roundtrip (`gunzipSync`), nie bajty gzipa — te zależą
+od wersji zlib.

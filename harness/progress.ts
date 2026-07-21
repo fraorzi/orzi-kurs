@@ -41,6 +41,36 @@ export function recordRun(taskId: string, attempt: RecordedAttempt): {
   return { progress, taskProgress: progress[taskId] };
 }
 
+export function revealTaskHint(taskId: string, hintNumber: number): TaskProgress {
+  const progress = readProgress();
+  const previous = progress[taskId];
+  const now = new Date().toISOString();
+  progress[taskId] = previous
+    ? {
+        ...previous,
+        revealedHints: Math.max(previous.revealedHints ?? 0, hintNumber),
+      }
+    : {
+        status: "not-started",
+        attempts: 0,
+        masteryScore: 0,
+        cleanPassStreak: 0,
+        revealedHints: hintNumber,
+        lastRunAt: now,
+      };
+  writeProgress(progress);
+  return progress[taskId];
+}
+
+export function clearTaskHints(taskId: string): TaskProgress | null {
+  const progress = readProgress();
+  const previous = progress[taskId];
+  if (!previous) return null;
+  progress[taskId] = { ...previous, revealedHints: 0 };
+  writeProgress(progress);
+  return progress[taskId];
+}
+
 export class ProgressConflictError extends Error {}
 
 export function resetTaskProgress(

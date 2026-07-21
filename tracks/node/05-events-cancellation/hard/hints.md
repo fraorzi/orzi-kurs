@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Fabryka to trzy linie: `new EventEmitter()`, `emitter.on("error", ...)`,
+`return emitter`. Cała trudność siedzi w tym, **co** przekazujesz do report.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Listener błędu ma sygnaturę `(error: Error) => report(error.message)` —
+przekazanie całego obiektu oblewa test wycieku danych.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Dlaczego to działa: emitter z co najmniej jednym listenerem `error` nie rzuca
+przy emisji błędu, więc proces przeżywa awarie publikowane na kanale.

@@ -1,11 +1,13 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Kolejność sprawdzeń: najpierw `external`, potem próg CPU, na końcu domyślne
+`"async"`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Próg to `>= 20` — test graniczny sprawdza dokładnie 19 i 20 ms.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Nie ma tu żadnego wywołania workerów — klasyfikator koduje **decyzję
+architektoniczną**, dlatego jest czystą funkcją, którą łatwo testować.

@@ -1,11 +1,13 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Walidacja najpierw: `Number.isInteger(bytes) && bytes >= 16`, inaczej `throw`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+`randomBytes(bytes)` zwraca Buffer; format daje
+`.toString("base64url")` — to wbudowane kodowanie, nie ręczna zamiana znaków.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Jeżeli w rozwiązaniu jest `Math.random`, to nie jest token bezpieczeństwa —
+CSPRNG to jedyna akceptowalna losowość w tym temacie.

@@ -1,5 +1,10 @@
-# Normalizuj event-loop delay
+# Medium — normalizuj event-loop delay
 
-Przelicz percentyle w nanosekundach na milisekundy i wyznacz stan degraded dla p99 powyżej budżetu.
+Histogram `monitorEventLoopDelay` raportuje **nanosekundy**; dashboard mówi
+w milisekundach. Zaimplementuj `solve(metrics, budgetMs)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- przelicz `p50Ns`, `p99Ns`, `maxNs` na ms z zaokrągleniem do **dwóch miejsc
+  po przecinku**;
+- `degraded` jest prawdą, gdy `p99Ms` **przekracza** budżet (równość to
+  jeszcze zdrowy stan);
+- zwróć `{ p50Ms, p99Ms, maxMs, degraded }`.

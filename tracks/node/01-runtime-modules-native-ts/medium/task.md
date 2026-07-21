@@ -1,5 +1,17 @@
-# Sprawdź kod dla type stripping
+# Medium — sprawdź kod pod type stripping
 
-Zwróć listę powodów, dla których plik nie może być bezpośrednio wykonany przez natywny type stripping Node 24.
+Zespół chce uruchamiać skrypty operacyjne bezpośrednio przez `node skrypt.ts`,
+bez transpilacji. Napisz walidator, który dla danego źródła zwróci listę
+powodów, dla których plik **nie** nadaje się do natywnego type strippingu.
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+`solve(source, filename)` zwraca tablicę powodów (pustą, gdy plik jest czysty):
+
+- `"tsx"` — plik ma rozszerzenie `.tsx` (JSX wymaga transformacji);
+- `"enum"` — źródło deklaruje `enum` (składnia nie-erasable);
+- `"namespace"` — źródło deklaruje `namespace`;
+- `"path-alias"` — import z aliasu `@/…`, który nie istnieje w runtime;
+- `"type-import-must-be-explicit"` — źródło ma import w nawiasach klamrowych,
+  a nigdzie nie używa `import type`, więc importy typów nie są odróżnialne od
+  wartości i po wycięciu typów mogą zostać wiszące specyfikatory.
+
+Kolejność powodów: jak wyżej. Każdy powód raportuj raz.

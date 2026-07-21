@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Nasłuch jako promise: `server.once("error", reject)` +
+`server.listen(0, "127.0.0.1", resolve)`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+`server.address()` zwraca `AddressInfo | string | null` — zawęź: odrzuć
+`null` i string (unix socket), dopiero potem czytaj `.port`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Zamknięcie też jest asynchroniczne: `server.close(cb)` opakuj w promise
+i wykonaj w `finally`.

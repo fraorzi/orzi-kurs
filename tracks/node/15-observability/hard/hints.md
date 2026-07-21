@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+`const diagnostics = channel(name)` raz, w domknięciu — publikacje używają
+tej samej instancji kanału.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Bramka to `if (!diagnostics.hasSubscribers) return false;` — **przed**
+wywołaniem `createMessage`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+`diagnostics.publish(createMessage())` i `return true` — publish przyjmuje
+gotową wiadomość; lenistwo zapewnia twoja bramka, nie API.

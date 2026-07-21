@@ -1,12 +1,30 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { solve } from "./starter";
 
-describe("Zbuduj parametryzowane zapytanie", () => {
-  it("spełnia kontrakt elective", async () => {
-    expect(solve({ status: "queued", limit: 20, order: "priority" })).toEqual({
-      sql: "SELECT * FROM jobs WHERE status = $status ORDER BY priority DESC LIMIT $limit",
-      params: { $status: "queued", $limit: 20 },
+describe("parametryzowane zapytanie", () => {
+  it("buduje domyślne zapytanie bez filtra statusu", () => {
+    expect(solve({})).toEqual({
+      sql: "SELECT * FROM jobs ORDER BY created_at DESC LIMIT $limit",
+      params: { $limit: 50 },
     });
-    expect(() => solve({ order: "id; DROP TABLE jobs" })).toThrow(/sortowanie/);
+  });
+
+  it("status trafia do parametrów, nie do SQL", () => {
+    const { sql, params } = solve({ status: "failed'; DROP TABLE jobs;--" });
+    expect(sql).toContain("WHERE status = $status");
+    expect(sql).not.toContain("DROP TABLE");
+    expect(params.$status).toBe("failed'; DROP TABLE jobs;--");
+  });
+
+  it("sortowanie spoza allow-listy jest odrzucane", () => {
+    expect(() => solve({ order: "id; DROP TABLE jobs" })).toThrow();
+    expect(solve({ order: "priority" }).sql).toContain("ORDER BY priority DESC");
+  });
+
+  it("limit jest walidowany co do typu i zakresu", () => {
+    expect(() => solve({ limit: 0 })).toThrow();
+    expect(() => solve({ limit: 101 })).toThrow();
+    expect(() => solve({ limit: 10.5 })).toThrow();
+    expect(solve({ limit: 100 }).params.$limit).toBe(100);
   });
 });

@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Najpierw przygotuj `fields`: `Object.entries` → filtr `value !== undefined`
+→ mapowanie redakcji → `Object.fromEntries`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Opcjonalny requestId doklej spreadem warunkowym:
+`...(input.requestId ? { requestId: input.requestId } : {})`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Wynik to `JSON.stringify({...}) + "\n"` — nowa linia jest częścią kontraktu
+NDJSON, testy jej pilnują.

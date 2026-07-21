@@ -1,5 +1,11 @@
-# Waliduj endpoint WebSocket
+# Easy — waliduj endpoint WebSocket
 
-Akceptuj tylko `wss:` w produkcji, odrzuć credentials i wybierz protokoły z allow-listy bez duplikatów.
+Konfiguracja połączenia przychodzi z zewnątrz. Zaimplementuj
+`solve(rawUrl, protocols, production)`:
 
-To zadanie jest elective: najpierw ukończ rdzeń tracka Node.
+- schemat tylko `ws:` albo `wss:`; w trybie `production` wyłącznie `wss:`;
+- credentials w URL (`user:pass@`) są zabronione — lądują w logach
+  i historii shella;
+- subprotokoły: allow-lista `events.v1`/`json.v1`, duplikaty usuń
+  zachowując kolejność; nieznany subprotocol to `Error`;
+- zwróć `{ url, protocols }` z obiektem `URL`.
