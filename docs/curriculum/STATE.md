@@ -340,12 +340,42 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   wszystkich 62 zadań; moduły przebudowane na wieloplikowe; kontrakt treści
   wymusza testy zachowania, unikalne hinty i bramki [quality]; szczegóły
   w `NODE_AUDIT.md`. Macierz nadal 62/62 + 62/62, harness 61/61.
+- Użytkownik jawnie wznowił pracę po checkpointcie Node; utworzono
+  `feature/curriculum-mysql` z właściwej bazy `feature/curriculum-node`.
+- Audyt MySQL rozszerzył plan do 22 tematów i dwóch modułów: dodano security/roles,
+  Performance Schema, testy bazy, histogramy/invisible indexes oraz osobną warstwę
+  danych mysql2, których brakowało w pierwszym planie.
+- Harness rozpoznaje `starter.sql`/`_solution.sql`, nie wysyła SQL do ESLinta ani
+  TypeScriptu i obsługuje reset/undo artefaktu SQL.
+- Przypięto `mysql2@3.23.1`; helper tworzy osobną bazę utf8mb4 dla każdego testu,
+  a następnie bezwarunkowo ją usuwa.
+- Zainstalowano keg-only MySQL 8.4.10 i uruchomiono izolowaną instancję testową na
+  localhost:33316. Smoke SQL przechodzi 1/1 dla rozwiązania i 1/1 dla startera.
+- Kontrakt treści MySQL wymaga zastosowań, pułapek, źródeł 8.4, progresywnych
+  hintów, startera, rozwiązania i lokalnego testu.
+- Pierwsza partia MySQL obejmuje 24 zadania z wykonywalnym SQL: selekcję i NULL,
+  typy/JSON/czas, JOIN-y, agregacje i tryby SQL, CTE oraz operacje zbiorów,
+  funkcje okienkowe, DML i constraints. Testy sprawdzają nie tylko wynik, ale też
+  mutacje, ograniczenia i zachowanie relacji na prawdziwym MySQL 8.4.
+- Druga partia dodaje 21 zadań poziomu produkcyjnego: transakcje i savepointy,
+  izolację i blokady, retry deadlocku, indeksy złożone/covering, EXPLAIN ANALYZE,
+  histogramy, invisible indexes, keyset pagination, modelowanie oraz migracje z
+  restore drillem. Testy otwierają równoległe sesje dla wyścigu rezerwacji,
+  snapshotu i rzeczywistego deadlocku; komplet rozwiązań przechodzi 45/45.
+- Ostatnia partia obejmuje views/generated columns/triggery, users/roles i least
+  privilege, Performance Schema i lock waits, testy bazy, typowaną integrację
+  mysql2, debug incydentów oraz trzy zadania z odrębną bramką `[quality]` planu.
+- `module-01` łączy schemat marketplace, online migration ledger, constraints,
+  konkurencyjny zakup ostatniej sztuki, keyset i EXPLAIN ANALYZE. `module-02`
+  implementuje typowane repozytorium Node z prepared statements, transakcją,
+  ograniczonym retry, lifecycle puli i bezpiecznymi metrykami.
+- Końcowy stan tracka MySQL: 22 tematy, dwa moduły i 68 zadań wykonywanych na
+  MySQL 8.4.10. Pełna macierz rozwiązań i starterów jest weryfikowana przez CLI.
 
 ## Następne kroki
 
-1. Zatrzymać pracę po ukończeniu Node zgodnie z prośbą użytkownika.
-2. Przekazać branche JavaScript, TypeScript, React, Next i Node do review/PR.
-3. Nie rozpoczynać MySQL przed kolejną decyzją użytkownika.
+1. Po MySQL przejść do Strapi 5 zgodnie z roadmapą.
+2. Zachować niezależne zmiany UI użytkownika poza commitami curriculum.
 
 ## Otwarte ryzyka
 
@@ -356,6 +386,14 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   do czasu wsparcia narzędzi repo musi utrzymywać TS 6 dla lintu i TS 7 dla
   dodatkowej bramki CLI.
 - Lokalny JDK 11 nie wystarczy do przyszłej ścieżki JDK 25.
-- Adaptery MySQL i Strapi wymagają zmian harnessu oraz nowych zależności.
+- Adapter Strapi nadal wymaga zmian harnessu oraz nowych zależności.
 - Pełna liczba przyszłych zadań jest duża; praca musi pozostać iteracyjna i
   checkpointowana w Git.
+
+## Quality pass MySQL (2026-07-20)
+
+- Przepisana warstwa dydaktyczna wszystkich 68 zadań (testy zachowania,
+  README z modelem mentalnym, hinty per zadanie); moduły przebudowane na
+  wieloplikowe; kontrakt treści wzmocniony. Rozwiązania bez zmian.
+- Macierz: 68/68 rozwiązań i 68/68 starterów na MySQL 8.4.10, harness 67/67.
+  Szczegóły: `MYSQL_AUDIT.md`. Setup bazy ucznia: `tracks/mysql/README.md`.

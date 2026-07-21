@@ -1,0 +1,1 @@
+SELECT r.device_id, r.recorded_at, r.value FROM readings r INNER JOIN (SELECT device_id, MAX(recorded_at) AS recorded_at FROM readings GROUP BY device_id) latest ON latest.device_id = r.device_id AND latest.recorded_at = r.recorded_at ORDER BY r.device_id;

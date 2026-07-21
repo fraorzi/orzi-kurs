@@ -14,7 +14,7 @@ import { REPO_ROOT } from "./progress";
 import { readInitialArtifact, writeArtifact } from "./initial-artifact";
 import type { StarterSnapshot } from "../shared/task-undo";
 
-const STARTER_CANDIDATES = ["starter.ts", "starter.js", "src"] as const;
+const STARTER_CANDIDATES = ["starter.ts", "starter.js", "starter.sql", "src"] as const;
 
 function toGitPath(path: string): string {
   return path.split(sep).join("/");

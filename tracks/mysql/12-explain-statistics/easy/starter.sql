@@ -1,0 +1,1 @@
+EXPLAIN ANALYZE SELECT id FROM events WHERE DATE(created_at) = '2025-01-10';

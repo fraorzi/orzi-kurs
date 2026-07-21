@@ -155,4 +155,31 @@ describe("curriculum order", () => {
     ).toEqual(track.topics.map((topic) => topic.id));
   });
 
+  it("keeps MySQL query foundations before transactions and optimization", () => {
+    expect(compareTopicSlugs("mysql", "03-joins", "06-window-functions"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("mysql", "08-constraints-relations", "09-transactions-savepoints"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("mysql", "11-indexes", "12-explain-statistics"))
+      .toBeLessThan(0);
+    expect(compareTopicSlugs("mysql", "20-mysql2-typescript", "module-02"))
+      .toBeLessThan(0);
+  });
+
+  it("keeps MySQL learning modules in exact catalog order", () => {
+    const track: CatalogTrack = {
+      id: "mysql",
+      topics: TOPIC_ORDER.mysql.map((slug) => ({
+        id: `mysql/${slug}`,
+        title: slug,
+        levels: [],
+      })),
+    };
+
+    expect(
+      learningModules(track).flatMap((module) =>
+        module.topics.map((topic) => topic.id)),
+    ).toEqual(track.topics.map((topic) => topic.id));
+  });
+
 });

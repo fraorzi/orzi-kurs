@@ -451,29 +451,37 @@ obieralnym, a nie częścią podstawowej nauki języka.
 - [ ] tpo-06 EJB/Jakarta Enterprise: komponenty, transakcje i kontekst historyczny technologii
 - [ ] module-tpo (rozproszony system: API + worker kolejki + idempotencja + obserwowalność)
 
-## mysql (~20 pozycji ≈ 60 zadań) — MySQL 8.4 LTS
+## mysql (22 tematy + 2 moduły, 68 zadań) — MySQL 8.4 LTS
 
-- [ ] 01 SELECT, WHERE, ORDER BY, LIMIT i poprawna obsługa NULL
-- [ ] 02 typy danych, DECIMAL, daty/strefy, tekst/collation i JSON
-- [ ] 03 JOINy (inner/left/self) — na porządnym schemacie
-- [ ] 04 GROUP BY, agregacje, HAVING i ONLY_FULL_GROUP_BY
-- [ ] 05 podzapytania, CTE i set operations
-- [ ] 06 funkcje okienkowe: ROW_NUMBER, RANK, LAG i ramy okna
-- [ ] 07 INSERT/UPDATE/DELETE, upsert i bezpieczne zmiany zbiorcze
-- [ ] 08 constraints, klucze, ON DELETE/UPDATE i niezmienniki domeny
-- [ ] 09 transakcje, ACID, autocommit, savepoint i obsługa błędu
-- [ ] 10 izolacja, MVCC, blokady, phantom reads i deadlock retry
-- [ ] 11 indeksy B-tree, selektywność, indeksy złożone i leftmost prefix
-- [ ] 12 EXPLAIN/EXPLAIN ANALYZE, estymacje vs wykonanie i koszt zapisu indeksu
-- [ ] 13 paginacja offset vs keyset, stabilny porządek i indeks wspierający
-- [ ] 14 projektowanie schematu, normalizacja, denormalizacja i audyt decyzji
-- [ ] 15 migracje schematu, kompatybilna zmiana i podstawy backup/restore
-- [ ] 16 widoki, procedury i triggery — zastosowania oraz koszt ukrytej logiki
-- [ ] 17 [D] debug: zły JOIN, NULL, utracona aktualizacja, deadlock i brakujący indeks
-- [ ] 17b [O] optymalizacja: poprawny wynik, lecz zły plan — przepisanie zapytania
-      lub indeks; bramka `EXPLAIN ANALYZE`
-- [ ] 18 mysql2 z Node: parametryzacja, pooling, transakcje i SQL injection
-- [ ] module-01 (schemat + migracje + raporty + transakcja + plan zapytania)
+Quality pass 2026-07-20: testy zachowania 3–5/zadanie, README z teorią,
+moduły wieloplikowe, kontrakt treści. Szczegóły: `docs/curriculum/MYSQL_AUDIT.md`.
+
+- [x] 01 SELECT, WHERE, ORDER BY, LIMIT, trzywartościowa logika i NULL
+- [x] 02 DECIMAL, daty/strefy, utf8mb4/collation, ENUM vs lookup i JSON
+- [x] 03 JOINy inner/left/self, cardinality i zachowanie brakujących relacji
+- [x] 04 GROUP BY, agregacje, HAVING i ONLY_FULL_GROUP_BY
+- [x] 05 podzapytania, EXISTS, CTE rekurencyjne i set operations
+- [x] 06 funkcje okienkowe: ROW_NUMBER, RANK, LAG i jawne ramy okna
+- [x] 07 INSERT/UPDATE/DELETE, upsert, affected rows i bezpieczne zmiany zbiorcze
+- [x] 08 constraints, klucze, CHECK, ON DELETE/UPDATE i niezmienniki domeny
+- [x] 09 transakcje, autocommit, savepoint i atomowa obsługa błędu
+- [x] 10 izolacja, MVCC, locking reads, phantom rows i deadlock retry
+- [x] 11 B-tree, selektywność, indeksy złożone, covering i leftmost prefix
+- [x] 12 EXPLAIN ANALYZE, estymacje, histogramy i bezpieczne invisible indexes
+- [x] 13 offset vs keyset, stabilny porządek i indeks wspierający paginację
+- [x] 14 normalizacja, denormalizacja, klucze i audyt decyzji schematu
+- [x] 15 expand/contract, online DDL, migracje, backup i restore drill
+- [x] 16 elective: views, generated columns, procedures i triggery z kosztem ukrytej logiki
+- [x] 17 users, roles, GRANT, least privilege, rotacja i ochrona danych
+- [x] 18 Performance Schema, slow query log, sys schema i diagnoza blokad
+- [x] 19 testy bazy: izolowane schematy, fixture, rollback i test kontraktu migracji
+- [x] 20 mysql2 + TypeScript: execute, pooling, transakcje, retry i SQL injection
+- [x] 21 [D] debug: zły JOIN/NULL, lost update, deadlock i błędna migracja
+- [x] 21b [O] poprawny wynik, lecz zły plan — query rewrite, indeks lub statystyki
+- [x] module-01 (schemat i raporty marketplace: constraints, migracja, transakcja,
+      keyset i EXPLAIN ANALYZE)
+- [x] module-02 (typowana warstwa danych Node: pool, prepared statements,
+      transakcja z retry, obserwowalność i test integracyjny)
 
 ## strapi (~15 pozycji ≈ 45 zadań) — Strapi 5
 

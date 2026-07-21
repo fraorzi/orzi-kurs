@@ -1,0 +1,1 @@
+CREATE TABLE order_items (id BIGINT PRIMARY KEY, quantity INT NOT NULL);

@@ -52,6 +52,31 @@ afterEach(() => {
 });
 
 describe("starter reset and undo", () => {
+  it("restores and snapshots a SQL starter", () => {
+    const repoRoot = createRepo({
+      "tracks/mysql/01-query-basics-null/easy/starter.sql": "SELECT 0 AS answer;\n",
+    });
+    const starterPath = join(
+      repoRoot,
+      "tracks/mysql/01-query-basics-null/easy/starter.sql",
+    );
+    writeFileSync(starterPath, "SELECT 42 AS answer;\n", "utf8");
+
+    const snapshot = captureStarterSnapshotInRepo(
+      "mysql/01-query-basics-null/easy",
+      repoRoot,
+    );
+    restoreStarterCodeInRepo("mysql/01-query-basics-null/easy", repoRoot);
+
+    expect(readFileSync(starterPath, "utf8")).toBe("SELECT 0 AS answer;\n");
+    restoreStarterSnapshotInRepo(
+      "mysql/01-query-basics-null/easy",
+      snapshot!,
+      repoRoot,
+    );
+    expect(readFileSync(starterPath, "utf8")).toBe("SELECT 42 AS answer;\n");
+  });
+
   it("restores a single-file starter and can undo from a browser snapshot", () => {
     const repoRoot = createRepo({
       "tracks/js/01-functions/easy/starter.js": "export const answer = 0;\n",

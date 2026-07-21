@@ -43,6 +43,9 @@ Stan po ukończeniu pierwszych sześciu etapów:
   i 62/62 starterów.
 - Node: 20 tematów, dwa moduły i 62 zadania TypeScript; pełny rdzeń runtime,
   production concerns oraz jawnie oddzielone elective'y SQLite i WebSocket.
+- MySQL: 22 tematy, dwa moduły i 68 zadań na MySQL 8.4.10/mysql2 3.23.1;
+  obejmuje SQL, modelowanie, współbieżność, plany, operacje, bezpieczeństwo,
+  obserwowalność, testy, TypeScript i dwa produkcyjne capstone'y.
 
 Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetować
 `progress.json` ani starterów.
@@ -56,7 +59,7 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 | React | React 19.2 i stabilny React Compiler 1.x; wyłącznie TypeScript/TSX po ukończeniu tracka TS |
 | Node.js | Node 24.18 LTS; `@types/node` 24.13.3; Node 22 jako dodatkowe środowisko zgodności |
 | Next.js | dokładna wersja repo z `node_modules/next/dist/docs/`, obecnie 16.2.10; wyłącznie TypeScript/TSX |
-| MySQL | MySQL 8.4 LTS; kompatybilność podstaw sprawdzana również lokalnie na 9.6 |
+| MySQL | MySQL 8.4.10 LTS; realne wykonanie zadań na izolowanym schemacie przez mysql2 3.23.1 |
 | Strapi | Strapi 5 |
 | Java | JDK 25 LTS; osobne notatki zgodności z wymaganiami PJATK |
 
@@ -88,6 +91,12 @@ Etap Node.js jest ukończony: 20 tematów i dwa moduły prowadzą od kontraktu r
 modułów i konfiguracji przez pliki, bufory, event loop, AsyncLocalStorage, HTTP,
 streamy, procesy/workery i testy do kryptografii, graceful shutdown,
 obserwowalności, Permission Model, CLI oraz mierzonego debugowania i optymalizacji.
+
+Etap MySQL jest ukończony: każde zadanie ma starter, rozwiązanie, progresywne
+hinty i test uruchamiany na izolowanym schemacie MySQL 8.4. Track prowadzi od
+zapytań i constraints przez transakcje, deadlocki, indeksy, EXPLAIN ANALYZE,
+migracje i least privilege do typowanej warstwy mysql2 oraz dwóch modułów
+przekrojowych.
 SQLite i WebSocket pozostają elective, zgodnie ze statusem API i rolą w typowych
 projektach. Oba moduły końcowe wymuszają limity zasobów, anulowanie, idempotencję,
 bezpieczne błędy oraz testy integracyjne.
@@ -139,9 +148,11 @@ nie z niepowiązanego brancha tracka.
 
 ### MySQL
 
-- Uczyć na 8.4 LTS, a nie na szybko zmieniającej się linii Innovation.
-- Dodać typy danych/DECIMAL, izolację, blokady, deadlocki, `EXPLAIN ANALYZE`,
-  indeksy złożone, keyset pagination, migracje i backup/restore podstaw.
+- Uczyć i wykonywać zadania na 8.4 LTS, a nie na szybko zmieniającej się linii
+  Innovation; tekstowe porównywanie SQL nie jest wystarczającą bramką.
+- Zakres obejmuje typy danych/DECIMAL, izolację, blokady, deadlocki,
+  `EXPLAIN ANALYZE`, histogramy, invisible indexes, keyset pagination, online DDL,
+  backup/restore, least privilege, Performance Schema i typowaną warstwę mysql2.
 
 ### Strapi
 

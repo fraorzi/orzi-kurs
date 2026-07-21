@@ -1,0 +1,10 @@
+SELECT
+  DIGEST_TEXT AS digest,
+  COUNT_STAR AS executions,
+  ROUND(AVG_TIMER_WAIT / 1000000000, 6) AS avg_ms,
+  ROUND(SUM_ROWS_EXAMINED / NULLIF(COUNT_STAR, 0), 2) AS rows_examined_per_call
+FROM performance_schema.events_statements_summary_by_digest
+WHERE SCHEMA_NAME = DATABASE()
+  AND DIGEST_TEXT IS NOT NULL
+ORDER BY SUM_TIMER_WAIT DESC
+LIMIT 5
