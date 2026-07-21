@@ -347,7 +347,7 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   danych mysql2, których brakowało w pierwszym planie.
 - Harness rozpoznaje `starter.sql`/`_solution.sql`, nie wysyła SQL do ESLinta ani
   TypeScriptu i obsługuje reset/undo artefaktu SQL.
-- Przypięto `mysql2@3.23.0`; helper tworzy osobną bazę utf8mb4 dla każdego testu,
+- Przypięto `mysql2@3.23.1`; helper tworzy osobną bazę utf8mb4 dla każdego testu,
   a następnie bezwarunkowo ją usuwa.
 - Zainstalowano keg-only MySQL 8.4.10 i uruchomiono izolowaną instancję testową na
   localhost:33316. Smoke SQL przechodzi 1/1 dla rozwiązania i 1/1 dla startera.
