@@ -1,14 +1,15 @@
-# Hints
-
 ## Hint 1
 
-Narysuj granice danych i zaznacz, która warstwa odpowiada za walidację, authz oraz efekt.
+Starter zwraca `null`. Rozbij na dwa przypadki: pusta kolekcja → element
+z `role="status"`; niepusta → semantyczna tabela.
 
 ## Hint 2
 
-Najpierw zachowaj zachowanie testem, potem zmieniaj strukturę lub wydajność.
+Nagłówki: `columns.map` na `<th scope="col" key={column.label}>`. Komórki:
+dla każdego wiersza `columns.map` na `<td>{column.render(row)}</td>`.
 
 ## Hint 3
 
-Zminimalizuj DTO i wstrzyknij zależności, aby awarie i kolejność były deterministyczne.
-
+Klucz wiersza to `keyOf(row)`, nie indeks mapy — stabilny identyfikator
+utrzymuje tożsamość wiersza przy zmianie kolejności. Generyczność wychodzi
+sama, bo `render` i `keyOf` operują na `T`.

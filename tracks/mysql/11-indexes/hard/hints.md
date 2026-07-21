@@ -1,11 +1,18 @@
 ## Hint 1
 
-Covering oznacza, że wszystkie potrzebne dane są w indeksie.
+Covering index oznacza, że wszystkie kolumny potrzebne zapytaniu —
+z `SELECT`, `WHERE` i `ORDER BY` — leżą w samym indeksie, więc silnik nie
+musi wracać do klastrowanego indeksu po pozostałe dane wiersza.
 
 ## Hint 2
 
-Zachowaj prefiks filtrów i sortowania.
+Nie zmieniaj kolejności ani nie usuwaj kolumn z zadania medium — `total`
+dokładasz na końcu, bo nie filtruje ani nie sortuje, tylko dopełnia
+projekcję.
 
 ## Hint 3
 
-Dodaj total na końcu indeksu jako kolumnę pokrywającą odczyt.
+`CREATE INDEX ix_orders_cover ON orders(tenant_id, status, created_at,
+id, total)`. Sprawdź `EXPLAIN SELECT id, total ... FORCE
+INDEX(ix_orders_cover) ...` — `Extra` ma zawierać `Using index`; bez
+`total` na końcu tego słowa tam nie będzie.

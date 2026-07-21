@@ -1,14 +1,14 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik Strapi 5 obowiązujący na granicy funkcji.
+Wspierane cardinality to zamknięty zbiór czterech nazw — trzymaj je w
+`Set` i sprawdzaj przynależność, zamiast wymieniać warunki `||`.
 
 ## Hint 2
 
-Oddziel walidację wejścia od transformacji i sprawdź wariant błędny.
+Właściciel relacji dwukierunkowej to `mappedBy` **lub** `inversedBy` —
+wystarczy jedno z nich, nie oba naraz.
 
 ## Hint 3
 
-Porównaj rozwiązanie z oficjalnym kontraktem API wskazanym w README.
-
+Gdy `bidirectional` jest `false`, w ogóle nie patrz na `mappedBy`/`inversedBy`
+— jednokierunkowa relacja jest poprawna, jeśli tylko typ jest wspierany.

@@ -1,14 +1,16 @@
-# Hints
-
 ## Hint 1
 
-Zacznij od testu negatywnego na granicy HTTP lub bezpieczeństwa.
+`name.replaceAll("\\", "/").split("/").at(-1)` zdejmuje ścieżkę
+niezależnie od tego, czy ktoś użył separatora uniksowego czy windowsowego.
 
 ## Hint 2
 
-Uporządkuj kolejność: authorize, validate, efekt, cleanup albo rewalidacja.
+Sprawdź rozszerzenie **przed** czyszczeniem bazy — allow-list
+(`["jpg", "jpeg", "png", "webp"]` po `.toLowerCase()`) i mapowanie
+`jpeg → jpg` to osobny krok od sanityzacji nazwy.
 
 ## Hint 3
 
-Użyj allow-list i jawnego statusu zamiast polegać na domyślnych danych klienta.
-
+`name.normalize("NFKD").replace(/\p{M}/gu, "")` rozkłada znak z diakrytyką
+na literę bazową i znak diakrytyczny, który potem usuwasz — dopiero
+wtedy zamieniaj resztę niedozwolonych znaków na `-`.

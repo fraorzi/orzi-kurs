@@ -1,14 +1,15 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik Strapi 5 obowiązujący na granicy funkcji.
+`id` znika przez samo pominięcie go w wyniku mapowania — destrukturyzuj
+tylko `question` i `answer` z elementu wejściowego.
 
 ## Hint 2
 
-Oddziel walidację wejścia od transformacji i sprawdź wariant błędny.
+Przytnij przed sprawdzeniem długości: `" ".length` to 1, ale po `trim()`
+to 0 — filtr pustości musi działać na wartości już przyciętej.
 
 ## Hint 3
 
-Porównaj rozwiązanie z oficjalnym kontraktem API wskazanym w README.
-
+`map` zamienia kształt, `filter` odrzuca elementy — rób je w tej
+kolejności (najpierw przytnij, potem odfiltruj), żeby filtr widział już
+przycięte wartości.

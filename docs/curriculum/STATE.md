@@ -1,11 +1,11 @@
 # Stan curriculum intern → mid
 
-Aktualizacja: 2026-07-17.
+Aktualizacja: 2026-07-21.
 
 ## Wynik
 
 Curriculum jest ukończone na gałęzi `feature/curriculum-final-audit`. Obejmuje
-9 publicznych tracków, 261 tematów i 645 zadań. Każde zadanie ma starter,
+8 publicznych tracków, 222 tematy i 606 zadań. Każde zadanie ma starter,
 rozwiązanie wzorcowe, test oraz progresywne hinty. Dodatkowe 8 zadań `_smoke`
 sprawdza sam harness i nie jest widoczne jako materiał ucznia.
 
@@ -25,11 +25,10 @@ i adapter kompilacji usunięto z tego repo, plan zachowany w README tamtego repo
 | TypeScript | `feature/curriculum-typescript` | `b769e5c` |
 | React | `feature/curriculum-react` | `dfa1196` |
 | Next.js | `feature/curriculum-next` | `01b5064` |
-| Node.js | `feature/curriculum-node` | `cadddd0` |
-| MySQL | `feature/curriculum-mysql` | `5f767f4` |
-| Strapi | `feature/curriculum-strapi` | `6183ce6` |
-| Combined | `feature/curriculum-combined` | `80c3fc5` |
-| Java | `feature/curriculum-java` | `1204b0a` |
+| Node.js | `feature/curriculum-node` | `6b04aa7` |
+| MySQL | `feature/curriculum-mysql` | `0ed8206` |
+| Strapi | `feature/curriculum-strapi` | `19cb675` |
+| Combined | `feature/curriculum-combined` | `0b9cef3` |
 | Audyt końcowy | `feature/curriculum-final-audit` | bieżący HEAD |
 
 Wszystkie branche technologiczne są wypchnięte do `origin`. Agent tworzy branche,
@@ -43,10 +42,8 @@ commity i pushe; użytkownik otwiera PR-y.
 - Next.js: 62/62, wyłącznie TypeScript/TSX i API zgodne z lokalnymi docs Next 16.2.
 - Node.js: 62/62 rozwiązań i starterów.
 - MySQL: 68/68 rozwiązań i starterów na realnym MySQL 8.4.10.
-- Strapi: 45/46 rozwiązań przechodzi także po końcowym adapterze; jedyny niewykonany
-  test wymaga otwarcia portu HTTP blokowanego przez sandbox. Startery: 46/46.
+- Strapi: 46/46 rozwiązań i 46/46 starterów.
 - Combined: 13/13 rozwiązań, 13/13 starterów i strict TypeScript bez diagnostyki.
-- Java: 39/39 kompilacji, runtime i bramek starterów na stabilnym core JDK 24/25.
 
 Dokładna macierz, źródła i ograniczenia środowiskowe są w `FINAL_AUDIT.md`.
 

@@ -1,14 +1,16 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik bezpieczeństwa lub warstwy, zanim zaczniesz implementować.
+Jedno wyrażenie regularne kotwiczone `^Bearer ...$` załatwia i rozpoznanie
+schematu, i odrzucenie dodatkowych segmentów naraz.
 
 ## Hint 2
 
-Wstrzyknij zależności i przetestuj kolejność wywołań oraz ścieżkę odmowy/błędu.
+`match?.[1] ?? null` — brak dopasowania (`null` z `exec`) ma dać ten sam
+wynik co pusty/nieprawidłowy nagłówek, więc obie ścieżki kończą się w
+jednym miejscu.
 
 ## Hint 3
 
-Sprawdź oficjalny kontrakt Strapi 5 wskazany w README i nie opieraj decyzji na danych klienta.
-
+Nie dziel nagłówka przez `split(" ")` i nie sprawdzaj `parts[0] ===
+"Bearer"` osobno od reszty — to rozjeżdża się na przypadkach z wieloma
+spacjami, które regex łapie za jednym razem.

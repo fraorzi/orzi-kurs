@@ -1,14 +1,15 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik Strapi 5 obowiązujący na granicy funkcji.
+To koniunkcja dwóch warunków, nie alternatywa — `draft` wymaga `preview`
+**i** roli editor naraz.
 
 ## Hint 2
 
-Oddziel walidację wejścia od transformacji i sprawdź wariant błędny.
+`role === "editor"` jest fałszywe, gdy `role` jest `undefined` — nie
+potrzebujesz osobnej gałęzi na brakujący argument.
 
 ## Hint 3
 
-Porównaj rozwiązanie z oficjalnym kontraktem API wskazanym w README.
-
+Cała funkcja to jeden warunek trójargumentowy zwracający `"draft"` albo
+`"published"` — jeśli masz więcej niż jedno rozgałęzienie, upraszczasz za
+mało.

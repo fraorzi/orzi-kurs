@@ -1,7 +1,7 @@
 # orzi-kurs
 
 Lokalna apka do nauki JavaScriptu, TypeScriptu, Reacta, Next.js, Node.js, MySQL,
-Strapi i Javy oraz do projektów łączących te technologie. Curriculum prowadzi od
+Strapi oraz do projektów łączących te technologie. Curriculum prowadzi od
 wiedzy internowej do praktycznego poziomu mid. Zadania rozwiązujesz we własnym
 edytorze, a submit sprawdza je deterministycznie — bez AI w ocenianiu.
 
@@ -48,8 +48,8 @@ tracks/js/01-closures/
 
 - `pnpm verify:solutions [track]` — dowód, że każdy wzorzec przechodzi swoje testy.
   Musi być zielone po każdej zmianie treści.
-- `pnpm verify:solutions:java` i `pnpm verify:starters:java` — macierz Javy na JDK
-  wskazanym przez `ORZI_JAVA_HOME` albo wykrytym lokalnie.
+- `pnpm verify:starters [track]` — dowód, że każdy pierwotny starter nadal oblewa
+  właściwą bramkę. Java jest rozwijana osobno w repo `orzi-kurs_java`.
 - `pnpm audit:curriculum` — kompletność wszystkich publicznych tracków i zgodność
   katalogów z kolejnością UI.
 - Konwencje treści i kontrakty harnessu: [SPEC.md](SPEC.md).

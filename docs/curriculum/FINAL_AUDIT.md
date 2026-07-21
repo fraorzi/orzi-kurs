@@ -1,6 +1,6 @@
 # Końcowy audyt curriculum intern → mid
 
-Data: 2026-07-17 (aktualizacja quality-pass: 2026-07-20).
+Data: 2026-07-21.
 Branch: `feature/curriculum-final-audit`.
 
 ## Wynik
@@ -11,19 +11,19 @@ samodzielności mida. Publiczny katalog ma 8 tracków, 222 tematy i 606 zadań
 test i hinty; 19 pozycji to moduły projektowe lub capstone'y. Osiem dodatkowych
 zadań `_smoke` testuje harness i nie wchodzi do materiału ucznia.
 
-| Track | Tematy | Zadania | Moduły/capstone'y | rozwiązania/startery |
+| Track | Pozycje tematów/modułów | Zadania | Moduły/capstone'y | rozwiązania/startery |
 |---|---:|---:|---:|---:|
 | JavaScript | 57 | 161 | 5 | 161/161 |
 | TypeScript | 33 | 95 | 2 | 95/95 |
 | React | 35 | 99 | 3 | 99/99 |
 | Next.js | 22 | 62 | 2 | 62/62 |
-| Node.js | 20 | 62 | 2 | 62/62 |
-| MySQL | 22 | 68 | 2 | 68/68 |
+| Node.js | 22 | 62 | 2 | 62/62 |
+| MySQL | 24 | 68 | 2 | 68/68 |
 | Strapi | 16 | 46 | 1 | 46/46 |
 | Combined | 13 | 13 | 2 | 13/13 |
 | **Razem** | **222** | **606** | **19** | **606/606** |
 
-## Quality passy (2026-07-20)
+## Quality passy (2026-07-17–2026-07-21)
 
 Cztery ostatnie tracki (Node, MySQL, Strapi, Combined) powstały najpierw jako
 szkice: poprawny zakres i rozwiązania, ale warstwa dydaktyczna poniżej
@@ -35,7 +35,7 @@ README, kopiowane hinty). Zostały przepisane w całości:
   `NODE_AUDIT.md`.
 - **MySQL**: 22 tematy + 2 moduły na MySQL 8.4.10 — testy behawioralne (w tym
   scenariusze transakcyjne dwupołączeniowe i deadlock retry), moduły
-  wieloplikowe, setup lokalnej bazy dla ucznia. Zob. `MYSQL_AUDIT.md`.
+  wieloplikowe, setup lokalnej bazy, `mysql2@3.23.1`. Zob. `MYSQL_AUDIT.md`.
 - **Strapi**: 15 tematów + moduł — semantyka Document Service, `[D]`/`[O]`,
   kontrakt treści. Zob. `STRAPI_AUDIT.md`.
 - **Combined**: 13 projektów — 4–6 testów zachowania każdy, rozwiązania
@@ -75,10 +75,15 @@ contract pilnują obecności źródeł w README.
 
 ## Merge
 
-Kolejność merge: `ui-learning-navigation → curriculum-foundation → javascript
-→ typescript → react → next → node → mysql → strapi → combined → final-audit`.
-Ta gałąź jest zbiorczym rozszerzeniem łańcucha i może służyć jako pojedynczy
-PR końcowy. Konflikty w `docs/curriculum/*_AUDIT.md`, `STATE.md`
+Gałąź zawiera pełne, zweryfikowane snapshoty aktualnych tracków z HEAD-ów:
+`curriculum-mysql@0ed8206`, `curriculum-strapi@19cb675` oraz
+`curriculum-combined@0b9cef3`. Dzięki temu może służyć jako samodzielny,
+pojedynczy PR końcowy — nie wymaga wcześniejszego mergowania tych trzech PR-ów.
+
+Przy wariancie wielu PR-ów kolejność pozostaje następująca:
+`ui-learning-navigation → curriculum-foundation → javascript → typescript → react
+→ next → node → mysql → strapi → combined → final-audit`. Konflikty w
+`docs/curriculum/*_AUDIT.md`, `STATE.md`
 i `tasks/curriculum.md` rozwiązuj biorąc wersję z tej gałęzi (zawiera
 zaktualizowane audyty quality-pass).
 

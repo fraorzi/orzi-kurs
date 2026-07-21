@@ -8,11 +8,18 @@ export function validatePlan(steps: string[]): boolean {
     "healthcheck",
     "rollback-ready",
   ];
-  if (!required.every((step) => steps.includes(step))) return false;
+
+  if (!required.every((step) => steps.includes(step))) {
+    return false;
+  }
+
   const at = (step: string) => steps.indexOf(step);
-  return at("test") < at("build") &&
+
+  return (
+    at("test") < at("build") &&
     at("backup") < at("migrate-expand") &&
     at("migrate-expand") < at("deploy") &&
     at("deploy") < at("healthcheck") &&
-    at("healthcheck") < at("rollback-ready");
+    at("healthcheck") < at("rollback-ready")
+  );
 }

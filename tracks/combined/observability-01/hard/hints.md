@@ -1,14 +1,15 @@
-# Hints
-
 ## Hint 1
 
-Narysuj granice danych i zaznacz, która warstwa odpowiada za walidację, authz oraz efekt.
+Starter oddaje surowe zdarzenie — wycieka `userId`, `error` i query string.
+Zbuduj dwa nowe obiekty z wybranych, bezpiecznych pól (allow-lista).
 
 ## Hint 2
 
-Najpierw zachowaj zachowanie testem, potem zmieniaj strukturę lub wydajność.
+Ścieżkę bez query wyciągniesz przez `new URL(event.url, "https://service.local").pathname`
+— baza jest potrzebna dla ścieżek względnych.
 
 ## Hint 3
 
-Zminimalizuj DTO i wstrzyknij zależności, aby awarie i kolejność były deterministyczne.
-
+`statusClass` to `` `${Math.floor(status / 100)}xx` `` — grupowanie zamiast
+surowego kodu trzyma kardynalność metryki nisko. `outcome` liczy się z tego
+samego progu (≥ 500 = error).

@@ -1,14 +1,14 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik bezpieczeństwa lub warstwy, zanim zaczniesz implementować.
+Pierwszy warunek to strażnik akcji: `if (action !== "findMany") return params;`
+— reszta funkcji dotyczy wyłącznie odczytu listy.
 
 ## Hint 2
 
-Wstrzyknij zależności i przetestuj kolejność wywołań oraz ścieżkę odmowy/błędu.
+Filtry buduj przez spread, nie przez nadpisanie: `{ ...existingFilters, tenantId }`,
+gdzie `existingFilters` to `params.filters` albo `{}`, gdy go brak.
 
 ## Hint 3
 
-Sprawdź oficjalny kontrakt Strapi 5 wskazany w README i nie opieraj decyzji na danych klienta.
-
+Cały zwracany obiekt też twórz przez spread `{ ...params, status: "published", filters: ... }`
+— to gwarantuje nowy obiekt i zachowanie pól, o których middleware nic nie wie.

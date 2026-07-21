@@ -1,6 +1,15 @@
-# Ogranicz fields i populate
+# [O] Easy — zawęź fields i populate
 
-Usuń nadmiarowe pola oraz wildcard populate, zachowując kontrakt listy.
+Endpoint listy artykułów zwraca poprawne dane, ale każdy rekord ciągnie
+wszystkie kolumny i całą relację `cover` przez `populate: "*"`. Widok używa
+tylko tytułu, sluga i URL okładki.
 
-Starter jest poprawny funkcjonalnie. Zmiana ma przejść testy poprawności i mierzalną bramkę oznaczoną `[quality]`.
+Starter jest funkcjonalnie poprawny. Zawęź zapytanie, nie zmieniając
+kontraktu widoku:
 
+- `status` pozostaje `"published"`;
+- `fields` ograniczone do `["title", "slug"]`;
+- `populate` to jawny obiekt `{ cover: { fields: ["url", "alternativeText"] } }`,
+  nie wildcard `"*"`.
+
+Bramka `[quality]`: dokładnie 2 pola i brak wildcard populate.

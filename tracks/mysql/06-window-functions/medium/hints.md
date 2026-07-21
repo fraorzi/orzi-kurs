@@ -1,11 +1,17 @@
 ## Hint 1
 
-LAG musi być partycjonowany tak jak seria.
+Starter liczy `LAG` po całej tabeli naraz — sensor 2 dostaje w spadku
+wartość sensora 1, jeżeli ten akurat wypadł wcześniej w kolejności czasu.
 
 ## Hint 2
 
-Pierwszy rekord serii nie ma poprzednika i zwraca NULL.
+`PARTITION BY sensor_id` w `OVER` zamyka `LAG` w granicach jednego
+sensora — pierwszy wiersz partycji zawsze dostaje `NULL` z `LAG`, to
+oczekiwany wynik, nie brak danych do obsłużenia osobno.
 
 ## Hint 3
 
-Uruchom rozwiązanie na danych granicznych i sprawdź wynik, nie tylko składnię.
+Kształt: `value - LAG(value) OVER (PARTITION BY sensor_id ORDER BY
+measured_at, id) AS delta`. Test z przeplecionymi sensorami sprawdza
+dokładnie brak partycji — jeśli delta miesza serie, `PARTITION BY` wciąż
+brakuje albo jest w złym miejscu.

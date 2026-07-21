@@ -1,6 +1,12 @@
-# Odczytaj Bearer token bez wycieku
+# Easy — odczytaj Bearer token bez wycieku
 
-Zwróć token tylko dla dokładnego schematu `Bearer <wartość>` i odrzuć pusty lub inny scheme.
+Middleware autoryzacji parsuje nagłówek `Authorization` przed przekazaniem
+żądania dalej — musi rozpoznać dokładnie jeden schemat i nigdy nie
+zalogować surowej wartości przy błędzie. Zaimplementuj `solve(header)`:
 
-Kod ma być TypeScript-first, deterministyczny i testowalny bez panelu administracyjnego ani zewnętrznych usług.
-
+- dla `"Bearer <token>"` zwróć samo `<token>`;
+- dla innego schematu (`Basic`, brak schematu, wielkość liter inna niż
+  `Bearer`) zwróć `null`;
+- dla `"Bearer "` (pusty token po spacji) i dla `undefined` zwróć `null`;
+- token to jeden ciąg bez spacji — nagłówek z dodatkową spacją albo
+  drugim segmentem też ma dać `null`.

@@ -1,14 +1,15 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik bezpieczeństwa lub warstwy, zanim zaczniesz implementować.
+Szkielet to zwykłe `try`: `const result = await next(); await emit(result); return result;`
+— bez `finally`, bo `finally` uruchomiłby `emit` też przy błędzie.
 
 ## Hint 2
 
-Wstrzyknij zależności i przetestuj kolejność wywołań oraz ścieżkę odmowy/błędu.
+Nie owijaj `next()` w `try/catch`, który by łapał błąd — masz tylko
+propagować go dalej, nie obsługiwać. Brak `catch` już to daje za darmo.
 
 ## Hint 3
 
-Sprawdź oficjalny kontrakt Strapi 5 wskazany w README i nie opieraj decyzji na danych klienta.
-
+To, ile razy `next()` wewnętrznie zapisało coś do bazy, jest niewidoczne
+dla `solve` — Twoja funkcja liczy wywołania `emit`, nie rekordy, i ma ich
+być dokładnie jedno na sukces.

@@ -1,14 +1,16 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik Strapi 5 obowiązujący na granicy funkcji.
+`URLSearchParams` z `.set(...)` dla każdego parametru buduje deterministyczny
+query string bez ręcznego escapowania — nie sklejaj stringów przez `&`.
 
 ## Hint 2
 
-Oddziel walidację wejścia od transformacji i sprawdź wariant błędny.
+Waliduj `page` przez `Number.isInteger(page) && page >= 1` **przed**
+budowaniem czegokolwiek — nieprawidłowa strona nie powinna zwrócić
+częściowo zbudowanego stringa.
 
 ## Hint 3
 
-Porównaj rozwiązanie z oficjalnym kontraktem API wskazanym w README.
-
+Test HTTP wysyła zbudowany string jako prawdziwy query jednego żądania —
+jeśli klucz ma literówkę albo brakuje `[0]`/`[1]`, dopiero tu to wyjdzie,
+inaczej niż w teście na samym stringu.

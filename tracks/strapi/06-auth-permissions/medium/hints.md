@@ -1,14 +1,15 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik bezpieczeństwa lub warstwy, zanim zaczniesz implementować.
+`permissions[role]` może być `undefined` — użyj `?.includes(action)` i
+domknij wynik przez `?? false`, żeby brakująca rola nigdy nie rzuciła.
 
 ## Hint 2
 
-Wstrzyknij zależności i przetestuj kolejność wywołań oraz ścieżkę odmowy/błędu.
+`Array.includes` sprawdza dokładne dopasowanie elementu, nie podłańcuch —
+to wystarczy, żeby `find` i `find-one` się nie myliły; nie sięgaj po
+`startsWith` ani `includes` na stringu.
 
 ## Hint 3
 
-Sprawdź oficjalny kontrakt Strapi 5 wskazany w README i nie opieraj decyzji na danych klienta.
-
+Brak wpisu roli i brak wpisu akcji to ta sama odpowiedź: `false`. Nie
+potrzebujesz osobnej gałęzi na "rola nie istnieje" — `?.` już to załatwia.

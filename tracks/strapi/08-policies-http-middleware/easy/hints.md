@@ -1,14 +1,14 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik bezpieczeństwa lub warstwy, zanim zaczniesz implementować.
+Kontrakt to lista dopuszczonych ról: `["editor", "admin"]`. Wszystko poza
+tą listą — łącznie z brakiem `user` — to `false`.
 
 ## Hint 2
 
-Wstrzyknij zależności i przetestuj kolejność wywołań oraz ścieżkę odmowy/błędu.
+`user?.role === "editor" || user?.role === "admin"` obsługuje jednym
+wyrażeniem zarówno brak `user`, jak i brak `role`.
 
 ## Hint 3
 
-Sprawdź oficjalny kontrakt Strapi 5 wskazany w README i nie opieraj decyzji na danych klienta.
-
+Nie porównuj przez `Boolean(user)` ani `user?.role !== undefined` — to
+przepuści dowolną rolę, np. `"public"`, zamiast tylko dwóch dozwolonych.

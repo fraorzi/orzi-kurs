@@ -73,7 +73,7 @@ algorytmu i bez kopiowania rozwiązania z tutoriala.
 - Projektuje permissions jako allow-list i testuje API na poziomie HTTP.
 - Integruje CMS z frontendem, rewalidacją, webhooks i bezpiecznym uploadem.
 
-### Java
+### Java (osobne repo `orzi-kurs_java`)
 
 - W zakresie PJATK łączy podstawy języka z obiektowością, kolekcjami, I/O,
   współbieżnością, GUI, JDBC i siecią.

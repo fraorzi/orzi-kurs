@@ -1,14 +1,14 @@
-# Hints
-
 ## Hint 1
 
-Zacznij od testu negatywnego na granicy HTTP lub bezpieczeństwa.
+Problem to nadmiar, nie brak: starter zwraca każdy hook. Musisz zwinąć hooki
+należące do tej samej logicznej operacji na tym samym dokumencie.
 
 ## Hint 2
 
-Uporządkuj kolejność: authorize, validate, efekt, cleanup albo rewalidacja.
+Kluczem deduplikacji jest para `operationId` + `documentId` — nie sam
+`documentId` (bo różne operacje na tym dokumencie mają zostać osobno).
 
 ## Hint 3
 
-Użyj allow-list i jawnego statusu zamiast polegać na domyślnych danych klienta.
-
+`Map` zachowuje kolejność wstawienia. Wpisuj pod kluczem `` `${operationId}:${documentId}` ``,
+a zwróć jego wartości (`documentId`) — pierwsze wystąpienie ustala pozycję.

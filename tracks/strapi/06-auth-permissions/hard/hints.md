@@ -1,14 +1,17 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik bezpieczeństwa lub warstwy, zanim zaczniesz implementować.
+Trzy niezależne gałęzie, jedna na rolę — `admin` kończy się natychmiast
+`true`, reszta logiki dotyczy tylko `editor` i `public`.
 
 ## Hint 2
 
-Wstrzyknij zależności i przetestuj kolejność wywołań oraz ścieżkę odmowy/błędu.
+`public` sprawdza `action` i `status` razem (`action === "find" &&
+status === "published"`) — pomiń `ownerId` i `userId` całkowicie w tej
+gałęzi, publiczny odczyt nie zależy od właściciela.
 
 ## Hint 3
 
-Sprawdź oficjalny kontrakt Strapi 5 wskazany w README i nie opieraj decyzji na danych klienta.
-
+`editor` sprawdza `action` i porównanie właściciela razem
+(`action === "update" && userId === ownerId`) — brak `userId` (np.
+niezalogowany) nigdy nie zrówna się z żadnym `ownerId`, więc nie
+potrzebujesz osobnego sprawdzenia na `undefined`.

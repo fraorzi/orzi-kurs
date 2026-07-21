@@ -1,14 +1,14 @@
-# Hints
-
 ## Hint 1
 
-Najpierw rozdziel poprawność od bramki `[quality]`.
+Starter ma komplet precyzyjnych tagów, ale dokłada globalny `content` —
+to on wywraca cały cache.
 
 ## Hint 2
 
-Zmierz liczbę pól, wywołań zależności albo zasięg invalidacji.
+Usuń `"content"` z listy; zostają `article:<id>`, `articles:<locale>`
+i warunkowy tag kategorii.
 
 ## Hint 3
 
-Zachowaj kolejność, permissions i publiczny kontrakt podczas zawężania pracy.
-
+Tag kategorii buduj tylko gdy `category` podane; `.filter(Boolean)` usuwa
+pusty string, gdy kategorii brak.

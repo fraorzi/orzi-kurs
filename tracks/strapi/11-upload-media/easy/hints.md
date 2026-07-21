@@ -1,14 +1,14 @@
-# Hints
-
 ## Hint 1
 
-Zacznij od testu negatywnego na granicy HTTP lub bezpieczeństwa.
+Allow-list jako `Set` trzech dozwolonych MIME-typów —
+`ALLOWED.has(file.mime)` czytelniej niż łańcuch `||`.
 
 ## Hint 2
 
-Uporządkuj kolejność: authorize, validate, efekt, cleanup albo rewalidacja.
+`Number.isInteger(file.size) && file.size > 0` odrzuca jednym
+wyrażeniem zero, liczby ujemne i wartości niecałkowite.
 
 ## Hint 3
 
-Użyj allow-list i jawnego statusu zamiast polegać na domyślnych danych klienta.
-
+Limit to `<=`, nie `<` — plik dokładnie 5 MiB ma przejść, dopiero
+5 MiB + 1 bajt ma zostać odrzucony.

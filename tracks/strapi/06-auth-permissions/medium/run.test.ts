@@ -1,11 +1,30 @@
 import { describe, expect, it } from "vitest";
 import { solve } from "./starter";
 
-describe("Zastosuj permissions jako allow-list", () => {
-  it("spełnia kontrakt warstwy backendowej", async () => {
-    const permissions = { editor: ["api::article.article.find", "api::article.article.update"] };
-    expect(solve(permissions, "editor", "api::article.article.update")).toBe(true);
-    expect(solve(permissions, "editor", "api::article.article.delete")).toBe(false);
+const PERMISSIONS = {
+  editor: ["api::article.article.find", "api::article.article.update"],
+  public: ["api::article.article.find"],
+};
+
+describe("permissions jako allow-list", () => {
+  it("zezwala na akcję jawnie przyznaną roli", () => {
+    expect(solve(PERMISSIONS, "editor", "api::article.article.update")).toBe(true);
+  });
+
+  it("odmawia akcji nieprzyznanej roli, która ma inne uprawnienia", () => {
+    expect(solve(PERMISSIONS, "editor", "api::article.article.delete")).toBe(false);
+  });
+
+  it("odmawia dla roli nieobecnej w permissions, bez rzucania błędu", () => {
+    expect(solve(PERMISSIONS, "guest", "api::article.article.find")).toBe(false);
+  });
+
+  it("nie dopasowuje częściowo nazwy akcji", () => {
+    expect(solve(PERMISSIONS, "public", "api::article.article.find-one")).toBe(false);
+  });
+
+  it("każda rola ma niezależną listę uprawnień", () => {
+    expect(solve(PERMISSIONS, "public", "api::article.article.update")).toBe(false);
+    expect(solve(PERMISSIONS, "public", "api::article.article.find")).toBe(true);
   });
 });
-

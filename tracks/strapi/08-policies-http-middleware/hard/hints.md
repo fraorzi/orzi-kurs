@@ -1,14 +1,15 @@
-# Hints
-
 ## Hint 1
 
-Zapisz niezmiennik bezpieczeństwa lub warstwy, zanim zaczniesz implementować.
+`Array.prototype.reduceRight` buduje łańcuch od końca: każdy krok owija
+poprzedni wynik nową funkcją `() => middleware(next)`.
 
 ## Hint 2
 
-Wstrzyknij zależności i przetestuj kolejność wywołań oraz ścieżkę odmowy/błędu.
+Startowym akumulatorem `reduceRight` jest `handler` — to on siedzi
+w samym środku cebuli, jako „next" ostatniego middleware.
 
 ## Hint 3
 
-Sprawdź oficjalny kontrakt Strapi 5 wskazany w README i nie opieraj decyzji na danych klienta.
-
+Nie łap błędów wewnątrz `solve` — zwykłe `await next()` bez `try/catch`
+już zapewnia, że wyjątek przerywa łańcuch i propaguje się do wywołującego,
+a brak wywołania `next()` w ogóle zatrzymuje dalsze warstwy.

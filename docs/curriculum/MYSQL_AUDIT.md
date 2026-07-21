@@ -1,7 +1,7 @@
 # Audyt curriculum MySQL
 
-Data audytu: 2026-07-20. Branch: `feature/curriculum-mysql` (quality pass).
-Cel: MySQL 8.4 LTS; weryfikacja na 8.4.10.
+Data audytu: 2026-07-21. Branch: `feature/curriculum-mysql` (quality pass).
+Cel: MySQL 8.4 LTS; weryfikacja na 8.4.10 i `mysql2@3.23.1`.
 
 ## Wniosek
 
@@ -50,6 +50,8 @@ w `_solution.*`) i przepisał warstwę dydaktyczną w całości.
   `information_schema` zamiast parsowania SHOW GRANTS.
 - `decimalNumbers: false` w adapterze: DECIMAL/agregaty przychodzą jako
   stringi — asercje odzwierciedlają realny kontrakt drivera.
+- `mysql2` jest przypięte do 3.23.1; patch naprawia limit dekompresji pakietu
+  oraz obsługę `typeCast` dla wartości `NULL` w protokole binarnym.
 
 ## Macierz końcowa
 
@@ -66,3 +68,4 @@ w `_solution.*`) i przepisał warstwę dydaktyczną w całości.
 - [Performance Schema statement digests](https://dev.mysql.com/doc/refman/8.4/en/performance-schema-statement-digests.html)
 - [Online DDL operations](https://dev.mysql.com/doc/refman/8.4/en/innodb-online-ddl-operations.html)
 - [mysql2](https://sidorares.github.io/node-mysql2/docs)
+- [mysql2 3.23.0...3.23.1](https://github.com/sidorares/node-mysql2/compare/v3.23.0...v3.23.1)

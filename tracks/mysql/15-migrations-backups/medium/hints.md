@@ -1,11 +1,15 @@
 ## Hint 1
 
-Contract nie może poprzedzać wdrożenia kodu czytającego nowe pola.
+Contract (usunięcie `name`) nie może poprzedzać wdrożenia kodu, który
+czyta nowe kolumny — na razie tylko je dodajesz i wypełniasz.
 
 ## Hint 2
 
-Dodaj pola nullable i wykonaj backfill.
+Dodaj pola jako `NULL` i wykonaj backfill z `name` przed zaostrzeniem do
+`NOT NULL`.
 
 ## Hint 3
 
-Zaostrz nowe pola, ale pozostaw name do późniejszego deployu contract.
+`family_name` to wszystko po pierwszej spacji (`SUBSTRING` liczony od
+`CHAR_LENGTH` pierwszego słowa), nie tylko ostatnie słowo — wieloczłonowe
+nazwiska mają zostać w całości.
