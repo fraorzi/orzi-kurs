@@ -1,26 +1,50 @@
 # Końcowy audyt curriculum intern → mid
 
-Data: 2026-07-17. Branch: `feature/curriculum-final-audit`.
+Data: 2026-07-17 (aktualizacja quality-pass: 2026-07-20).
+Branch: `feature/curriculum-final-audit`.
 
 ## Wynik
 
 Curriculum jest kompletne jako ścieżka od wiedzy internowej do praktycznej
-samodzielności mida. Publiczny katalog ma 8 tracków, 222 tematy i 606 zadań (Java: osobne repo orzi-kurs_java).
-Każde zadanie ma starter, rozwiązanie, test i hinty; 27 pozycji to moduły projektowe
-lub capstone'y. Osiem dodatkowych zadań `_smoke` testuje harness i nie wchodzi do
-materiału ucznia.
+samodzielności mida. Publiczny katalog ma 8 tracków, 222 tematy i 606 zadań
+(Java: osobne repo `orzi-kurs_java`). Każde zadanie ma starter, rozwiązanie,
+test i hinty; 19 pozycji to moduły projektowe lub capstone'y. Osiem dodatkowych
+zadań `_smoke` testuje harness i nie wchodzi do materiału ucznia.
 
-| Track | Tematy | Zadania | Moduły/capstone'y | Starter = solution = test = hints |
+| Track | Tematy | Zadania | Moduły/capstone'y | rozwiązania/startery |
 |---|---:|---:|---:|---:|
 | JavaScript | 57 | 161 | 5 | 161/161 |
 | TypeScript | 33 | 95 | 2 | 95/95 |
 | React | 35 | 99 | 3 | 99/99 |
 | Next.js | 22 | 62 | 2 | 62/62 |
-| Node.js | 22 | 62 | 2 | 62/62 |
-| MySQL | 24 | 68 | 2 | 68/68 |
+| Node.js | 20 | 62 | 2 | 62/62 |
+| MySQL | 22 | 68 | 2 | 68/68 |
 | Strapi | 16 | 46 | 1 | 46/46 |
 | Combined | 13 | 13 | 2 | 13/13 |
 | **Razem** | **222** | **606** | **19** | **606/606** |
+
+## Quality passy (2026-07-20)
+
+Cztery ostatnie tracki (Node, MySQL, Strapi, Combined) powstały najpierw jako
+szkice: poprawny zakres i rozwiązania, ale warstwa dydaktyczna poniżej
+standardu tracków frontendowych (pojedynczy test na zadanie, szkieletowe
+README, kopiowane hinty). Zostały przepisane w całości:
+
+- **Node**: 20 tematów + 2 moduły — testy zachowania, README z modelem
+  mentalnym, moduły przebudowane na wieloplikowe, kontrakt treści. Zob.
+  `NODE_AUDIT.md`.
+- **MySQL**: 22 tematy + 2 moduły na MySQL 8.4.10 — testy behawioralne (w tym
+  scenariusze transakcyjne dwupołączeniowe i deadlock retry), moduły
+  wieloplikowe, setup lokalnej bazy dla ucznia. Zob. `MYSQL_AUDIT.md`.
+- **Strapi**: 15 tematów + moduł — semantyka Document Service, `[D]`/`[O]`,
+  kontrakt treści. Zob. `STRAPI_AUDIT.md`.
+- **Combined**: 13 projektów — 4–6 testów zachowania każdy, rozwiązania
+  zreformatowane (naprawa lint), README Kontekst/Decyzje/Pułapki/Źródła.
+  Zob. `COMBINED_AUDIT.md`.
+
+Każdy pass utrzymał zielone bramki i wzmocnił `harness/*-content.test.ts`,
+tak że kontrakt treści wymusza teraz testy zachowania, unikalne hinty
+i objętość README.
 
 ## Kolejność i doświadczenie nauki
 
@@ -30,66 +54,42 @@ materiału ucznia.
 - Node → MySQL → Strapi rozwija runtime, bazę i CMS po fundamentach języka.
 - Combined nie powtarza składni: ćwiczy granice systemu, security, delivery,
   obserwowalność, awarie częściowe, rollout i maintenance.
-- Java wyprowadzona do repo `orzi-kurs_java` (Gradle/JUnit/IntelliJ) — 2026-07-18.
-- UI ma jawne metadane wszystkich aktywnych tracków i semantyczne etapy nauki.
-- `TOPIC_ORDER` dokładnie odpowiada katalogom. Audyt naprawił stary slug MySQL
-  `21-debugging-sql` na rzeczywisty `21-debug-data-incidents`.
+- Java wyprowadzona do repo `orzi-kurs_java` (Gradle/JUnit/IntelliJ) — 2026-07-18;
+  `tracks/java`, adapter kompilacji i skrypty usunięte z tego repo.
+- `TOPIC_ORDER` dokładnie odpowiada katalogom.
 
 ## Wersje i źródła pierwotne
 
-- JavaScript i Node: [oficjalny cykl wydań Node](https://nodejs.org/en/about/previous-releases)
-  oraz [Node API](https://nodejs.org/api/); Node 24 pozostaje linią LTS.
+- JavaScript i Node: [cykl wydań Node](https://nodejs.org/en/about/previous-releases);
+  Node 24 pozostaje linią LTS.
 - TypeScript: [release notes 6.0](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-6-0.html)
   i natywna bramka TS 7.
 - React: [React 19.2](https://react.dev/blog/2025/10/01/react-19-2) i stabilny
   [React Compiler](https://react.dev/learn/react-compiler).
-- Next.js: lokalne `node_modules/next/dist/docs/` dla dokładnej wersji repo oraz
-  [Next.js 16](https://nextjs.org/blog/next-16).
-- MySQL: [Reference Manual 8.4](https://dev.mysql.com/doc/refman/8.4/en/) i
-  [model LTS](https://dev.mysql.com/doc/refman/8.4/en/mysql-releases.html).
-- Strapi: [Document Service API](https://docs.strapi.io/cms/api/document-service),
-  [REST API](https://docs.strapi.io/cms/api/rest) i dokumentacja backend customization.
-- Java: [OpenJDK 25](https://openjdk.org/projects/jdk/25/),
-  [Java SE 25 API](https://docs.oracle.com/en/java/javase/25/docs/api/) oraz program PJATK.
+- Next.js: lokalne `node_modules/next/dist/docs/` dla dokładnej wersji repo.
+- MySQL: [Reference Manual 8.4](https://dev.mysql.com/doc/refman/8.4/en/).
+- Strapi: [Document Service API](https://docs.strapi.io/cms/api/document-service).
 
-Szczegółowe decyzje per technologia są w plikach `*_AUDIT.md`. Każdy README tracka
-ma źródła właściwe dla wersji docelowej, a testy content contract pilnują ich obecności.
+Szczegółowe decyzje per technologia są w plikach `*_AUDIT.md`. Testy content
+contract pilnują obecności źródeł w README.
 
-## Branche i commity
+## Merge
 
-| Zakres | Branch | Commit |
-|---|---|---|
-| Fundament | `feature/curriculum-foundation` | `38f9880` |
-| JavaScript | `feature/curriculum-javascript` | `bc81b47` |
-| TypeScript | `feature/curriculum-typescript` | `b769e5c` |
-| React | `feature/curriculum-react` | `dfa1196` |
-| Next.js | `feature/curriculum-next` | `01b5064` |
-| Node.js | `feature/curriculum-node` | `cadddd0` |
-| MySQL | `feature/curriculum-mysql` | `5f767f4` |
-| Strapi | `feature/curriculum-strapi` | `6183ce6` |
-| Combined | `feature/curriculum-combined` | `80c3fc5` |
-| Java | `feature/curriculum-java` | `1204b0a` |
-| Końcowy audyt | `feature/curriculum-final-audit` | bieżący HEAD |
-
-Wszystkie branche technologiczne są zgodne lokalnie z odpowiadającymi im referencjami
-`origin/*`. Końcowa gałąź jest sekwencyjnym rozszerzeniem Javy, więc zawiera całe
-curriculum i może służyć jako pojedynczy PR zbiorczy.
+Kolejność merge: `ui-learning-navigation → curriculum-foundation → javascript
+→ typescript → react → next → node → mysql → strapi → combined → final-audit`.
+Ta gałąź jest zbiorczym rozszerzeniem łańcucha i może służyć jako pojedynczy
+PR końcowy. Konflikty w `docs/curriculum/*_AUDIT.md`, `STATE.md`
+i `tasks/curriculum.md` rozwiązuj biorąc wersję z tej gałęzi (zawiera
+zaktualizowane audyty quality-pass).
 
 ## Weryfikacja
 
-- `pnpm audit:curriculum`: komplet artefaktów i kolejności 645/645.
-- root `tsc --noEmit`, ESLint i `git diff --check`.
-- Java: 39/39 kompilacji rozwiązanie+test, 39/39 runtime i 39/39 bramek starterów.
-- Harness: 79/80; jedyny niewykonany test otwiera lokalny port HTTP i kończy się
-  systemowym `listen EPERM` przed asercjami.
-- Wcześniejsze pełne macierze: JS 161/161, TS 95/95 na TS 6 i TS 7, React 99/99,
-  Next 62/62, Node 62/62 i MySQL 68/68 na realnym 8.4.10.
-- Strapi po dodaniu granicy HTTP: 45/46 rozwiązań w sandboxie; jedyny brak to moduł
-  wymagający zakazanego portu. Wszystkie pozostałe zadania przechodzą, a startery
-  mają 46/46 poprawnych bramek.
-- Combined: 13/13 rozwiązań, 13/13 bramek starterów i osobny strict TypeScript.
+- `pnpm audit:curriculum`: komplet artefaktów i kolejności, 606/606.
+- root `tsc --noEmit`, ESLint i `git diff --check` czyste.
+- Pełne macierze rozwiązań/starterów: JS 161/161, TS 95/95 (TS 6 i TS 7),
+  React 99/99, Next 62/62, Node 62/62, MySQL 68/68 (na realnym 8.4.10),
+  Strapi 46/46, Combined 13/13.
+- Harness content contract dla każdego tracka po quality-passie jest zielony.
 
-CLI curriculum używa bezpośredniego loadera `node --import tsx`, dzięki czemu nie
-wymaga pomocniczego socketu IPC. Pozostaje tylko test sieciowy Strapi, bo sandbox
-blokuje samo `listen(127.0.0.1)`. Java targetuje JDK 25, lecz fizyczny runtime JDK 25
-nie był dostępny — wspólny stabilny core 24/25 przeszedł na OpenJDK 24.0.1.
+Weryfikacja MySQL wymaga lokalnej instancji 8.4 (`ORZI_MYSQL_URL`); instrukcja
+w `tracks/mysql/README.md`.

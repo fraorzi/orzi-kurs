@@ -44,3 +44,29 @@ Service ani numerycznym `id`, zanim zrozumie `documentId` i warianty dokumentu.
 - [Middleware](https://docs.strapi.io/cms/backend-customization/middlewares)
 - [Testing](https://docs.strapi.io/cms/testing)
 - [Webhooks](https://docs.strapi.io/cms/backend-customization/webhooks)
+
+## Quality pass (2026-07-20)
+
+Pierwotna wersja tracka miała poprawny zakres i rozwiązania, ale warstwę
+dydaktyczną poniżej standardu repo: 42 z 46 testów było pojedynczym
+`it("...")`, README ~13–16 linii, task.md 1–2 zdania z powtarzaną wklejką.
+Quality pass przepisał warstwę dydaktyczną wszystkich 15 tematów i modułu,
+bez zmian w rozwiązaniach wzorcowych (poza reformatowaniem czytelności):
+
+- **Testy**: 3–6 nazwanych testów zachowania per zadanie (≥6 dla modułu),
+  wymuszające sedno tematów: semantyka `documentId` vs `id`, draft/published
+  i locale w Document Service, filtrowanie/populacja REST, granice public vs
+  authenticated, kolejność policy/middleware, lifecycle bez podwójnych
+  powiadomień, walidacja z kodami błędów, idempotencja webhooków. Zadania
+  `[D]` (14) diagnozują realne incydenty (brak populate, wyciek draftu),
+  `[O]` (14b) mierzą pracę przez liczniki (rozmiar fetch, liczba zapytań,
+  precyzja tagów cache), nigdy czas.
+- **README** każdego tematu: model mentalny Strapi 5 + Kiedy/Pułapki/Źródła
+  z linkami do docs.strapi.io.
+- **Hinty**: 3 progresywne, specyficzne, unikalne per zadanie.
+- **Kontrakt treści** (`harness/strapi-content.test.ts`): wymusza sekcje
+  i objętość README, ≥3 testy (≥6 dla modułu), ≥3 hinty, unikalność hints,
+  znaczniki `[quality]` w 14b.
+
+Macierz końcowa: 46/46 rozwiązań i 46/46 starterów, kontrakt treści 4/4,
+root `tsc --noEmit` czysty.
