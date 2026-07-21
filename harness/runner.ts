@@ -124,7 +124,10 @@ async function runLint(
   const errors: LintIssue[] = [];
   const warnings: LintIssue[] = [];
   if (!starter) return { errors, warnings };
-  if (!statSync(starter).isDirectory() && extname(starter) === ".sql") {
+  if (
+    !statSync(starter).isDirectory() &&
+    [".sql"].includes(extname(starter))
+  ) {
     return { errors, warnings };
   }
 

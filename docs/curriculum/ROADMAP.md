@@ -2,7 +2,9 @@
 
 Data audytu: 2026-07-17.
 
-## Stan zastany
+## Stan zastany przed realizacją
+
+Poniższa tabela jest historycznym snapshotem wejściowym, nie bieżącym statusem.
 
 | Track | Stan | Najważniejsza obserwacja |
 |---|---:|---|
@@ -22,7 +24,7 @@ Punkty odniesienia:
 - `pnpm verify:solutions ts`: 37/37,
 - pełna weryfikacja JS do ponowienia na branchu JavaScript.
 
-Stan po ukończeniu pierwszych sześciu etapów:
+Stan końcowy po ukończeniu etapów 1–10:
 
 - fundament procesu zapisany i wypchnięty,
 - JavaScript: 161/161 rozwiązań i 161/161 starterów,
@@ -46,6 +48,12 @@ Stan po ukończeniu pierwszych sześciu etapów:
 - MySQL: 22 tematy, dwa moduły i 68 zadań na MySQL 8.4.10/mysql2 3.23.1;
   obejmuje SQL, modelowanie, współbieżność, plany, operacje, bezpieczeństwo,
   obserwowalność, testy, TypeScript i dwa produkcyjne capstone'y.
+- Strapi: 15 tematów, moduł i 46 zadań TypeScript-first.
+- Combined: 13 projektów integracyjnych i produkcyjnych.
+- Java: przeniesiona do osobnego repo `orzi-kurs_java` (2026-07-18); plan 39
+  zadań / 88 kompetencji PJATK zachowany w README tamtego repo.
+- Całość w tym repo: 8 tracków, 222 tematy i 606 zadań publicznych, w tym
+  19 modułów projektowych/capstone'ów.
 
 Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetować
 `progress.json` ani starterów.
@@ -77,7 +85,7 @@ Postęp ucznia wskazuje początek ścieżki JavaScript. Audyty nie mogą resetow
 10. Java/PJATK jako osobna, niezależna ścieżka; może być realizowana wcześniej po
     zmianie priorytetu użytkownika.
 
-Etapy 1–8 są ukończone. React obejmuje infrastrukturę, fundamenty, escape hatches,
+Etapy 1–10 są ukończone. React obejmuje infrastrukturę, fundamenty, escape hatches,
 architekturę stanu, async UI React 19, Suspense, external stores, custom hooks,
 kompozycję, concurrent UI, Compiler, wydajność, testowanie, dostępność, duże listy,
 style dynamiczne i server state wraz z trzema modułami. Etap Next.js jest ukończony:
@@ -110,12 +118,19 @@ Etap combined jest ukończony jako 13 projektów TypeScript/TSX. Pierwsze siedem
 i observability, a dwa końcowe capstone’y sprawdzają pionowe dostarczenie oraz
 maintenance zastanego kodu. Artefakty obejmują idempotencję, kompensację po częściowej
 awarii, minimalizację DTO, a11y, batching, bezpieczne logi, rollout i rollback.
+
+Etap Java jest ukończony jako 39 większych zadań: 38 pokrywa 88 kompetencji
+z bloków PJATK PPJ → GUI → UTP → SKJ → elective TPO, a dodatkowe zadanie opisuje
+deltę JDK 25 i oddziela stabilny core od preview. Runner obsługuje źródła `.java`,
+kompilację rozwiązania wraz z `TestMain`, headless Swing oraz osobną bramkę
+kompilacyjną. JavaFX jest uczone jako architektura FXML/CSS/ViewModel i wymaga
+OpenJFX w pełnym projekcie, nie jest udawane przez klasę ze standardowego JDK.
 SQLite i WebSocket pozostają elective, zgodnie ze statusem API i rolą w typowych
 projektach. Oba moduły końcowe wymuszają limity zasobów, anulowanie, idempotencję,
 bezpieczne błędy oraz testy integracyjne.
 
-Każdy punkt jest osobnym branchem. Następny branch powstaje z aktualnego fundamentu,
-nie z niepowiązanego brancha tracka.
+Każdy punkt ma osobny, wypchnięty branch. Gałęzie są ułożone sekwencyjnie, a
+`feature/curriculum-final-audit` zawiera pełny stan oraz końcowe poprawki spójności.
 
 ## Najważniejsze luki po pierwszym audycie
 

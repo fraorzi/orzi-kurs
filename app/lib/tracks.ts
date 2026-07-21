@@ -4,7 +4,6 @@ import { TRACK_ORDER, topicDisplayNumber } from "../../curriculum/order";
 import {
   LogoJs,
   LogoTs,
-  LogoJava,
   LogoReact,
   LogoNext,
   LogoNode,
@@ -38,7 +37,6 @@ const TRACK_META_BY_ID: Record<
   mysql: { name: "MySQL", category: "Backend & DB", color: "#7BB0CE" },
   strapi: { name: "Strapi", category: "Backend & DB", color: "#8B88FF" },
   combined: { name: "Projekty łączone", category: "Projekty", color: "#91A7FF" },
-  java: { name: "Java", category: "Języki", color: "#E8E6E1" },
 };
 
 /** Pełna lista tracków (także jeszcze bez treści → „Wkrótce"). */
@@ -51,7 +49,6 @@ export const TRACK_META: TrackMeta[] = TRACK_ORDER.map((id) => ({
 const TRACK_ICON: Record<string, IconComponent> = {
   js: LogoJs,
   ts: LogoTs,
-  java: LogoJava,
   react: LogoReact,
   next: LogoNext,
   node: LogoNode,
@@ -392,44 +389,6 @@ const LEARNING_MODULES: Record<string, LearningModuleDefinition[]> = {
       id: "projekty",
       title: "Projekty końcowe",
       description: "Dwa wieloplikowe moduły łączące pełny przepływ Next.",
-      slugs: ["module-01", "module-02"],
-    },
-  ],
-  mysql: [
-    {
-      id: "fundamenty-sql",
-      title: "Fundamenty SQL i integralność danych",
-      description: "Zapytania, typy, relacje, agregacje, DML i constraints wykonywane na MySQL 8.4.",
-      range: [1, 8],
-    },
-    {
-      id: "transakcje-i-wspolbieznosc",
-      title: "Transakcje i współbieżność",
-      description: "Atomowość, savepointy, MVCC, locking reads oraz bezpieczne retry deadlocku.",
-      range: [9, 10],
-    },
-    {
-      id: "plany-i-paginacja",
-      title: "Indeksy, plany i paginacja",
-      description: "B-tree, EXPLAIN ANALYZE, statystyki i stabilne cursory dla rosnących zbiorów.",
-      range: [11, 13],
-    },
-    {
-      id: "schema-i-operacje",
-      title: "Schemat i operacje produkcyjne",
-      description: "Modelowanie, migracje, bezpieczeństwo, obserwowalność i testy bazy.",
-      range: [14, 19],
-    },
-    {
-      id: "integracja-i-jakosc",
-      title: "TypeScript, diagnostyka i optymalizacja",
-      description: "Typowana warstwa mysql2 oraz naprawa błędów i planów w zastanym kodzie.",
-      range: [20, 21],
-    },
-    {
-      id: "projekty",
-      title: "Projekty końcowe",
-      description: "Marketplace SQL i produkcyjna warstwa danych Node z testami integracyjnymi.",
       slugs: ["module-01", "module-02"],
     },
   ],

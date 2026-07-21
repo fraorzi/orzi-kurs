@@ -52,6 +52,7 @@ afterEach(() => {
 });
 
 describe("starter reset and undo", () => {
+
   it("restores and snapshots a SQL starter", () => {
     const repoRoot = createRepo({
       "tracks/mysql/01-query-basics-null/easy/starter.sql": "SELECT 0 AS answer;\n",

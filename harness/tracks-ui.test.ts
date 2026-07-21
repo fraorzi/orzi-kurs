@@ -165,7 +165,6 @@ describe("sidebar topic disclosure", () => {
       "MySQL",
       "Strapi",
       "Projekty łączone",
-      "Java",
     ]);
   });
 

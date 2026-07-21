@@ -1,4 +1,8 @@
-# orzi-kurs — MVP todo
+# orzi-kurs — historyczny dziennik realizacji
+
+Ten plik zachowuje checkpointy z budowy repo. Aktualny, zweryfikowany stan curriculum
+jest w `docs/curriculum/FINAL_AUDIT.md`; wpisy „zostało” w starszych sekcjach opisują
+stan z dnia danej sesji, a nie bieżący backlog.
 
 - [x] Scaffold (Next 16 + Tailwind 4 + Vitest + git init)
 - [x] SPEC.md — kontrakty harnessu i konwencje zadań (+ debug, wieloplikowe)
@@ -7,7 +11,7 @@
 - [x] UI (Sonnet + frontend-design): sidebar, widoki zagadnienia/zadania, submit, wyniki, hinty, statusy
 - [x] Kurykulum pełnego zakresu (tasks/curriculum.md) + prompty sesji (tasks/prompts.md)
 - [x] Weryfikacja end-to-end: build OK, strona główna/teoria/zadanie OK, submit → NIEZALICZONE 0/6 z nazwami testów, hinty odkrywane, konsola czysta, 0 italików/gradientów, progress wyzerowany
-- [ ] Pierwszy commit (propozycja złożona, czeka na akceptację)
+- [x] Pierwszy commit i kolejne branche curriculum
 
 ## Review
 
