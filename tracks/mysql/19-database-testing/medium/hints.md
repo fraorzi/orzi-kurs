@@ -1,11 +1,17 @@
 ## Hint 1
 
-Testy zwykle nie chcą COMMIT nawet po udanym callbacku.
+Testy zwykle nie chcą `COMMIT` nawet po udanym `work()` — inaczej dane
+zielonego testu zostają w bazie i zanieczyszczają kolejny.
 
 ## Hint 2
 
-finally wykona cleanup dla resolve i reject.
+`finally` wykona się zarówno po `return`, jak i po rzuconym wyjątku —
+to naturalne miejsce na bezwarunkowy `rollback()`, bez rozróżniania
+happy/error path osobnym kodem.
 
 ## Hint 3
 
-Rozpocznij transakcję, zwróć wynik work, a w finally zawsze rollback.
+Kształt: `await connection.beginTransaction(); try { return await work();
+} finally { await connection.rollback(); }` — żadnego `commit()` na
+żadnej ścieżce, `rollback()` przy sukcesie też jest poprawny (cofa tylko
+dane testowe, nie wynik funkcji).

@@ -323,6 +323,9 @@ integrowane od pierwszych bloków, nie odkładane wyłącznie na pozycje 27–28
 
 ## mysql (22 tematy + 2 moduły, 68 zadań) — MySQL 8.4 LTS
 
+Quality pass 2026-07-20: testy zachowania 3–5/zadanie, README z teorią,
+moduły wieloplikowe, kontrakt treści. Szczegóły: `docs/curriculum/MYSQL_AUDIT.md`.
+
 - [x] 01 SELECT, WHERE, ORDER BY, LIMIT, trzywartościowa logika i NULL
 - [x] 02 DECIMAL, daty/strefy, utf8mb4/collation, ENUM vs lookup i JSON
 - [x] 03 JOINy inner/left/self, cardinality i zachowanie brakujących relacji

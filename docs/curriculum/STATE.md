@@ -385,3 +385,11 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
 - Adapter Strapi nadal wymaga zmian harnessu oraz nowych zależności.
 - Pełna liczba przyszłych zadań jest duża; praca musi pozostać iteracyjna i
   checkpointowana w Git.
+
+## Quality pass MySQL (2026-07-20)
+
+- Przepisana warstwa dydaktyczna wszystkich 68 zadań (testy zachowania,
+  README z modelem mentalnym, hinty per zadanie); moduły przebudowane na
+  wieloplikowe; kontrakt treści wzmocniony. Rozwiązania bez zmian.
+- Macierz: 68/68 rozwiązań i 68/68 starterów na MySQL 8.4.10, harness 67/67.
+  Szczegóły: `MYSQL_AUDIT.md`. Setup bazy ucznia: `tracks/mysql/README.md`.

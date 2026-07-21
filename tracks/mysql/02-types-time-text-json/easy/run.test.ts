@@ -1,16 +1,49 @@
 import { describe, expect, it } from "vitest";
-import { readTaskSql, withMySql } from "@harness/mysql-test";
+import { readTaskSql, rows, withMySql } from "@harness/mysql-test";
 
-describe("Policz kwotę bez utraty precyzji", () => {
-  it("wykonuje poprawny kontrakt na MySQL 8.4", async () => {
+const schema = `
+  CREATE TABLE invoice_lines (
+    id BIGINT PRIMARY KEY,
+    quantity INT NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL
+  );
+`;
+
+describe("Policz kwotę faktury bez utraty precyzji", () => {
+  it("sumuje pozycje faktury zachowując precyzję DECIMAL", async () => {
     await withMySql(
-      "CREATE TABLE invoice_lines (id BIGINT PRIMARY KEY, quantity INT NOT NULL, unit_price DECIMAL(10,2) NOT NULL); INSERT INTO invoice_lines VALUES (1,3,9.99),(2,2,5.00);",
+      `${schema}
+       INSERT INTO invoice_lines VALUES
+         (1, 3, 9.99),
+         (2, 2, 5.00);`,
       async (connection) => {
-        const sql = readTaskSql(import.meta.url);
-        const [result] =
-          await connection.query<import("mysql2").RowDataPacket[]>(sql);
-        expect(result).toEqual([{ total: "39.97" }]);
+        expect(await rows(connection, readTaskSql(import.meta.url))).toEqual([
+          { total: "39.97" },
+        ]);
       },
     );
+  });
+
+  it("nie gubi precyzji przy wielu drobnych kwotach, które w DOUBLE dają błąd binarny", async () => {
+    await withMySql(
+      `${schema}
+       INSERT INTO invoice_lines VALUES
+         (1, 1, 0.10),
+         (2, 1, 0.10),
+         (3, 1, 0.10);`,
+      async (connection) => {
+        expect(await rows(connection, readTaskSql(import.meta.url))).toEqual([
+          { total: "0.30" },
+        ]);
+      },
+    );
+  });
+
+  it("zwraca NULL dla faktury bez żadnej pozycji", async () => {
+    await withMySql(schema, async (connection) => {
+      expect(await rows(connection, readTaskSql(import.meta.url))).toEqual([
+        { total: null },
+      ]);
+    });
   });
 });

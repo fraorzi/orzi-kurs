@@ -1,8 +1,24 @@
-# Usuń koszt rosnącego OFFSET
+# Hard [O] — usuń koszt rosnącego OFFSET
 
-Zachowaj stronę ids 501–510, ale użyj cursor id=500 zamiast skanowania i odrzucania pięciuset rekordów.
+Paginacja logów używa `LIMIT 10 OFFSET 500`. Wynik (strona 51, wiersze
+501–510) jest poprawny, ale koszt `OFFSET` rośnie liniowo z jego
+wartością: silnik musi policzyć i odrzucić 500 wcześniejszych wierszy,
+zanim zwróci pierwszy, który faktycznie trafi do wyniku. Strona 500
+kosztuje pięćdziesiąt razy więcej niż strona 10, mimo że obie zwracają
+tyle samo wierszy.
 
-## Kryteria akceptacji
+Przepisz `starter.sql` na paginację **keyset** (cursor-based) tak, aby:
 
-- Test regresji zachowuje kontrakt wyniku lub niezmiennik danych na MySQL 8.4.
-- W zadaniu optymalizacyjnym poprawność startera pozostaje zielona, a zmienia się udowodniona jakość planu.
+- zwracał ten sam zestaw `id` co oryginalne zapytanie dla tej strony,
+- zamiast `OFFSET` używał `WHERE id > 500` — ostatniego `id` z
+  poprzedniej strony jako dolnej granicy,
+- zachował `ORDER BY id` i `LIMIT 10` z oryginału,
+- zwracał mniej niż 10 wierszy bez błędu, gdy dostępnych wierszy powyżej
+  cursora jest mniej niż limit (ostatnia strona).
+
+Ten temat ocenia **dwie osobne bramki**: testy poprawności (bez
+oznaczenia) muszą przechodzić już na starterze — wynik startera jest
+poprawny. Testy `[quality]` mają na starterze oblewać i przejść dopiero
+po zmianie; dowód opiera się na tekście zapytania (brak `OFFSET`) i na
+`EXPLAIN` (`type = range` po `PRIMARY`, `Extra` zawiera `Using where`),
+nigdy na pomiarze czasu.
