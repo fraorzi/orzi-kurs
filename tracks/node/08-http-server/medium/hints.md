@@ -1,11 +1,15 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Licznik `size += chunk.byteLength` i strażnik `if (size > maxBytes) throw`
+**wewnątrz** pętli — rzucenie w `for await` przerywa iterację, więc kolejne
+chunki nie zostaną pobrane.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Sklejanie: zbieraj `Buffer.from(chunk)` do tablicy, po pętli
+`Buffer.concat(chunks).toString("utf8")`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+`JSON.parse` opakuj w try/catch i przetłumacz na własny błąd z `400` —
+komunikaty `413`/`400` to część kontraktu, testy je rozróżniają.

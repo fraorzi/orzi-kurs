@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Dwie gałęzie: `if (!error)` buduje pomoc (template literal z sekcjami),
+reszta formatuje błąd.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Komunikat czytaj bezpiecznie: `error instanceof Error ? error.message :
+"Unknown error"` — do terminala nie trafia nic z cudzych struktur.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+`cause` doklejaj tylko przy `debug && error instanceof Error && error.cause`
+— w trybie normalnym szczegóły wewnętrzne zostają w logach, nie na ekranie.

@@ -1,5 +1,12 @@
-# Publikuj przez diagnostics_channel
+# Hard — publikuj przez diagnostics_channel
 
-Zwróć publisher, który nie oblicza kosztownego payloadu bez subskrybentów i publikuje go, gdy kanał jest aktywny.
+Moduł ma emitować zdarzenia telemetryczne bez płacenia za nie, gdy nikt nie
+słucha. Zaimplementuj `solve(name)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- utwórz kanał `diagnostics_channel.channel(name)`;
+- zwróć funkcję `publish(createMessage)`:
+  - gdy kanał **nie ma** subskrybentów → nie wywołuj `createMessage`
+    (payload bywa kosztowny) i zwróć `false`;
+  - gdy ma → opublikuj `createMessage()` i zwróć `true`;
+- to wzorzec z oficjalnej dokumentacji: sprawdzaj `hasSubscribers` przed
+  zbudowaniem wiadomości.

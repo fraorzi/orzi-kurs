@@ -13,6 +13,7 @@ const validProgress = {
   firstPassedAt: "2026-07-14T10:00:00.000Z",
   firstPassedWithHintAt: "2026-07-14T10:00:00.000Z",
   firstPassedWithoutHintAt: "2026-07-16T10:00:00.000Z",
+  revealedHints: 2,
   verifiedStarter: "export const answer = 42;\n",
   lastRunAt: "2026-07-16T10:00:00.000Z",
 } as const;
@@ -27,6 +28,8 @@ describe("task progress validation", () => {
     { ...validProgress, attempts: 1.5 },
     { ...validProgress, masteryScore: 5 },
     { ...validProgress, cleanPassStreak: -1 },
+    { ...validProgress, revealedHints: -1 },
+    { ...validProgress, revealedHints: 1.5 },
     { ...validProgress, lastAttemptPassed: "yes" },
     { ...validProgress, nextReviewAt: "tomorrow" },
     { ...validProgress, lastRunAt: "2026-07-16" },

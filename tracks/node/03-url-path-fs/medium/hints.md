@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Najpierw `const base = resolve(root)` i `const candidate = resolve(base, input)`
+— resolve normalizuje `..` i obsługuje wejście absolutne.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Warunek bezpieczeństwa ma dwie części: `candidate === base` **albo**
+`candidate.startsWith(base + sep)`. Separator w prefiksie odcina `/data-evil`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Wszystko inne to `throw new Error(...)`. Nie próbuj "naprawiać" złej ścieżki —
+bramka ma odrzucać, nie zgadywać intencje.

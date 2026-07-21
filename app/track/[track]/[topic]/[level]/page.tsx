@@ -23,7 +23,7 @@ export default async function LevelPage({
   const taskMd = existsSync(join(taskDir, "task.md"))
     ? readFileSync(join(taskDir, "task.md"), "utf8")
     : "";
-  const hintsTotal = parseHints(join(taskDir, "hints.md")).length;
+  const availableHints = parseHints(join(taskDir, "hints.md"));
   const starterPath = findStarter(taskDir);
   const progress = readProgress();
   const taskProgress = progress[taskId] ?? null;
@@ -46,7 +46,8 @@ export default async function LevelPage({
       topicTitle={topicTitle}
       level={level}
       taskMd={taskMd}
-      hintsTotal={hintsTotal}
+      hintsTotal={availableHints.length}
+      initialHints={availableHints.slice(0, taskProgress?.revealedHints ?? 0)}
       starterPath={starterPath}
       starterRel={starterRel}
       initialSolution={solution}

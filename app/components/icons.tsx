@@ -61,6 +61,21 @@ export const IconPlay = (p: SVGProps<SVGSVGElement>) => (
   </Svg>
 );
 
+export const IconMenu = (p: SVGProps<SVGSVGElement>) => (
+  <Svg {...p}>
+    <path d="M4 7h16" />
+    <path d="M4 12h16" />
+    <path d="M4 17h16" />
+  </Svg>
+);
+
+export const IconClose = (p: SVGProps<SVGSVGElement>) => (
+  <Svg {...p}>
+    <path d="m6 6 12 12" />
+    <path d="m18 6-12 12" />
+  </Svg>
+);
+
 /* category icons — „Wkrótce" list grouping */
 export const IconCode = (p: SVGProps<SVGSVGElement>) => (
   <Svg {...p}>
@@ -137,6 +152,37 @@ export const LogoNext = (p: SVGProps<SVGSVGElement>) => (
   <Glyph {...p}>
     <path d="M18.665 21.978C16.758 23.255 14.465 24 12 24 5.377 24 0 18.623 0 12S5.377 0 12 0s12 5.377 12 12c0 3.583-1.574 6.801-4.067 9.001L9.219 7.2H7.2v9.596h1.615V9.251l9.85 12.727Zm-3.332-8.533 1.6 2.061V7.2h-1.6v6.245Z" />
   </Glyph>
+);
+
+export const LogoNode = (p: SVGProps<SVGSVGElement>) => (
+  <Glyph {...p}>
+    <path d="M11.2.46a1.6 1.6 0 0 1 1.6 0l8.64 4.99a1.6 1.6 0 0 1 .8 1.38v9.98a1.6 1.6 0 0 1-.8 1.39l-8.64 4.98a1.6 1.6 0 0 1-1.6 0L2.56 18.2a1.6 1.6 0 0 1-.8-1.39V6.83a1.6 1.6 0 0 1 .8-1.38L11.2.46Z" />
+    <path d="M1.76 6.83v9.98c0 .57.3 1.1.8 1.39l8.64 4.98L5.66 13.6 1.76 6.83Z" fill="#000" opacity=".2" />
+    <path d="m12 .25 6.53 11.3 3.71-4.72c0-.57-.3-1.1-.8-1.38L12.8.46a1.6 1.6 0 0 0-.8-.21Z" fill="#000" opacity=".08" />
+  </Glyph>
+);
+
+export const LogoCombined = (p: SVGProps<SVGSVGElement>) => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 20"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth=".8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+    {...p}
+  >
+    <path d="m8.6 6.7-1.8 1.1v1.6l-1.6 1 3.4 2.1v3.1l3.4 2 3.4-2v-3.1l3.4-2-1.6-1V7.8l-1.8-1.1" />
+    <path d="m12 .6 3.4 2v4.1l-3.4 2-3.4-2V2.6l3.4-2Z" fill="var(--overlay)" />
+    <path d="m8.6 2.6 3.4 2.1 3.4-2.1M12 4.7v4" />
+    <path d="m5.2 10.4 3.4 2.1v4.2l-3.4 2-3.4-2v-4.2l3.4-2.1Z" fill="var(--overlay)" />
+    <path d="m1.8 12.5 3.4 2.1 3.4-2.1M5.2 14.6v4.1" />
+    <path d="m18.8 10.4 3.4 2.1v4.2l-3.4 2-3.4-2v-4.2l3.4-2.1Z" fill="var(--overlay)" />
+    <path d="m15.4 12.5 3.4 2.1 3.4-2.1M18.8 14.6v4.1" />
+  </svg>
 );
 
 export const LogoStrapi = (p: SVGProps<SVGSVGElement>) => (

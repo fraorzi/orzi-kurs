@@ -70,7 +70,11 @@ export function readInitialArtifact(
     .split("\n")[0];
   if (!additionCommit) return null;
 
-  if (!statSync(artifactPath).isDirectory()) {
+  const isDirectory = existsSync(artifactPath)
+    ? statSync(artifactPath).isDirectory()
+    : artifactRelative.endsWith("/src");
+
+  if (!isDirectory) {
     return {
       kind: "file",
       content: git(["show", `${additionCommit}:${artifactRelative}`], repoRoot),

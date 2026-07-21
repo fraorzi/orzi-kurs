@@ -5,10 +5,11 @@ import Link from "next/link";
 import { buildCatalog } from "@/harness/catalog";
 import { TRACKS_ROOT } from "@/harness/paths";
 import Markdown from "@/app/components/Markdown";
+import RouteBreadcrumbs from "@/app/components/RouteBreadcrumbs";
 import SearchButton from "@/app/components/SearchButton";
 import TopicTag from "@/app/components/TopicTag";
 import {
-  trackMeta,
+  nextLearningTarget,
   topicNumber,
   topicTag,
   STATUS_LABEL,
@@ -22,30 +23,29 @@ export default async function TopicPage({
   const { track, topic } = await params;
   const trackData = buildCatalog().tracks.find((t) => t.id === track);
   const topicData = trackData?.topics.find((t) => t.id === `${track}/${topic}`);
-  if (!topicData) notFound();
+  if (!trackData || !topicData) notFound();
 
   const readmePath = join(TRACKS_ROOT, track, topic, "README.md");
   const readme = existsSync(readmePath) ? readFileSync(readmePath, "utf8") : "";
-  const meta = trackMeta(track);
   const tag = topicTag(topicData.id);
+  const target = nextLearningTarget({ ...trackData, topics: [topicData] });
 
   return (
     <>
       <div className="topbar">
-        <nav className="crumbs">
-          <Link href="/">orzi-kurs</Link>
-          <span className="sep">/</span>
-          <Link href={`/track/${track}`}>{meta.name}</Link>
-          <span className="sep">/</span>
-          <span className="cur">
-            {topicNumber(topicData.id)} {topicData.title}
-          </span>
-        </nav>
+        <RouteBreadcrumbs
+          trackId={track}
+          topic={{
+            id: topic,
+            number: topicNumber(topicData.id),
+            title: topicData.title,
+          }}
+        />
         <span className="grow" />
         <SearchButton />
       </div>
 
-      <div className="wrap wrap-task page-theory">
+      <div className="wrap wrap-read page-theory">
         <div className="page-role">
           <strong>Teoria przed praktyką</strong>
           <span>Zrozum mechanizm, a potem sprawdź go na trzech poziomach trudności.</span>
@@ -67,11 +67,16 @@ export default async function TopicPage({
             {topicData.levels.map((level) => (
               <Link
                 key={level.id}
-                className="lcard"
+                className={`lcard${target?.level.id === level.id ? " recommended" : ""}`}
                 href={`/track/${track}/${topic}/${level.id}`}
               >
-                <span className={`sdot ${level.status}`} style={{ width: 11, height: 11 }} />
+                <span className={`sdot ${level.status}`} style={{ width: 11, height: 11 }} aria-hidden="true" />
                 <div className="lname">{level.id}</div>
+                {target?.level.id === level.id && (
+                  <span className="level-next">
+                    {target.intent === "review" ? "Powtórz" : target.intent === "resume" ? "Wznów" : "Zacznij"}
+                  </span>
+                )}
                 <span className={`pill ${level.status}`}>{STATUS_LABEL[level.status]}</span>
               </Link>
             ))}

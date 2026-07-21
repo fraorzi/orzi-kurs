@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Czerwony jest tylko test `[quality]` — funkcjonalnie starter działa.
+Mierzona jest suma kosztów zgłaszanych przez `inspect`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+`Set<string>` widzianych id daje lookup O(1); `out.some(...)` robi O(n)
+na element.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Po zamianie zgłaszaj `inspect(1)` na element — stały koszt na element to
+właśnie liniowa całość.

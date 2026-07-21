@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Zawężanie zaczyna się od `if (!input || typeof input !== "object") throw`,
+potem rzutowanie na `Record<string, unknown>` i sprawdzanie pola po polu.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Rozmiar tekstu: `Buffer.byteLength(value.text)` — "ż" ma 2 bajty, więc 600
+znaków "ż" przekracza limit 1024.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+`typeof cost === "number"` to za mało — dopiero `Number.isFinite(cost)`
+odrzuca `NaN` i `Infinity`. Wynik buduj jawnie z trzech pól.

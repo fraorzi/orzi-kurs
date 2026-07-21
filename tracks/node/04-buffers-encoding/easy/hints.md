@@ -1,11 +1,12 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+`Buffer.from(text, "utf8")` daje bajty; `bytes.byteLength` to rozmiar w bajtach.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Porównuj `byteLength > maxBytes` — równość ma przechodzić.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Jeśli w rozwiązaniu pojawia się `text.length`, to właśnie popełniasz błąd,
+przed którym broni to zadanie.

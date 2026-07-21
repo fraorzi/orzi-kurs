@@ -1,5 +1,11 @@
-# Parsuj NDJSON strumieniowo
+# Medium — parsuj NDJSON strumieniowo
 
-Zwracaj rekordy z numerem linii; pomijaj puste wiersze i raportuj dokładną linię złego JSON.
+Wejście to linie pliku NDJSON. Zaimplementuj async generator
+`solve(lines)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- dla każdej niepustej linii yielduj `{ line, value }`, gdzie `line` to
+  **numer linii licząc od 1 wszystkie wiersze** (także puste);
+- wiersze puste i złożone z białych znaków pomijaj;
+- niepoprawny JSON przerywa parsowanie `Error` z dokładnym numerem linii
+  w komunikacie;
+- generator jest leniwy — rekordy sprzed błędnej linii mają zostać wydane.

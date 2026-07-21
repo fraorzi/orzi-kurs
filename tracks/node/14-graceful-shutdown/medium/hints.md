@@ -1,11 +1,15 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Stan: `let active = 0` i `Set` funkcji budzących czekających na dren.
+`leave` z flagą `left` w domknięciu daje idempotencję.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Po każdej dekrementacji sprawdź `active === 0` i obudź wszystkich
+czekających, czyszcząc zbiór.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+W `drain`: jeżeli `active === 0`, `Promise.resolve()`; inaczej promise,
+który rejestruje budzik w zbiorze i `signal.addEventListener("abort", ...,
+{ once: true })` — abort usuwa budzik i odrzuca `signal.reason`.

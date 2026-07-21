@@ -1,5 +1,14 @@
-# Redaguj diagnostykę procesu
+# Hard — redaguj diagnostykę procesu
 
-Przygotuj bezpieczny snapshot konfiguracji: ukryj klucze zawierające token/secret/password/key i zachowaj pozostałe wartości.
+Endpoint diagnostyczny ma pokazywać konfigurację procesu bez wycieku sekretów.
+Zaimplementuj `solve(env)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- pomiń wpisy o wartości `undefined`;
+- wartości kluczy zawierających `token`, `secret`, `password` lub `key`
+  (bez rozróżniania wielkości liter) zastąp stringiem `"[REDACTED]"`;
+- pozostałe wartości przepisz bez zmian;
+- zwróć zwykły obiekt `Record<string, string>` — snapshot, nie referencję do
+  oryginalnego env.
+
+To samo podejście stosuj przy logowaniu configu i raportach błędów: redakcja po
+nazwie klucza łapie wycieki zanim trafią do systemu logów.

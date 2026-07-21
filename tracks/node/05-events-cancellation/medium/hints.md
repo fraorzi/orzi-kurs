@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+`import { once } from "node:events"` — `once(emitter, event, { signal })`
+zwraca promise tablicy argumentów emisji.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Zdarzenie może mieć wiele argumentów; kontrakt zadania to pierwszy z nich:
+`const [value] = await once(...)`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Sprzątanie listenera po abortcie dostajesz od `events.once` za darmo — jeżeli
+piszesz własne `removeListener`, robisz to zadanie na trudniejszej ścieżce.

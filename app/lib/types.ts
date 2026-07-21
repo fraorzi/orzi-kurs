@@ -73,6 +73,7 @@ export interface TaskProgress {
   firstPassedAt?: string;
   firstPassedWithHintAt?: string;
   firstPassedWithoutHintAt?: string;
+  revealedHints?: number;
   verifiedStarter?: string;
   lastRunAt: string;
 }

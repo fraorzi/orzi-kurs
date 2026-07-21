@@ -1,11 +1,13 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Kolejność bramek: najpierw `response.ok`, potem `content-type`, na końcu
+`response.json()` — walidujesz zanim czytasz body.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Nagłówek czytasz przez `response.headers.get("content-type")`; może być
+`null`, więc łańcuch z `?.includes("application/json")`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Komunikat błędu statusu zbuduj z `response.status` — test szuka w nim liczby.

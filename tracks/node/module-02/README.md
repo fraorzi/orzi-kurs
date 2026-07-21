@@ -1,10 +1,7 @@
-# Moduł: rdzeń usługi HTTP
+# Moduł 02 — rdzeń usługi HTTP
 
-Łączy routing, walidację granicy, idempotencję, request ID, bezpieczne błędy i test przez standardowe Request/Response bez frameworka.
-
-## Kryteria ukończenia
-
-- stabilny kontrakt statusów i JSON,
-- idempotency key bez podwójnego zapisu,
-- request ID w odpowiedzi, repozytorium i logu,
-- brak wycieku szczegółów błędu.
+Drugi moduł wieloplikowy: komponowalny rdzeń usługi HTTP na standardowych
+obiektach `Request`/`Response` — testowalny bez otwierania socketa. Łączy
+routing z 405/Allow (08), limit body (08), envelope błędów z requestId (08),
+korelację żądań (06/15) oraz idempotencję mutacji — kontrakt, dzięki któremu
+retry klienta nie duplikuje operacji.
