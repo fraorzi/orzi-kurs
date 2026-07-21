@@ -1,18 +1,34 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { solve } from "./starter";
 
-describe("Waliduj endpoint WebSocket", () => {
-  it("spełnia kontrakt elective", async () => {
-    const result = solve(
-      "wss://events.example/socket",
-      ["events.v1", "events.v1"],
-      true,
-    );
+describe("walidacja endpointu WebSocket", () => {
+  it("akceptuje wss z poprawnymi subprotokołami", () => {
+    const result = solve("wss://api.example.com/feed", ["events.v1"], true);
+    expect(result.url).toBeInstanceOf(URL);
+    expect(result.url.protocol).toBe("wss:");
     expect(result.protocols).toEqual(["events.v1"]);
-    expect(result.url.hostname).toBe("events.example");
-    expect(() => solve("ws://events.example", [], true)).toThrow(/wss/);
-    expect(() => solve("wss://user:pass@events.example", [], true)).toThrow(
-      /Credentials/,
-    );
+  });
+
+  it("odrzuca schematy inne niż ws/wss", () => {
+    expect(() => solve("https://api.example.com", [], false)).toThrow();
+    expect(() => solve("ftp://api.example.com", [], false)).toThrow();
+  });
+
+  it("w produkcji wymaga wss, na dev dopuszcza ws", () => {
+    expect(() => solve("ws://localhost:8080", [], true)).toThrow();
+    expect(solve("ws://localhost:8080", [], false).url.port).toBe("8080");
+  });
+
+  it("odrzuca credentials w URL", () => {
+    expect(() => solve("wss://user:pass@api.example.com", [], true)).toThrow();
+    expect(() => solve("wss://user@api.example.com", [], true)).toThrow();
+  });
+
+  it("deduplikuje subprotokoły i odrzuca nieznane", () => {
+    expect(
+      solve("wss://x.test", ["events.v1", "events.v1", "json.v1"], true)
+        .protocols,
+    ).toEqual(["events.v1", "json.v1"]);
+    expect(() => solve("wss://x.test", ["admin.v1"], true)).toThrow();
   });
 });

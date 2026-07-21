@@ -1,5 +1,12 @@
-# Izoluj request ID
+# Hard — izoluj request ID w AsyncLocalStorage
 
-Zbuduj API oparte na AsyncLocalStorage: `run(id, fn)` i `current()` rzucające poza kontekstem.
+Logger i klienci HTTP trzy warstwy pod handlerem potrzebują ID bieżącego
+żądania — bez przekazywania parametru przez każdą funkcję. Zaimplementuj
+`solve()` zwracające API oparte na `AsyncLocalStorage`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- `run(id, fn)` — wykonuje `fn` w kontekście `id` i zwraca jego wynik
+  (także gdy `fn` jest asynchroniczne — kontekst ma przetrwać `await`);
+- `current()` — zwraca ID bieżącego kontekstu; wywołane **poza** `run` rzuca
+  `Error`, bo brak kontekstu to błąd programisty, nie stan do ukrycia;
+- konteksty równoległych `run` są odizolowane, a zagnieżdżony `run`
+  przysłania zewnętrzny tylko na czas swojego `fn`.

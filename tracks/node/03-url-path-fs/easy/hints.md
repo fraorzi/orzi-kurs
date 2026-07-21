@@ -1,11 +1,13 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Cała logika to `new URL(relativeFile, moduleUrl)` — konstruktor URL sam
+obsługuje `./`, `../` i zastępowanie ostatniego segmentu bazy.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Z gotowego obiektu URL zwróć własność `.pathname`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Jeśli ręcznie sklejasz stringi albo używasz `node:path`, to znak, że
+rozwiązujesz zadanie wbrew jego celowi — baza jest URL-em, nie ścieżką.

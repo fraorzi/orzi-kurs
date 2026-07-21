@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw zapisz niezmiennik bezpieczeństwa i przypadek błędny.
+Wzór z dokumentacji AWS: `delay = random() * min(cap, base * 2 ** attempt)`
+— "full", bo losowość mnoży cały sufit, nie dodaje marginesu.
 
 ## Hint 2
 
-Oddziel dane użytkownika od elementów protokołu lub składni.
+Walidację konfiguracji zrób przed liczeniem; wartość z `random()` sprawdź
+po pobraniu, przed użyciem.
 
 ## Hint 3
 
-Sprawdź lifecycle, limit i cleanup, nie tylko happy path.
+`Math.floor` na końcu — opóźnienia w ms są całkowite, a test porównuje
+dokładne wartości.

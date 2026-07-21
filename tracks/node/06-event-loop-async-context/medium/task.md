@@ -1,5 +1,16 @@
-# Ogranicz starvation
+# Medium — ogranicz starvation mikrotasków
 
-Kolejkuj maksymalnie `budget` zadań przez microtask, a kolejne przenieś na `setImmediate`.
+Masz budżet pracy wykonywanej mikrotaskami; po jego wyczerpaniu kolejne
+zadania mają przejść przez `setImmediate`, żeby nie zagłodzić pętli.
+Zaimplementuj `solve(count, budget)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- wykonaj `count` jednostek pracy; każda jednostka to `await Promise.resolve()`
+  i inkrement licznika;
+- po każdych `budget` jednostkach — jeżeli zostało coś do zrobienia — wykonaj
+  `await setImmediate()` i policz to jako jeden yield;
+- zwróć `{ completed, yields }`; `budget < 1` to `Error`.
+
+```ts
+await solve(10, 4); // { completed: 10, yields: 2 } — po 4 i po 8
+await solve(4, 4);  // { completed: 4, yields: 0 } — nic po ostatniej partii
+```

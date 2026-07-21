@@ -1,5 +1,11 @@
-# Zaplanuj migracje
+# Hard — zaplanuj migracje
 
-Wybierz wyłącznie migracje nowsze od `user_version`, zachowaj rosnącą kolejność i odrzuć luki lub duplikaty wersji.
+Schemat wersjonuje `PRAGMA user_version`. Zaimplementuj
+`solve(current, migrations)` budujące plan do wykonania:
 
-To zadanie jest elective: najpierw ukończ rdzeń tracka Node.
+- wybierz wyłącznie migracje o wersji **większej** niż `current`;
+- zwróć je w rosnącej kolejności wersji (wejście może być nieposortowane);
+- wersje muszą być całkowite ≥ 1 i unikalne — duplikat to `Error`;
+- plan musi być **ciągły**: kolejne wersje to `current+1, current+2, …` —
+  luka oznacza brakującą migrację pośrednią i jest błędem wdrożenia,
+  nie czymś do przeskoczenia.

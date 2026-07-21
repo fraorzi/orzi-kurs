@@ -1,12 +1,19 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import Link from "next/link";
+import AnimatedDisclosure from "@/app/components/AnimatedDisclosure";
 import Markdown from "@/app/components/Markdown";
+import RouteBreadcrumbs from "@/app/components/RouteBreadcrumbs";
 import SearchButton from "@/app/components/SearchButton";
 import UndoToast from "@/app/components/UndoToast";
 import { IconArrowRight, IconCopy, IconCheck, IconExternal, IconPlay } from "@/app/components/icons";
 import { openInEditor } from "@/app/lib/actions";
+import {
+  buildCodeDiff,
+  type CodeDiffChangeReason,
+  type CodeDiffRow,
+} from "@/app/lib/code-diff";
 import {
   loadUndoRecords,
   removeUndoRecord,
@@ -14,7 +21,7 @@ import {
   UNDO_DURATION_MS,
 } from "@/app/lib/task-undo";
 import type { LearningResource, SubmitResult, TaskProgress, TaskResponse } from "@/app/lib/types";
-import { trackMeta, topicNumber } from "@/app/lib/tracks";
+import { topicNumber } from "@/app/lib/tracks";
 import type { StarterSnapshot, TaskUndoRecord } from "@/shared/task-undo";
 
 interface Props {
@@ -25,6 +32,7 @@ interface Props {
   level: string;
   taskMd: string;
   hintsTotal: number;
+  initialHints: string[];
   starterPath: string | null;
   starterRel: string | null;
   initialSolution: string | null;
@@ -43,6 +51,7 @@ export default function TaskView({
   level,
   taskMd,
   hintsTotal,
+  initialHints,
   starterPath,
   starterRel,
   initialSolution,
@@ -61,7 +70,7 @@ export default function TaskView({
   const [progress, setProgress] = useState<TaskProgress | null>(initialProgress);
   const [passKind, setPassKind] = useState(initialPassKind);
   const [copied, setCopied] = useState(false);
-  const [hints, setHints] = useState<string[]>([]);
+  const [hints, setHints] = useState<string[]>(initialHints);
   const [hintError, setHintError] = useState<string | null>(null);
   const [loadingHint, setLoadingHint] = useState(false);
   const [openingEditor, setOpeningEditor] = useState(false);
@@ -120,7 +129,7 @@ export default function TaskView({
       setProgress(data.progress ?? null);
       window.dispatchEvent(new CustomEvent("orzi:progress"));
       if (data.passed) {
-        setPassKind(hints.length > 0 ? "with-hint" : "without-hint");
+        setPassKind(data.usedHint === true ? "with-hint" : "without-hint");
         try {
           const taskRes = await fetch(`/api/task?id=${encodeURIComponent(taskId)}`);
           const taskData: TaskResponse = await taskRes.json();
@@ -166,17 +175,27 @@ export default function TaskView({
     setLoadingHint(true);
     setHintError(null);
     try {
-      const res = await fetch(`/api/hint?id=${encodeURIComponent(taskId)}&n=${n}`);
-      const data = await res.json();
+      const res = await fetch("/api/hint", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ taskId, n }),
+      });
+      const data: { hint?: string; progress?: TaskProgress; error?: string } = await res.json();
       if (!res.ok) {
         setHintError(data.error ?? "nie udało się pobrać hinta");
         return;
       }
+      const hint = data.hint;
+      if (!hint) {
+        setHintError("Serwer nie zwrócił treści wskazówki.");
+        return;
+      }
       setHints((prev) => {
         const next = [...prev];
-        next[n - 1] = data.hint;
+        next[n - 1] = hint;
         return next;
       });
+      setProgress(data.progress ?? null);
     } catch {
       setHintError("Nie udało się pobrać wskazówki. Spróbuj ponownie.");
     } finally {
@@ -185,18 +204,6 @@ export default function TaskView({
   }
 
   const nextHintIndex = hints.length;
-
-  function handleRetryWithoutHint() {
-    setResult(null);
-    setSolution(null);
-    setStarter(null);
-    setPassKind(null);
-    setHints([]);
-    document.getElementById("task-starter")?.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-      block: "center",
-    });
-  }
 
   async function handleResetProgress() {
     if (!progress) return;
@@ -240,7 +247,6 @@ export default function TaskView({
       setSolution(null);
       setStarter(null);
       setPassKind(null);
-      setHints([]);
       window.dispatchEvent(new CustomEvent("orzi:progress"));
       activateUndoRecord({
         ...undoRecord,
@@ -254,8 +260,7 @@ export default function TaskView({
     }
   }
 
-  async function handleResetCode() {
-    setResettingCode(true);
+  async function restoreInitialCode(revealedHints?: string[]): Promise<boolean> {
     setSubmitError(null);
     let undoRecord: TaskUndoRecord<TaskProgress> | null = null;
     try {
@@ -266,7 +271,7 @@ export default function TaskView({
         setSubmitError(
           snapshotData.error ?? "Nie udało się przygotować kopii kodu. Kod nie został zresetowany.",
         );
-        return;
+        return false;
       }
       const now = Date.now();
       undoRecord = {
@@ -275,12 +280,13 @@ export default function TaskView({
         kind: "code",
         message: "Przywrócono kod początkowy.",
         payload: snapshotData.snapshot,
+        revealedHints,
         createdAt: now,
         expiresAt: now + 60_000,
       };
       if (!storeUndoRecord(undoRecord)) {
         setSubmitError("Nie udało się przygotować cofnięcia. Kod nie został zresetowany.");
-        return;
+        return false;
       }
 
       const res = await fetch("/api/starter", {
@@ -298,7 +304,7 @@ export default function TaskView({
         if (data.mutated === false) removeUndoRecord(undoRecord.id);
         else activateUndoRecord(undoRecord);
         setSubmitError(data.error ?? "nie udało się przywrócić kodu początkowego");
-        return;
+        return false;
       }
       setResult(null);
       setSolution(null);
@@ -307,9 +313,54 @@ export default function TaskView({
       setCurrentStarterPath(data.starterPath ?? null);
       setCurrentStarterRel(data.starterRel ?? null);
       activateUndoRecord(undoRecord);
+      return true;
     } catch {
       if (undoRecord) activateUndoRecord(undoRecord);
       setSubmitError("Nie udało się przywrócić kodu początkowego. Spróbuj ponownie.");
+      return false;
+    }
+  }
+
+  async function handleResetCode() {
+    setResettingCode(true);
+    try {
+      await restoreInitialCode();
+    } finally {
+      setResettingCode(false);
+    }
+  }
+
+  async function handleRetryWithoutHint() {
+    setResettingCode(true);
+    setSubmitError(null);
+    try {
+      if (!await restoreInitialCode([...hints])) return;
+
+      const res = await fetch("/api/hint", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ taskId }),
+      });
+      const data: { progress?: TaskProgress | null; error?: string } = await res.json();
+      if (!res.ok) {
+        setSubmitError(
+          data.error ?? "Kod został przywrócony, ale nie udało się wyczyścić stanu wskazówek.",
+        );
+        return;
+      }
+
+      setProgress(data.progress ?? null);
+      setHints([]);
+      setResult(null);
+      setSolution(null);
+      setStarter(null);
+      setPassKind(null);
+      document.getElementById("task-starter")?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "center",
+      });
+    } catch {
+      setSubmitError("Nie udało się rozpocząć próby bez wskazówek. Spróbuj ponownie.");
     } finally {
       setResettingCode(false);
     }
@@ -342,6 +393,20 @@ export default function TaskView({
       if (record.kind === "code") {
         setCurrentStarterPath(data.starterPath ?? null);
         setCurrentStarterRel(data.starterRel ?? null);
+        if (record.revealedHints && record.revealedHints.length > 0) {
+          const hintRes = await fetch("/api/hint", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ taskId: record.taskId, n: record.revealedHints.length }),
+          });
+          const hintData: { progress?: TaskProgress; error?: string } = await hintRes.json();
+          if (!hintRes.ok) {
+            setSubmitError(hintData.error ?? "Kod przywrócono, ale nie udało się odtworzyć wskazówek.");
+            return;
+          }
+          setHints(record.revealedHints);
+          setProgress(hintData.progress ?? null);
+        }
       } else {
         setProgress(data.progress ?? record.payload);
         window.dispatchEvent(new CustomEvent("orzi:progress"));
@@ -359,17 +424,18 @@ export default function TaskView({
   return (
     <>
       <div className="topbar">
-        <nav className="crumbs">
-          <Link href="/">orzi-kurs</Link>
-          <span className="sep">/</span>
-          <Link href={`/track/${track}`}>{trackMeta(track).name}</Link>
-          <span className="sep">/</span>
-          <Link href={`/track/${track}/${topic}`}>
-            {topicNumber(`${track}/${topic}`)} {topicTitle}
-          </Link>
-          <span className="sep">/</span>
-          <span className="cur">{level}</span>
-        </nav>
+        <RouteBreadcrumbs
+          trackId={track}
+          topic={{
+            id: topic,
+            number: topicNumber(`${track}/${topic}`),
+            title: topicTitle,
+          }}
+          level={{
+            label: level,
+            compactLabel: `${topicNumber(`${track}/${topic}`)} ${topicTitle} · ${level}`,
+          }}
+        />
         <span className="grow" />
         <SearchButton />
       </div>
@@ -379,169 +445,173 @@ export default function TaskView({
           <strong>Praktyka · {level}</strong>
         </div>
 
-        <article className="task-brief">
-          <Markdown content={taskMd} />
-        </article>
+        <div className="task-layout">
+          <article className="task-brief" id="task-brief">
+            {taskMd ? (
+              <Markdown content={taskMd} />
+            ) : (
+              <div className="task-empty">
+                <h1>Brak opisu zadania</h1>
+                <p>To zadanie nie ma jeszcze polecenia. Wróć do tematu i wybierz inny poziom.</p>
+                <Link className="btn-ghost" href={`/track/${track}/${topic}`}>Wróć do tematu</Link>
+              </div>
+            )}
+          </article>
 
-        {resources.length > 0 && (
-          <aside className="resources" aria-label="Referencje">
-            <div className="resources-label">
-              <span className="resources-glyph" aria-hidden="true">↗</span>
-              <span>Referencje</span>
-            </div>
-            <div className="resource-links">
-              {resources.map((resource) => (
-                <a key={resource.url} href={resource.url} target="_blank" rel="noreferrer">
-                  <span>
-                    <strong>{resource.title}</strong>
-                    <small>{resource.description}</small>
-                  </span>
-                  <IconExternal />
-                </a>
-              ))}
-            </div>
-          </aside>
-        )}
+          <TaskContextPanel
+            level={level}
+            progress={progress}
+            resetting={resetting}
+            resources={resources}
+            hintsShown={hints.length}
+            hintsTotal={hintsTotal}
+            solutionAvailable={solution !== null}
+            onReset={handleResetProgress}
+          />
 
-        <ProgressPanel
-          progress={progress}
-          resetting={resetting}
-          onReset={handleResetProgress}
-        />
+          <div className="task-flow">
+            <section className="task-workbench" id="task-starter" aria-labelledby="workbench-title">
+              <div className="task-workbench-head">
+                <div>
+                  <h2 id="workbench-title">Pracuj w WebStormie</h2>
+                  <p>Zapisz rozwiązanie w pliku startera, a potem wróć tutaj i uruchom sprawdzanie.</p>
+                </div>
+              </div>
 
-        <section className="task-workbench" id="task-starter" aria-labelledby="workbench-title">
-          <div className="task-workbench-head">
-            <div>
-              <h2 id="workbench-title">Pracuj w WebStormie</h2>
-              <p>Zapisz rozwiązanie w pliku startera, a potem wróć tutaj i uruchom sprawdzanie.</p>
-            </div>
-          </div>
+              <div className="starter-block">
+                <div className="lbl">{currentStarterPath?.endsWith("/src") ? "Katalog startera" : "Plik startera"}</div>
+                {currentStarterPath ? (
+                  <>
+                    <div className="starter">
+                      <code>{currentStarterRel ?? currentStarterPath}</code>
+                      {currentStarterRel && (
+                        <button
+                          className="btn-ghost"
+                          onClick={handleOpenEditor}
+                          disabled={openingEditor}
+                          title="Otwórz plik w WebStorm"
+                        >
+                          <IconExternal />
+                          {openingEditor ? "Otwieram…" : "Otwórz"}
+                        </button>
+                      )}
+                      <button className="btn-ghost" onClick={handleCopyPath}>
+                        {copied ? <IconCheck /> : <IconCopy />}
+                        {copied ? "Skopiowano" : "Kopiuj pełną ścieżkę"}
+                      </button>
+                    </div>
+                    {editorError && <p className="inline-error" role="alert">{editorError}</p>}
+                  </>
+                ) : (
+                  <p className="inline-error" role="alert">Brak pliku startera.</p>
+                )}
+                {currentStarterPath && (
+                  <div className="starter-reset">
+                    <button className="btn-ghost" onClick={handleResetCode} disabled={resettingCode}>
+                      {resettingCode ? "Przywracam…" : "Przywróć kod początkowy"}
+                    </button>
+                  </div>
+                )}
+              </div>
 
-          <div className="starter-block">
-            <div className="lbl">{currentStarterPath?.endsWith("/src") ? "Katalog startera" : "Plik startera"}</div>
-            {currentStarterPath ? (
-              <>
-                <div className="starter">
-                  <code>{currentStarterRel ?? currentStarterPath}</code>
-                  {currentStarterRel && (
+              <div className="actions">
+                <button className="submit" onClick={handleSubmit} disabled={submitting || !currentStarterPath}>
+                  <IconPlay />
+                  {submitting ? "Sprawdzam…" : "Sprawdź rozwiązanie"}
+                </button>
+              </div>
+              {submitting && <p className="submit-status" role="status">Uruchamiam testy i lint…</p>}
+            </section>
+
+            {submitError && (
+              <div className="request-error" role="alert">
+                <strong>Nie udało się wykonać operacji</strong>
+                <span>{submitError}</span>
+              </div>
+            )}
+
+            {result && (
+              <ResultPanel
+                result={result}
+                nextTaskHref={nextTaskHref}
+                hasSolution={solution !== null}
+                canOpenEditor={currentStarterRel !== null}
+                openingEditor={openingEditor}
+                onOpenEditor={handleOpenEditor}
+                onRetry={handleSubmit}
+              />
+            )}
+
+            {hints.length > 0 && (
+              <section className="hints" id="hints">
+                <div className="hints-head">
+                  <div>
+                    <h2>Wskazówki</h2>
+                    <p>Odkrywaj je pojedynczo, kiedy utkniesz.</p>
+                  </div>
+                  <span className="num">{hints.length}/{hintsTotal}</span>
+                </div>
+                {hints.map((hint, i) => (
+                  <div key={i} className="hint">
+                    <div className="hn">Wskazówka {i + 1}</div>
+                    <Markdown content={hint} />
+                  </div>
+                ))}
+              </section>
+            )}
+
+            {hintError && <p className="inline-error" role="alert">{hintError}</p>}
+
+            {solution && (
+              <section className="solution" id="solution">
+                <div className="solution-head">
+                  <div>
+                    <h2>Rozwiązanie wzorcowe</h2>
+                    <p>Porównaj strukturę i decyzje, nie tylko końcowy wynik.</p>
+                  </div>
+                  {passKind === "with-hint" && (
+                    <span className="pass-kind">zaliczone ze wskazówką</span>
+                  )}
+                </div>
+                {starter !== null ? (
+                  <SolutionComparison starter={starter} solution={solution} />
+                ) : (
+                  <pre>
+                    <code>{solution}</code>
+                  </pre>
+                )}
+              </section>
+            )}
+
+            {(nextHintIndex < hintsTotal || hints.length > 0 || passKind === "with-hint") && (
+              <div className="completion-actions">
+                <div>
+                  {nextHintIndex < hintsTotal && (
                     <button
                       className="btn-ghost"
-                      onClick={handleOpenEditor}
-                      disabled={openingEditor}
-                      title="Otwórz plik w WebStorm"
+                      onClick={() => handleRevealHint(nextHintIndex + 1)}
+                      disabled={loadingHint}
                     >
-                      <IconExternal />
-                      {openingEditor ? "Otwieram…" : "Otwórz"}
+                      {loadingHint ? "Odkrywam…" : `Odkryj wskazówkę ${nextHintIndex + 1}`}
                     </button>
                   )}
-                  <button className="btn-ghost" onClick={handleCopyPath}>
-                    {copied ? <IconCheck /> : <IconCopy />}
-                    {copied ? "Skopiowano" : "Kopiuj pełną ścieżkę"}
-                  </button>
                 </div>
-                {editorError && <p className="inline-error" role="alert">{editorError}</p>}
-              </>
-            ) : (
-              <p className="inline-error" role="alert">Brak pliku startera.</p>
+                <div className="completion-actions-right">
+                  {(hints.length > 0 || passKind === "with-hint") && (
+                    <button
+                      className="btn-ghost"
+                      onClick={handleRetryWithoutHint}
+                      disabled={resettingCode}
+                    >
+                      {resettingCode ? "Przywracam starter…" : "Zacznij od nowa bez wskazówek"}
+                    </button>
+                  )}
+                </div>
+              </div>
             )}
-            <div className="starter-reset">
-              <button className="btn-ghost" onClick={handleResetCode} disabled={resettingCode}>
-                {resettingCode ? "Przywracam…" : "Przywróć kod początkowy"}
-              </button>
-            </div>
           </div>
 
-          <div className="actions">
-            <button className="submit" onClick={handleSubmit} disabled={submitting}>
-              <IconPlay />
-              {submitting ? "Sprawdzam…" : "Sprawdź rozwiązanie"}
-            </button>
-          </div>
-          {submitting && <p className="submit-status" role="status">Uruchamiam testy i lint…</p>}
-        </section>
-
-        {submitError && (
-          <div className="request-error" role="alert">
-            <strong>Nie udało się wykonać operacji</strong>
-            <span>{submitError}</span>
-          </div>
-        )}
-
-        {result && (
-          <ResultPanel
-            result={result}
-            nextTaskHref={nextTaskHref}
-            hasSolution={solution !== null}
-            canOpenEditor={currentStarterRel !== null}
-            openingEditor={openingEditor}
-            onOpenEditor={handleOpenEditor}
-            onRetry={handleSubmit}
-          />
-        )}
-
-        {hints.length > 0 && (
-          <section className="hints" id="hints">
-            <div className="hints-head">
-              <div>
-                <h2>Wskazówki</h2>
-                <p>Odkrywaj je pojedynczo, kiedy utkniesz.</p>
-              </div>
-              <span className="num">{hints.length}/{hintsTotal}</span>
-            </div>
-            {hints.map((hint, i) => (
-              <div key={i} className="hint">
-                <div className="hn">Wskazówka {i + 1}</div>
-                <Markdown content={hint} />
-              </div>
-            ))}
-          </section>
-        )}
-
-        {hintError && <p className="inline-error" role="alert">{hintError}</p>}
-
-        {solution && (
-          <section className="solution" id="solution">
-            <div className="solution-head">
-              <div>
-                <h2>Rozwiązanie wzorcowe</h2>
-                <p>Porównaj strukturę i decyzje, nie tylko końcowy wynik.</p>
-              </div>
-              {passKind === "with-hint" && (
-                <span className="pass-kind">zaliczone ze wskazówką</span>
-              )}
-            </div>
-            {starter ? (
-              <SolutionComparison starter={starter} solution={solution} />
-            ) : (
-              <pre>
-                <code>{solution}</code>
-              </pre>
-            )}
-          </section>
-        )}
-
-        {(nextHintIndex < hintsTotal || passKind === "with-hint") && (
-          <div className="completion-actions">
-            <div>
-              {nextHintIndex < hintsTotal && (
-                <button
-                  className="btn-ghost"
-                  onClick={() => handleRevealHint(nextHintIndex + 1)}
-                  disabled={loadingHint}
-                >
-                  {loadingHint ? "Odkrywam…" : `Odkryj wskazówkę ${nextHintIndex + 1}`}
-                </button>
-              )}
-            </div>
-            <div className="completion-actions-right">
-              {passKind === "with-hint" && (
-                <button className="btn-ghost" onClick={handleRetryWithoutHint}>
-                  Spróbuj bez hinta
-                </button>
-              )}
-            </div>
-          </div>
-        )}
+        </div>
       </div>
 
       {undoRecords.length > 0 && (
@@ -572,172 +642,204 @@ function formatProgressDate(
     : new Intl.DateTimeFormat("pl-PL", { ...options, timeZone: "Europe/Warsaw" }).format(date);
 }
 
-function ProgressPanel({
+function TaskContextPanel({
+  level,
   progress,
   resetting,
+  resources,
+  hintsShown,
+  hintsTotal,
+  solutionAvailable,
   onReset,
 }: {
+  level: string;
   progress: TaskProgress | null;
   resetting: boolean;
+  resources: LearningResource[];
+  hintsShown: number;
+  hintsTotal: number;
+  solutionAvailable: boolean;
   onReset: () => void;
 }) {
   const score = Math.max(0, Math.min(4, Math.round(progress?.masteryScore ?? 0)));
 
   return (
-    <section className="learning-progress" aria-labelledby="learning-progress-title">
-      <div className="mastery-summary">
-        <div>
-          <span className="lbl" id="learning-progress-title">Poziom opanowania</span>
+    <aside className="task-context" aria-label="Status i materiały zadania">
+      <div className="task-context-head">
+        <h2>Panel zadania</h2>
+        <span>{level}</span>
+      </div>
+
+      <section className="task-context-section" aria-labelledby="learning-progress-title">
+        <span className="task-context-label" id="learning-progress-title">Poziom opanowania</span>
+        <div className="mastery-heading">
           <strong>{MASTERY_LABELS[score] ?? MASTERY_LABELS[0]}</strong>
+          <span className="num">{score}/4</span>
         </div>
-        <div className="mastery-scale" aria-label={`Poziom opanowania ${score} z 4`}>
+        <div
+          className="mastery-scale"
+          role="progressbar"
+          aria-label="Poziom opanowania"
+          aria-valuemin={0}
+          aria-valuemax={4}
+          aria-valuenow={score}
+        >
           {[1, 2, 3, 4].map((step) => (
             <i key={step} className={step <= score ? "on" : ""} aria-hidden="true" />
           ))}
         </div>
-        <div className="mastery-meta">
-          {progress?.nextReviewAt && (
-            <span>
-              Powtórka: {formatProgressDate(progress.nextReviewAt, {
-                day: "numeric",
-                month: "short",
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </span>
-          )}
-        </div>
-      </div>
+        {progress?.nextReviewAt && (
+          <p className="task-context-note">
+            Powtórka {formatProgressDate(progress.nextReviewAt, {
+              day: "numeric",
+              month: "short",
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </p>
+        )}
 
-      {progress && (
-        <div className="progress-reset">
-          <button className="btn-ghost" onClick={onReset} disabled={resetting}>
+        {progress && (
+          <button className="task-context-action" onClick={onReset} disabled={resetting}>
             {resetting ? "Resetuję…" : "Resetuj postęp"}
           </button>
-        </div>
-      )}
-    </section>
+        )}
+      </section>
+
+      <nav className="task-context-section task-context-nav" aria-label="Sekcje zadania">
+        <span className="task-context-label">Na tej stronie</span>
+        <a href="#task-brief">
+          <span>Polecenie</span>
+          <span aria-hidden="true">↓</span>
+        </a>
+        <a href="#task-starter">
+          <span>Edytor i testy</span>
+          <span aria-hidden="true">↓</span>
+        </a>
+        {hintsShown > 0 ? (
+          <a href="#hints">
+            <span>Wskazówki</span>
+            <span className="num">{hintsShown}/{hintsTotal}</span>
+          </a>
+        ) : hintsTotal > 0 ? (
+          <span className="task-context-locked">
+            <span>Wskazówki</span>
+            <span className="num">0/{hintsTotal}</span>
+          </span>
+        ) : null}
+        {solutionAvailable ? (
+          <a href="#solution">
+            <span>Rozwiązanie wzorcowe</span>
+            <span className="task-context-ready">dostępne</span>
+          </a>
+        ) : (
+          <span className="task-context-locked">
+            <span>Rozwiązanie wzorcowe</span>
+            <span>po zaliczeniu</span>
+          </span>
+        )}
+      </nav>
+
+      <section className="task-context-section task-context-resources" aria-labelledby="task-resources-title">
+        <span className="task-context-label" id="task-resources-title">Referencje</span>
+        {resources.length > 0 ? (
+          resources.map((resource) => (
+            <a key={resource.url} href={resource.url} target="_blank" rel="noreferrer">
+              <span>
+                <strong>{resource.title}</strong>
+                <small>{resource.description}</small>
+              </span>
+              <IconExternal />
+            </a>
+          ))
+        ) : (
+          <p className="task-context-resources-empty">Brakuje referencji</p>
+        )}
+      </section>
+    </aside>
   );
 }
 
-interface DiffRow {
-  left: { number: number; text: string } | null;
-  right: { number: number; text: string } | null;
-  kind: "same" | "remove" | "add" | "changed";
-}
-
-function buildDiff(leftText: string, rightText: string): DiffRow[] {
-  const left = leftText.replace(/\r\n/g, "\n").split("\n");
-  const right = rightText.replace(/\r\n/g, "\n").split("\n");
-
-  if (left.length * right.length > 250_000) {
-    return Array.from({ length: Math.max(left.length, right.length) }, (_, index) => ({
-      left: index < left.length ? { number: index + 1, text: left[index] } : null,
-      right: index < right.length ? { number: index + 1, text: right[index] } : null,
-      kind: left[index] === right[index] ? "same" : "changed",
-    }));
-  }
-
-  const width = right.length + 1;
-  const lengths = new Uint32Array((left.length + 1) * width);
-  for (let i = left.length - 1; i >= 0; i--) {
-    for (let j = right.length - 1; j >= 0; j--) {
-      lengths[i * width + j] = left[i] === right[j]
-        ? lengths[(i + 1) * width + j + 1] + 1
-        : Math.max(lengths[(i + 1) * width + j], lengths[i * width + j + 1]);
-    }
-  }
-
-  const rows: DiffRow[] = [];
-  let i = 0;
-  let j = 0;
-  while (i < left.length || j < right.length) {
-    if (i < left.length && j < right.length && left[i] === right[j]) {
-      rows.push({
-        left: { number: i + 1, text: left[i] },
-        right: { number: j + 1, text: right[j] },
-        kind: "same",
-      });
-      i++;
-      j++;
-    } else if (i < left.length && (j === right.length || lengths[(i + 1) * width + j] >= lengths[i * width + j + 1])) {
-      rows.push({ left: { number: i + 1, text: left[i] }, right: null, kind: "remove" });
-      i++;
-    } else {
-      rows.push({ left: null, right: { number: j + 1, text: right[j] }, kind: "add" });
-      j++;
-    }
-  }
-  const alignedRows: DiffRow[] = [];
-  for (let index = 0; index < rows.length;) {
-    if (rows[index].kind === "same") {
-      alignedRows.push(rows[index]);
-      index++;
-      continue;
-    }
-
-    const changedBlock: DiffRow[] = [];
-    while (index < rows.length && rows[index].kind !== "same") {
-      changedBlock.push(rows[index]);
-      index++;
-    }
-    const removed = changedBlock.flatMap((row) => row.left ? [row.left] : []);
-    const added = changedBlock.flatMap((row) => row.right ? [row.right] : []);
-    for (let lineIndex = 0; lineIndex < Math.max(removed.length, added.length); lineIndex++) {
-      alignedRows.push({
-        left: removed[lineIndex] ?? null,
-        right: added[lineIndex] ?? null,
-        kind: removed[lineIndex] && added[lineIndex]
-          ? "changed"
-          : removed[lineIndex]
-            ? "remove"
-            : "add",
-      });
-    }
-  }
-  return alignedRows;
-}
+const DIFF_REASON_LABEL: Record<Exclude<CodeDiffChangeReason, "content">, string> = {
+  whitespace: "różnica białych znaków",
+  "end-of-file-newline": "znak końca linii",
+};
 
 function SolutionComparison({ starter, solution }: { starter: string; solution: string }) {
-  const rows = useMemo(() => buildDiff(starter, solution), [starter, solution]);
-  const [comparisonOpen, setComparisonOpen] = useState(false);
+  return (
+    <AnimatedDisclosure
+      className="solution-comparison"
+      lazy
+      triggerClassName="solution-comparison-trigger"
+      trigger={<span>Porównaj z własnym rozwiązaniem</span>}
+    >
+      <SolutionDiff starter={starter} solution={solution} />
+    </AnimatedDisclosure>
+  );
+}
+
+function SolutionDiff({ starter, solution }: { starter: string; solution: string }) {
+  const diff = useMemo(() => buildCodeDiff(starter, solution), [starter, solution]);
+  const headingId = useId();
 
   return (
-    <div className={`solution-comparison${comparisonOpen ? " open" : ""}`}>
-      <button
-        className="solution-comparison-trigger"
-        aria-expanded={comparisonOpen}
-        aria-controls="solution-comparison-content"
-        onClick={() => setComparisonOpen((open) => !open)}
-      >
-        <span>Porównaj z własnym rozwiązaniem</span>
-        <span className="solution-comparison-mark" aria-hidden="true">+</span>
-      </button>
-      <div
-        className="solution-comparison-reveal"
-        id="solution-comparison-content"
-        aria-hidden={!comparisonOpen}
-      >
-        <div className="solution-comparison-inner">
-          <div className="compare-head" aria-hidden="true">
-            <span>Twoje rozwiązanie</span>
-            <span>Rozwiązanie wzorcowe</span>
-          </div>
-          <div className="compare-code" role="table" aria-label="Porównanie rozwiązania linia po linii">
-            {rows.map((row, index) => (
-              <div className={`compare-row ${row.kind}`} role="row" key={index}>
-                <code role="cell">
-                  <span className="line-no">{row.left?.number ?? ""}</span>
-                  <span>{row.left?.text ?? ""}</span>
-                </code>
-                <code role="cell">
-                  <span className="line-no">{row.right?.number ?? ""}</span>
-                  <span>{row.right?.text ?? ""}</span>
-                </code>
-              </div>
-            ))}
-          </div>
+    <>
+      {diff.limited && (
+        <p className="compare-limited" role="status">
+          Porównanie jest bardzo duże, więc pokazujemy wspólny początek i koniec bez szczegółowego parowania środka.
+        </p>
+      )}
+      <div className="compare-code" role="group" aria-label="Porównanie rozwiązania linia po linii">
+        <div className="compare-code-head">
+          <div id={`${headingId}-own`}>Twoje rozwiązanie</div>
+          <div id={`${headingId}-reference`}>Rozwiązanie wzorcowe</div>
         </div>
+        <div className="compare-code-body">
+          <DiffPane headingId={`${headingId}-own`} rows={diff.rows} side="left" />
+          <DiffPane headingId={`${headingId}-reference`} rows={diff.rows} side="right" />
+        </div>
+      </div>
+    </>
+  );
+}
+
+function DiffPane({
+  headingId,
+  rows,
+  side,
+}: {
+  headingId: string;
+  rows: CodeDiffRow[];
+  side: "left" | "right";
+}) {
+  return (
+    <div className={`compare-pane compare-pane-${side}`} role="region" aria-labelledby={headingId}>
+      <div className="compare-lines">
+        {rows.map((row, index) => {
+          const line = side === "left" ? row.left : row.right;
+          const status = !line
+            ? "Brak odpowiadającej linii."
+            : row.kind === "context"
+              ? `Linia ${line.number}, bez zmian.`
+              : row.kind === "change"
+                ? `Linia ${line.number}, zmieniona.`
+                : `Linia ${line.number}, ${side === "left" ? "usunięta" : "dodana"}.`;
+
+          return (
+            <div className={`compare-row compare-row-${row.kind}`} key={index}>
+              <code>
+                <span className="sr-only">{status}</span>
+                <span className="line-no" aria-hidden="true">{line?.number ?? ""}</span>
+                <span className="compare-line">
+                  <span>{line?.text ?? ""}</span>
+                  {side === "right" && row.changeReason && row.changeReason !== "content" && (
+                    <span className="compare-reason">{DIFF_REASON_LABEL[row.changeReason]}</span>
+                  )}
+                </span>
+              </code>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -771,9 +873,12 @@ function ResultPanel({
 
   if (result.passed) {
     return (
-      <section className="result-shell result-success" aria-live="polite">
+      <section className="result-shell result-success">
+        <p className="sr-only" role="status">
+          {result.usedHint ? "Zadanie zaliczone ze wskazówką." : "Zadanie zaliczone."}
+        </p>
         <div className="result-success-main">
-          <span className="result-mark"><IconCheck /></span>
+          <span className="result-mark" aria-hidden="true"><IconCheck /></span>
           <div>
             <h2>{result.usedHint ? "Zadanie zaliczone ze wskazówką" : "Zadanie zaliczone"}</h2>
             <p>Testy i lint potwierdziły rozwiązanie. Możesz porównać wzorzec albo przejść dalej.</p>
@@ -803,7 +908,8 @@ function ResultPanel({
   }
 
   return (
-    <section className="result-shell result-failure" aria-live="polite">
+    <section className="result-shell result-failure">
+      <p className="sr-only" role="status">Zadanie nie jest jeszcze zaliczone. {firstBlocker}</p>
       <div className="result-failure-head">
         <div>
           <h2>Jeszcze nie przechodzi</h2>
@@ -836,15 +942,23 @@ function ResultPanel({
       </div>
 
       {result.error && (
-        <details className="result-details" open>
-          <summary>Błąd uruchomienia</summary>
+        <AnimatedDisclosure
+          className="result-details"
+          defaultOpen
+          trigger="Błąd uruchomienia"
+          triggerClassName="result-details-trigger"
+        >
           <pre className="infra-error">{result.error}</pre>
-        </details>
+        </AnimatedDisclosure>
       )}
 
       {result.tests.length > 0 && (
-        <details className="result-details" open={failedTests.length > 0}>
-          <summary>Testy <span className="num">{passedTests}/{result.tests.length}</span></summary>
+        <AnimatedDisclosure
+          className="result-details"
+          defaultOpen={failedTests.length > 0}
+          trigger={<span>Testy <span className="num">{passedTests}/{result.tests.length}</span></span>}
+          triggerClassName="result-details-trigger"
+        >
           <div className="tests">
             {result.tests.map((test, index) => (
               <div key={index} className={`test ${test.status === "pass" ? "p" : "f"}`}>
@@ -853,12 +967,16 @@ function ResultPanel({
               </div>
             ))}
           </div>
-        </details>
+        </AnimatedDisclosure>
       )}
 
       {result.typecheck.errors.length > 0 && (
-        <details className="result-details" open={failedTests.length === 0}>
-          <summary>Typy <span className="num">{result.typecheck.errors.length}</span></summary>
+        <AnimatedDisclosure
+          className="result-details"
+          defaultOpen={failedTests.length === 0}
+          trigger={<span>Typy <span className="num">{result.typecheck.errors.length}</span></span>}
+          triggerClassName="result-details-trigger"
+        >
           <div className="lint">
             {result.typecheck.errors.map((issue, index) => (
               <div key={index} className="li err">
@@ -868,12 +986,16 @@ function ResultPanel({
               </div>
             ))}
           </div>
-        </details>
+        </AnimatedDisclosure>
       )}
 
       {(result.lint.errors.length > 0 || result.lint.warnings.length > 0) && (
-        <details className="result-details" open={failedTests.length === 0 && result.typecheck.errors.length === 0}>
-          <summary>Lint <span className="num">{result.lint.errors.length + result.lint.warnings.length}</span></summary>
+        <AnimatedDisclosure
+          className="result-details"
+          defaultOpen={failedTests.length === 0 && result.typecheck.errors.length === 0}
+          trigger={<span>Lint <span className="num">{result.lint.errors.length + result.lint.warnings.length}</span></span>}
+          triggerClassName="result-details-trigger"
+        >
           <div className="lint">
             {result.lint.errors.map((issue, index) => (
               <div key={`e${index}`} className="li err">
@@ -888,7 +1010,7 @@ function ResultPanel({
               </div>
             ))}
           </div>
-        </details>
+        </AnimatedDisclosure>
       )}
     </section>
   );

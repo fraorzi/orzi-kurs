@@ -1,11 +1,15 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Wspólny promise w domknięciu: `let pending: Promise<void> | undefined`
+i `return () => (pending ??= start())`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+`Promise.allSettled(cleanups.map((c) => c()))` uruchamia wszystkie i czeka
+na komplet — w przeciwieństwie do `Promise.all` nie porzuca reszty po
+pierwszej awarii.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Po allSettled poszukaj pierwszego `status === "rejected"` i rzuć jego
+`reason` — kontrakt: wszyscy posprzątali, ale wynik jest błędem.

@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+`new StringDecoder("utf8")`, a w pętli `for await` doklejaj
+`decoder.write(Buffer.from(chunk))`.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+`decoder.write` zwraca tylko **kompletne** znaki; niedokończone bajty czekają
+w dekoderze na kolejny chunk — to cała magia tego API.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Nie zapomnij o `+ decoder.end()` na końcu — bez tego ostatnie buforowane bajty
+przepadną.

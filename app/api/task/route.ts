@@ -42,8 +42,7 @@ export async function GET(req: NextRequest) {
   const status = progress?.status;
   const passed = status === "passed" || status === "passed-with-hint";
   const solutionPath = findSolution(taskDir);
-  const solution =
-    passed && solutionPath ? readSolutionText(solutionPath) : null;
+  const solution = passed && solutionPath ? readSolutionText(solutionPath) : null;
   const starter = passed ? (progress?.verifiedStarter ?? null) : null;
 
   return Response.json({ readme, taskMd, hintsTotal, starterPath, starter, solution, progress });

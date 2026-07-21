@@ -4,18 +4,60 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import type { Catalog } from "@/app/lib/types";
-import { topicSlug, topicNumber, topicTag, trackMeta, TRACK_META } from "@/app/lib/tracks";
-import { IconCheck } from "./icons";
+import { sortTracksByLearningOrder } from "@/curriculum/order";
+import {
+  learningModules,
+  STATUS_LABEL,
+  topicSlug,
+  topicNumber,
+  topicTag,
+  trackMeta,
+  TRACK_META,
+} from "@/app/lib/tracks";
+import { IconCheck, IconClose } from "./icons";
 import TrackBadge from "./TrackBadge";
 import TopicTag from "./TopicTag";
+import styles from "./shell.module.css";
 
 interface Props {
   catalog: Catalog | null;
+  catalogStatus: "loading" | "error" | "success";
   collapsed: boolean;
+  isMobile: boolean;
+  mobileOpen: boolean;
   onToggle: () => void;
+  onMobileClose: () => void;
+  onMobileNavigate: () => void;
+  onRetryCatalog: () => void;
+  inert: boolean;
 }
 
-export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
+type SwitcherPhase = "closed" | "open" | "closing";
+
+const STAGE_PLURAL = new Intl.PluralRules("pl-PL");
+function stageWord(count: number): string {
+  switch (STAGE_PLURAL.select(count)) {
+    case "one":
+      return "etap";
+    case "few":
+      return "etapy";
+    default:
+      return "etapów";
+  }
+}
+
+export default function Sidebar({
+  catalog,
+  catalogStatus,
+  collapsed,
+  isMobile,
+  mobileOpen,
+  onToggle,
+  onMobileClose,
+  onMobileNavigate,
+  onRetryCatalog,
+  inert,
+}: Props) {
   const pathname = usePathname();
   const router = useRouter();
   const seg = pathname.split("/").filter(Boolean);
@@ -33,34 +75,39 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
     setOpenSlug(curTopicSlug);
   }
 
-  const [switcherOpen, setSwitcherOpen] = useState(false);
-  const [switcherClosing, setSwitcherClosing] = useState(false);
+  const [switcherPhase, setSwitcherPhase] = useState<SwitcherPhase>("closed");
   const [popPos, setPopPos] = useState<{ top: number; left: number } | null>(null);
   const switcherRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const switcherOpen = switcherPhase === "open";
+  if (isMobile && !mobileOpen && switcherPhase !== "closed") {
+    setSwitcherPhase("closed");
+  }
+
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setSwitcherPhase((phase) => (phase === "closed" ? phase : "closing"));
+  }
 
   const positionPop = useCallback(() => {
     const r = triggerRef.current?.getBoundingClientRect();
     if (r) {
-      const top = Math.max(8, Math.min(r.top, window.innerHeight - 340));
-      setPopPos({ top, left: r.right + 8 });
+      const top = isMobile
+        ? Math.max(8, Math.min(r.bottom + 8, window.innerHeight - 340))
+        : Math.max(8, Math.min(r.top, window.innerHeight - 340));
+      setPopPos({ top, left: isMobile ? 8 : r.right + 8 });
     }
-  }, []);
+  }, [isMobile]);
 
   function openSwitcher() {
     positionPop();
-    setSwitcherClosing(false);
-    setSwitcherOpen(true);
+    setSwitcherPhase("open");
   }
 
   const closeSwitcher = useCallback(() => {
-    if (!switcherOpen || switcherClosing) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setSwitcherOpen(false);
-      return;
-    }
-    setSwitcherClosing(true);
-  }, [switcherClosing, switcherOpen]);
+    setSwitcherPhase((phase) => (phase === "closed" ? phase : "closing"));
+  }, []);
 
   useEffect(() => {
     if (!switcherOpen) return;
@@ -73,7 +120,10 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
       }
     }
     function onEsc(e: KeyboardEvent) {
-      if (e.key === "Escape") closeSwitcher();
+      if (e.key === "Escape") {
+        closeSwitcher();
+        triggerRef.current?.focus();
+      }
     }
     // Keep the popover glued to its trigger while scrolling instead of closing it.
     let raf = 0;
@@ -95,33 +145,44 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
       window.removeEventListener("resize", reposition);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [switcherOpen, positionPop, closeSwitcher]);
+  }, [closeSwitcher, switcherOpen, positionPop]);
 
+  const orderedTracks = sortTracksByLearningOrder(catalog?.tracks ?? []);
   const track =
-    catalog?.tracks.find((t) => t.id === curTrackId) ?? catalog?.tracks[0] ?? null;
+    orderedTracks.find((t) => t.id === curTrackId) ?? orderedTracks[0] ?? null;
   const meta = track ? trackMeta(track.id) : null;
+  const modules = track ? learningModules(track) : [];
 
-  function toggleTopic(slug: string, href: string) {
-    if (openSlug === slug) {
-      setOpenSlug(undefined);
-    } else {
-      setOpenSlug(slug);
-      router.push(href);
-    }
+  function toggleTopic(slug: string) {
+    setOpenSlug((current) => current === slug ? undefined : slug);
   }
 
   return (
-    <nav className="rail" aria-label="Nawigacja kursu">
+    <aside
+      id="course-navigation"
+      className={`rail${mobileOpen ? ` ${styles.mobileOpen}` : ""}${isMobile && !mobileOpen ? ` ${styles.mobileHidden}` : ""}`}
+      role={isMobile && mobileOpen ? "dialog" : "navigation"}
+      aria-modal={isMobile && mobileOpen ? true : undefined}
+      aria-label="Nawigacja kursu"
+      aria-hidden={isMobile && !mobileOpen ? true : undefined}
+      inert={inert || (isMobile && !mobileOpen) ? true : undefined}
+    >
       <div className="rail-head">
         <button
+          type="button"
           className="icon-btn"
-          onClick={onToggle}
-          aria-label={collapsed ? "Rozwiń panel" : "Zwiń panel"}
+          onClick={isMobile ? onMobileClose : onToggle}
+          aria-label={isMobile ? "Zamknij nawigację" : collapsed ? "Rozwiń panel" : "Zwiń panel"}
           title="Panel  [ ]"
         >
-          {collapsed ? "›" : "‹"}
+          {isMobile ? <IconClose /> : collapsed ? "›" : "‹"}
         </button>
-        <Link className="brand" href="/">
+        <Link
+          className="brand"
+          href="/"
+          aria-current={pathname === "/" ? "page" : undefined}
+          onClick={onMobileNavigate}
+        >
           orzi<span className="d">·</span>kurs
         </Link>
       </div>
@@ -130,9 +191,11 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
         {meta && track && (
           <div className="trackswitch-wrap" ref={switcherRef}>
             <button
+              type="button"
               ref={triggerRef}
               className="trackswitch"
-              aria-expanded={switcherOpen && !switcherClosing}
+              aria-expanded={switcherOpen}
+              aria-controls="track-switcher"
               onClick={() => (switcherOpen ? closeSwitcher() : openSwitcher())}
             >
               <TrackBadge id={track.id} />
@@ -140,34 +203,33 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
               <span className="sw">zmień ›</span>
             </button>
 
-            {switcherOpen && popPos && (
+            {switcherPhase !== "closed" && popPos && (
               <div
-                className={`trackpop${switcherClosing ? " closing" : ""}`}
-                role="listbox"
+                className={`trackpop${switcherPhase === "closing" ? " closing" : ""}`}
+                id="track-switcher"
+                role="group"
                 aria-label="Wybierz track"
+                aria-hidden={switcherPhase === "closing"}
+                inert={switcherPhase === "closing" ? true : undefined}
                 style={{ top: popPos.top, left: popPos.left }}
                 onAnimationEnd={(event) => {
-                  if (
-                    switcherClosing &&
-                    event.target === event.currentTarget &&
-                    event.animationName === "trackpop-out"
-                  ) {
-                    setSwitcherOpen(false);
-                    setSwitcherClosing(false);
+                  if (event.target === event.currentTarget && switcherPhase === "closing") {
+                    setSwitcherPhase("closed");
                   }
                 }}
               >
-                {catalog?.tracks.map((t) => {
+                {orderedTracks.map((t) => {
                   const m = trackMeta(t.id);
                   const isCurrent = t.id === track.id;
                   return (
                     <button
+                      type="button"
                       key={t.id}
                       className={`trackpop-item${isCurrent ? " on" : ""}`}
-                      role="option"
-                      aria-selected={isCurrent}
+                      aria-current={isCurrent ? "true" : undefined}
                       onClick={() => {
                         closeSwitcher();
+                        onMobileNavigate();
                         router.push(`/track/${t.id}`);
                       }}
                     >
@@ -179,7 +241,7 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
                 })}
                 {(() => {
                   const upcoming = TRACK_META.filter(
-                    (m) => !catalog?.tracks.some((t) => t.id === m.id),
+                    (m) => !orderedTracks.some((t) => t.id === m.id),
                   );
                   if (upcoming.length === 0) return null;
                   return (
@@ -189,9 +251,7 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
                         <div
                           key={m.id}
                           className="trackpop-item is-soon"
-                          role="option"
                           aria-disabled="true"
-                          aria-selected="false"
                         >
                           <TrackBadge id={m.id} size="sm" />
                           <span>{m.name}</span>
@@ -206,53 +266,126 @@ export default function Sidebar({ catalog, collapsed, onToggle }: Props) {
           </div>
         )}
 
-        {!catalog && <div className="rail-cap">ładowanie…</div>}
+        {catalogStatus === "loading" && (
+          <div className={styles.catalogState} role="status">Ładowanie programu…</div>
+        )}
+        {catalogStatus === "error" && (
+          <div className={styles.catalogState} role="alert">
+            <span>Nie udało się wczytać programu.</span>
+            <button type="button" onClick={onRetryCatalog}>Spróbuj ponownie</button>
+          </div>
+        )}
+        {catalogStatus === "success" && catalog?.tracks.length === 0 && (
+          <div className={styles.catalogState}>Brak dostępnych ścieżek.</div>
+        )}
 
         {track && (
           <>
-            <div className="rail-cap">Zagadnienia · {track.topics.length}</div>
-            {track.topics.map((topic) => {
-              const slug = topicSlug(topic.id);
-              const open = slug === openSlug;
-              const tag = topicTag(topic.id);
-              const topicHref = `/track/${track.id}/${slug}`;
+            <div className="rail-cap">
+              Program · {modules.length} {stageWord(modules.length)}
+            </div>
+            {modules.map((module, index) => {
+              const routeInModule = module.topics.some(
+                (topic) => topicSlug(topic.id) === curTopicSlug,
+              );
+              const complete = module.total > 0 && module.passed === module.total;
+              const headingId = `rail-stage-${track.id}-${module.id}`;
+
               return (
-                <div key={topic.id} className={`topic${open ? " open" : ""}`}>
-                  <button
-                    className="topic-btn"
-                    aria-expanded={open}
-                    onClick={() => toggleTopic(slug, topicHref)}
-                  >
-                    <span className="topic-num mono">{topicNumber(topic.id)}</span>
-                    <span className="topic-title">{topic.title}</span>
-                    {tag && <TopicTag tag={tag} />}
-                    <span className="caret">▶</span>
-                  </button>
-                  <div className="levels">
+                <section
+                  key={module.id}
+                  className={`rail-stage${routeInModule ? " active" : ""}${module.current ? " current" : ""}${complete ? " complete" : ""}`}
+                  aria-labelledby={headingId}
+                >
+                  <header className="rail-stage-head">
                     <div>
-                      {topic.levels.map((level) => {
-                        const active =
-                          slug === curTopicSlug && level.id === curLevel;
-                        return (
-                          <Link
-                            key={level.id}
-                            className={`lvl${active ? " active" : ""}`}
-                            href={`${topicHref}/${level.id}`}
-                            aria-current={active}
-                          >
-                            <span className={`sdot ${level.status}`} />
-                            <span>{level.id}</span>
-                          </Link>
-                        );
-                      })}
+                      <span className="rail-stage-step">Etap {index + 1}</span>
+                      <h2 id={headingId}>{module.title}</h2>
                     </div>
+                    <span
+                      className="rail-stage-progress num"
+                      title={`${module.passed} z ${module.total} poziomów zaliczonych`}
+                      aria-label={`${module.passed} z ${module.total} poziomów zaliczonych`}
+                    >
+                      {module.passed}/{module.total}
+                    </span>
+                  </header>
+
+                  <div className="rail-stage-topics">
+                    {module.topics.map((topic) => {
+                      const slug = topicSlug(topic.id);
+                      const open = slug === openSlug;
+                      const tag = topicTag(topic.id);
+                      const topicHref = `/track/${track.id}/${slug}`;
+                      const toggleId = `topic-toggle-${track.id}-${slug}`;
+                      const levelsId = `topic-levels-${track.id}-${slug}`;
+                      return (
+                        <div key={topic.id} className={`topic${open ? " open" : ""}`}>
+                          <div className="topic-row">
+                            <Link
+                              className="topic-link"
+                              href={topicHref}
+                              aria-current={slug === curTopicSlug && !curLevel ? "page" : undefined}
+                              onClick={() => {
+                                setOpenSlug(slug);
+                                onMobileNavigate();
+                              }}
+                            >
+                              <span className="topic-num mono">{topicNumber(topic.id)}</span>
+                              <span className="topic-title">{topic.title}</span>
+                              {tag && <TopicTag tag={tag} />}
+                            </Link>
+                            <button
+                              type="button"
+                              id={toggleId}
+                              className="topic-toggle"
+                              aria-label={`${open ? "Ukryj" : "Pokaż"} poziomy: ${topic.title}`}
+                              aria-expanded={open}
+                              aria-controls={levelsId}
+                              onClick={() => toggleTopic(slug)}
+                            >
+                              <span className="caret" aria-hidden="true">▶</span>
+                            </button>
+                          </div>
+                          <div
+                            className="levels"
+                            id={levelsId}
+                            role="region"
+                            aria-labelledby={toggleId}
+                            aria-hidden={open ? undefined : true}
+                            inert={open ? undefined : true}
+                          >
+                            <div>
+                              {topic.levels.map((level) => {
+                                const active =
+                                  slug === curTopicSlug && level.id === curLevel;
+                                return (
+                                  <Link
+                                    key={level.id}
+                                    className={`lvl${active ? " active" : ""}`}
+                                    href={`${topicHref}/${level.id}`}
+                                    aria-current={active ? "page" : undefined}
+                                    aria-label={`${level.id}: ${STATUS_LABEL[level.status]}`}
+                                    tabIndex={open ? undefined : -1}
+                                    onClick={onMobileNavigate}
+                                  >
+                                    <span className={`sdot ${level.status}`} aria-hidden="true" />
+                                    <span>{level.id}</span>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
-                </div>
+                </section>
               );
             })}
           </>
         )}
       </div>
-    </nav>
+    </aside>
   );
 }

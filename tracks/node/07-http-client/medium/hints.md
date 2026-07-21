@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+`AbortSignal.timeout(timeoutMs)` tworzy sygnał, który przerwie się sam —
+bez timera po twojej stronie.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Łączenie: `parent ? AbortSignal.any([parent, timeout]) : timeout` — `any`
+przerywa się z powodem pierwszego przerwanego sygnału.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Całość to jedno wywołanie `fetcher(url, { signal })` — jeżeli masz
+`setTimeout`/`clearTimeout`, rozwiązujesz zadanie pod prąd.

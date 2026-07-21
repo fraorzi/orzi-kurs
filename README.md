@@ -20,6 +20,8 @@ pnpm dev          # dashboard na http://localhost:3000
 4. Utknąłeś? Odkrywaj hinty pojedynczo.
 5. Po zaliczeniu zobaczysz porównanie własnego kodu z rozwiązaniem wzorcowym. Licznik
    prób, użycie hinta, poziom opanowania i termin powtórki zapisują się w `progress.json`.
+   Odkryte hinty pozostają widoczne po odświeżeniu; CTA próby bez wskazówek czyści je
+   i przywraca pierwotny starter.
 6. Jeśli chcesz utrwalić zaliczenie w gicie, uruchom świadomie
    `pnpm commit:task <taskId>`. Submit nigdy nie tworzy commita sam.
 

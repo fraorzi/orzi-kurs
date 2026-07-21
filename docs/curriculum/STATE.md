@@ -349,6 +349,10 @@ z researchiem, deterministycznymi testami, review, commitami i pushami.
   walidacją, idempotencją, request ID, bezpiecznymi błędami i testem integracyjnym.
 - Końcowy stan tracka Node: 20 tematów, dwa moduły i 62 zadania. Pełna macierz
   rozwiązań i pierwotnych starterów przechodzi 62/62.
+- Quality pass Node (2026-07-17): przepisane README, polecenia, testy i hinty
+  wszystkich 62 zadań; moduły przebudowane na wieloplikowe; kontrakt treści
+  wymusza testy zachowania, unikalne hinty i bramki [quality]; szczegóły
+  w `NODE_AUDIT.md`. Macierz nadal 62/62 + 62/62, harness 61/61.
 - Użytkownik jawnie wznowił pracę po checkpointcie Node; utworzono
   `feature/curriculum-mysql` z właściwej bazy `feature/curriculum-node`.
 - Audyt MySQL rozszerzył plan do 22 tematów i dwóch modułów: dodano security/roles,

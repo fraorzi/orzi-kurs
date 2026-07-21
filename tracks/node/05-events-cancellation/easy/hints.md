@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+`emitter.on(event, listener)`, a cleanup to `emitter.off(event, listener)` —
+ta sama referencja listenera.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Idempotencję daje flaga w domknięciu: `let active = true`, pierwszy cleanup
+ustawia `false`, kolejne wywołania wychodzą wcześniej.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Test "podwójny cleanup" łapie subtelny bug: bez flagi drugi `off()` zdjąłby
+listener zarejestrowany ponownie po pierwszym sprzątaniu.

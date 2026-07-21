@@ -1,5 +1,12 @@
-# Połącz streamy Node i Web
+# Medium — połącz streamy Node i Web
 
-Przyjmij Node Readable, skonwertuj do Web Stream, przepuść przez TransformStream i zwróć tekst uppercase.
+Legacy moduł daje klasyczny `Readable`, nowe API mówi Web Streams.
+Zaimplementuj `solve(source)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- zmostkuj `Readable.toWeb(source)` do `ReadableStream`;
+- przepuść przez `TransformStream`, który dekoduje chunki i wypuszcza tekst
+  uppercase;
+- skonsumuj wynik readerem i zwróć sklejony string.
+
+Mostek jest jednokierunkowy i lokalny — reszta systemu nie musi wiedzieć,
+że źródłem był klasyczny stream.

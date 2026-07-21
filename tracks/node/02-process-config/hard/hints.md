@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+`Object.entries(env)` → filtr → map → `Object.fromEntries(...)`. Filtr usuwa
+pary z `undefined` (i przy okazji zawęża typ wartości do `string`).
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Wrażliwość klucza sprawdza jeden regex z flagą `i`:
+`/token|secret|password|key/i.test(key)`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+`Object.fromEntries` już tworzy nowy obiekt — uważaj tylko, żeby nie zwrócić
+gdzieś oryginalnej referencji.

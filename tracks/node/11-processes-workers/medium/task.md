@@ -1,5 +1,14 @@
-# Wybierz mechanizm pracy
+# Medium — wybierz mechanizm pracy
 
-Zaklasyfikuj pracę: sieciowe I/O jako async, zewnętrzny program jako child_process, ciężkie CPU JS jako worker.
+Dispatcher zadań musi wiedzieć, gdzie wykonać pracę. Zaimplementuj
+`solve(job)` klasyfikujące `{ kind, estimatedMs }`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- `kind: "external"` (zewnętrzny program) → `"child_process"` — niezależnie
+  od szacowanego czasu;
+- `kind: "cpu"` i `estimatedMs >= 20` → `"worker"` — obliczenia JS na tyle
+  długie, że koszt serializacji się zwraca;
+- wszystko pozostałe (sieciowe I/O, krótkie CPU) → `"async"` — event loop
+  w wątku głównym.
+
+Progi są częścią kontraktu: krótkie CPU zostaje w main threadzie, bo transfer
+do workera kosztuje więcej, niż oszczędza.

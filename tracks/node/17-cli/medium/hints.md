@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Licznik `number++` inkrementuj dla **każdego** wiersza, zanim zdecydujesz
+o pominięciu — numeracja ma się zgadzać z edytorem.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+`const line = raw.trim(); if (!line) continue;` — pomijanie po trim,
+ale numer policzony.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+`try { yield { line: number, value: JSON.parse(line) }; } catch` — w catchu
+rzuć własny `Error` z numerem linii; nie kontynuuj po błędzie.

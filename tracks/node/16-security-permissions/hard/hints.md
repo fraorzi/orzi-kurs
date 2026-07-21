@@ -1,11 +1,15 @@
 ## Hint 1
 
-Najpierw nazwij granicę odpowiedzialności i przypadek błędny, zanim napiszesz happy path.
+Rekurencyjny `visit(current, depth, key)` — redakcja po **kluczu** ma
+pierwszeństwo przed wszystkim innym, potem próg głębokości.
 
 ## Hint 2
 
-Użyj API platformy Node zamiast ręcznie odtwarzać jego semantykę.
+Tablica: `current.slice(0, maxItems).map(...)` plus warunkowy element
+`"[TRUNCATED]"`, gdy `current.length > maxItems`.
 
 ## Hint 3
 
-Sprawdź cleanup, limity albo zachowanie na granicy — tam zwykle ukrywa się test jakościowy.
+Obiekt składaj przez `Object.fromEntries(Object.entries(...).map(...))` —
+to jednocześnie daje kopię; klucz dziecka przekazuj do rekurencji, bo to on
+decyduje o redakcji.

@@ -12,6 +12,7 @@ const TASK_PROGRESS_KEYS = new Set<keyof TaskProgress>([
   "firstPassedAt",
   "firstPassedWithHintAt",
   "firstPassedWithoutHintAt",
+  "revealedHints",
   "verifiedStarter",
   "lastRunAt",
 ]);
@@ -56,6 +57,7 @@ export function isTaskProgress(value: unknown): value is TaskProgress {
     isOptional(progress.firstPassedAt, isIsoTimestamp) &&
     isOptional(progress.firstPassedWithHintAt, isIsoTimestamp) &&
     isOptional(progress.firstPassedWithoutHintAt, isIsoTimestamp) &&
+    isOptional(progress.revealedHints, isNonnegativeInteger) &&
     isOptional(progress.verifiedStarter, (candidate) => typeof candidate === "string") &&
     isIsoTimestamp(progress.lastRunAt)
   );

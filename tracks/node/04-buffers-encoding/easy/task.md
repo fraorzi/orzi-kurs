@@ -1,5 +1,14 @@
-# Policz bajty UTF-8
+# Easy — policz bajty UTF-8
 
-Odrzuć komunikat przekraczający limit bajtów, nawet gdy liczba znaków mieści się w limicie.
+Kolejka wiadomości ma limit rozmiaru w **bajtach**. Zaimplementuj
+`solve(text, maxBytes)`:
 
-Kod ma pozostać TypeScript-first, deterministyczny i możliwy do testowania bez zewnętrznych usług.
+- zakoduj `text` jako UTF-8 i zwróć bajty (`Uint8Array`);
+- gdy zakodowany rozmiar przekracza `maxBytes`, rzuć `Error` — nawet jeśli
+  liczba znaków (`text.length`) mieści się w limicie;
+- rozmiar dokładnie równy limitowi jest dozwolony.
+
+```ts
+solve("abc", 3);  // 3 bajty — OK
+solve("żżż", 3);  // 6 bajtów — Error, mimo że text.length === 3
+```

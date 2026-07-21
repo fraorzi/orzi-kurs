@@ -1,11 +1,14 @@
 ## Hint 1
 
-Najpierw zapisz niezmiennik bezpieczeństwa i przypadek błędny.
+Trzy różne obrony dla trzech wejść: wartość → parametr `$status`,
+identyfikator → allow-lista, liczba → walidacja zakresu.
 
 ## Hint 2
 
-Oddziel dane użytkownika od elementów protokołu lub składni.
+WHERE doklejaj warunkowo: `filter.status ? " WHERE status = $status" : ""` —
+i analogicznie warunkowy wpis w `params`.
 
 ## Hint 3
 
-Sprawdź lifecycle, limit i cleanup, nie tylko happy path.
+Kolumna sortowania może być interpolowana w SQL **dopiero po** przejściu
+allow-listy — to jedyne miejsce, gdzie interpolacja jest legalna.
