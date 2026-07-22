@@ -3,5 +3,5 @@ export function trampoline(fn) {
 }
 
 export function sumTo(n) {
-  // TODO — użyj trampoline
+  // TODO
 }

@@ -3,5 +3,5 @@ export class Animal {
 }
 
 export class Rabbit {
-  // TODO (pamiętaj o extends)
+  // TODO
 }

@@ -4,9 +4,8 @@ Zaimplementuj w `starter.js` dwie funkcje.
 
 ## 1. `deepClone(value)`
 
-Zwróć **głęboką** kopię wartości przy użyciu `structuredClone` — zagnieżdżone obiekty
-i tablice mają być niezależne, a typy takie jak `Date` zachowane (w przeciwieństwie do
-`JSON.parse(JSON.stringify(...))`).
+Zwróć **głęboką** kopię wartości — zagnieżdżone obiekty i tablice mają być niezależne,
+a typy takie jak `Date` zachowane. Nie używaj serializacji JSON jako mechanizmu kopiowania.
 
 ```js
 const orig = { user: { tags: ["a"] }, created: new Date(2020, 0, 1) };

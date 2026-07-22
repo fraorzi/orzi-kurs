@@ -17,7 +17,3 @@ d.flush(); // 10  — odpala od razu, zwraca wynik
 d(7);
 d.cancel(); // oczekujące wywołanie porzucone — fn się nie odpali
 ```
-
-Wskazówka: przypisz zwracaną funkcję do zmiennej (`const debounced = (...args) => {...}`),
-żeby dało się dopiąć do niej `debounced.cancel` i `debounced.flush`. Po odpaleniu /
-`cancel()` wyzeruj zapamiętane argumenty, żeby `flush()` nie odpalił „starych".

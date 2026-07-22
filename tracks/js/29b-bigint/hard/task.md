@@ -16,6 +16,5 @@ sumAmounts(["9007199254740993", "1"]);           // "9007199254740994"  (przez n
 sumAmounts([]);                                  // "0"
 ```
 
-Wskazówki: sumuj na BigInt (start `0n`), konwertując każdy string przez `BigInt(...)`, a na
-końcu zwróć `.toString()`. Nie konwertuj przez `Number` — to właśnie ta konwersja gubi
-precyzję, przed którą chroni BigInt.
+Nie konwertuj kwot przez `Number` — taka konwersja zgubiłaby precyzję, przed którą chroni
+to zadanie.

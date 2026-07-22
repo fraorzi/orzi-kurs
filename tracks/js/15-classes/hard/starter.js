@@ -1,5 +1,5 @@
 export class PowerArray {
-  // TODO (pamiętaj o extends)
+  // TODO
 }
 
 export class Wallet {

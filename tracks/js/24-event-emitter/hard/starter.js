@@ -1,20 +1,20 @@
 export class EventEmitter {
-  // TODO: przechowuj słuchaczy (np. Map event -> [{ fn, once }])
+  // TODO
 
   on(event, handler) {
-    // TODO: dodaj słuchacza, zwróć this
+    // TODO
   }
 
   once(event, handler) {
-    // TODO: dodaj słuchacza jednorazowego, zwróć this
+    // TODO
   }
 
   off(event, handler) {
-    // TODO: usuń po referencji, zwróć this
+    // TODO
   }
 
   emit(event, ...args) {
-    // TODO: wywołaj słuchaczy (kopia listy!), wypisz once; zwróć czy byli słuchacze
+    // TODO
   }
 
   listenerCount(event) {
@@ -22,6 +22,6 @@ export class EventEmitter {
   }
 
   removeAllListeners(event) {
-    // TODO: usuń dla event albo wszystkich (gdy event === undefined); zwróć this
+    // TODO
   }
 }

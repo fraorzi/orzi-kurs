@@ -14,7 +14,3 @@ isEven(10);     // true
 isOdd(7);       // true
 isEven(100000); // true   (naiwna rekurencja wzajemna by się wywaliła)
 ```
-
-Wskazówka: napisz wewnętrzne kroki, które **zwracają thunki** tej drugiej funkcji
-(`() => oddStep(n - 1)`), i przepuść je przez pętlę trampoliny. Warunek bazowy: `n === 0`
-→ `isEven` to `true`, `isOdd` to `false`.

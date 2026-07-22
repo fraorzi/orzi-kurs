@@ -4,8 +4,6 @@
 Zaimplementuj `safeStringify(value)`, które **nie rzuca** — miejsce cyklu zastępuje
 stringiem `"[Circular]"`. Zwykłe (acykliczne) dane serializuj normalnie.
 
-Wskazówka: replacer-funkcja + `WeakSet` już odwiedzonych obiektów.
-
 ```js
 const obj = { name: "x" };
 obj.self = obj; // cykl

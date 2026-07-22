@@ -19,6 +19,3 @@ tak by działała dla dużych `n` **bez** `RangeError`.
 sumTo(5);      // 15
 sumTo(100000); // 5000050000  (zwykła rekurencja by się tu wywaliła)
 ```
-
-Wskazówka: napisz wewnętrzny krok z akumulatorem, który **zwraca thunk** `() => rec(n-1, acc+n)`
-zamiast wołać `rec(...)` bezpośrednio, i owiń go w `trampoline`.

@@ -21,5 +21,5 @@ user.age = -5;   // TypeError: niepoprawna wartość dla age
 user.age;        // 40  (nieudany zapis nie zmienił wartości)
 ```
 
-Zapis wykonuj przez `Reflect.set(...)` i **zwróć jego wynik** z pułapki (pułapka `set` musi
-oddać `boolean`).
+Poprawny zapis ma zachować standardowy kontrakt pułapki `set`, łącznie z wynikiem typu
+`boolean`.

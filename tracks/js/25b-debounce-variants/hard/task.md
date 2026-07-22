@@ -15,8 +15,5 @@ throttle(fn, 40, { leading: false, trailing: true }); // bez natychmiastowego, t
 throttle(fn, 40, { leading: true, trailing: false });  // tylko natychmiastowy, bez końcowego
 ```
 
-Kanoniczny wzorzec (underscore/lodash): trzymaj znacznik czasu ostatniego odpalenia (`last`),
-licz `remaining = wait - (now - last)`. Gdy `remaining <= 0` — odpal od razu i zaktualizuj
-`last`. W przeciwnym razie (jeśli `trailing`) zaplanuj odpalenie na koniec okna z ostatnimi
-argumentami. Dla `leading:false` „udawaj", że właśnie odpaliłeś (`last = now`), by stłumić
-natychmiastowe wywołanie.
+Implementacja musi poprawnie obsłużyć kolejne okna czasowe, ostatnie argumenty oraz każdą
+kombinację opcji `leading` i `trailing`.
