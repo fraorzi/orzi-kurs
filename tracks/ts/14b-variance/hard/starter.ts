@@ -10,12 +10,12 @@ export interface Cat extends Animal {
   meow(): string;
 }
 
-// TODO: usuń mutację i zmień parametr na readonly oraz wynik na Animal[].
+// TODO
 export function addAnimal(animals: Animal[], animal: Animal): void {
   animals.push(animal);
 }
 
 export function animalNames(animals: Animal[]): string[] {
-  // TODO: tylko odczyt
+  // TODO
   return [];
 }

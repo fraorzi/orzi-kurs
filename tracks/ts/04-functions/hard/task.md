@@ -52,9 +52,3 @@ fast.misses;   // 1
 fast.clear();
 fast.hits;     // 0
 ```
-
-Wskazówka: `hits`/`misses` są `readonly` w interfejsie, ale to nie przeszkadza — do obiektu
-funkcji przypisujesz je od środka, przez zwykłe pola funkcji.
-
-Cache trzymaj w `Map<string, number>`; `undefined` jako wynik `fn` nie występuje
-(zwracany typ to `number`).

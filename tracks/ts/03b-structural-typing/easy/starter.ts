@@ -16,7 +16,7 @@ export type ProfilePatch = {
 };
 
 export function toProfilePreview(profile: ProfilePreview): ProfilePreview {
-  // TODO: nowy obiekt bez dodatkowych pól runtime
+  // TODO
   return profile;
 }
 
@@ -24,6 +24,6 @@ export function applyProfilePatch(
   profile: Profile,
   patch: ProfilePatch,
 ): Profile {
-  // TODO: niemutujące połączenie profilu i patcha
+  // TODO
   return profile;
 }

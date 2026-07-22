@@ -5,8 +5,7 @@ Moduł ESM chce wczytać plik leżący obok siebie. Zaimplementuj
 
 - `moduleUrl` to wartość w formacie `import.meta.url`
   (np. `"file:///app/src/index.js"`);
-- zwróć **pathname** pliku rozwiązanego względem modułu przez konstruktor
-  `new URL(relative, base)`;
+- zwróć **pathname** pliku rozwiązanego względem modułu przez standardowe API `URL`;
 - względne segmenty (`./`, `../`) mają działać jak w imporcie — bez ręcznego
   sklejania separatorów.
 

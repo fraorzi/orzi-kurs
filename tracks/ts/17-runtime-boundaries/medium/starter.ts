@@ -13,6 +13,6 @@ export function parseArray<T>(
   input: unknown,
   parseItem: Parser<T>,
 ): ParseResult<T[]> {
-  // TODO: wszystkie błędy z indeksami
+  // TODO
   return { ok: false, errors: [] };
 }

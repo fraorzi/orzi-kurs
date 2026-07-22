@@ -61,10 +61,3 @@ export type PathParams<P extends string> = ...;
 export function buildPath<P extends string>(pattern: P, params: PathParams<P>): string;
 export function matchPath<P extends string>(pattern: P, path: string): PathParams<P> | null;
 ```
-
-## Wskazówki
-
-- Rekurencja po stringu: `P extends \`${string}:${infer Param}/${infer Rest}\`` odcina
-  pierwszy parametr i zostawia resztę ścieżki do dalszej analizy.
-- Ostatni parametr nie ma po sobie `/` — potrzebna druga gałąź warunku.
-- `Record<Union, string>` zamienia unię nazw na obiekt.

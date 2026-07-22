@@ -1,7 +1,7 @@
-// TODO: etykietowane readonly tuple
+// TODO
 export type Range = readonly number[];
 
-// TODO: unia dwóch etykietowanych tuple
+// TODO
 export type ParseRangeResult =
   | [boolean, Range]
   | [boolean, string];
@@ -12,6 +12,6 @@ export function parseRange(input: string): ParseRangeResult {
 }
 
 export function rangeLength(range: Range): number {
-  // TODO: zakres liczony włącznie
+  // TODO
   return 0;
 }

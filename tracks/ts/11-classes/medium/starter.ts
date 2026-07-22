@@ -2,7 +2,7 @@ export interface Describable {
   describe(): string;
 }
 
-// TODO: klasa abstrakcyjna implementująca Describable
+// TODO
 export class Shape {
   kind = "";
 
@@ -11,26 +11,26 @@ export class Shape {
   }
 
   describe(): string {
-    // TODO: "circle: 12.57"
+    // TODO
     return "";
   }
 }
 
-// TODO: Circle(radius) — kind "circle", area = π r²
+// TODO
 export class Circle extends Shape {}
 
-// TODO: Rectangle(width, height) — kind "rectangle", area = w * h
+// TODO
 export class Rectangle extends Shape {}
 
-// TODO: Square(side) — dziedziczy po Rectangle, kind "square"
+// TODO
 export class Square extends Rectangle {}
 
 export function totalArea(shapes: readonly Shape[]): number {
-  // TODO: suma pól zaokrąglona do dwóch miejsc
+  // TODO
   return 0;
 }
 
 export function largest(shapes: readonly Shape[]): Shape | null {
-  // TODO: największe pole; remis → pierwszy; pusta lista → null; bez mutacji wejścia
+  // TODO
   return null;
 }

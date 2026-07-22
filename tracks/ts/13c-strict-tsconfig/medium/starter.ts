@@ -12,11 +12,11 @@ export function applyProfilePatch(
   profile: Profile,
   patch: ProfilePatch,
 ): Profile {
-  // TODO: obecność klucza, nie porównanie z undefined
+  // TODO
   return profile;
 }
 
 export function hasProfileChanges(patch: ProfilePatch): boolean {
-  // TODO: pusty obiekt false; jawny null avatarUrl to zmiana
+  // TODO
   return false;
 }

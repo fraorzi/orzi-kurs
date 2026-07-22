@@ -13,6 +13,6 @@ export type ParseResult<T> =
   | { ok: false; errors: string[] };
 
 export function parseOrderResponse(input: unknown): ParseResult<Order> {
-  // TODO: parse-don't-validate z kompletem ścieżek błędów
+  // TODO
   return { ok: false, errors: [] };
 }

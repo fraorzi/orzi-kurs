@@ -3,6 +3,6 @@ export function selectOption<const Options extends readonly string[]>(
   requested: string | undefined,
   fallback: Options[number],
 ): Options[number] {
-  // TODO: fallback ma używać NoInfer<Options[number]>
+  // TODO
   return fallback;
 }

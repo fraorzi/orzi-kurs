@@ -1,4 +1,4 @@
-// TODO: unia rozłączna trzech wariantów zdarzenia (dyskryminator: type).
+// TODO
 export type AnalyticsEvent = {
   type: string;
   path?: string;
@@ -9,11 +9,11 @@ export type AnalyticsEvent = {
 };
 
 export function describeEvent(event: AnalyticsEvent): string {
-  // TODO: switch po event.type + bramka never w default
+  // TODO
   return "";
 }
 
 export function countFatal(events: AnalyticsEvent[]): number {
-  // TODO: liczba błędów krytycznych
+  // TODO
   return 0;
 }

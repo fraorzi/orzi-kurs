@@ -8,6 +8,6 @@ export async function mapConcurrent<Item, Result>(
   ) => Promise<Result>,
   signal?: AbortSignal,
 ): Promise<Result[]> {
-  // TODO: pool, kolejność wyniku i AbortSignal
+  // TODO
   return [];
 }

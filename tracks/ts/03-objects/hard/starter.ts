@@ -1,17 +1,17 @@
-// TODO: wszystkie pola readonly
+// TODO
 export interface Article {
   id: number;
   title: string;
   authorId: number;
 }
 
-// TODO: wszystkie pola readonly
+// TODO
 export interface Author {
   id: number;
   name: string;
 }
 
-// TODO: słowniki po id + indeks byAuthor (authorId → id artykułów), całość readonly
+// TODO
 export interface Store {
   articles: unknown;
   authors: unknown;
@@ -30,18 +30,18 @@ export function articlesOf(
   store: Store,
   authorId: number,
 ): readonly Article[] {
-  // TODO: artykuły autora w kolejności z byAuthor; nieznany autor → []
+  // TODO
   return [];
 }
 
 export function authorOf(store: Store, articleId: number): Author | null {
-  // TODO: null gdy brak artykułu albo brak jego autora
+  // TODO
   return null;
 }
 
 export function titlesByAuthorName(
   store: Store,
 ): Record<string, readonly string[]> {
-  // TODO: nazwa autora → tytuły artykułów (tylko autorzy z artykułami)
+  // TODO
   return {};
 }

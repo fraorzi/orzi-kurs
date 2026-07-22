@@ -1,4 +1,4 @@
-// TODO: słownik sku → sztuki, w całości tylko do odczytu.
+// TODO
 export type Stock = Record<string, number>;
 
 export function totalUnits(stock: Stock): number {
@@ -7,11 +7,11 @@ export function totalUnits(stock: Stock): number {
 }
 
 export function withUnits(stock: Stock, sku: string, delta: number): Stock {
-  // TODO: nowy obiekt; wynik <= 0 usuwa klucz; oryginał nietknięty
+  // TODO
   return stock;
 }
 
 export function lowStock(stock: Stock, threshold: number): string[] {
-  // TODO: klucze poniżej progu, posortowane alfabetycznie
+  // TODO
   return [];
 }

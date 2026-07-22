@@ -7,10 +7,10 @@ export type RuntimeConfig = {
 export function assertRuntimeConfig(
   value: unknown,
 ): asserts value is RuntimeConfig {
-  // TODO: sprawdź cały kontrakt i rzuć TypeError z nazwą pola
+  // TODO
 }
 
 export function loadRuntimeConfig(value: unknown): RuntimeConfig {
-  // TODO: użyj assertion function, potem usuń końcowe ukośniki z apiUrl
+  // TODO
   throw new Error("TODO");
 }

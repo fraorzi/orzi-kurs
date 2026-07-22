@@ -20,7 +20,7 @@ interface Column {
 }
 ```
 
-`COLUMNS` (`as const satisfies readonly Column[]`):
+`COLUMNS` ma zachować literały i jednocześnie zostać sprawdzone jako readonly lista kolumn:
 
 | key | label | align |
 |---|---|---|
@@ -61,7 +61,8 @@ Strażnik typu — `"id"` nie jest kolumną, mimo że jest polem `User`.
 type State = "idle" | "loading" | "done" | "error";
 ```
 
-`TRANSITIONS` (`as const satisfies Record<State, readonly State[]>`) — dozwolone przejścia:
+`TRANSITIONS` ma zachować literały i zostać sprawdzone jako kompletna mapa stanów do readonly
+list dozwolonych stanów:
 
 - `idle` → `loading`
 - `loading` → `done`, `error`

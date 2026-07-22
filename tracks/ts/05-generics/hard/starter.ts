@@ -1,20 +1,20 @@
-// TODO: generyczna unia rozłączna — sukces z wartością T albo błąd z komunikatem
+// TODO
 export type Result<T> =
   | { readonly ok: true; readonly value: unknown }
   | { readonly ok: false; readonly error: string };
 
 export function ok(value: unknown): Result<unknown> {
-  // TODO: wariant sukcesu
+  // TODO
   return { ok: false, error: "TODO" };
 }
 
-// TODO: typ zwracany to Result<never> — pasuje do każdego Result<T>
+// TODO
 export function err(error: string): Result<unknown> {
-  // TODO: wariant błędu
+  // TODO
   return { ok: false, error };
 }
 
-// TODO: dwa parametry typu; na błędzie NIE wołaj fn
+// TODO
 export function mapResult(
   result: Result<unknown>,
   fn: (value: unknown) => unknown,
@@ -23,7 +23,7 @@ export function mapResult(
   return result;
 }
 
-// TODO: fn samo zwraca Result — wynik nie może być Result<Result<U>>
+// TODO
 export function flatMapResult(
   result: Result<unknown>,
   fn: (value: unknown) => Result<unknown>,
@@ -33,11 +33,11 @@ export function flatMapResult(
 }
 
 export function unwrapOr(result: Result<unknown>, fallback: unknown): unknown {
-  // TODO: wartość sukcesu albo fallback
+  // TODO
   return fallback;
 }
 
-// TODO: lista wyników → wynik z listą; pierwszy błąd wygrywa
+// TODO
 export function collect(results: readonly Result<unknown>[]): Result<unknown[]> {
   // TODO
   return { ok: false, error: "TODO" };

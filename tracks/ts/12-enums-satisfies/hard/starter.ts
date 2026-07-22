@@ -11,14 +11,14 @@ export interface Column {
   readonly align?: "left" | "right";
 }
 
-// TODO: as const satisfies readonly Column[] — literały key mają przetrwać
+// TODO
 export const COLUMNS: readonly Column[] = [
   { key: "name", label: "Nazwa" },
   { key: "email", label: "E-mail" },
   { key: "createdAt", label: "Utworzono", align: "right" },
 ];
 
-// TODO: unia kluczy kolumn wyprowadzona z COLUMNS
+// TODO
 export type ColumnKey = string;
 
 export function headers(): string[] {
@@ -27,18 +27,18 @@ export function headers(): string[] {
 }
 
 export function row(user: User): string[] {
-  // TODO: wartości w kolejności kolumn, każda jako string
+  // TODO
   return [];
 }
 
-// TODO: strażnik typu — key is ColumnKey
+// TODO
 export function isColumnKey(key: string): boolean {
   return false;
 }
 
 export type State = "idle" | "loading" | "done" | "error";
 
-// TODO: as const satisfies Record<State, readonly State[]>
+// TODO
 export const TRANSITIONS = {
   idle: ["loading"],
   loading: ["done", "error"],
@@ -57,6 +57,6 @@ export function nextStates(state: State): readonly State[] {
 }
 
 export function transition(from: State, to: State): State {
-  // TODO: niedozwolone → Error("niedozwolone przejście: idle → done")
+  // TODO
   return from;
 }

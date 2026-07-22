@@ -1,22 +1,22 @@
-// TODO: mapa stałych — wartości mają zostać literałami (as const).
+// TODO
 export const STATUS = {
   draft: "draft",
   review: "review",
   published: "published",
 };
 
-// TODO: unia WARTOŚCI mapy STATUS, wyprowadzona z niej (nie przepisana ręcznie).
+// TODO
 export type Status = string;
 
-// TODO: etykiety dla każdego statusu; typ ma wymuszać komplet (Record<Status, string>).
+// TODO
 export const LABELS = {};
 
 export function nextStatus(current: Status): Status {
-  // TODO: draft → review → published → published
+  // TODO
   return current;
 }
 
 export function describeStatus(current: Status): string {
-  // TODO: "W recenzji (review)"
+  // TODO
   return "";
 }

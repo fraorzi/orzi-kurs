@@ -1,13 +1,13 @@
-// TODO: typ ma być literalny "PLN", nie string.
+// TODO
 export const CURRENCY: string = "PLN";
 
 export function formatPrice(amount: number, currency: string): string {
-  // TODO: "12.50 PLN"
+  // TODO
   return "";
 }
 
-// TODO: readonly tuple ["admin", "editor", "viewer"] (as const).
+// TODO
 export const ROLES = ["admin", "editor", "viewer"];
 
-// TODO: unia ról wyprowadzona z ROLES, nie przepisana ręcznie.
+// TODO
 export type Role = string;

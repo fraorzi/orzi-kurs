@@ -24,6 +24,6 @@ export function fulfillOrder(
   stock: StockPort,
   audit: AuditPort,
 ): FulfillmentResult {
-  // TODO: używaj wyłącznie możliwości opisanych przez małe porty
+  // TODO
   return { ok: true, reserved: 0 };
 }

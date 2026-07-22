@@ -1,40 +1,40 @@
 export const SIZES = ["sm", "md", "lg"] as const;
 export const TONES = ["primary", "danger"] as const;
 
-// TODO: "gap" → "--gap"
+// TODO
 export type CssVar<Name extends string> = string;
 
-// TODO: "click" → "onClick" (przyda się Capitalize)
+// TODO
 export type HandlerName<Event extends string> = string;
 
-// TODO: "port" → "APP_PORT" (prefiks app_ + Uppercase)
+// TODO
 export type EnvKey<Name extends string> = string;
 
-// TODO: unia wartości SIZES — "sm" | "md" | "lg"
+// TODO
 export type Size = string;
 
-// TODO: unia wartości TONES — "primary" | "danger"
+// TODO
 export type Tone = string;
 
-// TODO: wszystkie kombinacje `${Size}-${Tone}` — 6 członów
+// TODO
 export type Variant = string;
 
 export function cssVar<Name extends string>(name: Name): CssVar<Name> {
-  // TODO: "--" + name; typ wyniku to CssVar<Name>, więc potrzebna asercja
+  // TODO
   return name;
 }
 
 export function handlerName<Event extends string>(event: Event): HandlerName<Event> {
-  // TODO: "on" + zdarzenie z wielkiej litery
+  // TODO
   return event;
 }
 
 export function envKey<Name extends string>(name: Name): EnvKey<Name> {
-  // TODO: "app_" + name, całość wielkimi literami
+  // TODO
   return name;
 }
 
 export function isVariant(value: string): value is Variant {
-  // TODO: dokładnie dwa człony, rozmiar z SIZES, ton z TONES
+  // TODO
   return false;
 }

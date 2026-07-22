@@ -1,14 +1,14 @@
 export function greet(name: string, greeting?: string): string {
-  // TODO: "Cześć, Ala!" / "Siema, Ala!"
+  // TODO
   return "";
 }
 
 export function sum(): number {
-  // TODO: dowolnie wiele liczb (parametr rest)
+  // TODO
   return 0;
 }
 
-// TODO: typ callbacku (value, index) => number
+// TODO
 export type Mapper = unknown;
 
 export function mapNumbers(items: readonly number[], fn: Mapper): number[] {
@@ -16,7 +16,7 @@ export function mapNumbers(items: readonly number[], fn: Mapper): number[] {
   return [];
 }
 
-// TODO: typ zwracany ma być never
+// TODO
 export function fail(message: string): void {
-  // TODO: rzuć Error(message)
+  // TODO
 }

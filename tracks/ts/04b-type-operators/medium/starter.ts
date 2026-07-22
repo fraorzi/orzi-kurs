@@ -4,13 +4,13 @@ export type AppEventMap = {
   cacheCleared: null;
 };
 
-// TODO: keyof AppEventMap
+// TODO
 export type EventName = string;
 
-// TODO: indexed access
+// TODO
 export type EventPayload<K extends EventName> = unknown;
 
-// TODO: mapped type z indexed access na końcu
+// TODO
 export type EventEnvelope = {
   type: EventName;
   payload: unknown;
@@ -25,6 +25,6 @@ export function makeEvent<K extends EventName>(
 }
 
 export function formatEvent(event: EventEnvelope): string {
-  // TODO: zawęź po event.type
+  // TODO
   return "";
 }

@@ -1,4 +1,4 @@
-// TODO: mapped tuple z -readonly i Awaited.
+// TODO
 export type AwaitedTuple<Values extends readonly unknown[]> = unknown[];
 
 export async function resolveTuple<

@@ -1,21 +1,21 @@
-// TODO: trzy przeciążenia range (stop) / (start, stop) / (start, stop, step)
+// TODO
 export function range(start: number, stop?: number, step?: number): number[] {
-  // TODO: implementacja; krok 0 → RangeError("krok nie może być zerem")
+  // TODO
   return [];
 }
 
-// TODO: przeciążenia — string → boolean, number → string
+// TODO
 export function parseSetting(value: string | number): boolean | string {
   // TODO
   return false;
 }
 
-// TODO: przyjmuje never i rzuca Error(`nieobsłużony wariant: ${JSON.stringify(value)}`)
+// TODO
 export function assertNever(value: unknown): void {
   // TODO
 }
 
 export function describeSetting(value: string | number): string {
-  // TODO: "przełącznik: true" / "wartość: 2"; na końcu bramka assertNever
+  // TODO
   return "";
 }

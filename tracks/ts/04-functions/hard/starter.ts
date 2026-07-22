@@ -1,21 +1,21 @@
 export type Fn = (value: number) => number;
 
-// TODO: obiekt wywoływalny — sygnatura wywołania + hits/misses/clear
+// TODO
 export interface Memoized {
   hits: number;
 }
 
 export function once(fn: Fn): Fn {
-  // TODO: fn wołane najwyżej raz; kolejne wywołania zwracają zapamiętany wynik
+  // TODO
   return fn;
 }
 
 export function compose(f: Fn, g: Fn): Fn {
-  // TODO: compose(f, g)(x) === f(g(x))
+  // TODO
   return f;
 }
 
 export function memoize(fn: (key: string) => number): Memoized {
-  // TODO: cache w Map + liczniki hits/misses + clear()
+  // TODO
   throw new Error("TODO");
 }
