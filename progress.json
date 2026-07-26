@@ -119,5 +119,17 @@
     "firstPassedWithoutHintAt": "2026-07-22T21:37:42.988Z",
     "verifiedStarter": "export function roundTo(value, decimals) {\n  return (\n    Math.round(value * 10 ** decimals) / 10 ** decimals\n  );\n}\n\nexport function isInteger(value) {\n  return Number.isInteger(value);\n}\n",
     "lastRunAt": "2026-07-22T21:37:42.988Z"
+  },
+  "js/29-numbers/medium": {
+    "status": "passed",
+    "attempts": 6,
+    "masteryScore": 2,
+    "cleanPassStreak": 2,
+    "nextReviewAt": "2026-07-29T16:27:29.600Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-07-26T16:24:19.314Z",
+    "firstPassedWithoutHintAt": "2026-07-26T16:24:19.314Z",
+    "verifiedStarter": "export function approxEqual(a, b, tolerance = 1e-9) {\n  return Math.abs(a - b) < tolerance;\n}\n\nexport function toFixedNumber(value, digits) {\n  return Number(value.toFixed(digits));\n}\n",
+    "lastRunAt": "2026-07-26T16:27:29.600Z"
   }
 }
