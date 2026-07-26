@@ -23,17 +23,10 @@ FirstParam<() => void>;                      // never
 
 ## Funkcje
 
-```ts
-once<F extends (...args: never[]) => unknown>(fn: F): (...args: MyParameters<F>) => MyReturnType<F>
-// wywołuje fn najwyżej raz; kolejne wywołania oddają zapamiętany wynik (bez ponownego wywołania fn)
-
-resolveAll<T extends readonly unknown[]>(values: readonly [...T]): Promise<{ [K in keyof T]: MyAwaited<T[K]> }>
-// czeka na wszystkie wartości; te, które nie są obietnicami, przepuszcza bez zmian
-```
-
-Zwróć uwagę na `readonly [...T]` w `resolveAll`: samo `values: T` sprawia, że z literału
-tablicowego TS wywnioskuje **tablicę** (`(Promise<number> | string)[]`), a nie krotkę —
-i wynik straciłby pozycje. Zapis wariadyczny wymusza inferencję krotki.
+- `once` zachowuje krotkę parametrów i typ wyniku przekazanej funkcji, korzystając z typów
+  zdefiniowanych w pierwszej części.
+- `resolveAll` przyjmuje readonly tuple, czeka na wszystkie pozycje i zwraca Promise nowej,
+  mutowalnej tuple z rozpakowanym typem każdej pozycji.
 
 ```ts
 const load = once((id: number) => ({ id }));
@@ -50,9 +43,3 @@ await resolveAll([Promise.resolve(1), "x", Promise.resolve(true)]);
 - Gdy `fn` rzuci wyjątkiem, `once` **nie** zapamiętuje niczego — kolejne wywołanie próbuje
   ponownie.
 - `resolveAll` zachowuje kolejność i nie mutuje wejścia.
-
-## Wskazówka
-
-W pozycji parametrów funkcji generycznej używaj `never[]`, nie `any[]`:
-`F extends (...args: never[]) => unknown`. Funkcje są kontrawariantne po argumentach, więc
-`never[]` przyjmuje każdą funkcję, a `any` wyłączyłoby kontrolę typów.

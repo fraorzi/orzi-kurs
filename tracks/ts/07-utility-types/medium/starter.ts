@@ -30,21 +30,21 @@ export async function findUser(
   return withPosts ? found : { ...found, posts: [] };
 }
 
-// TODO: krotka argumentów findUser — Parameters.
+// TODO
 export type FindUserArgs = unknown;
 
-// TODO: wynik findUser po zdjęciu Promise — ReturnType + Awaited.
+// TODO
 export type FindUserResult = unknown;
 
-// TODO: FindUserResult bez null — NonNullable.
+// TODO
 export type FoundUser = unknown;
 
 export async function findUserOrThrow(
-  // TODO: rest-parametr o typie FindUserArgs
+  // TODO
   id: number,
   withPosts: boolean,
 ): Promise<FoundUser> {
-  // TODO: brak użytkownika → Error(`nie znaleziono użytkownika: ${id}`)
+  // TODO
   throw new Error("TODO");
 }
 
@@ -54,22 +54,22 @@ export type AppEvent =
   | { kind: "scroll"; top: number }
   | { kind: "close" };
 
-// TODO: wariant "click" wyciągnięty z unii — Extract.
+// TODO
 export type ClickEvent = unknown;
 
-// TODO: wszystkie warianty poza "close" — Exclude.
+// TODO
 export type ActiveEvent = unknown;
 
-// TODO: unia nazw zdarzeń — indeksowany dostęp AppEvent["kind"].
+// TODO
 export type EventKind = unknown;
 
 export function isActive(event: AppEvent): boolean {
-  // TODO: predykat typu — event is ActiveEvent
+  // TODO
   return false;
 }
 
 export function describeActive(event: AppEvent): string {
-  // TODO: parametr ma być typu ActiveEvent; switch bez default
+  // TODO
   return "";
 }
 
@@ -77,6 +77,6 @@ export function filterByKind(
   events: readonly AppEvent[],
   kind: string,
 ): AppEvent[] {
-  // TODO: generyk K extends EventKind, wynik Extract<AppEvent, { kind: K }>[]
+  // TODO
   return [];
 }

@@ -1,15 +1,15 @@
-// TODO: rekurencyjnie readonly na każdym poziomie.
+// TODO
 export type DeepReadonly<T> = T;
 
-// TODO: rekurencyjnie opcjonalne na każdym poziomie.
+// TODO
 export type DeepPartial<T> = T;
 
 export function deepFreeze<T>(value: T): DeepReadonly<T> {
-  // TODO: Object.freeze rekurencyjnie (obiekty i tablice)
+  // TODO
   throw new Error("TODO");
 }
 
 export function deepMerge<T extends object>(base: T, patch: DeepPartial<T>): T {
-  // TODO: scal rekurencyjnie, bez mutacji; tablica nadpisuje w całości
+  // TODO
   throw new Error("TODO");
 }

@@ -8,6 +8,6 @@ export type ActionRequest = {
 export function createActionHandler(
   onAction: (request: ActionRequest) => void,
 ): (event: Event) => void {
-  // TODO: target/currentTarget/closest/dataset bez assertions
+  // TODO
   return () => {};
 }

@@ -14,6 +14,6 @@ export function assertNever(value: never): never {
 }
 
 export function reduceCart(state: CartState, action: CartAction): CartState {
-  // TODO: jawny switch i assertNever po wszystkich wariantach
+  // TODO
   return state;
 }

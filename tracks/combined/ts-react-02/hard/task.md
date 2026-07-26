@@ -8,9 +8,8 @@ Uzupełnij:
 
 - `reducer(state, action)`: `add` zwiększa `count` o `amount`, `remove`
   zmniejsza, `reset` zeruje. Stan **nigdy** nie schodzi poniżej zera,
-  a ujemny `amount` jest traktowany jak zero (`Math.max(0, ...)`);
-- obsłuż wyczerpanie unii akcji przez `satisfies never` (kompilator wymusi
-  komplet przypadków);
+  a ujemny `amount` jest traktowany jak zero;
+- obsłuż wyczerpanie unii akcji tak, aby kompilator wymuszał komplet przypadków;
 - `useCart()`: zwraca stan z Contextu, a **poza** `CartProvider` rzuca
   czytelny błąd wskazujący brakującego Providera (nie cichy fallback).
 

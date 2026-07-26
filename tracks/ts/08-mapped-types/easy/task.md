@@ -40,7 +40,3 @@ frozen.age = 31;             // błąd typu — źródło readonly
 
 clearFields({ name: "Ala", age: 30 });  // { name: null, age: null }
 ```
-
-## Wskazówka
-
-`readonly` i `?` zdejmuje się modyfikatorem `-` w mapped typie: `-readonly`, `-?`.

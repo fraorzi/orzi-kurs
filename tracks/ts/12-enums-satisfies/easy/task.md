@@ -7,9 +7,7 @@ Mapa tras. Ma **jednocześnie**:
 - być sprawdzona względem `Record<string, string>` (każda wartość to string),
 - zachować typy literalne wartości (`ROUTES.home` ma typ `"/"`, nie `string`).
 
-Potrzebujesz obu narzędzi naraz: `as const satisfies Record<string, string>`. Samo
-`satisfies` sprawdzi kształt, ale wartości rozszerzy do `string` (bo tego oczekuje typ
-docelowy) — literały zachowuje dopiero `as const`.
+Połącz `as const` i `satisfies`, aby jednocześnie sprawdzić kształt i zachować literały.
 
 ```ts
 ROUTES.home;  // typ: "/"
@@ -35,7 +33,8 @@ pathOf("nieznana"); // błąd typu
 
 ## 4. `THEME`
 
-Konfiguracja motywu — `as const satisfies ThemeConfig`, gdzie:
+Konfiguracja motywu ma być sprawdzona przez `satisfies` względem `ThemeConfig` i zachować
+literalne wartości dzięki `as const`:
 
 ```ts
 interface ThemeConfig {
@@ -47,7 +46,7 @@ interface ThemeConfig {
 
 Wartości: `mode: "dark"`, `radiusPx: 8`, `fontFamily: "JetBrains Mono"`.
 
-Po `as const satisfies` pole `THEME.mode` ma typ `"dark"` (nie unię), a literówka w `mode`
+Pole `THEME.mode` ma typ `"dark"` (nie unię), a literówka w `mode`
 (np. `"drak"`) byłaby błędem kompilacji.
 
 ## 5. `isDark(): boolean`

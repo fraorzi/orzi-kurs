@@ -5,7 +5,7 @@ export function readSdkInvoice(payload: unknown): any {
 }
 
 export function invoiceTotal(payload: unknown): number | null {
-  // TODO: odetnij any przez lokalne unknown i zawężaj
+  // TODO
   const invoice = readSdkInvoice(payload);
   return invoice.items.reduce(
     (sum: number, item: any) => sum + item.price * item.quantity,

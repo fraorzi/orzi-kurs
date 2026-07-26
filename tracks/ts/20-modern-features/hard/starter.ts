@@ -1,4 +1,4 @@
 export function createDisposableStack(): DisposableStack {
-  // TODO: użyj natywnego DisposableStack lub zgodnego fallbacku
+  // TODO
   throw new Error("not implemented");
 }

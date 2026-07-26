@@ -1,4 +1,4 @@
-// TODO: as const — wartości mają zostać literałami
+// TODO
 export const LOG_LEVEL = {
   debug: 10,
   info: 20,
@@ -6,23 +6,23 @@ export const LOG_LEVEL = {
   error: 40,
 };
 
-// TODO: unia kluczy LOG_LEVEL
+// TODO
 export type LevelName = string;
 
-// TODO: unia wartości LOG_LEVEL
+// TODO
 export type LevelValue = number;
 
 export function shouldLog(minimum: LevelName, message: LevelName): boolean {
-  // TODO: poziom wiadomości >= próg
+  // TODO
   return false;
 }
 
 export function levelName(value: LevelValue): LevelName {
-  // TODO: odwrotne mapowanie wartość → nazwa
+  // TODO
   return "debug";
 }
 
 export function parseLevel(input: string): LevelName | null {
-  // TODO: walidacja stringa z zewnątrz; bez `as` i bez `any`
+  // TODO
   return null;
 }

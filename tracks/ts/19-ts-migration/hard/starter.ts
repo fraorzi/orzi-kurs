@@ -19,7 +19,7 @@ export type MigrationStep =
 export function buildMigrationPlan(
   input: MigrationPlanInput,
 ): MigrationStep[] {
-  // TODO: ułóż bezpieczny plan migracji TS 6 → 7
+  // TODO
   void input;
   return [];
 }

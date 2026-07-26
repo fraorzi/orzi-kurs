@@ -58,9 +58,3 @@ stripInternal({ id: 1, _secret: "x", name: "Ala" });  // { id: 1, name: "Ala" }
 
 Klucz zwrócony jako `never` w klauzuli `as` **znika** z wynikowego typu — to jedyny sposób
 filtrowania kluczy w mapped type.
-
-## Wskazówka
-
-`keyof T` może zawierać `symbol`, a template literal przyjmuje tylko stringi — stąd
-`keyof T & string` w `Getters` i `ChangeHandlers`. W `WithoutInternal` klucza **nie
-przepisujesz**, tylko warunkowo kasujesz, więc `keyof T` wystarczy.

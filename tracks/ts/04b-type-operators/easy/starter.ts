@@ -4,10 +4,10 @@ export const ROUTES = {
   order: "/orders/:id",
 } as const;
 
-// TODO: keyof typeof ROUTES
+// TODO
 export type RouteName = string;
 
-// TODO: (typeof ROUTES)[RouteName]
+// TODO
 export type RoutePath = string;
 
 export function pathFor(name: RouteName): RoutePath {
@@ -16,6 +16,6 @@ export function pathFor(name: RouteName): RoutePath {
 }
 
 export function isRouteName(value: string): value is RouteName {
-  // TODO: sprawdź własny klucz obiektu
+  // TODO
   return false;
 }

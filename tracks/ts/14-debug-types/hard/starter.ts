@@ -11,7 +11,7 @@ export type ConfigResult =
 export function loadServiceConfig(
   env: Readonly<Record<string, string | undefined>>,
 ): ConfigResult {
-  // TODO: usuń assertion chain i waliduj każde pole
+  // TODO
   return {
     ok: true,
     config: {

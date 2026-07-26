@@ -28,5 +28,3 @@ Cena po rabacie, zaokrąglona do dwóch miejsc.
 finalPrice({ id: 1, name: "Kubek", price: 100, discount: 0.25 }); // 75
 finalPrice({ id: 2, name: "Mysz", price: 79.99, discount: 0.1 }); // 71.99
 ```
-
-Wskazówka: `Math.round(x * 100) / 100`.

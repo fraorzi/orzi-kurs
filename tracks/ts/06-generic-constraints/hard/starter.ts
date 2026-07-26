@@ -1,26 +1,26 @@
 export type EventMap = Record<string, unknown>;
 
-// TODO: ogranicz TEvents do EventMap; K do keyof TEvents; ładunek do TEvents[K].
+// TODO
 export class EventBus<TEvents> {
-  // TODO: prywatny w runtime rejestr handlerów (#handlers)
+  // TODO
 
   on<K>(event: K, handler: (payload: unknown) => void): () => void {
-    // TODO: zarejestruj handler, zwróć funkcję odpinającą
+    // TODO
     throw new Error("TODO");
   }
 
   once<K>(event: K, handler: (payload: unknown) => void): () => void {
-    // TODO: handler odpala się najwyżej raz
+    // TODO
     throw new Error("TODO");
   }
 
   off<K>(event: K, handler: (payload: unknown) => void): boolean {
-    // TODO: odepnij konkretny handler; true, jeśli był zarejestrowany
+    // TODO
     return false;
   }
 
   emit<K>(event: K, payload: unknown): number {
-    // TODO: wywołaj handlery w kolejności rejestracji; zwróć ich liczbę
+    // TODO
     return 0;
   }
 

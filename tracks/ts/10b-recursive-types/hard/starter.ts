@@ -1,4 +1,4 @@
-// TODO: rekurencja po [Head, ...Tail] z akumulatorem.
+// TODO
 export type Reverse<
   Input extends readonly unknown[],
   Acc extends readonly unknown[] = readonly [],
@@ -7,6 +7,6 @@ export type Reverse<
 export function reverseTuple<const Input extends readonly unknown[]>(
   input: Input,
 ): Reverse<Input> {
-  // TODO: utwórz odwróconą kopię
+  // TODO
   return input;
 }

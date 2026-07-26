@@ -7,6 +7,6 @@ export function withRetry<Args extends readonly unknown[], Result>(
   operation: (...args: Args) => Promise<Result>,
   options: RetryOptions,
 ): (...args: Args) => Promise<Result> {
-  // TODO: zachowaj Args i Result, wykonaj kontrolowaną pętlę prób
+  // TODO
   throw new Error("TODO");
 }

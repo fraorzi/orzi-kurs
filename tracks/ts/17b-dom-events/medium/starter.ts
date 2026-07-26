@@ -9,6 +9,6 @@ export type LoginResult =
   | { ok: false; errors: string[] };
 
 export function parseLoginForm(form: HTMLFormElement): LoginResult {
-  // TODO: FormDataEntryValue | null wymaga narrowing
+  // TODO
   return { ok: false, errors: [] };
 }

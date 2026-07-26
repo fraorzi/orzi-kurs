@@ -36,5 +36,3 @@ Typ będący unią ról — **wyprowadzony z `ROLES`**, nie przepisany ręcznie.
 ```ts
 type Role = ...; // "admin" | "editor" | "viewer"
 ```
-
-Wskazówka: `(typeof X)[number]` daje unię elementów krotki.

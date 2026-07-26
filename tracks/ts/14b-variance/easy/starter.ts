@@ -6,7 +6,7 @@ export interface Dog extends Animal {
   bark(): string;
 }
 
-// TODO: jawne adnotacje wariancji zgodne ze strukturą.
+// TODO
 export type Producer<T> = () => T;
 export type Consumer<T> = (value: T) => void;
 

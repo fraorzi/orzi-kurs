@@ -1,15 +1,15 @@
 type StringKey<T> = Extract<keyof T, string>;
 
-// TODO: mapped type i template literal; tablica jest liściem.
+// TODO
 export type Paths<T> = StringKey<T>;
 
-// TODO: rozdziel Head.Tail i zejdź rekurencyjnie.
+// TODO
 export type PathValue<T, Path extends string> = unknown;
 
 export function getAtPath<T extends object, Path extends Paths<T>>(
   object: T,
   path: Path,
 ): PathValue<T, Extract<Path, string>> {
-  // TODO: runtime przejście po segmentach
+  // TODO
   throw new Error("TODO");
 }

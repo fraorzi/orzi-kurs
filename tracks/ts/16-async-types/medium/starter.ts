@@ -10,6 +10,6 @@ export type AsyncResult<T> =
 export async function captureAsync<T>(
   operation: () => Promise<T>,
 ): Promise<AsyncResult<T>> {
-  // TODO: normalizuj unknown z catch
+  // TODO
   return { ok: false, error: { kind: "failed", message: "TODO" } };
 }

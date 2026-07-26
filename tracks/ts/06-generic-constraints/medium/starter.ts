@@ -1,4 +1,4 @@
-// TODO: ogranicz K do kluczy T; wynik to tablica wartości tego pola (T[K][]).
+// TODO
 export function pluck<T extends object, K>(
   items: readonly T[],
   key: K,
@@ -6,7 +6,7 @@ export function pluck<T extends object, K>(
   return [];
 }
 
-// TODO: indeks wartość pola → element; przy powtórce wygrywa ostatni.
+// TODO
 export function indexBy<T extends object, K>(
   items: readonly T[],
   key: K,
@@ -14,7 +14,7 @@ export function indexBy<T extends object, K>(
   return new Map();
 }
 
-// TODO: ogranicz K do PropertyKey; zlicz elementy wg klucza z keyOf.
+// TODO
 export function countBy<T, K>(
   items: readonly T[],
   keyOf: (item: T) => K,
@@ -22,7 +22,7 @@ export function countBy<T, K>(
   return new Map();
 }
 
-// TODO: T musi mieć pole K typu number (Record<K, number>) — stąd kolejność <K, T>.
+// TODO
 export function sumBy<K extends PropertyKey, T>(
   items: readonly T[],
   key: K,

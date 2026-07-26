@@ -1,16 +1,16 @@
-// TODO: mapa klucz pola → komunikat błędu, każdy klucz opcjonalny (Partial + Record).
+// TODO
 export type FieldErrors<T> = unknown;
 
 export interface FormState<T extends object> {
-  // TODO: T z polami tylko do odczytu (Readonly)
+  // TODO
   readonly values: T;
-  // TODO: komplet kluczy T → boolean (Record), tylko do odczytu
+  // TODO
   readonly touched: unknown;
   readonly errors: FieldErrors<T>;
 }
 
 export function createForm<T extends object>(initial: T): FormState<T> {
-  // TODO: kopia wartości, wszystkie pola nietknięte, brak błędów
+  // TODO
   throw new Error("TODO");
 }
 
@@ -19,7 +19,7 @@ export function setField<T extends object, K extends keyof T>(
   key: K,
   value: T[K],
 ): FormState<T> {
-  // TODO: nowy stan; touched[key] = true; błąd tego pola znika
+  // TODO
   throw new Error("TODO");
 }
 
@@ -27,12 +27,12 @@ export function setErrors<T extends object>(
   state: FormState<T>,
   errors: FieldErrors<T>,
 ): FormState<T> {
-  // TODO: nowy stan z podmienioną mapą błędów
+  // TODO
   throw new Error("TODO");
 }
 
 export function isDirty<T extends object>(state: FormState<T>): boolean {
-  // TODO: czy którekolwiek pole zostało dotknięte
+  // TODO
   return false;
 }
 
@@ -40,7 +40,7 @@ export function pick<T extends object, K extends keyof T>(
   obj: T,
   keys: readonly K[],
 ): Pick<T, K> {
-  // TODO: nowy obiekt wyłącznie z podanymi kluczami
+  // TODO
   throw new Error("TODO");
 }
 
@@ -48,6 +48,6 @@ export function omit<T extends object, K extends keyof T>(
   obj: T,
   keys: readonly K[],
 ): Omit<T, K> {
-  // TODO: kopia obiektu bez podanych kluczy
+  // TODO
   throw new Error("TODO");
 }

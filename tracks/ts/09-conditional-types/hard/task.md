@@ -12,9 +12,6 @@ KeysOfType<Row, string>;   // "name"
 KeysOfType<Row, Date>;     // never
 ```
 
-Wskazówka: mapped type podmienia **wartość** na nazwę klucza (albo `never`), a `[keyof T]`
-na końcu zbiera wyniki w unię. `never` z unii znika sam.
-
 ## 2. `PickByType<T, V>` i `OmitByType<T, V>`
 
 ```ts
@@ -24,11 +21,9 @@ OmitByType<Row, number>;  // { name: string; active: boolean }
 
 ## 3. `pickByType`
 
-```ts
-pickByType<T extends object, V>(source: T, guard: (value: unknown) => value is V): PickByType<T, V>
-```
-
-Runtime'owy odpowiednik: zostawia pola, dla których strażnik zwraca `true`.
+Runtime'owy odpowiednik typów z poprzedniej części: przyjmuje obiekt oraz strażnik typu
+i zostawia pola, dla których strażnik zwraca `true`. Typ wyniku ma być wyliczony przez
+`PickByType`.
 
 ```ts
 const isNumber = (v: unknown): v is number => typeof v === "number";

@@ -2,7 +2,7 @@
 
 Zaimplementuj serce routera: `solve(routes, method, rawUrl)`:
 
-- porównuj **pathname** (wyciągnięty przez `new URL(rawUrl, baza)`) — query
+- porównuj **pathname** wyciągnięty przez API `URL` — query
   string nie wpływa na dopasowanie;
 - trafienie metody i ścieżki → `{ status: 200 }`;
 - ścieżka istnieje, ale pod innymi metodami → `{ status: 405, allow: [...] }`,

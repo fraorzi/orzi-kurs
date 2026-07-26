@@ -1,30 +1,30 @@
 export class Cart {
-  // TODO: prywatne pole runtime'owe (#items: Map<string, number>)
+  // TODO
   items = new Map<string, number>();
 
-  // TODO: fabryka statyczna
+  // TODO
   static fromEntries(entries: readonly (readonly [string, number])[]): Cart {
     return new Cart();
   }
 
-  // TODO: getter — liczba różnych pozycji
+  // TODO
   size = 0;
 
-  // TODO: getter — łączna liczba sztuk
+  // TODO
   units = 0;
 
   add(sku: string, quantity: number): Cart {
-    // TODO: quantity <= 0 → RangeError("liczba sztuk musi być dodatnia"); dolicza sztuki
+    // TODO
     return this;
   }
 
-  // TODO: metoda odporna na utratę this (pole z funkcją strzałkową)
+  // TODO
   remove(sku: string): void {
     // TODO
   }
 
   toJSON(): Record<string, number> {
-    // TODO: zwykły obiekt sku → sztuki
+    // TODO
     return {};
   }
 }

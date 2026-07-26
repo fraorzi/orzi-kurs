@@ -1,22 +1,22 @@
-// TODO: klasa generyczna — parametr typu T przy nazwie klasy
+// TODO
 export class Stack {
   private readonly items: unknown[] = [];
 
   push(item: unknown): void {
-    // TODO: połóż na wierzch
+    // TODO
   }
 
   pop(): unknown {
-    // TODO: zdejmij z wierzchu; pusty stos → undefined
+    // TODO
     return undefined;
   }
 
   peek(): unknown {
-    // TODO: podejrzyj wierzch bez zdejmowania
+    // TODO
     return undefined;
   }
 
-  // TODO: getter zwracający liczbę elementów
+  // TODO
   get size(): number {
     return 0;
   }
@@ -27,21 +27,21 @@ export class Stack {
   }
 
   toArray(): unknown[] {
-    // TODO: KOPIA elementów, od dna do wierzchu
+    // TODO
     return [];
   }
 
-  // TODO: metoda statyczna z WŁASNYM parametrem typu (nie widzi T z klasy)
+  // TODO
   static from(items: readonly unknown[]): Stack {
     // TODO
     return new Stack();
   }
 }
 
-// TODO: alias na funkcję transformującą (value: T) => U
+// TODO
 export type Transform<T, U> = unknown;
 
-// TODO: dwa parametry typu; nowy stos, kolejność zachowana, źródło nietknięte
+// TODO
 export function mapStack(stack: Stack, transform: Transform<unknown, unknown>): Stack {
   // TODO
   return stack;

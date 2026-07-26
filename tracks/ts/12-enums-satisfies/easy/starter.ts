@@ -4,7 +4,7 @@ export interface ThemeConfig {
   fontFamily: string;
 }
 
-// TODO: as const satisfies Record<string, string> — kształt sprawdzony, literały zachowane
+// TODO
 export const ROUTES: Record<string, string> = {
   home: "/",
   posts: "/posts",
@@ -12,7 +12,7 @@ export const ROUTES: Record<string, string> = {
   about: "/o-nas",
 };
 
-// TODO: unia kluczy ROUTES
+// TODO
 export type RouteName = string;
 
 export function pathOf(name: RouteName): string {
@@ -20,7 +20,7 @@ export function pathOf(name: RouteName): string {
   return "";
 }
 
-// TODO: as const satisfies ThemeConfig
+// TODO
 export const THEME = {
   mode: "dark",
   radiusPx: 8,

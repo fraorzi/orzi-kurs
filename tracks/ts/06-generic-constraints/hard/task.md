@@ -20,7 +20,7 @@ niejawnej index signature, więc `interface AppEvents { … }` nie spełnia ogra
 `Record<string, unknown>` — kompilator powie: „Index signature for type 'string' is
 missing”. Alias obiektowy taką sygnaturę dostaje.
 
-## `class EventBus<TEvents extends EventMap>`
+## `class EventBus`
 
 ```ts
 const bus = new EventBus<AppEvents>();
@@ -37,23 +37,15 @@ unsubscribe();                        // handler odpięty
 
 ## API
 
-```ts
-on<K extends keyof TEvents>(event: K, handler: (payload: TEvents[K]) => void): () => void
-// rejestruje handler; zwraca funkcję odpinającą (wywołana dwa razy — nic złego się nie dzieje)
+- `on` rejestruje handler i zwraca idempotentną funkcję odpinającą.
+- `once` rejestruje handler jednorazowy i również zwraca funkcję odpinającą.
+- `off` odpina konkretny handler i informuje, czy był zarejestrowany.
+- `emit` przyjmuje ładunek właściwy dla wybranego zdarzenia, wywołuje handlery w kolejności
+  rejestracji i zwraca ich liczbę.
+- `listenerCount` zwraca liczbę słuchaczy zdarzenia, a `removeAll` usuwa wszystkich.
 
-once<K extends keyof TEvents>(event: K, handler: (payload: TEvents[K]) => void): () => void
-// handler odpala się najwyżej raz; zwraca funkcję odpinającą (działa też przed pierwszym emit)
-
-off<K extends keyof TEvents>(event: K, handler: (payload: TEvents[K]) => void): boolean
-// odpina konkretny handler; true, jeśli faktycznie coś odpięto
-
-emit<K extends keyof TEvents>(event: K, payload: TEvents[K]): number
-// wywołuje handlery w kolejności rejestracji; zwraca ich liczbę
-
-listenerCount<K extends keyof TEvents>(event: K): number
-
-removeAll(): void
-```
+Każda metoda zależna od nazwy zdarzenia ma akceptować wyłącznie klucze mapy `TEvents`, a typ
+handlera lub ładunku ma wynikać z wartości pod tym kluczem.
 
 ## Zasady
 

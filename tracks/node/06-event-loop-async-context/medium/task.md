@@ -4,10 +4,10 @@ Masz budżet pracy wykonywanej mikrotaskami; po jego wyczerpaniu kolejne
 zadania mają przejść przez `setImmediate`, żeby nie zagłodzić pętli.
 Zaimplementuj `solve(count, budget)`:
 
-- wykonaj `count` jednostek pracy; każda jednostka to `await Promise.resolve()`
-  i inkrement licznika;
-- po każdych `budget` jednostkach — jeżeli zostało coś do zrobienia — wykonaj
-  `await setImmediate()` i policz to jako jeden yield;
+- wykonaj `count` jednostek pracy; każda jednostka ma przejść przez osobny mikrotask
+  i zwiększyć licznik;
+- po każdych `budget` jednostkach — jeżeli zostało coś do zrobienia — oddaj sterowanie
+  do kolejnej fazy event loopa przez promisowy wariant `setImmediate` i policz to jako yield;
 - zwróć `{ completed, yields }`; `budget < 1` to `Error`.
 
 ```ts

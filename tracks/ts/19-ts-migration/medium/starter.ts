@@ -38,7 +38,7 @@ export function auditTs7Readiness(
   options: CompilerOptionsSnapshot,
   facts: ProjectFacts,
 ): MigrationIssue[] {
-  // TODO: zwróć problemy w kolejności opisanej w zadaniu
+  // TODO
   void options;
   void facts;
   return [];

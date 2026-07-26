@@ -3,7 +3,7 @@ export interface RequestMeta {
   startedAt: number;
 }
 
-// TODO: druga deklaracja interface RequestMeta z userId i roles.
+// TODO
 
 export function requestLabel(meta: RequestMeta): string {
   // TODO

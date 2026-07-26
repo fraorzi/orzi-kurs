@@ -6,7 +6,7 @@ export type CommandArguments = {
 
 export type CommandName = keyof CommandArguments;
 
-// TODO: mapped type zamieniony indexed access w unię wariantów
+// TODO
 export type AnyCommand = {
   name: CommandName;
   args: unknown[];
@@ -21,6 +21,6 @@ export function makeCommand<K extends CommandName>(
 }
 
 export function executeCommand(command: AnyCommand): string {
-  // TODO: zawężaj po name, pozycje args dostaną właściwe typy
+  // TODO
   return "";
 }
