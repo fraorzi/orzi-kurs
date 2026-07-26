@@ -2,8 +2,8 @@
 
 Uzupełnij trzy pliki w `src/`:
 
-- `money.js`: eksport nazwany `formatMoney(amount, currency = "PLN")`, który używa
-  `Intl.NumberFormat("pl-PL", { style: "currency", currency })`;
+- `money.js`: eksport nazwany `formatMoney(amount, currency = "PLN")`, który formatuje
+  kwotę przez `Intl.NumberFormat` dla polskiej lokalizacji i wskazanej waluty;
 - `order.js`: importuje `formatMoney` i eksportuje
   `summarizeOrder({ id, total, currency })`, zwracając tekst
   `"Zamówienie <id>: <sformatowana kwota>"`;

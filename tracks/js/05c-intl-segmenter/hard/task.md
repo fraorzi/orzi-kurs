@@ -19,5 +19,4 @@ Zwróć obiekt o polach:
 
 Dla pustego tekstu zwróć `{ words: 0, sentences: 0, uniqueWords: 0, longestWord: "" }`.
 
-Wskazówka wydajności: **nie twórz** nowego `Intl.Segmenter` w pętli — zbuduj po jednym
-segmenterze na granularność i użyj ich raz.
+Wymaganie wydajnościowe: liczba tworzonych segmenterów nie może zależeć od długości tekstu.

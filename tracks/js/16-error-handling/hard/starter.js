@@ -1,18 +1,15 @@
 export class ValidationError extends Error {
-  // TODO: super(message) + this.name = this.constructor.name
+  // TODO
 }
 
 export class PropertyRequiredError extends ValidationError {
-  // TODO: konstruktor(property): message "Brak właściwości: <property>",
-  //       name = "PropertyRequiredError", zapisz this.property
+  // TODO
 }
 
 export class ReadError extends Error {
-  // TODO: konstruktor(message, cause): super(message, { cause }) + name = "ReadError"
+  // TODO
 }
 
 export function readUser(json) {
-  // TODO: JSON.parse; walidacja name/age (PropertyRequiredError);
-  //       w catch zawiń SyntaxError i ValidationError w ReadError(..., err),
-  //       inne błędy przerzuć dalej (throw err)
+  // TODO
 }

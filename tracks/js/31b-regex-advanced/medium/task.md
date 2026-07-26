@@ -25,4 +25,4 @@ reformatDate("2024-07-14"); // "14/07/2024"
 reformatDate("spotkanie 2024-01-05 rano"); // "spotkanie 05/01/2024 rano"
 ```
 
-Wzorzec: `(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})`, zamiana: `"$<d>/$<m>/$<y>"`.
+Nazwij osobno grupy roku, miesiąca i dnia, a następnie użyj ich nazw w stringu zamiany.

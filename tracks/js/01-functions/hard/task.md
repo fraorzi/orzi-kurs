@@ -22,8 +22,7 @@ Wymagania:
 
 - `wrapper.calls` istnieje i jest pustą tablicą jeszcze przed pierwszym wywołaniem,
 - wrapper zwraca wynik `fn` bez zmian,
-- wrapper forwarduje `this` (użyj `fn.apply(this, args)`) — szpiegowana metoda
-  obiektu ma dalej widzieć swój obiekt.
+- wrapper zachowuje `this` — szpiegowana metoda obiektu ma dalej widzieć swój obiekt.
 
 ## 2. `once(fn)`
 

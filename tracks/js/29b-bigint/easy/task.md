@@ -21,6 +21,5 @@ bigPow(2, 10); // 1024n
 bigPow(2, 64); // 18446744073709551616n
 ```
 
-Wskazówki: używaj literałów `n` (np. `1n`) i konwersji `BigInt(...)`. Pamiętaj, że **nie
-wolno** mieszać `bigint` z `number` w działaniu — pętla licząca silnię musi operować na
-BigInt (`i <= BigInt(n)`), a `bigPow` może użyć operatora `**` na BigInt.
+W całej arytmetyce zachowaj jeden typ liczbowy — JavaScript nie pozwala mieszać `bigint`
+z `number` w jednym działaniu.

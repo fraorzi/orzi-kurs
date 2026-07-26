@@ -12,7 +12,7 @@ extractPrices("buy $30 or $9.99, not 50"); // [30, 9.99]
 extractPrices("brak cen");                  // []
 ```
 
-Użyj pozytywnego lookbehind: `(?<=\$)\d+(?:\.\d+)?` z flagą `g` (np. przez `matchAll`).
+Rozwiąż zadanie pozytywnym lookbehindem i dopasowaniem globalnym.
 
 ## 2. `extractMentions(text)`
 
@@ -22,4 +22,4 @@ Zwraca tablicę nazw użytkowników po znaku `@` (znaki `\w`), bez `@`.
 extractMentions("hi @ala and @ola_99!"); // ["ala", "ola_99"]
 ```
 
-Analogicznie: `(?<=@)\w+` z flagą `g`.
+Także tutaj użyj pozytywnego lookbehindu i dopasowania globalnego.

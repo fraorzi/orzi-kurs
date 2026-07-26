@@ -18,6 +18,5 @@ scheduleLogs((label) => order.push(label));
 // po makrotaskach: ["sync", "micro", "macro"]
 ```
 
-Do zaplanowania mikrotaska użyj `queueMicrotask(fn)` albo `Promise.resolve().then(fn)`;
-makrotaska — `setTimeout(fn)`. Kolejność wywołań w kodzie jest dowolna — liczy się
-kolejność WYKONANIA.
+Kolejność wywołań w kodzie jest dowolna — liczy się kolejność WYKONANIA wynikająca z faz
+event loopa.

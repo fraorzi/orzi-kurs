@@ -28,7 +28,3 @@ looseEq([1], "1");        // true  — [1] → "1"
 looseEq(NaN, NaN);        // false — ten sam typ, a NaN !== NaN
 looseEq({}, {});          // false — ten sam typ, różne referencje
 ```
-
-Wskazówka architektoniczna: funkcja jest naturalnie rekurencyjna — po każdej
-konwersji „porównuj dalej" oznacza ponowne wywołanie `looseEq` z nowymi
-argumentami.

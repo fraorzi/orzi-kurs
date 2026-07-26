@@ -1,8 +1,8 @@
 export class LinkedList {
-  // TODO: trzymaj head/tail/size (np. pola prywatne), węzły { value, next }
+  // TODO
 
   push(value) {
-    // TODO: dopnij węzeł na koniec, zwróć this
+    // TODO
   }
 
   get size() {
@@ -10,6 +10,6 @@ export class LinkedList {
   }
 
   [Symbol.iterator]() {
-    // TODO: iterator przechodzący od głowy (next -> { value, done })
+    // TODO
   }
 }

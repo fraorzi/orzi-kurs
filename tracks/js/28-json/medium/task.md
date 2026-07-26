@@ -3,7 +3,7 @@
 ## 1. `stringifyHidingSecrets(obj)`
 
 Zwróć JSON obiektu, ale **pomiń** pola o kluczach `"password"` i `"token"` (na dowolnym
-poziomie zagnieżdżenia). Użyj replacera-funkcji: zwróć `undefined` dla ukrywanych kluczy.
+poziomie zagnieżdżenia). Rozwiązanie ma działać przez funkcję replacera.
 
 ```js
 stringifyHidingSecrets({ user: "ala", password: "x", token: "y", age: 30 });

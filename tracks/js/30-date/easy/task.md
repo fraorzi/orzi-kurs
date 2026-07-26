@@ -4,8 +4,8 @@ Zaimplementuj w `starter.js` dwie funkcje operujące na timestampach (odporne na
 
 ## 1. `addDays(date, days)`
 
-Zwróć **nowy** `Date` przesunięty o `days` dni (bez mutowania wejścia). Licz na ms:
-`new Date(date.getTime() + days * DAY)`.
+Zwróć **nowy** `Date` przesunięty o `days` dni (bez mutowania wejścia). Obliczenie oprzyj
+na timestampie w milisekundach, aby nie zależało od lokalnej strefy czasowej.
 
 ```js
 const d = new Date(Date.UTC(2020, 0, 1));

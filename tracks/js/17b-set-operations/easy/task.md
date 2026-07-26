@@ -20,5 +20,4 @@ Wszystkie unikalne elementy z obu tablic (suma zbiorów).
 combined([1, 2, 3], [3, 4]); // [1, 2, 3, 4]
 ```
 
-Pamiętaj: metody `Set` przyjmują inny `Set` (set-like), nie tablicę — najpierw `new Set(...)`.
-Do posortowania liczb użyj `sort((x, y) => x - y)`.
+Pamiętaj o typie argumentu przyjmowanego przez metody `Set` i o numerycznym porządku wyniku.

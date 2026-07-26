@@ -16,7 +16,3 @@ stosem** (zwykłą tablicą) i pętlą `while`.
 
 Test poda strukturę zagnieżdżoną na dziesiątki tysięcy poziomów — musi przejść, więc
 rekurencja odpada.
-
-Wskazówka: trzymaj stos elementów do przetworzenia. Zdejmuj element; jeśli to tablica —
-wrzuć jej elementy z powrotem (od końca, by zachować kolejność); w przeciwnym razie dopisz
-do wyniku.

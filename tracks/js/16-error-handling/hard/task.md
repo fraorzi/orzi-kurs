@@ -8,22 +8,20 @@ Zaimplementuj w `starter.js` trzy klasy i funkcję.
 
 ## Klasy błędów
 
-1. `class ValidationError extends Error` — `this.name = this.constructor.name`.
+1. `class ValidationError extends Error` — nazwa błędu ma odpowiadać rzeczywistej klasie.
 2. `class PropertyRequiredError extends ValidationError` — konstruktor przyjmuje `property`,
-   ustawia `message` na `` `Brak właściwości: ${property}` ``, `this.name = "PropertyRequiredError"`
-   i zapisuje `this.property = property`.
-3. `class ReadError extends Error` — konstruktor `(message, cause)`, przekazuje
-   `super(message, { cause })`, `this.name = "ReadError"`.
+   zapisuje ją na instancji i tworzy komunikat `Brak właściwości: <property>`.
+3. `class ReadError extends Error` — konstruktor przyjmuje `message` i `cause`; instancja ma
+   zachować oba oraz nazwę `ReadError`.
 
 ## `readUser(json)`
 
-1. Sparsuj `json` przez `JSON.parse` (może rzucić `SyntaxError`).
-2. Jeśli brakuje `name` → rzuć `new PropertyRequiredError("name")`.
-   Jeśli brakuje `age` → `new PropertyRequiredError("age")`.
+1. Sparsuj `json` (niepoprawna składnia powoduje `SyntaxError`).
+2. Brak `name` lub `age` zgłoś przez `PropertyRequiredError` z nazwą brakującego pola.
 3. Zwróć sparsowanego użytkownika.
-4. **Zawiń** w `catch`: `SyntaxError` → `new ReadError("Błąd składni JSON", err)`,
-   `ValidationError` (i podklasy) → `new ReadError("Błąd walidacji", err)`.
-   Każdy **inny** błąd (nieznany) — **przerzuć dalej** (`throw err`) bez zawijania.
+4. **Zawiń** błędy składni w `ReadError` z komunikatem `Błąd składni JSON`, a błędy walidacji
+   w `ReadError` z komunikatem `Błąd walidacji`. Zachowaj oryginalny błąd jako `cause`.
+   Każdy **inny** błąd (nieznany) przerzuć dalej bez zawijania.
 
 ```js
 readUser('{"name":"Ala","age":30}');   // { name: "Ala", age: 30 }

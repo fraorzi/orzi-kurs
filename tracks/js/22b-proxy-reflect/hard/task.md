@@ -19,11 +19,5 @@ delete state.user.name;  // onChange("user.name", undefined)
 changes; // [["count", 5], ["user.name", "bob"], ["user.name", undefined]]
 ```
 
-Wskazówki:
-
-- Jeden Proxy widzi tylko swój poziom. Głębokość osiągniesz w pułapce `get`: gdy odczytana
-  wartość jest obiektem, zwróć dla niej **nowy** `observable(...)` z doklejonym fragmentem
-  ścieżki.
-- Pułapki `set` i `deleteProperty` muszą zwracać `boolean` (`return Reflect.set(...)` /
-  `Reflect.deleteProperty(...)`).
-- Klucze będące symbolami pomiń w budowaniu ścieżki — zwracaj dla nich surową wartość.
+Pułapki mutujące muszą przestrzegać kontraktu Proxy i zwracać `boolean`. Klucze będące
+symbolami pomiń w budowaniu tekstowej ścieżki.

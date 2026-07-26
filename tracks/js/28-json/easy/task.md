@@ -5,7 +5,7 @@ Zaimplementuj w `starter.js` dwie funkcje.
 ## 1. `stringifyFields(obj, fields)`
 
 Zwróć **sformatowany** JSON (wcięcie 2 spacje) zawierający **tylko** klucze z tablicy
-`fields`. Wykorzystaj replacer-tablicę `JSON.stringify(obj, fields, 2)`.
+`fields`. Wykorzystaj tablicową postać replacera.
 
 ```js
 stringifyFields({ a: 1, b: 2, c: 3 }, ["a", "c"]);
