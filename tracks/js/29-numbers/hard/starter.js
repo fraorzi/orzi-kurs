@@ -1,7 +1,8 @@
 export function parseMoney(str) {
-  // TODO
+  return Number(str) * 100;
 }
 
 export function formatMoney(cents) {
-  // TODO
+  const zloty = cents / 100;
+  return String(zloty.toFixed(2));
 }

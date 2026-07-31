@@ -131,5 +131,17 @@
     "firstPassedWithoutHintAt": "2026-07-26T16:24:19.314Z",
     "verifiedStarter": "export function approxEqual(a, b, tolerance = 1e-9) {\n  return Math.abs(a - b) < tolerance;\n}\n\nexport function toFixedNumber(value, digits) {\n  return Number(value.toFixed(digits));\n}\n",
     "lastRunAt": "2026-07-26T16:27:29.600Z"
+  },
+  "js/29-numbers/hard": {
+    "status": "passed",
+    "attempts": 2,
+    "masteryScore": 1,
+    "cleanPassStreak": 1,
+    "nextReviewAt": "2026-08-01T09:27:57.652Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-07-31T09:27:57.652Z",
+    "firstPassedWithoutHintAt": "2026-07-31T09:27:57.652Z",
+    "verifiedStarter": "export function parseMoney(str) {\n  return Number(str) * 100;\n}\n\nexport function formatMoney(cents) {\n  const zloty = cents / 100;\n  return String(zloty.toFixed(2));\n}\n",
+    "lastRunAt": "2026-07-31T09:27:57.652Z"
   }
 }
