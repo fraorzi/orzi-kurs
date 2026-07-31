@@ -143,5 +143,17 @@
     "firstPassedWithoutHintAt": "2026-07-31T09:27:57.652Z",
     "verifiedStarter": "export function parseMoney(str) {\n  return Number(str) * 100;\n}\n\nexport function formatMoney(cents) {\n  const zloty = cents / 100;\n  return String(zloty.toFixed(2));\n}\n",
     "lastRunAt": "2026-07-31T09:27:57.652Z"
+  },
+  "js/04-loops/easy": {
+    "status": "passed",
+    "attempts": 6,
+    "masteryScore": 2,
+    "cleanPassStreak": 2,
+    "nextReviewAt": "2026-08-03T10:59:13.343Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-07-31T10:56:58.418Z",
+    "firstPassedWithoutHintAt": "2026-07-31T10:56:58.418Z",
+    "verifiedStarter": "export function fizzBuzz(n) {\n  const res = [];\n  function isFizz(number) {\n    return number % 3 === 0;\n  }\n  function isBuzz(number) {\n    return number % 5 === 0;\n  }\n  for (let i = 1; i <= n; i++) {\n    if (isFizz(i) && isBuzz(i)) {\n      res.push(\"FizzBuzz\");\n    } else if (isBuzz(i)) {\n      res.push(\"Buzz\");\n    } else if (isFizz(i)) {\n      res.push(\"Fizz\");\n    } else {\n      res.push(i);\n    }\n  }\n  return res;\n}\n\nexport function sumRange(a, b) {\n  let sum = 0;\n  for (let i = a; i <= b; i++) {\n    sum += i;\n  }\n  return sum;\n}\n\nexport function countVowels(str) {\n  const letters = str.toLowerCase();\n  const vowels = [\"a\", \"e\", \"i\", \"o\", \"u\"];\n  let count = 0;\n  for (const letter of letters) {\n    if (vowels.includes(letter)) count++;\n  }\n  return count;\n}\n",
+    "lastRunAt": "2026-07-31T10:59:13.343Z"
   }
 }
