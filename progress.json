@@ -167,5 +167,17 @@
     "firstPassedWithoutHintAt": "2026-08-01T14:31:25.337Z",
     "verifiedStarter": "export function primesUpTo(n) {\n  function isPrime(n) {\n    if (n < 2) return false;\n    for (let i = 2; i <= Math.sqrt(n); i++) {\n      if (n % i === 0) return false;\n    }\n    return true;\n  }\n\n  const res = [];\n  for (let i = 2; i <= n; i++) {\n    if (isPrime(i)) res.push(i);\n  }\n  return res;\n}\n\nexport function chessboard(size) {\n  let string = \"\";\n  for (let i = 0; i < size; i++) {\n    for (let j = 0; j < size; j++) {\n      const iteracio = j + i;\n      if (iteracio % 2 === 0) {\n        string += \" \";\n      } else if (iteracio % 2 === 1) {\n        string += \"#\";\n      }\n    }\n    string += \"\\n\";\n  }\n  return string;\n}\n\nexport function firstIndexWhere(arr, pred) {\n  for (let i = 0; i < arr.length; i++) {\n    if (pred(arr[i], i)) return i;\n  }\n  return -1;\n}\n",
     "lastRunAt": "2026-08-01T14:37:11.997Z"
+  },
+  "js/04-loops/hard": {
+    "status": "passed",
+    "attempts": 15,
+    "masteryScore": 2,
+    "cleanPassStreak": 2,
+    "nextReviewAt": "2026-08-11T13:13:17.003Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-08-08T13:12:03.537Z",
+    "firstPassedWithoutHintAt": "2026-08-08T13:12:03.537Z",
+    "verifiedStarter": "export function sieve(n) {\n  const res = [];\n  res.length = n + 1;\n  for (let i = 0; i <= n; i++) {\n    res[i] = i;\n  }\n  for (let j = 2; j * j <= n; j++) {\n    if (res[j] !== false) {\n      for (let k = j * j; k <= n; k += j) {\n        res[k] = false;\n      }\n    }\n  }\n  res[1] = false;\n  return res.filter(Boolean);\n}\n\nexport function collatzLength(n) {\n  let count = 1;\n  while (n !== 1) {\n    if (n % 2 === 0) {\n      n = n / 2;\n    } else {\n      n = 3 * n + 1;\n    }\n    count++;\n  }\n  return count;\n}\n",
+    "lastRunAt": "2026-08-08T13:13:17.003Z"
   }
 }
