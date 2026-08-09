@@ -179,5 +179,17 @@
     "firstPassedWithoutHintAt": "2026-08-08T13:12:03.537Z",
     "verifiedStarter": "export function sieve(n) {\n  const res = [];\n  res.length = n + 1;\n  for (let i = 0; i <= n; i++) {\n    res[i] = i;\n  }\n  for (let j = 2; j * j <= n; j++) {\n    if (res[j] !== false) {\n      for (let k = j * j; k <= n; k += j) {\n        res[k] = false;\n      }\n    }\n  }\n  res[1] = false;\n  return res.filter(Boolean);\n}\n\nexport function collatzLength(n) {\n  let count = 1;\n  while (n !== 1) {\n    if (n % 2 === 0) {\n      n = n / 2;\n    } else {\n      n = 3 * n + 1;\n    }\n    count++;\n  }\n  return count;\n}\n",
     "lastRunAt": "2026-08-08T13:13:17.003Z"
+  },
+  "js/05-strings/easy": {
+    "status": "passed",
+    "attempts": 1,
+    "masteryScore": 1,
+    "cleanPassStreak": 1,
+    "nextReviewAt": "2026-08-10T15:08:48.031Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-08-09T15:08:48.031Z",
+    "firstPassedWithoutHintAt": "2026-08-09T15:08:48.031Z",
+    "verifiedStarter": "export function ucFirst(str) {\n  return str.charAt(0).toUpperCase() + str.slice(1);\n}\n\nexport function checkSpam(str) {\n  const lowerCaseStr = str.toLowerCase();\n  const bannedWords = [\"viagra\", \"XXX\"];\n  return bannedWords.some((word) =>\n    lowerCaseStr.includes(word.toLowerCase()),\n  );\n}\n\nexport function initials(fullName) {\n  return fullName\n    .toLowerCase()\n    .split(\" \")\n    .filter(Boolean)\n    .map((word) => word.charAt(0).toUpperCase())\n    .join(\"\");\n}\n",
+    "lastRunAt": "2026-08-09T15:08:48.031Z"
   }
 }

@@ -1,11 +1,19 @@
 export function ucFirst(str) {
-  // TODO
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 export function checkSpam(str) {
-  // TODO
+  const lowerCaseStr = str.toLowerCase();
+  const bannedWords = ["viagra", "XXX"];
+  return bannedWords.some((word) =>
+    lowerCaseStr.includes(word.toLowerCase()),
+  );
 }
 
 export function initials(fullName) {
-  // TODO
+  return fullName
+    .split(" ")
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase())
+    .join("");
 }
