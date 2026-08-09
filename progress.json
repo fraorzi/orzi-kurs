@@ -191,5 +191,17 @@
     "firstPassedWithoutHintAt": "2026-08-09T15:08:48.031Z",
     "verifiedStarter": "export function ucFirst(str) {\n  return str.charAt(0).toUpperCase() + str.slice(1);\n}\n\nexport function checkSpam(str) {\n  const lowerCaseStr = str.toLowerCase();\n  const bannedWords = [\"viagra\", \"XXX\"];\n  return bannedWords.some((word) =>\n    lowerCaseStr.includes(word.toLowerCase()),\n  );\n}\n\nexport function initials(fullName) {\n  return fullName\n    .toLowerCase()\n    .split(\" \")\n    .filter(Boolean)\n    .map((word) => word.charAt(0).toUpperCase())\n    .join(\"\");\n}\n",
     "lastRunAt": "2026-08-09T15:08:48.031Z"
+  },
+  "js/05-strings/medium": {
+    "status": "passed",
+    "attempts": 25,
+    "masteryScore": 3,
+    "cleanPassStreak": 3,
+    "nextReviewAt": "2026-08-16T17:56:45.156Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-08-09T17:49:50.092Z",
+    "firstPassedWithoutHintAt": "2026-08-09T17:49:50.092Z",
+    "verifiedStarter": "export function truncate(str, maxlength) {\n  return str.length <= maxlength\n    ? str\n    : str.slice(0, maxlength - 1) + \"…\";\n}\n\nexport function camelize(str) {\n  return str\n    .split(\"-\")\n    .map((word, index) =>\n      index !== 0\n        ? word.charAt(0).toUpperCase() + word.slice(1)\n        : word,\n    )\n    .join(\"\");\n}\n\nexport function maskCard(cardNumber) {\n  return cardNumber\n    .slice(-4)\n    .padStart(cardNumber.length, \"*\");\n}\n",
+    "lastRunAt": "2026-08-09T17:56:45.156Z"
   }
 }

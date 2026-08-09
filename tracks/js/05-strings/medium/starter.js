@@ -1,11 +1,22 @@
 export function truncate(str, maxlength) {
-  // TODO
+  return str.length <= maxlength
+    ? str
+    : str.slice(0, maxlength - 1) + "…";
 }
 
 export function camelize(str) {
-  // TODO
+  return str
+    .split("-")
+    .map((word, index) =>
+      index !== 0
+        ? word.charAt(0).toUpperCase() + word.slice(1)
+        : word,
+    )
+    .join("");
 }
 
 export function maskCard(cardNumber) {
-  // TODO
+  return cardNumber
+    .slice(-4)
+    .padStart(cardNumber.length, "*");
 }
