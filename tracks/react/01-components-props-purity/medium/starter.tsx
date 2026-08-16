@@ -6,6 +6,15 @@ export interface PanelProps {
   readonly tone?: "info" | "warning";
 }
 
-export function Panel(_props: PanelProps) {
-  return <div>TODO: panel</div>;
+export function Panel({
+  title,
+  children,
+  tone = "info",
+}: PanelProps) {
+  return (
+    <section aria-label={title} data-tone={tone}>
+      <h2>{title}</h2>
+      {children}
+    </section>
+  );
 }

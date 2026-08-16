@@ -215,5 +215,17 @@
     "firstPassedWithoutHintAt": "2026-08-12T14:19:16.720Z",
     "verifiedStarter": "export function findAnagrams(word, candidates) {\n  const sortAndSplitLetters = (string) =>\n    string.toLowerCase().split(\"\").sort();\n  const wordLowerCased = word.toLowerCase();\n  const formattedWord = sortAndSplitLetters(word);\n  const formattedCandidates = candidates.map((c) =>\n    sortAndSplitLetters(c),\n  );\n  const res = [];\n\n  for (let i = 0; i < candidates.length; i++) {\n    const isAnagram =\n      formattedWord.length ===\n        formattedCandidates[i].length &&\n      formattedWord.every(\n        (letter, index) =>\n          letter === formattedCandidates[i][index],\n      ) &&\n      wordLowerCased !== candidates[i].toLowerCase();\n    if (isAnagram) {\n      res.push(candidates[i]);\n    }\n  }\n\n  return res;\n}\n\nexport function slugify(title) {\n  let wynik = title\n    .trim()\n    .toLowerCase()\n    .normalize(\"NFD\")\n    .replaceAll(\"+\", \"\")\n    .replaceAll(\"=\", \"\")\n    .replaceAll(\"  \", \" \")\n    .replace(/[\\u0300-\\u036f]/g, \"\")\n    .replace(/[!@#]/g, \"\")\n    .replace(/^-+/, \"\")\n    .replaceAll(\"--\", \"-\")\n    .replaceAll(\"ł\", \"l\")\n    .replaceAll(\",\", \"\")\n    .split(\" \")\n    .join(\"-\");\n\n  while (wynik.endsWith(\"-\")) {\n    wynik = wynik.slice(0, -1);\n  }\n\n  return wynik;\n}\n",
     "lastRunAt": "2026-08-12T14:19:16.720Z"
+  },
+  "react/01-components-props-purity/medium": {
+    "status": "passed",
+    "attempts": 4,
+    "masteryScore": 1,
+    "cleanPassStreak": 1,
+    "nextReviewAt": "2026-08-17T01:47:59.096Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-08-16T01:47:59.096Z",
+    "firstPassedWithoutHintAt": "2026-08-16T01:47:59.096Z",
+    "verifiedStarter": "import type { ReactNode } from \"react\";\n\nexport interface PanelProps {\n  readonly title: string;\n  readonly children: ReactNode;\n  readonly tone?: \"info\" | \"warning\";\n}\n\nexport function Panel({\n  title,\n  children,\n  tone = \"info\",\n}: PanelProps) {\n  return (\n    <section aria-label={title} data-tone={tone}>\n      <h2>{title}</h2>\n      {children}\n    </section>\n  );\n}\n",
+    "lastRunAt": "2026-08-16T01:47:59.096Z"
   }
 }
