@@ -230,14 +230,14 @@
   },
   "js/06-objects/easy": {
     "status": "passed",
-    "attempts": 7,
-    "masteryScore": 2,
-    "cleanPassStreak": 2,
-    "nextReviewAt": "2026-08-20T00:28:23.055Z",
+    "attempts": 9,
+    "masteryScore": 4,
+    "cleanPassStreak": 4,
+    "nextReviewAt": "2026-09-07T00:50:35.210Z",
     "lastAttemptPassed": true,
     "firstPassedAt": "2026-08-16T23:24:50.887Z",
     "firstPassedWithoutHintAt": "2026-08-16T23:24:50.887Z",
     "verifiedStarter": "export function countProps(obj) {\n  return Object.keys(obj).length;\n}\n\nexport function sumSalaries(salaries) {\n  return Object.values(salaries).reduce(\n    (sum, salary) => sum + salary,\n    0,\n  );\n}\n\nexport function renameKey(obj, from, to) {\n  const entries = Object.entries(obj).map(\n    ([key, value]) => [key === from ? to : key, value],\n  );\n  return Object.fromEntries(entries);\n}\n",
-    "lastRunAt": "2026-08-17T00:28:23.055Z"
+    "lastRunAt": "2026-08-17T00:50:35.210Z"
   }
 }
