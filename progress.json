@@ -239,5 +239,17 @@
     "firstPassedWithoutHintAt": "2026-08-16T23:24:50.887Z",
     "verifiedStarter": "export function countProps(obj) {\n  return Object.keys(obj).length;\n}\n\nexport function sumSalaries(salaries) {\n  return Object.values(salaries).reduce(\n    (sum, salary) => sum + salary,\n    0,\n  );\n}\n\nexport function renameKey(obj, from, to) {\n  const entries = Object.entries(obj).map(\n    ([key, value]) => [key === from ? to : key, value],\n  );\n  return Object.fromEntries(entries);\n}\n",
     "lastRunAt": "2026-08-17T00:50:50.313Z"
+  },
+  "react/01-components-props-purity/hard": {
+    "status": "passed",
+    "attempts": 1,
+    "masteryScore": 1,
+    "cleanPassStreak": 1,
+    "nextReviewAt": "2026-08-19T19:28:33.757Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-08-18T19:28:33.757Z",
+    "firstPassedWithoutHintAt": "2026-08-18T19:28:33.757Z",
+    "verifiedStarter": "export interface Product {\n  readonly id: string;\n  readonly name: string;\n  readonly price: number;\n}\n\nexport interface ProductTableProps {\n  readonly products: readonly Product[];\n}\n\nexport function ProductTable({\n  products,\n}: ProductTableProps) {\n  const sortedProducts = [...products].sort(\n    (a, b) => a.price - b.price,\n  );\n  const sum = sortedProducts.reduce(\n    (sum, product) => sum + product.price,\n    0,\n  );\n  return (\n    <section aria-label=\"Cennik\">\n      <ol>\n        {sortedProducts.map((product) => (\n          <li key={product.id}>\n            {product.name}: {product.price.toFixed(2)} zł\n          </li>\n        ))}\n      </ol>\n      <p>Razem: {sum.toFixed(2)} zł</p>\n    </section>\n  );\n}\n",
+    "lastRunAt": "2026-08-18T19:28:33.757Z"
   }
 }
