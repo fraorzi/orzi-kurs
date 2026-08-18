@@ -7,7 +7,14 @@ import Markdown from "@/app/components/Markdown";
 import RouteBreadcrumbs from "@/app/components/RouteBreadcrumbs";
 import SearchButton from "@/app/components/SearchButton";
 import UndoToast from "@/app/components/UndoToast";
-import { IconArrowRight, IconCopy, IconCheck, IconExternal, IconPlay } from "@/app/components/icons";
+import {
+  IconArrowRight,
+  IconCopy,
+  IconCheck,
+  IconExternal,
+  IconGitCommit,
+  IconPlay,
+} from "@/app/components/icons";
 import { openInEditor } from "@/app/lib/actions";
 import {
   buildCodeDiff,
@@ -42,6 +49,8 @@ interface Props {
   resources: LearningResource[];
   nextTaskHref: string | null;
 }
+
+type CommitAction = "idle" | "checking" | "commit" | "push" | "done" | "error";
 
 export default function TaskView({
   taskId,
@@ -78,6 +87,12 @@ export default function TaskView({
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [resetting, setResetting] = useState(false);
   const [resettingCode, setResettingCode] = useState(false);
+  const [committing, setCommitting] = useState(false);
+  const [commitAction, setCommitAction] = useState<CommitAction>("idle");
+  const [commitFeedback, setCommitFeedback] = useState<{
+    kind: "success" | "info" | "error";
+    message: string;
+  } | null>(null);
   const [undoRecords, setUndoRecords] = useState<TaskUndoRecord<TaskProgress>[]>([]);
   const [undoingId, setUndoingId] = useState<string | null>(null);
 
@@ -108,9 +123,53 @@ export default function TaskView({
     setUndoRecords(loadUndoRecords(taskId));
   }
 
+  async function loadCommitAction() {
+    setCommitAction("checking");
+    try {
+      const res = await fetch(`/api/commit?id=${encodeURIComponent(taskId)}`);
+      const data: {
+        solutionChanged?: boolean;
+        solutionPendingPush?: boolean;
+        error?: string;
+      } = await res.json();
+      if (!res.ok) {
+        setCommitAction("error");
+        setCommitFeedback({
+          kind: "error",
+          message: data.error ?? "Nie udało się sprawdzić zmian Git.",
+        });
+        return;
+      }
+
+      if (data.solutionChanged) {
+        setCommitAction("commit");
+      } else if (data.solutionPendingPush) {
+        setCommitAction("push");
+        setCommitFeedback({
+          kind: "info",
+          message: "Rozwiązanie jest zacommitowane lokalnie, ale nie zostało jeszcze pushnięte.",
+        });
+      } else {
+        setCommitAction("done");
+        setCommitFeedback({
+          kind: "info",
+          message: "Rozwiązanie jest już zacommitowane i pushnięte.",
+        });
+      }
+    } catch {
+      setCommitAction("error");
+      setCommitFeedback({
+        kind: "error",
+        message: "Nie udało się połączyć z lokalnym mechanizmem Git.",
+      });
+    }
+  }
+
   async function handleSubmit() {
     setSubmitting(true);
     setResult(null);
+    setCommitAction("idle");
+    setCommitFeedback(null);
     setSubmitError(null);
     setSolution(null);
     setStarter(null);
@@ -130,6 +189,7 @@ export default function TaskView({
       window.dispatchEvent(new CustomEvent("orzi:progress"));
       if (data.passed) {
         setPassKind(data.usedHint === true ? "with-hint" : "without-hint");
+        void loadCommitAction();
         try {
           const taskRes = await fetch(`/api/task?id=${encodeURIComponent(taskId)}`);
           const taskData: TaskResponse = await taskRes.json();
@@ -149,6 +209,48 @@ export default function TaskView({
       setSubmitError("Nie udało się połączyć z lokalnym runnerem. Kod pozostał bez zmian — spróbuj ponownie.");
     } finally {
       setSubmitting(false);
+    }
+  }
+
+  async function handleCommit() {
+    if (commitAction !== "commit" && commitAction !== "push") return;
+    const previousAction = commitAction;
+    setCommitting(true);
+    setCommitFeedback(null);
+    try {
+      const res = await fetch("/api/commit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ taskId }),
+      });
+      const data: {
+        committed?: boolean;
+        pushed?: boolean;
+        message?: string;
+        error?: string;
+      } = await res.json();
+      if (!res.ok) {
+        setCommitAction(data.committed ? "push" : previousAction);
+        setCommitFeedback({
+          kind: "error",
+          message: data.error ?? "Nie udało się zacommitować i wypchnąć zadania.",
+        });
+        return;
+      }
+
+      setCommitAction("done");
+      setCommitFeedback({
+        kind: data.pushed ? "success" : "info",
+        message: data.message ?? "Zadanie zostało zacommitowane i wypchnięte.",
+      });
+    } catch {
+      setCommitAction(previousAction);
+      setCommitFeedback({
+        kind: "error",
+        message: "Nie udało się połączyć z lokalnym mechanizmem Git.",
+      });
+    } finally {
+      setCommitting(false);
     }
   }
 
@@ -537,7 +639,11 @@ export default function TaskView({
                 hasSolution={solution !== null}
                 canOpenEditor={currentStarterRel !== null}
                 openingEditor={openingEditor}
+                committing={committing}
+                commitAction={commitAction}
+                commitFeedback={commitFeedback}
                 onOpenEditor={handleOpenEditor}
+                onCommit={handleCommit}
                 onRetry={handleSubmit}
               />
             )}
@@ -851,7 +957,11 @@ function ResultPanel({
   hasSolution,
   canOpenEditor,
   openingEditor,
+  committing,
+  commitAction,
+  commitFeedback,
   onOpenEditor,
+  onCommit,
   onRetry,
 }: {
   result: SubmitResult;
@@ -859,7 +969,14 @@ function ResultPanel({
   hasSolution: boolean;
   canOpenEditor: boolean;
   openingEditor: boolean;
+  committing: boolean;
+  commitAction: CommitAction;
+  commitFeedback: {
+    kind: "success" | "info" | "error";
+    message: string;
+  } | null;
   onOpenEditor: () => void;
+  onCommit: () => void;
   onRetry: () => void;
 }) {
   const failedTests = result.tests.filter((test) => test.status === "fail");
@@ -870,6 +987,13 @@ function ResultPanel({
     ?? result.typecheck.errors[0]?.message
     ?? result.lint.errors[0]?.message
     ?? "Sprawdź szczegóły raportu i popraw pierwszą blokującą pozycję.";
+  const commitLabel = committing
+    ? commitAction === "push" ? "Pushuję..." : "Commituję i pushuję..."
+    : commitAction === "commit" ? "Commituj i pushuj"
+    : commitAction === "push" ? "Pushuj rozwiązanie"
+    : commitAction === "done" ? "Już pushnięte"
+    : commitAction === "error" ? "Git niedostępny"
+    : "Sprawdzam zmiany...";
 
   if (result.passed) {
     return (
@@ -892,17 +1016,38 @@ function ResultPanel({
         </div>
 
         <div className="result-actions result-actions-success">
-          {hasSolution && <a className="btn-ghost" href="#solution">Porównaj rozwiązanie</a>}
-          {nextTaskHref && (
-            <Link className="cta result-next" href={nextTaskHref}>
-              <span>
-                <small>Kontynuuj ścieżkę</small>
-                Następne zadanie
-              </span>
-              <IconArrowRight />
-            </Link>
-          )}
+          <button
+            className="btn-ghost result-commit"
+            onClick={onCommit}
+            disabled={
+              committing
+              || (commitAction !== "commit" && commitAction !== "push")
+            }
+          >
+            <IconGitCommit />
+            {commitLabel}
+          </button>
+          <div className="result-actions-success-right">
+            {hasSolution && <a className="btn-ghost" href="#solution">Porównaj rozwiązanie</a>}
+            {nextTaskHref && (
+              <Link className="cta result-next" href={nextTaskHref}>
+                <span>
+                  <small>Kontynuuj ścieżkę</small>
+                  Następne zadanie
+                </span>
+                <IconArrowRight />
+              </Link>
+            )}
+          </div>
         </div>
+        {commitFeedback && (
+          <p
+            className={`result-commit-feedback ${commitFeedback.kind}`}
+            role={commitFeedback.kind === "error" ? "alert" : "status"}
+          >
+            {commitFeedback.message}
+          </p>
+        )}
       </section>
     );
   }

@@ -61,6 +61,14 @@ export const IconPlay = (p: SVGProps<SVGSVGElement>) => (
   </Svg>
 );
 
+export const IconGitCommit = (p: SVGProps<SVGSVGElement>) => (
+  <Svg {...p}>
+    <path d="M3 12h5" />
+    <path d="M16 12h5" />
+    <circle cx="12" cy="12" r="4" />
+  </Svg>
+);
+
 export const IconMenu = (p: SVGProps<SVGSVGElement>) => (
   <Svg {...p}>
     <path d="M4 7h16" />
