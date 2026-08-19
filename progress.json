@@ -251,5 +251,17 @@
     "firstPassedWithoutHintAt": "2026-08-18T19:28:33.757Z",
     "verifiedStarter": "export interface Product {\n  readonly id: string;\n  readonly name: string;\n  readonly price: number;\n}\n\nexport interface ProductTableProps {\n  readonly products: readonly Product[];\n}\n\nexport function ProductTable({\n  products,\n}: ProductTableProps) {\n  const sortedProducts = [...products].sort(\n    (a, b) => a.price - b.price,\n  );\n  const sum = sortedProducts.reduce(\n    (sum, product) => sum + product.price,\n    0,\n  );\n  return (\n    <section aria-label=\"Cennik\">\n      <ol>\n        {sortedProducts.map((product) => (\n          <li key={product.id}>\n            {product.name}: {product.price.toFixed(2)} zł\n          </li>\n        ))}\n      </ol>\n      <p>Razem: {sum.toFixed(2)} zł</p>\n    </section>\n  );\n}\n",
     "lastRunAt": "2026-08-18T19:28:33.757Z"
+  },
+  "react/02-jsx-lists-identity/easy": {
+    "status": "passed",
+    "attempts": 2,
+    "masteryScore": 1,
+    "cleanPassStreak": 1,
+    "nextReviewAt": "2026-08-20T21:50:10.090Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-08-19T21:50:10.090Z",
+    "firstPassedWithoutHintAt": "2026-08-19T21:50:10.090Z",
+    "verifiedStarter": "export interface InboxSummaryProps {\n  readonly userName: string;\n  readonly unreadCount: number;\n}\n\nexport function InboxSummary({\n  userName,\n  unreadCount,\n}: InboxSummaryProps) {\n  const unreadCountMessages: Record<number, string> = {\n    0: \"Brak nowych wiadomości\",\n    1: \"1 nowa wiadomość\",\n  };\n\n  return (\n    <section aria-label={`Skrzynka ${userName}`}>\n      <h1>Witaj, {userName}</h1>\n      <p>\n        {unreadCountMessages[unreadCount] ||\n          `${unreadCount} nowych wiadomości`}\n      </p>\n    </section>\n  );\n}\n",
+    "lastRunAt": "2026-08-19T21:50:10.090Z"
   }
 }
