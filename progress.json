@@ -254,14 +254,14 @@
   },
   "react/02-jsx-lists-identity/easy": {
     "status": "passed",
-    "attempts": 2,
-    "masteryScore": 1,
-    "cleanPassStreak": 1,
-    "nextReviewAt": "2026-08-20T21:50:10.090Z",
+    "attempts": 6,
+    "masteryScore": 4,
+    "cleanPassStreak": 5,
+    "nextReviewAt": "2026-09-09T22:09:57.629Z",
     "lastAttemptPassed": true,
     "firstPassedAt": "2026-08-19T21:50:10.090Z",
     "firstPassedWithoutHintAt": "2026-08-19T21:50:10.090Z",
-    "verifiedStarter": "export interface InboxSummaryProps {\n  readonly userName: string;\n  readonly unreadCount: number;\n}\n\nexport function InboxSummary({\n  userName,\n  unreadCount,\n}: InboxSummaryProps) {\n  const unreadCountMessages: Record<number, string> = {\n    0: \"Brak nowych wiadomości\",\n    1: \"1 nowa wiadomość\",\n  };\n\n  return (\n    <section aria-label={`Skrzynka ${userName}`}>\n      <h1>Witaj, {userName}</h1>\n      <p>\n        {unreadCountMessages[unreadCount] ||\n          `${unreadCount} nowych wiadomości`}\n      </p>\n    </section>\n  );\n}\n",
-    "lastRunAt": "2026-08-19T21:50:10.090Z"
+    "verifiedStarter": "export interface InboxSummaryProps {\n  readonly userName: string;\n  readonly unreadCount: number;\n}\n\nconst getMessage = (unreadCount: number) => {\n  switch (unreadCount) {\n    case 0:\n      return \"Brak nowych wiadomości\";\n    case 1:\n      return \"1 nowa wiadomość\";\n    default:\n      return `${unreadCount} nowych wiadomości`;\n  }\n};\n\nexport function InboxSummary({\n  userName,\n  unreadCount,\n}: InboxSummaryProps) {\n  return (\n    <section aria-label={`Skrzynka ${userName}`}>\n      <h2>Witaj, {userName}</h2>\n      <p>{getMessage(unreadCount)}</p>\n    </section>\n  );\n}\n",
+    "lastRunAt": "2026-08-19T22:09:57.629Z"
   }
 }

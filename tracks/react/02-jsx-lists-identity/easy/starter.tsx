@@ -3,22 +3,27 @@ export interface InboxSummaryProps {
   readonly unreadCount: number;
 }
 
+const getMessage = (
+  unreadCount: InboxSummaryProps["unreadCount"],
+) => {
+  switch (unreadCount) {
+    case 0:
+      return "Brak nowych wiadomości";
+    case 1:
+      return "1 nowa wiadomość";
+    default:
+      return `${unreadCount} nowych wiadomości`;
+  }
+};
+
 export function InboxSummary({
   userName,
   unreadCount,
 }: InboxSummaryProps) {
-  const unreadCountMessages: Record<number, string> = {
-    0: "Brak nowych wiadomości",
-    1: "1 nowa wiadomość",
-  };
-
   return (
     <section aria-label={`Skrzynka ${userName}`}>
-      <h1>Witaj, {userName}</h1>
-      <p>
-        {unreadCountMessages[unreadCount] ||
-          `${unreadCount} nowych wiadomości`}
-      </p>
+      <h2>Witaj, {userName}</h2>
+      <p>{getMessage(unreadCount)}</p>
     </section>
   );
 }
