@@ -7,11 +7,13 @@ export interface EditableTaskListProps {
   readonly tasks: readonly EditableTask[];
 }
 
-export function EditableTaskList({ tasks }: EditableTaskListProps) {
+export function EditableTaskList({
+  tasks,
+}: EditableTaskListProps) {
   return (
     <ul>
-      {tasks.map((task, index) => (
-        <li key={index}>
+      {tasks.map((task) => (
+        <li key={task.id}>
           <input
             aria-label={`Nazwa zadania ${task.id}`}
             defaultValue={task.title}

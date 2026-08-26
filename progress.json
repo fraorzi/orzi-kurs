@@ -263,5 +263,17 @@
     "firstPassedWithoutHintAt": "2026-08-19T21:50:10.090Z",
     "verifiedStarter": "export interface InboxSummaryProps {\n  readonly userName: string;\n  readonly unreadCount: number;\n}\n\nconst getMessage = (unreadCount: number) => {\n  switch (unreadCount) {\n    case 0:\n      return \"Brak nowych wiadomości\";\n    case 1:\n      return \"1 nowa wiadomość\";\n    default:\n      return `${unreadCount} nowych wiadomości`;\n  }\n};\n\nexport function InboxSummary({\n  userName,\n  unreadCount,\n}: InboxSummaryProps) {\n  return (\n    <section aria-label={`Skrzynka ${userName}`}>\n      <h2>Witaj, {userName}</h2>\n      <p>{getMessage(unreadCount)}</p>\n    </section>\n  );\n}\n",
     "lastRunAt": "2026-08-19T22:09:57.629Z"
+  },
+  "react/02-jsx-lists-identity/medium": {
+    "status": "passed",
+    "attempts": 1,
+    "masteryScore": 1,
+    "cleanPassStreak": 1,
+    "nextReviewAt": "2026-08-27T19:28:45.399Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-08-26T19:28:45.399Z",
+    "firstPassedWithoutHintAt": "2026-08-26T19:28:45.399Z",
+    "verifiedStarter": "export interface EditableTask {\n  readonly id: string;\n  readonly title: string;\n}\n\nexport interface EditableTaskListProps {\n  readonly tasks: readonly EditableTask[];\n}\n\nexport function EditableTaskList({\n  tasks,\n}: EditableTaskListProps) {\n  return (\n    <ul>\n      {tasks.map((task) => (\n        <li key={task.id}>\n          <input\n            aria-label={`Nazwa zadania ${task.id}`}\n            defaultValue={task.title}\n          />\n        </li>\n      ))}\n    </ul>\n  );\n}\n",
+    "lastRunAt": "2026-08-26T19:28:45.399Z"
   }
 }
