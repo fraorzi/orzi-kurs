@@ -275,5 +275,17 @@
     "firstPassedWithoutHintAt": "2026-08-26T19:28:45.399Z",
     "verifiedStarter": "export interface EditableTask {\n  readonly id: string;\n  readonly title: string;\n}\n\nexport interface EditableTaskListProps {\n  readonly tasks: readonly EditableTask[];\n}\n\nexport function EditableTaskList({\n  tasks,\n}: EditableTaskListProps) {\n  return (\n    <ul>\n      {tasks.map((task) => (\n        <li key={task.id}>\n          <input\n            aria-label={`Nazwa zadania ${task.id}`}\n            defaultValue={task.title}\n          />\n        </li>\n      ))}\n    </ul>\n  );\n}\n",
     "lastRunAt": "2026-08-26T19:28:45.399Z"
+  },
+  "react/02-jsx-lists-identity/hard": {
+    "status": "passed",
+    "attempts": 3,
+    "masteryScore": 1,
+    "cleanPassStreak": 1,
+    "nextReviewAt": "2026-08-30T18:33:31.572Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-08-29T18:32:35.601Z",
+    "firstPassedWithoutHintAt": "2026-08-29T18:32:35.601Z",
+    "verifiedStarter": "export interface Contact {\n  readonly id: string;\n  readonly name: string;\n}\n\nexport interface ContactEditorProps {\n  readonly selected: Contact;\n}\n\nfunction Editor({ contact }: { contact: Contact }) {\n  return (\n    <label>\n      Nazwa kontaktu\n      <input defaultValue={contact.name} />\n    </label>\n  );\n}\n\nexport function ContactEditor({\n  selected,\n}: ContactEditorProps) {\n  return <Editor key={selected.id} contact={selected} />;\n}\n",
+    "lastRunAt": "2026-08-29T18:33:31.572Z"
   }
 }

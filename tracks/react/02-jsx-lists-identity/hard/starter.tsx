@@ -7,7 +7,7 @@ export interface ContactEditorProps {
   readonly selected: Contact;
 }
 
-function Editor({ contact }: { readonly contact: Contact }) {
+function Editor({ contact }: { contact: Contact }) {
   return (
     <label>
       Nazwa kontaktu
@@ -16,6 +16,8 @@ function Editor({ contact }: { readonly contact: Contact }) {
   );
 }
 
-export function ContactEditor({ selected }: ContactEditorProps) {
-  return <Editor contact={selected} />;
+export function ContactEditor({
+  selected,
+}: ContactEditorProps) {
+  return <Editor key={selected.id} contact={selected} />;
 }
