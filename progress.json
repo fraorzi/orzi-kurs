@@ -311,5 +311,17 @@
     "firstPassedWithoutHintAt": "2026-09-01T22:13:10.638Z",
     "verifiedStarter": "import { useState } from \"react\";\n\nexport interface ToggleDetailsProps {\n  readonly details: string;\n}\n\nexport function ToggleDetails({\n  details,\n}: ToggleDetailsProps) {\n  const [isOpen, setIsOpen] = useState(false);\n\n  return (\n    <section>\n      <button\n        type=\"button\"\n        onClick={() => setIsOpen((prev) => !prev)}\n      >\n        {!isOpen ? \"Pokaż szczegóły\" : \"Ukryj szczegóły\"}\n      </button>\n      {isOpen ? <p>{details}</p> : null}\n    </section>\n  );\n}\n",
     "lastRunAt": "2026-09-01T22:22:39.130Z"
+  },
+  "react/03-state-snapshot-batching/medium": {
+    "status": "passed",
+    "attempts": 3,
+    "masteryScore": 3,
+    "cleanPassStreak": 3,
+    "nextReviewAt": "2026-09-08T22:22:49.698Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-09-01T22:14:34.534Z",
+    "firstPassedWithoutHintAt": "2026-09-01T22:14:34.534Z",
+    "verifiedStarter": "import { useState } from \"react\";\n\nexport function BatchCounter() {\n  const [count, setCount] = useState(0);\n\n  function addThree() {\n    setCount((count) => count + 1);\n    setCount((count) => count + 1);\n    setCount((count) => count + 1);\n  }\n\n  return (\n    <section>\n      <output aria-label=\"Wynik\">{count}</output>\n      <button type=\"button\" onClick={addThree}>\n        Dodaj 3\n      </button>\n    </section>\n  );\n}\n",
+    "lastRunAt": "2026-09-01T22:22:49.698Z"
   }
 }
