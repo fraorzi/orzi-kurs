@@ -323,5 +323,17 @@
     "firstPassedWithoutHintAt": "2026-09-01T22:14:34.534Z",
     "verifiedStarter": "import { useState } from \"react\";\n\nexport function BatchCounter() {\n  const [count, setCount] = useState(0);\n\n  function addThree() {\n    setCount((count) => count + 1);\n    setCount((count) => count + 1);\n    setCount((count) => count + 1);\n  }\n\n  return (\n    <section>\n      <output aria-label=\"Wynik\">{count}</output>\n      <button type=\"button\" onClick={addThree}>\n        Dodaj 3\n      </button>\n    </section>\n  );\n}\n",
     "lastRunAt": "2026-09-01T22:22:49.698Z"
+  },
+  "react/03-state-snapshot-batching/hard": {
+    "status": "passed",
+    "attempts": 2,
+    "masteryScore": 1,
+    "cleanPassStreak": 1,
+    "nextReviewAt": "2026-09-02T22:23:28.935Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-09-01T22:23:28.935Z",
+    "firstPassedWithoutHintAt": "2026-09-01T22:23:28.935Z",
+    "verifiedStarter": "import { useState } from \"react\";\n\nexport interface DelayedCounterProps {\n  readonly wait: () => Promise<void>;\n}\n\nexport function DelayedCounter({\n  wait,\n}: DelayedCounterProps) {\n  const [count, setCount] = useState(0);\n\n  async function incrementAfterWait() {\n    await wait();\n    setCount((count) => count + 1);\n  }\n\n  return (\n    <section>\n      <output aria-label=\"Wynik\">{count}</output>\n      <button type=\"button\" onClick={incrementAfterWait}>\n        Dodaj po zakończeniu\n      </button>\n    </section>\n  );\n}\n",
+    "lastRunAt": "2026-09-01T22:23:28.935Z"
   }
 }

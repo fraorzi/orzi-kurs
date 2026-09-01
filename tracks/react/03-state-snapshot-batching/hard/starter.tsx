@@ -4,12 +4,14 @@ export interface DelayedCounterProps {
   readonly wait: () => Promise<void>;
 }
 
-export function DelayedCounter({ wait }: DelayedCounterProps) {
+export function DelayedCounter({
+  wait,
+}: DelayedCounterProps) {
   const [count, setCount] = useState(0);
 
   async function incrementAfterWait() {
     await wait();
-    setCount(count + 1);
+    setCount((count) => count + 1);
   }
 
   return (
