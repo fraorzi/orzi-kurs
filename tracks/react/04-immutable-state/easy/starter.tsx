@@ -10,8 +10,10 @@ export function ScoreBoard() {
       <button
         type="button"
         onClick={() => {
-          score.home += 1;
-          setScore(score);
+          setScore((current) => ({
+            ...score,
+            home: current.home + 1,
+          }));
         }}
       >
         Punkt dla gospodarzy
@@ -19,8 +21,10 @@ export function ScoreBoard() {
       <button
         type="button"
         onClick={() => {
-          score.away += 1;
-          setScore(score);
+          setScore((current) => ({
+            ...score,
+            away: current.away + 1,
+          }));
         }}
       >
         Punkt dla gości

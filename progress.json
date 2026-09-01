@@ -335,5 +335,17 @@
     "firstPassedWithoutHintAt": "2026-09-01T22:23:28.935Z",
     "verifiedStarter": "import { useState } from \"react\";\n\nexport interface DelayedCounterProps {\n  readonly wait: () => Promise<void>;\n}\n\nexport function DelayedCounter({\n  wait,\n}: DelayedCounterProps) {\n  const [count, setCount] = useState(0);\n\n  async function incrementAfterWait() {\n    await wait();\n    setCount((count) => count + 1);\n  }\n\n  return (\n    <section>\n      <output aria-label=\"Wynik\">{count}</output>\n      <button type=\"button\" onClick={incrementAfterWait}>\n        Dodaj po zakończeniu\n      </button>\n    </section>\n  );\n}\n",
     "lastRunAt": "2026-09-01T22:23:28.935Z"
+  },
+  "react/04-immutable-state/easy": {
+    "status": "passed",
+    "attempts": 1,
+    "masteryScore": 1,
+    "cleanPassStreak": 1,
+    "nextReviewAt": "2026-09-02T22:43:17.365Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-09-01T22:43:17.365Z",
+    "firstPassedWithoutHintAt": "2026-09-01T22:43:17.365Z",
+    "verifiedStarter": "import { useState } from \"react\";\n\nexport function ScoreBoard() {\n  const [score, setScore] = useState({ home: 0, away: 0 });\n\n  return (\n    <section>\n      <output aria-label=\"Gospodarze\">{score.home}</output>\n      <output aria-label=\"Goście\">{score.away}</output>\n      <button\n        type=\"button\"\n        onClick={() => {\n          setScore((current) => ({\n            ...score,\n            home: current.home + 1,\n          }));\n        }}\n      >\n        Punkt dla gospodarzy\n      </button>\n      <button\n        type=\"button\"\n        onClick={() => {\n          setScore((current) => ({\n            ...score,\n            away: current.away + 1,\n          }));\n        }}\n      >\n        Punkt dla gości\n      </button>\n    </section>\n  );\n}\n",
+    "lastRunAt": "2026-09-01T22:43:17.365Z"
   }
 }
