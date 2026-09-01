@@ -3,14 +3,16 @@ import {
   existsSync,
   copyFileSync,
   cpSync,
+  mkdtempSync,
   rmSync,
   statSync,
 } from "node:fs";
 import { join, relative } from "node:path";
+import { tmpdir } from "node:os";
 import { spawnSync } from "node:child_process";
 import { runTask } from "./runner";
 import { readProgress, REPO_ROOT } from "./progress";
-import { changedProgressTaskIds } from "./progress-diff";
+import { progressForTaskCommit } from "./progress-diff";
 import { resolveTaskDir, findStarter, findSolution, TRACKS_ROOT } from "./paths";
 import { withInitialArtifact } from "./initial-artifact";
 import type { Progress, SubmitResult } from "./types";
@@ -112,42 +114,75 @@ async function cmdCommit(taskId: string): Promise<number> {
     console.error("progress.json w HEAD nie jest prawidłowym JSON-em");
     return 2;
   }
-  const unrelatedProgress = changedProgressTaskIds(
-    progressAtHead,
-    readProgress(),
-  ).filter((changedTaskId) => changedTaskId !== taskId);
-  if (unrelatedProgress.length > 0) {
-    console.error(
-      `commit przerwany — progress.json zawiera zmiany innych zadań: ${unrelatedProgress.join(", ")}`,
-    );
-    console.error(
-      "zacommituj lub wycofaj te wpisy osobno, a potem ponów commit bieżącego zadania",
-    );
-    return 1;
-  }
-
   const paths = [relative(REPO_ROOT, starter), "progress.json"];
-  const changes = spawnSync("git", ["status", "--porcelain", "--", ...paths], {
-    cwd: REPO_ROOT,
-    encoding: "utf8",
-  });
-  if (changes.status !== 0) {
-    console.error(changes.stderr || "nie udało się sprawdzić zmian w git");
-    return 2;
-  }
-  if (!changes.stdout.trim()) {
-    console.log("brak zmian rozwiązania lub postępu do zacommitowania");
-    return 0;
-  }
+  const temporaryDirectory = mkdtempSync(join(tmpdir(), "orzi-task-commit-"));
+  const env = { ...process.env, GIT_INDEX_FILE: join(temporaryDirectory, "index") };
 
-  const add = spawnSync("git", ["add", "--", ...paths], { cwd: REPO_ROOT, stdio: "inherit" });
-  if (add.status !== 0) return add.status ?? 2;
-  const commit = spawnSync(
-    "git",
-    ["commit", "--only", "-m", `solve: ${taskId}`, "--", ...paths],
-    { cwd: REPO_ROOT, stdio: "inherit" },
-  );
-  return commit.status ?? 2;
+  try {
+    const readTree = spawnSync("git", ["read-tree", "HEAD"], {
+      cwd: REPO_ROOT,
+      env,
+      stdio: "inherit",
+    });
+    if (readTree.status !== 0) return readTree.status ?? 2;
+
+    const addStarter = spawnSync("git", ["add", "--all", "--", paths[0]], {
+      cwd: REPO_ROOT,
+      env,
+      stdio: "inherit",
+    });
+    if (addStarter.status !== 0) return addStarter.status ?? 2;
+
+    const progressObject = spawnSync("git", ["hash-object", "-w", "--stdin"], {
+      cwd: REPO_ROOT,
+      env,
+      encoding: "utf8",
+      input: `${JSON.stringify(progressForTaskCommit(progressAtHead, readProgress(), taskId), null, 2)}\n`,
+    });
+    if (progressObject.status !== 0) {
+      console.error(progressObject.stderr || "nie udało się przygotować wpisu progress.json");
+      return progressObject.status ?? 2;
+    }
+
+    const addProgress = spawnSync(
+      "git",
+      [
+        "update-index",
+        "--add",
+        "--cacheinfo",
+        "100644",
+        progressObject.stdout.trim(),
+        "progress.json",
+      ],
+      { cwd: REPO_ROOT, env, stdio: "inherit" },
+    );
+    if (addProgress.status !== 0) return addProgress.status ?? 2;
+
+    const changes = spawnSync("git", ["diff", "--cached", "--quiet", "--exit-code"], {
+      cwd: REPO_ROOT,
+      env,
+    });
+    if (changes.status === 0) {
+      console.log("brak zmian rozwiązania lub postępu do zacommitowania");
+      return 0;
+    }
+    if (changes.status !== 1) return changes.status ?? 2;
+
+    const commit = spawnSync("git", ["commit", "-m", `solve: ${taskId}`], {
+      cwd: REPO_ROOT,
+      env,
+      stdio: "inherit",
+    });
+    if (commit.status !== 0) return commit.status ?? 2;
+
+    const refreshIndex = spawnSync("git", ["reset", "--quiet", "HEAD", "--", ...paths], {
+      cwd: REPO_ROOT,
+      stdio: "inherit",
+    });
+    return refreshIndex.status ?? 2;
+  } finally {
+    rmSync(temporaryDirectory, { recursive: true, force: true });
+  }
 }
 
 function dirsIn(path: string): string[] {

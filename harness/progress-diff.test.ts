@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { changedProgressTaskIds } from "./progress-diff";
+import { changedProgressTaskIds, progressForTaskCommit } from "./progress-diff";
 
 describe("progress diff", () => {
   it("reports only task entries whose persisted value changed", () => {
@@ -32,5 +32,31 @@ describe("progress diff", () => {
       "js/01-functions/easy",
       "js/03-types-coercion/easy",
     ]);
+  });
+
+  it("keeps only the selected task change for a task commit", () => {
+    const before = {
+      "react/01-state/easy": {
+        status: "failed" as const,
+        attempts: 1,
+        lastRunAt: "2026-09-01T10:00:00.000Z",
+      },
+    };
+    const after = {
+      "react/01-state/easy": {
+        status: "passed" as const,
+        attempts: 2,
+        lastRunAt: "2026-09-01T11:00:00.000Z",
+      },
+      "react/01-state/medium": {
+        status: "passed" as const,
+        attempts: 1,
+        lastRunAt: "2026-09-01T12:00:00.000Z",
+      },
+    };
+
+    expect(progressForTaskCommit(before, after, "react/01-state/easy")).toEqual({
+      "react/01-state/easy": after["react/01-state/easy"],
+    });
   });
 });
