@@ -17,7 +17,9 @@ export interface CartStore {
   readonly addItem: (item: CartItem) => void;
 }
 
-function summarize(items: readonly CartItem[]): CartSnapshot {
+function summarize(
+  items: readonly CartItem[],
+): CartSnapshot {
   return {
     itemCount: items.length,
     total: items.reduce((sum, item) => sum + item.price, 0),
@@ -49,7 +51,7 @@ export function createCartStore(
 export function CartSummary({
   store,
 }: {
-  readonly store: CartStore;
+  store: CartStore;
 }) {
   const snapshot = useSyncExternalStore(
     store.subscribe,

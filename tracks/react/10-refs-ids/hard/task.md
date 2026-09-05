@@ -1,6 +1,8 @@
 # Rejestracja pól z cleanupem callback refa
 
-Zaimplementuj `RegisteredFields`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `RegisteredFields`.
 
 Komponent otrzymuje listę pól oraz zewnętrzny `registry`. Dla każdego inputa callback
 ref ma wywołać `registry.attach(field.id, node)`. Metoda zwraca cleanup, który należy

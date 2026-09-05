@@ -1,5 +1,7 @@
 # Panel obsługi incydentów
 
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
+
 Dokończ wieloplikowy `SupportDesk` w katalogu `src/`.
 
 ## Kontrakt

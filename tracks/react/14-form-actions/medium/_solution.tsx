@@ -3,19 +3,24 @@ import { useActionState } from "react";
 export type ProjectFormState =
   | { readonly status: "idle" }
   | { readonly status: "error"; readonly message: string }
-  | { readonly status: "success"; readonly projectId: string };
+  | {
+      readonly status: "success";
+      readonly projectId: string;
+    };
 
 export function CreateProjectForm({
   createProject,
 }: {
-  readonly createProject: (name: string) => Promise<string>;
+  createProject: (name: string) => Promise<string>;
 }) {
   const [state, submitAction, isPending] = useActionState<
     ProjectFormState,
     FormData
   >(
     async (_previousState, formData) => {
-      const name = String(formData.get("projectName") ?? "").trim();
+      const name = String(
+        formData.get("projectName") ?? "",
+      ).trim();
 
       if (name.length < 3) {
         return {
@@ -39,9 +44,13 @@ export function CreateProjectForm({
       <button type="submit" disabled={isPending}>
         {isPending ? "Tworzenie…" : "Utwórz projekt"}
       </button>
-      {state.status === "error" && <p role="alert">{state.message}</p>}
+      {state.status === "error" && (
+        <p role="alert">{state.message}</p>
+      )}
       {state.status === "success" && (
-        <p role="status">Utworzono projekt {state.projectId}</p>
+        <p role="status">
+          Utworzono projekt {state.projectId}
+        </p>
       )}
     </form>
   );

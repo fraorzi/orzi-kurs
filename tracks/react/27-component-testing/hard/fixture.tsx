@@ -9,9 +9,9 @@ export function InvoiceList({
   layout,
   onOpen,
 }: {
-  readonly invoices: readonly Invoice[];
-  readonly layout: "table" | "cards";
-  readonly onOpen: (id: string) => void;
+  invoices: readonly Invoice[];
+  layout: "table" | "cards";
+  onOpen: (id: string) => void;
 }) {
   if (layout === "cards") {
     return (
@@ -36,7 +36,11 @@ export function InvoiceList({
   return (
     <table aria-label="Faktury">
       <thead>
-        <tr><th>Klient</th><th>Kwota</th><th>Akcja</th></tr>
+        <tr>
+          <th>Klient</th>
+          <th>Kwota</th>
+          <th>Akcja</th>
+        </tr>
       </thead>
       <tbody>
         {invoices.map((invoice) => (

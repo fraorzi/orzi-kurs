@@ -1,12 +1,9 @@
-import {
-  type Ref,
-  useRef,
-} from "react";
+import { type Ref, useRef } from "react";
 
 export function SearchField({
   ref,
 }: {
-  readonly ref?: Ref<HTMLInputElement>;
+  ref?: Ref<HTMLInputElement>;
 }) {
   return (
     <label>
@@ -31,4 +28,3 @@ export function CommandPalette() {
     </section>
   );
 }
-

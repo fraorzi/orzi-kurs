@@ -8,11 +8,12 @@ export function LikeButton({
   initialLiked,
   saveLike,
 }: {
-  readonly initialLiked: boolean;
-  readonly saveLike: (liked: boolean) => Promise<boolean>;
+  initialLiked: boolean;
+  saveLike: (liked: boolean) => Promise<boolean>;
 }) {
   const [liked, setLiked] = useState(initialLiked);
-  const [optimisticLiked, setOptimisticLiked] = useOptimistic(liked);
+  const [optimisticLiked, setOptimisticLiked] =
+    useOptimistic(liked);
   const [error, setError] = useState<string | null>(null);
 
   function handleClick() {

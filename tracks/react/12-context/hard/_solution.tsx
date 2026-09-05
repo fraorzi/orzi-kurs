@@ -8,12 +8,16 @@ import {
 
 type CounterAction = { readonly type: "incremented" };
 
-const CounterStateContext = createContext<number | null>(null);
-const CounterDispatchContext = createContext<Dispatch<CounterAction> | null>(
+const CounterStateContext = createContext<number | null>(
   null,
 );
+const CounterDispatchContext =
+  createContext<Dispatch<CounterAction> | null>(null);
 
-function counterReducer(state: number, action: CounterAction): number {
+function counterReducer(
+  state: number,
+  action: CounterAction,
+): number {
   return action.type === "incremented" ? state + 1 : state;
 }
 
@@ -33,7 +37,11 @@ function useCounterDispatch(): Dispatch<CounterAction> {
   return dispatch;
 }
 
-export function CounterProvider({ children }: { readonly children: ReactNode }) {
+export function CounterProvider({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const [count, dispatch] = useReducer(counterReducer, 0);
 
   return (

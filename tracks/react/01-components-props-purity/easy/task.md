@@ -1,9 +1,11 @@
 # Karta profilu
 
-Zaimplementuj `ProfileCard`. Komponent ma wyrenderować semantyczny `article` o nazwie
-dostępnej `Profil <name>`, nagłówek z imieniem, rolę i status:
+Tryb: od zera. Napisz rozwiązanie w `starter.tsx`, korzystając z podanych sygnatur i typów.
 
-- `online: true` → `Dostępny`,
-- `online: false` → `Offline`.
+Napisz `ProfileCard`, który otrzymuje `name`, `role` i `online`.
+Zwróć `article` z nagłówkiem zawierającym imię oraz tekstem roli.
+Dla `online: true` pokaż `Dostępny`, a dla `false` pokaż `Offline`.
 
-Props pozostają `readonly`.
+Przykład: `{ name: "Ala", role: "Frontend Developer", online: true }`
+ma pokazać `Ala`, `Frontend Developer` i `Dostępny`.
+Nie zmieniaj danych otrzymanych w propsach.

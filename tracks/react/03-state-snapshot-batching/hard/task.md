@@ -1,5 +1,7 @@
 # Aktualizacje po operacji asynchronicznej
 
+Tryb: uzupełnienie. W `starter.tsx` jest gotowy szablon. Zaimplementuj brakującą logikę opisaną poniżej.
+
 Zaimplementuj `DelayedCounter`.
 
 Komponent otrzymuje funkcję `wait`, która reprezentuje niezależną operację

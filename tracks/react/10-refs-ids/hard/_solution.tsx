@@ -8,8 +8,8 @@ export interface FieldRegistry {
 }
 
 export interface RegisteredFieldsProps {
-  readonly fields: readonly FieldDefinition[];
-  readonly registry: FieldRegistry;
+  fields: readonly FieldDefinition[];
+  registry: FieldRegistry;
 }
 
 export function RegisteredFields({

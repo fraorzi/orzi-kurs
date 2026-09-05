@@ -10,5 +10,4 @@ focusowalnych elementów. Dla zawijania użyj `preventDefault()` i `.focus()`.
 
 ## Hint 3
 
-Nagłówek potrzebuje ID, a dialog `aria-labelledby` wskazującego ten element.
-Zawartość wyrenderuj przez `createPortal(..., document.body)`.
+Portal i nagłówek są gotowe. Przy zamknięciu okna użyj refa przycisku, który je otworzył.

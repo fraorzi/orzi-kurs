@@ -1,22 +1,23 @@
-import {
-  type FormEvent,
-  useState,
-} from "react";
+import { type FormEvent, useState } from "react";
 
 export function UserSearch({
   searchUsers,
 }: {
-  readonly searchUsers: (query: string) => Promise<readonly string[]>;
+  searchUsers: (
+    query: string,
+  ) => Promise<readonly string[]>;
 }) {
   const [query, setQuery] = useState("");
   const [state, setState] = useState<
-    | { readonly status: "idle" }
-    | { readonly status: "pending" }
-    | { readonly status: "success"; readonly users: readonly string[] }
-    | { readonly status: "error" }
+    | { status: "idle" }
+    | { status: "pending" }
+    | { status: "success"; users: readonly string[] }
+    | { status: "error" }
   >({ status: "idle" });
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(
+    event: FormEvent<HTMLFormElement>,
+  ) {
     event.preventDefault();
     setState({ status: "pending" });
 
@@ -40,13 +41,17 @@ export function UserSearch({
         />
       </label>
       <button type="submit">Szukaj</button>
-      {state.status === "pending" && <p role="status">Wyszukiwanie…</p>}
+      {state.status === "pending" && (
+        <p role="status">Wyszukiwanie…</p>
+      )}
       {state.status === "error" && (
         <p role="alert">Nie udało się wyszukać</p>
       )}
       {state.status === "success" && (
         <ul aria-label="Wyniki">
-          {state.users.map((user) => <li key={user}>{user}</li>)}
+          {state.users.map((user) => (
+            <li key={user}>{user}</li>
+          ))}
         </ul>
       )}
     </form>

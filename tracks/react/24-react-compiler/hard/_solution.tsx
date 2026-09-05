@@ -7,12 +7,14 @@ export function SearchResults({
   items,
   query,
 }: {
-  readonly items: readonly SearchItem[];
-  readonly query: string;
+  items: readonly SearchItem[];
+  query: string;
 }) {
   const normalizedQuery = query.toLocaleLowerCase("pl");
   const visibleItems = items.filter((item) =>
-    item.name.toLocaleLowerCase("pl").includes(normalizedQuery),
+    item.name
+      .toLocaleLowerCase("pl")
+      .includes(normalizedQuery),
   );
 
   return (
@@ -23,4 +25,3 @@ export function SearchResults({
     </ul>
   );
 }
-

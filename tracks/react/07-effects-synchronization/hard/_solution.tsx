@@ -9,9 +9,9 @@ export interface ActivityService {
 }
 
 export interface WorkspacePresenceProps {
-  readonly workspaceId: string;
-  readonly chat: ChatService;
-  readonly activity: ActivityService;
+  workspaceId: string;
+  chat: ChatService;
+  activity: ActivityService;
 }
 
 export function WorkspacePresence({
@@ -19,13 +19,12 @@ export function WorkspacePresence({
   chat,
   activity,
 }: WorkspacePresenceProps) {
-  useEffect(() => (
-    chat.connect(workspaceId)
-  ), [chat, workspaceId]);
+  useEffect(
+    () => chat.connect(workspaceId),
+    [chat, workspaceId],
+  );
 
-  useEffect(() => (
-    activity.start()
-  ), [activity]);
+  useEffect(() => activity.start(), [activity]);
 
   return <h1>Workspace {workspaceId}</h1>;
 }

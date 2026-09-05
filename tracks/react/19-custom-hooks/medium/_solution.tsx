@@ -1,7 +1,4 @@
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 
 export interface DraftStorage {
   readonly getItem: (key: string) => string | null;
@@ -27,7 +24,7 @@ export function usePersistentDraft(
 export function DraftEditor({
   storage,
 }: {
-  readonly storage: DraftStorage;
+  storage: DraftStorage;
 }) {
   const [draft, setDraft] = usePersistentDraft(
     "support-draft",

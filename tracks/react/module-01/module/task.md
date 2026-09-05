@@ -1,4 +1,6 @@
-# Moduł 01 — lokalna tablica zadań zespołu
+# Moduł 01 - lokalna tablica zadań zespołu
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Zadanie jest **wieloplikowe**. Uzupełnij pliki w `src/`. Testy importują wyłącznie
 z `src/index.ts`, więc ten plik jest publiczną granicą feature’u.
@@ -77,8 +79,8 @@ składni providerów React 19. Eksportuj bezpieczne hooki `useTaskState` i
 
 ### `src/TaskFilters.tsx`
 
-Trzy przyciski: `Wszystkie`, `Otwarte`, `Gotowe`. Bieżący filtr oznacz przez
-`aria-pressed`. Kliknięcie dispatchuje `filter_changed`.
+Trzy przyciski: `Wszystkie`, `Otwarte`, `Gotowe`. Kliknięcie wysyła akcję
+`filter_changed` i zmienia listę widocznych zadań.
 
 ### `src/TaskSummary.tsx`
 

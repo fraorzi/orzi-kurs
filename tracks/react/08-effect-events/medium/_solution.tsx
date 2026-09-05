@@ -1,17 +1,17 @@
-import {
-  useEffect,
-  useEffectEvent,
-} from "react";
+import { useEffect, useEffectEvent } from "react";
 
 export interface ChatConnection {
-  connect(roomId: string, onConnected: () => void): () => void;
+  connect(
+    roomId: string,
+    onConnected: () => void,
+  ): () => void;
 }
 
 export interface ChatNotificationsProps {
-  readonly roomId: string;
-  readonly muted: boolean;
-  readonly chat: ChatConnection;
-  readonly onNotify: (message: string) => void;
+  roomId: string;
+  muted: boolean;
+  chat: ChatConnection;
+  onNotify: (message: string) => void;
 }
 
 export function ChatNotifications({
@@ -20,15 +20,19 @@ export function ChatNotifications({
   chat,
   onNotify,
 }: ChatNotificationsProps) {
-  const notifyConnected = useEffectEvent((connectedRoomId: string) => {
-    if (!muted) {
-      onNotify(`Połączono z ${connectedRoomId}`);
-    }
-  });
+  const notifyConnected = useEffectEvent(
+    (connectedRoomId: string) => {
+      if (!muted) {
+        onNotify(`Połączono z ${connectedRoomId}`);
+      }
+    },
+  );
 
-  useEffect(() => (
-    chat.connect(roomId, () => notifyConnected(roomId))
-  ), [chat, roomId]);
+  useEffect(
+    () =>
+      chat.connect(roomId, () => notifyConnected(roomId)),
+    [chat, roomId],
+  );
 
   return <h1>Pokój {roomId}</h1>;
 }

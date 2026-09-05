@@ -3,7 +3,7 @@ import { useState } from "react";
 export function ExpandableDetails({
   enabled,
 }: {
-  readonly enabled: boolean;
+  enabled: boolean;
 }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -23,4 +23,3 @@ export function ExpandableDetails({
     </section>
   );
 }
-

@@ -8,7 +8,7 @@ export interface Credentials {
 export function LoginForm({
   onSubmit,
 }: {
-  readonly onSubmit: (credentials: Credentials) => void;
+  onSubmit: (credentials: Credentials) => void;
 }) {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

@@ -1,6 +1,8 @@
 # Optimistic lista odporna na świeższe dane
 
-Zaimplementuj `OptimisticComments`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `OptimisticComments`.
 
 Komponent otrzymuje bazowe `comments`, async `saveComment(text)` oraz
 `commitComment(savedComment)`. Po wysłaniu formularza nowy komentarz ma pojawić się

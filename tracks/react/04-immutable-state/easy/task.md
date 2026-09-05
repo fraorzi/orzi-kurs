@@ -1,6 +1,8 @@
 # Tablica wyników
 
-Zaimplementuj `ScoreBoard`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `ScoreBoard`.
 
 Komponent zaczyna od wyniku `0:0`. Renderuje dwa elementy `output` o nazwach
 `Gospodarze` i `Goście` oraz przyciski `Punkt dla gospodarzy` i

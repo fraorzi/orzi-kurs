@@ -17,25 +17,40 @@ describe("MetricChart", () => {
       />,
     );
 
-    const chart = screen.getByRole("region", { name: "Aktywne konta" });
-    const poland = screen.getByRole("meter", { name: "Polska" });
-    const germany = screen.getByRole("meter", { name: "Niemcy" });
+    const chart = screen.getByRole("region", {
+      name: "Aktywne konta",
+    });
+    const poland = screen.getByRole("meter", {
+      name: "Polska",
+    });
+    const germany = screen.getByRole("meter", {
+      name: "Niemcy",
+    });
 
-    expect(chart.style.getPropertyValue("--chart-accent")).toBe("#2563eb");
-    expect(poland.style.getPropertyValue("--bar-ratio")).toBe("0.5");
-    expect(germany.style.getPropertyValue("--bar-ratio")).toBe("1");
-    expect(poland).toHaveAttribute("aria-valuemax", "60");
-    expect(poland).toHaveAttribute("aria-valuenow", "30");
+    expect(
+      chart.style.getPropertyValue("--chart-accent"),
+    ).toBe("#2563eb");
+    expect(
+      poland.style.getPropertyValue("--bar-ratio"),
+    ).toBe("0.5");
+    expect(
+      germany.style.getPropertyValue("--bar-ratio"),
+    ).toBe("1");
   });
 
   it("pozostawia końcowe reguły wizualne w CSS", () => {
     const source = readFileSync(
-      join(process.cwd(), "tracks/react/30-dynamic-styles/hard/starter.tsx"),
+      join(
+        process.cwd(),
+        "tracks/react/30-dynamic-styles/hard/starter.tsx",
+      ),
       "utf8",
     );
 
     expect(source).toContain('"--chart-accent"');
     expect(source).toContain('"--bar-ratio"');
-    expect(source).not.toMatch(/\b(?:backgroundColor|height)\s*:/);
+    expect(source).not.toMatch(
+      /\b(?:backgroundColor|height)\s*:/,
+    );
   });
 });

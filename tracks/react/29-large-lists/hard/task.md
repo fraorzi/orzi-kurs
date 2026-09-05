@@ -1,6 +1,8 @@
 # Produkcyjna lista klientów przez react-window 2
 
-Zaimplementuj `VirtualCustomerList` przez aktualne `react-window@2.2.7`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `VirtualCustomerList` przez aktualne `react-window@2.2.7`.
 
 - Użyj `List`, nie historycznego `FixedSizeList`.
 - Lista ma wysokość 108 px, szerokość 320 px, `rowHeight=36`, `overscanCount=1`,

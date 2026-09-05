@@ -4,8 +4,8 @@ Przechowuj wartości formularza i obiekt błędów w osobnych stanach.
 
 ## Hint 2
 
-Komunikatowi nadaj stałe `id`, a inputowi ustaw `aria-describedby` tylko wtedy,
-gdy dany błąd istnieje.
+Gotowy HTML pokazuje komunikaty ze stanu `errors`. Wpisz do niego błędy
+pod kluczami `displayName` i `bio`.
 
 ## Hint 3
 

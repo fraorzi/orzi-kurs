@@ -4,22 +4,28 @@ import {
   screen,
   within,
 } from "@harness/react-test";
-import {
-  ProductTable,
-  type Product,
-} from "./starter";
+import { ProductTable, type Product } from "./starter";
 
-const PRODUCTS = Object.freeze([
-  Object.freeze({ id: "a", name: "Klawiatura", price: 299 }),
+const PRODUCTS = [
+  Object.freeze({
+    id: "a",
+    name: "Klawiatura",
+    price: 299,
+  }),
   Object.freeze({ id: "b", name: "Mysz", price: 99.5 }),
-  Object.freeze({ id: "c", name: "Monitor", price: 899.99 }),
-]) satisfies readonly Product[];
+  Object.freeze({
+    id: "c",
+    name: "Monitor",
+    price: 899.99,
+  }),
+] satisfies Product[];
+Object.freeze(PRODUCTS);
 
 describe("ProductTable", () => {
   it("sortuje widok po cenie bez mutowania zamrożonych propsów", () => {
     render(<ProductTable products={PRODUCTS} />);
     const items = within(
-      screen.getByRole("region", { name: "Cennik" }),
+      screen.getByRole("list"),
     ).getAllByRole("listitem");
 
     expect(items.map((item) => item.textContent)).toEqual([
@@ -27,13 +33,19 @@ describe("ProductTable", () => {
       "Klawiatura: 299.00 zł",
       "Monitor: 899.99 zł",
     ]);
-    expect(PRODUCTS.map((product) => product.id)).toEqual(["a", "b", "c"]);
+    expect(PRODUCTS.map((product) => product.id)).toEqual([
+      "a",
+      "b",
+      "c",
+    ]);
   });
 
   it("pokazuje poprawną sumę", () => {
     render(<ProductTable products={PRODUCTS} />);
 
-    expect(screen.getByText("Razem: 1298.49 zł")).toBeInTheDocument();
+    expect(
+      screen.getByText("Razem: 1298.49 zł"),
+    ).toBeInTheDocument();
   });
 
   it("dla tych samych propsów daje ten sam wynik po rerenderze", () => {

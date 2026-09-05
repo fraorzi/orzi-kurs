@@ -1,17 +1,17 @@
-import {
-  useEffect,
-  useEffectEvent,
-} from "react";
+import { useEffect, useEffectEvent } from "react";
 
 export interface PollingScheduler {
-  start(intervalMs: number, callback: () => void): () => void;
+  start(
+    intervalMs: number,
+    callback: () => void,
+  ): () => void;
 }
 
 export interface SearchPollingProps {
-  readonly intervalMs: number;
-  readonly query: string;
-  readonly scheduler: PollingScheduler;
-  readonly onPoll: (query: string) => void;
+  intervalMs: number;
+  query: string;
+  scheduler: PollingScheduler;
+  onPoll: (query: string) => void;
 }
 
 export function SearchPolling({
@@ -24,9 +24,10 @@ export function SearchPolling({
     onPoll(query);
   });
 
-  useEffect(() => (
-    scheduler.start(intervalMs, onTick)
-  ), [intervalMs, scheduler]);
+  useEffect(
+    () => scheduler.start(intervalMs, onTick),
+    [intervalMs, scheduler],
+  );
 
   return <p>Polling: {query}</p>;
 }

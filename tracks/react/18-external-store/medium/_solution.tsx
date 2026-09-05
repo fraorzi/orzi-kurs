@@ -6,7 +6,9 @@ export interface ExternalStore<T> {
   readonly getServerSnapshot: () => T;
 }
 
-export function useExternalValue<T>(store: ExternalStore<T>): T {
+export function useExternalValue<T>(
+  store: ExternalStore<T>,
+): T {
   return useSyncExternalStore(
     store.subscribe,
     store.getSnapshot,
@@ -17,7 +19,7 @@ export function useExternalValue<T>(store: ExternalStore<T>): T {
 export function MessageCounter({
   store,
 }: {
-  readonly store: ExternalStore<number>;
+  store: ExternalStore<number>;
 }) {
   const count = useExternalValue(store);
   return <p>{count} wiadomości</p>;

@@ -5,16 +5,19 @@ export interface OrderItem {
 }
 
 export interface OrderSummaryProps {
-  readonly items: readonly OrderItem[];
+  items: readonly OrderItem[];
 }
 
 export function OrderSummary({ items }: OrderSummaryProps) {
   const totalCents = items.reduce(
-    (sum, item) => sum + item.quantity * item.unitPriceCents,
+    (sum, item) =>
+      sum + item.quantity * item.unitPriceCents,
     0,
   );
 
   return (
-    <output aria-label="Suma">{(totalCents / 100).toFixed(2)} zł</output>
+    <output aria-label="Suma">
+      {(totalCents / 100).toFixed(2)} zł
+    </output>
   );
 }

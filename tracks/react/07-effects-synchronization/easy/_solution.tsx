@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 
 export interface DocumentTitleProps {
-  readonly title: string;
+  title: string;
 }
 
-export function DocumentTitle({ title }: DocumentTitleProps) {
+export function DocumentTitle({
+  title,
+}: DocumentTitleProps) {
   useEffect(() => {
     const previousTitle = document.title;
     document.title = title;

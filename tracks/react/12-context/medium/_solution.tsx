@@ -15,8 +15,8 @@ export function SessionProvider({
   session,
   children,
 }: {
-  readonly session: Session;
-  readonly children: ReactNode;
+  session: Session;
+  children: ReactNode;
 }) {
   return (
     <SessionContext value={session}>
@@ -35,5 +35,9 @@ export function useSession(): Session {
 
 export function AccountButton() {
   const session = useSession();
-  return <button type="button">Konto: {session.displayName}</button>;
+  return (
+    <button type="button">
+      Konto: {session.displayName}
+    </button>
+  );
 }

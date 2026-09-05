@@ -1,5 +1,7 @@
 # Trzy aktualizacje w jednym zdarzeniu
 
+Tryb: uzupełnienie. W `starter.tsx` jest gotowy szablon. Zaimplementuj brakującą logikę opisaną poniżej.
+
 Zaimplementuj `BatchCounter`.
 
 Komponent zaczyna od `0` i pokazuje wynik w elemencie `output` o nazwie

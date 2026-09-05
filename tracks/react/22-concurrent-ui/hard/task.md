@@ -1,6 +1,8 @@
 # Zakładki zachowujące stan bez ukrytych subskrypcji
 
-Zaimplementuj `WorkspaceTabs` z użyciem stabilnego komponentu `<Activity>`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `WorkspaceTabs` z użyciem stabilnego komponentu `<Activity>`.
 
 Panel `Edycja` zawiera kontrolowane pole `Notatka robocza`. Jego lokalny stan ma
 przetrwać przejście do zakładki `Podgląd` i powrót. Przekazana funkcja `subscribe`
@@ -14,4 +16,3 @@ Gdy panel edycji jest ukryty:
 
 Po ponownym pokazaniu panelu Effect ma zasubskrybować się ponownie, a wpisany
 draft nadal ma znajdować się w polu.
-

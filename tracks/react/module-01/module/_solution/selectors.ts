@@ -1,7 +1,4 @@
-import type {
-  TaskState,
-  TeamTask,
-} from "./types";
+import type { TaskState, TeamTask } from "./types";
 
 export function selectVisibleTasks(
   state: TaskState,
@@ -15,9 +12,10 @@ export function selectVisibleTasks(
   return state.tasks;
 }
 
-export function selectTaskCounts(
-  state: TaskState,
-): { readonly open: number; readonly done: number } {
+export function selectTaskCounts(state: TaskState): {
+  open: number;
+  done: number;
+} {
   let open = 0;
   let done = 0;
   for (const task of state.tasks) {

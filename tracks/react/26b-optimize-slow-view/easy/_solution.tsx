@@ -16,8 +16,8 @@ function Report({
   data,
   onRender,
 }: {
-  readonly data: ReportData;
-  readonly onRender: ProfilerOnRenderCallback;
+  data: ReportData;
+  onRender: ProfilerOnRenderCallback;
 }) {
   return (
     <Profiler id="report" onRender={onRender}>
@@ -32,7 +32,7 @@ function Report({
 function ExpandableFilters({
   children,
 }: {
-  readonly children: ReactNode;
+  children: ReactNode;
 }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -54,8 +54,8 @@ export function AnalyticsPage({
   data,
   onReportRender = ignoreRender,
 }: {
-  readonly data: ReportData;
-  readonly onReportRender?: ProfilerOnRenderCallback;
+  data: ReportData;
+  onReportRender?: ProfilerOnRenderCallback;
 }) {
   return (
     <ExpandableFilters>
@@ -63,4 +63,3 @@ export function AnalyticsPage({
     </ExpandableFilters>
   );
 }
-

@@ -1,14 +1,11 @@
-import {
-  useId,
-  type ReactNode,
-} from "react";
+import { useId, type ReactNode } from "react";
 
 export function Panel({
   title,
   children,
 }: {
-  readonly title: string;
-  readonly children: ReactNode;
+  title: string;
+  children: ReactNode;
 }) {
   const titleId = useId();
 

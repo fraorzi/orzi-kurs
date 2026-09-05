@@ -4,8 +4,11 @@ export function ToastPortal({
   message,
   container,
 }: {
-  readonly message: string;
-  readonly container: HTMLElement;
+  message: string;
+  container: HTMLElement;
 }) {
-  return createPortal(<p role="status">{message}</p>, container);
+  return createPortal(
+    <p role="status">{message}</p>,
+    container,
+  );
 }

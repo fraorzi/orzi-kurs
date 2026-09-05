@@ -1,6 +1,8 @@
 # Checkout jako jawna maszyna stanów
 
-Zaimplementuj `CheckoutFlow` i eksportowany `checkoutReducer`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `CheckoutFlow` i eksportowany `checkoutReducer`.
 
 Stany:
 

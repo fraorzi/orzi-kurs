@@ -1,12 +1,15 @@
-# Tabs z ręczną aktywacją i roving focus
+# Przełączanie zakładek klawiaturą
 
-Zaimplementuj `SettingsTabs` z zakładkami `Profil`, `Bezpieczeństwo` i
-`Powiadomienia` zgodnie z wzorcem WAI-ARIA tabs.
+Tryb: uzupełnienie. W `starter.tsx` jest gotowy szablon. Zaimplementuj brakującą logikę opisaną poniżej.
 
-- Kontener ma rolę `tablist` i nazwę `Ustawienia`.
-- Każda kontrolka ma rolę `tab`, `aria-selected`, `aria-controls` i relację z
-  panelem `tabpanel` przez `aria-labelledby`.
-- Dokładnie aktywny/focusowalny tab ma `tabIndex=0`, pozostałe `-1`.
-- ArrowRight i ArrowLeft przenoszą focus z zawijaniem, ale nie aktywują panelu.
-- Enter lub Space aktywuje tab z focusem.
-- Kliknięcie ustawia jednocześnie focusowalny i wybrany tab.
+Zakładki `Profil`, `Bezpieczeństwo` i `Powiadomienia`, ich HTML oraz kliknięcia są gotowe.
+Uzupełnij `handleKeyDown` w `SettingsTabs`.
+
+- `ArrowRight` przenosi focus do następnego przycisku, a z ostatniego do pierwszego.
+- `ArrowLeft` działa w przeciwnym kierunku, również z przejściem między końcami listy.
+- Strzałki zmieniają tylko focus. Widoczna treść panelu pozostaje bez zmian.
+- `Enter`, spacja lub kliknięcie wybierają zakładkę, na której jest focus.
+- Przycisk wskazany strzałkami ma `tabIndex=0`, pozostałe mają `-1`.
+
+Przykład: na `Profil` naciśnij `ArrowRight`. Focus ma przejść na `Bezpieczeństwo`,
+ale nadal widać `Dane profilu`. Dopiero `Enter` pokazuje `Ustawienia hasła`.

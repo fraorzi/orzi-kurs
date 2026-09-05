@@ -1,7 +1,4 @@
-import {
-  startTransition,
-  useOptimistic,
-} from "react";
+import { startTransition, useOptimistic } from "react";
 
 export interface Comment {
   readonly id: string;
@@ -17,23 +14,23 @@ export function OptimisticComments({
   saveComment,
   commitComment,
 }: {
-  readonly comments: readonly Comment[];
-  readonly saveComment: (text: string) => Promise<Comment>;
-  readonly commitComment: (comment: Comment) => void;
+  comments: readonly Comment[];
+  saveComment: (text: string) => Promise<Comment>;
+  commitComment: (comment: Comment) => void;
 }) {
-  const [optimisticComments, addOptimisticComment] = useOptimistic<
-    readonly CommentView[],
-    Comment
-  >(
-    comments,
-    (currentComments, draft) => [
-      ...currentComments,
-      { ...draft, pending: true },
-    ],
-  );
+  const [optimisticComments, addOptimisticComment] =
+    useOptimistic<readonly CommentView[], Comment>(
+      comments,
+      (currentComments, draft) => [
+        ...currentComments,
+        { ...draft, pending: true },
+      ],
+    );
 
   async function addAction(formData: FormData) {
-    const text = String(formData.get("comment") ?? "").trim();
+    const text = String(
+      formData.get("comment") ?? "",
+    ).trim();
     if (!text) return;
 
     addOptimisticComment({ id: `draft-${text}`, text });
@@ -46,7 +43,8 @@ export function OptimisticComments({
       <ul>
         {optimisticComments.map((comment) => (
           <li key={comment.id}>
-            {comment.text} {comment.pending && "(wysyłanie…)"}
+            {comment.text}{" "}
+            {comment.pending && "(wysyłanie…)"}
           </li>
         ))}
       </ul>

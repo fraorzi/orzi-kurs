@@ -1,5 +1,7 @@
 # Tytuł dokumentu zgodny z widokiem
 
+Tryb: uzupełnienie. W `starter.tsx` jest punkt wyjścia. Dopisz brakujące zachowanie opisane poniżej.
+
 Zaimplementuj `DocumentTitle`.
 
 Komponent renderuje nagłówek z `title` i synchronizuje `document.title` z tym propsem.

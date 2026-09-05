@@ -1,5 +1,7 @@
 # Edytowalna lista z poprawnym key
 
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
 `EditableTaskList` dostaje listę zadań. Wyrenderuj `ul`, a dla każdego zadania:
 
 - `li` ze stabilnym `key={task.id}`,

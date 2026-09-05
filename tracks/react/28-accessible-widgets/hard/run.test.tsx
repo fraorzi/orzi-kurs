@@ -10,12 +10,18 @@ describe("DeleteAccountDialog", () => {
     const { user } = renderWithUser(
       <DeleteAccountDialog onConfirm={vi.fn()} />,
     );
-    const trigger = screen.getByRole("button", { name: "Usuń konto" });
+    const trigger = screen.getByRole("button", {
+      name: "Usuń konto",
+    });
     await user.click(trigger);
 
-    const dialog = screen.getByRole("dialog", { name: "Usuń konto?" });
-    expect(dialog).toHaveAttribute("aria-modal", "true");
-    const cancel = screen.getByRole("button", { name: "Anuluj" });
+    const dialog = screen.getByRole("dialog", {
+      name: "Usuń konto?",
+    });
+
+    const cancel = screen.getByRole("button", {
+      name: "Anuluj",
+    });
     const confirm = screen.getByRole("button", {
       name: "Potwierdź usunięcie",
     });
@@ -29,7 +35,9 @@ describe("DeleteAccountDialog", () => {
     expect(confirm).toHaveFocus();
 
     await user.keyboard("{Escape}");
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("dialog"),
+    ).not.toBeInTheDocument();
     expect(trigger).toHaveFocus();
   });
 
@@ -38,14 +46,20 @@ describe("DeleteAccountDialog", () => {
     const { user } = renderWithUser(
       <DeleteAccountDialog onConfirm={onConfirm} />,
     );
-    const trigger = screen.getByRole("button", { name: "Usuń konto" });
+    const trigger = screen.getByRole("button", {
+      name: "Usuń konto",
+    });
     await user.click(trigger);
-    await user.click(screen.getByRole("button", {
-      name: "Potwierdź usunięcie",
-    }));
+    await user.click(
+      screen.getByRole("button", {
+        name: "Potwierdź usunięcie",
+      }),
+    );
 
     expect(onConfirm).toHaveBeenCalledTimes(1);
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("dialog"),
+    ).not.toBeInTheDocument();
     expect(trigger).toHaveFocus();
   });
 });

@@ -1,7 +1,4 @@
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 
 export interface NotificationSource {
   subscribe(listener: (count: number) => void): () => void;
@@ -10,15 +7,13 @@ export interface NotificationSource {
 export function NotificationBadge({
   source,
 }: {
-  readonly source: NotificationSource;
+  source: NotificationSource;
 }) {
   const [count, setCount] = useState(0);
 
-  useEffect(
-    () => source.subscribe(setCount),
-    [source],
+  useEffect(() => source.subscribe(setCount), [source]);
+
+  return (
+    <output aria-label="Nieprzeczytane">{count}</output>
   );
-
-  return <output aria-label="Nieprzeczytane">{count}</output>;
 }
-

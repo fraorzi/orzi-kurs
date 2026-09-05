@@ -6,7 +6,11 @@ function OrderControls() {
   return (
     <>
       <label htmlFor="order-product">Produkt</label>
-      <select id="order-product" name="product" disabled={pending}>
+      <select
+        id="order-product"
+        name="product"
+        disabled={pending}
+      >
         <option>Klawiatura</option>
         <option>Monitor</option>
       </select>
@@ -25,7 +29,7 @@ function OrderControls() {
 export function OrderForm({
   placeOrder,
 }: {
-  readonly placeOrder: (product: string) => Promise<void>;
+  placeOrder: (product: string) => Promise<void>;
 }) {
   async function orderAction(formData: FormData) {
     await placeOrder(String(formData.get("product") ?? ""));

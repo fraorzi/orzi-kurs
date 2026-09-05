@@ -12,9 +12,9 @@ function rect({
   bottom,
   height,
 }: {
-  readonly top: number;
-  readonly bottom: number;
-  readonly height: number;
+  top: number;
+  bottom: number;
+  height: number;
 }): DOMRect {
   return {
     x: 0,
@@ -39,7 +39,11 @@ describe("AdaptiveTooltip", () => {
       .spyOn(HTMLElement.prototype, "getBoundingClientRect")
       .mockImplementation(function (this: HTMLElement) {
         return this.getAttribute("role") === "tooltip"
-          ? rect({ top: 0, bottom: tooltipHeight, height: tooltipHeight })
+          ? rect({
+              top: 0,
+              bottom: tooltipHeight,
+              height: tooltipHeight,
+            })
           : rect({
               top: anchorTop,
               bottom: anchorBottom,
@@ -51,7 +55,9 @@ describe("AdaptiveTooltip", () => {
       const { rerender, user } = renderWithUser(
         <AdaptiveTooltip label="Pełny opis" />,
       );
-      await user.click(screen.getByRole("button", { name: "Szczegóły" }));
+      await user.click(
+        screen.getByRole("button", { name: "Szczegóły" }),
+      );
 
       expect(screen.getByRole("tooltip")).toHaveAttribute(
         "data-placement",

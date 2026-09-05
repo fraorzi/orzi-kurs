@@ -1,6 +1,8 @@
 # Polling z reaktywnym interwałem
 
-Zaimplementuj `SearchPolling`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `SearchPolling`.
 
 `scheduler.start(intervalMs, callback)` uruchamia zewnętrzny polling i zwraca cleanup.
 Każdy tick ma wywołać najnowszy `onPoll` z najnowszym `query`.

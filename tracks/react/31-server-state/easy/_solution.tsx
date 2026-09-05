@@ -16,8 +16,8 @@ export function ProjectList({
   status,
   fetchProjects,
 }: {
-  readonly status: ProjectStatus;
-  readonly fetchProjects: FetchProjects;
+  status: ProjectStatus;
+  fetchProjects: FetchProjects;
 }) {
   const projects = useQuery({
     queryKey: ["projects", { status }],
@@ -25,9 +25,14 @@ export function ProjectList({
     staleTime: 60_000,
   });
 
-  if (projects.isPending) return <p>Ładowanie projektów…</p>;
-  if (projects.isError) return <p role="alert">Nie udało się pobrać projektów.</p>;
-  if (projects.data.length === 0) return <p>Brak projektów.</p>;
+  if (projects.isPending)
+    return <p>Ładowanie projektów…</p>;
+  if (projects.isError)
+    return (
+      <p role="alert">Nie udało się pobrać projektów.</p>
+    );
+  if (projects.data.length === 0)
+    return <p>Brak projektów.</p>;
 
   return (
     <ul aria-label="Projekty">

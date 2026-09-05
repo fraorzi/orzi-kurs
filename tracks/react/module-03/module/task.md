@@ -1,5 +1,7 @@
 # Konsola kolejki zgłoszeń
 
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
+
 Dokończ wieloplikowy `OperationsConsole` w katalogu `src/`.
 
 ## Cache i dane
@@ -12,7 +14,7 @@ Dokończ wieloplikowy `OperationsConsole` w katalogu `src/`.
 ## Dostępny filtr
 
 `TicketTabs` implementuje tablistę z dwoma tabami: Otwarte i Rozwiązane.
-Aktywny tab ma `aria-selected=true` i `tabIndex=0`, drugi `tabIndex=-1`.
+Aktywna zakładka ma `tabIndex=0`, druga `tabIndex=-1`.
 Strzałki lewo/prawo cyklicznie aktywują i fokusują sąsiedni tab. Lista jest
 powiązanym `tabpanel`.
 

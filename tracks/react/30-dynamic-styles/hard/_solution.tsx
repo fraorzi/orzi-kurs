@@ -19,11 +19,14 @@ export function MetricChart({
   accent,
   points,
 }: {
-  readonly label: string;
-  readonly accent: string;
-  readonly points: readonly MetricPoint[];
+  label: string;
+  accent: string;
+  points: readonly MetricPoint[];
 }) {
-  const max = Math.max(...points.map((point) => point.value), 1);
+  const max = Math.max(
+    ...points.map((point) => point.value),
+    1,
+  );
 
   return (
     <section
@@ -40,7 +43,11 @@ export function MetricChart({
           aria-valuemin={0}
           aria-valuemax={max}
           aria-valuenow={point.value}
-          style={{ "--bar-ratio": String(point.value / max) } as BarStyle}
+          style={
+            {
+              "--bar-ratio": String(point.value / max),
+            } as BarStyle
+          }
         />
       ))}
     </section>

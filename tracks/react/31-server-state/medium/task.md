@@ -1,5 +1,7 @@
 # Połącz request z lifecycle'em cache'u i odśwież po mutacji
 
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
 Napraw `IssueBoard` w dwóch miejscach:
 
 1. `fetchIssues` ma dostać `AbortSignal` przekazany przez TanStack Query, aby request

@@ -1,6 +1,6 @@
 export interface InboxSummaryProps {
-  readonly userName: string;
-  readonly unreadCount: number;
+  userName: string;
+  unreadCount: number;
 }
 
 export function InboxSummary({
@@ -12,7 +12,7 @@ export function InboxSummary({
   if (unreadCount === 1) message = "1 nowa wiadomość";
 
   return (
-    <section aria-label={`Skrzynka ${userName}`}>
+    <section>
       <h2>Witaj, {userName}</h2>
       <p>{message}</p>
     </section>

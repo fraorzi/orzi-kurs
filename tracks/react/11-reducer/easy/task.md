@@ -1,6 +1,8 @@
 # Ilość produktu z akcjami domenowymi
 
-Zaimplementuj `QuantityPicker` przez `useReducer`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `QuantityPicker` przez `useReducer`.
 
 Komponent startuje od `initialQuantity`, pokazuje `Ilość` oraz przyciski `Zmniejsz`,
 `Zwiększ` i `Resetuj`.

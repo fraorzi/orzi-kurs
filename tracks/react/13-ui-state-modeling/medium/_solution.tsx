@@ -1,18 +1,24 @@
 import { useState } from "react";
 
 export interface InviteFormProps {
-  readonly onInvite: (email: string) => Promise<void>;
+  onInvite: (email: string) => Promise<void>;
 }
 
 type InviteState =
   | { readonly status: "editing"; readonly email: string }
-  | { readonly status: "submitting"; readonly email: string }
+  | {
+      readonly status: "submitting";
+      readonly email: string;
+    }
   | {
       readonly status: "error";
       readonly email: string;
       readonly message: string;
     }
-  | { readonly status: "success"; readonly invitedEmail: string };
+  | {
+      readonly status: "success";
+      readonly invitedEmail: string;
+    };
 
 export function InviteForm({ onInvite }: InviteFormProps) {
   const [state, setState] = useState<InviteState>({
@@ -28,14 +34,20 @@ export function InviteForm({ onInvite }: InviteFormProps) {
     <form
       onSubmit={async (event) => {
         event.preventDefault();
-        if (state.status === "submitting" || !state.email.trim()) {
+        if (
+          state.status === "submitting" ||
+          !state.email.trim()
+        ) {
           return;
         }
         const email = state.email.trim();
         setState({ status: "submitting", email });
         try {
           await onInvite(email);
-          setState({ status: "success", invitedEmail: email });
+          setState({
+            status: "success",
+            invitedEmail: email,
+          });
         } catch {
           setState({
             status: "error",
@@ -61,7 +73,10 @@ export function InviteForm({ onInvite }: InviteFormProps) {
       {state.status === "error" ? (
         <p role="alert">{state.message}</p>
       ) : null}
-      <button type="submit" disabled={state.status === "submitting"}>
+      <button
+        type="submit"
+        disabled={state.status === "submitting"}
+      >
         Wyślij zaproszenie
       </button>
     </form>

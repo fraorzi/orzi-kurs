@@ -1,6 +1,8 @@
 # Stabilna Promise pod granicą Suspense
 
-Zaimplementuj `UserPanel`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `UserPanel`.
 
 Komponent otrzymuje stabilną `userPromise`. Podczas oczekiwania ma pokazywać status
 `Ładowanie użytkownika…`. Po rozwiązaniu pokaż nagłówek z nazwą i tekst z rolą

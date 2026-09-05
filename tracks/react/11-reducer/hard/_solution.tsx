@@ -13,7 +13,9 @@ type HistoryAction =
   | { readonly type: "undone" }
   | { readonly type: "redone" };
 
-function createHistory(initialStatus: Status): HistoryState {
+function createHistory(
+  initialStatus: Status,
+): HistoryState {
   return { past: [], present: initialStatus, future: [] };
 }
 
@@ -59,7 +61,7 @@ function historyReducer(
 export function WorkflowHistory({
   initialStatus,
 }: {
-  readonly initialStatus: Status;
+  initialStatus: Status;
 }) {
   const [history, dispatch] = useReducer(
     historyReducer,
@@ -72,19 +74,25 @@ export function WorkflowHistory({
       <output aria-label="Status">{history.present}</output>
       <button
         type="button"
-        onClick={() => dispatch({ type: "changed", status: "backlog" })}
+        onClick={() =>
+          dispatch({ type: "changed", status: "backlog" })
+        }
       >
         Ustaw backlog
       </button>
       <button
         type="button"
-        onClick={() => dispatch({ type: "changed", status: "doing" })}
+        onClick={() =>
+          dispatch({ type: "changed", status: "doing" })
+        }
       >
         Ustaw w toku
       </button>
       <button
         type="button"
-        onClick={() => dispatch({ type: "changed", status: "done" })}
+        onClick={() =>
+          dispatch({ type: "changed", status: "done" })
+        }
       >
         Ustaw gotowe
       </button>

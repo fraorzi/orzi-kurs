@@ -1,6 +1,8 @@
 # Anulowanie pobierania szczegółów produktu
 
-Zaimplementuj `ProductDetails`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `ProductDetails`.
 
 `client.load(productId, signal)` rozpoczyna pobieranie produktu. Dla każdego cyklu
 efektu utwórz nowy `AbortController`, przekaż jego signal do klienta i wywołaj

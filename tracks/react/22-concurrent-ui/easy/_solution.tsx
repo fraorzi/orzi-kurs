@@ -13,13 +13,15 @@ export function CustomerSearch({
   initialCustomers,
   searchCustomers,
 }: {
-  readonly initialCustomers: readonly Customer[];
-  readonly searchCustomers: (
+  initialCustomers: readonly Customer[];
+  searchCustomers: (
     query: string,
   ) => Promise<readonly Customer[]>;
 }) {
   const [query, setQuery] = useState("");
-  const [customers, setCustomers] = useState(initialCustomers);
+  const [customers, setCustomers] = useState(
+    initialCustomers,
+  );
   const [isPending, startTransition] = useTransition();
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -27,7 +29,8 @@ export function CustomerSearch({
     const submittedQuery = query;
 
     startTransition(async () => {
-      const nextCustomers = await searchCustomers(submittedQuery);
+      const nextCustomers =
+        await searchCustomers(submittedQuery);
       startTransition(() => setCustomers(nextCustomers));
     });
   }
@@ -39,7 +42,9 @@ export function CustomerSearch({
           Szukaj klientów
           <input
             value={query}
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={(event) =>
+              setQuery(event.target.value)
+            }
           />
         </label>
         <button type="submit">Szukaj</button>
@@ -55,4 +60,3 @@ export function CustomerSearch({
     </section>
   );
 }
-

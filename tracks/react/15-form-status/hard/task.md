@@ -1,6 +1,8 @@
 # Niezależne statusy równoległych formularzy
 
-Zaimplementuj `WorkspaceOperations` z dwoma formularzami:
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `WorkspaceOperations` z dwoma formularzami:
 
 - `Eksportuj dane` uruchamia `exportData`,
 - `Archiwizuj workspace` uruchamia `archiveWorkspace`.

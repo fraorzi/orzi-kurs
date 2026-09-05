@@ -1,10 +1,12 @@
 export function SearchActionForm({
   search,
 }: {
-  readonly search: (query: string) => Promise<void>;
+  search: (query: string) => Promise<void>;
 }) {
   async function searchAction(formData: FormData) {
-    const query = String(formData.get("query") ?? "").trim();
+    const query = String(
+      formData.get("query") ?? "",
+    ).trim();
 
     if (query) {
       await search(query);

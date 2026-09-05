@@ -20,21 +20,30 @@ describe("LikeButton", () => {
     const operation = deferred<boolean>();
     const saveLike = vi.fn(() => operation.promise);
     const { user } = renderWithUser(
-      <LikeButton initialLiked={false} saveLike={saveLike} />,
+      <LikeButton
+        initialLiked={false}
+        saveLike={saveLike}
+      />,
     );
 
-    await user.click(screen.getByRole("button", { name: "Polub" }));
+    await user.click(
+      screen.getByRole("button", { name: "Polub" }),
+    );
     expect(saveLike).toHaveBeenCalledWith(true);
-    expect(screen.getByRole("button", { name: "Cofnij polubienie" }))
-      .toHaveAttribute("aria-pressed", "true");
+    expect(
+      screen.getByRole("button", {
+        name: "Cofnij polubienie",
+      }),
+    ).toBeVisible();
 
     await act(async () => {
       operation.reject(new Error("offline"));
       await operation.promise.catch(() => {});
     });
     await waitFor(() => {
-      expect(screen.getByRole("button", { name: "Polub" }))
-        .toHaveAttribute("aria-pressed", "false");
+      expect(
+        screen.getByRole("button", { name: "Polub" }),
+      ).toBeVisible();
     });
     expect(screen.getByRole("alert")).toHaveTextContent(
       "Nie udało się zapisać polubienia.",

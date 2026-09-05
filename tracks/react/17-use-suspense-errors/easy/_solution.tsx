@@ -1,14 +1,11 @@
-import {
-  createContext,
-  use,
-} from "react";
+import { createContext, use } from "react";
 
 export const ThemeContext = createContext("light");
 
 export function ThemeDetails({
   showDetails,
 }: {
-  readonly showDetails: boolean;
+  showDetails: boolean;
 }) {
   if (!showDetails) {
     return <p>Szczegóły motywu ukryte</p>;

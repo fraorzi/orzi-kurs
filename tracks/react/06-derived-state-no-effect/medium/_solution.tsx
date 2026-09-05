@@ -6,14 +6,18 @@ export interface Product {
 }
 
 export interface ProductFilterProps {
-  readonly products: readonly Product[];
+  products: readonly Product[];
 }
 
-export function ProductFilter({ products }: ProductFilterProps) {
+export function ProductFilter({
+  products,
+}: ProductFilterProps) {
   const [query, setQuery] = useState("");
-  const visibleProducts = products.filter((product) => (
-    product.name.toLowerCase().includes(query.toLowerCase())
-  ));
+  const visibleProducts = products.filter((product) =>
+    product.name
+      .toLowerCase()
+      .includes(query.toLowerCase()),
+  );
 
   return (
     <section>
@@ -21,7 +25,9 @@ export function ProductFilter({ products }: ProductFilterProps) {
         Filtruj produkty
         <input
           value={query}
-          onChange={(event) => setQuery(event.currentTarget.value)}
+          onChange={(event) =>
+            setQuery(event.currentTarget.value)
+          }
         />
       </label>
       <ul aria-label="Produkty">

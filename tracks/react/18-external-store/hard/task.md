@@ -1,6 +1,8 @@
 # Store z cache'owanym snapshotem i SSR
 
-Zaimplementuj `createCartStore` oraz `CartSummary`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `createCartStore` oraz `CartSummary`.
 
 Store przechowuje produkty poza Reactem. Snapshot ma zawierać `itemCount` i
 `total`. Wymagania:

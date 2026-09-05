@@ -1,5 +1,7 @@
 # Przenoszenie zadania na tablicy sprintu
 
+Tryb: uzupełnienie. W `starter.tsx` jest gotowy szablon. Zaimplementuj brakującą logikę opisaną poniżej.
+
 Zaimplementuj `SprintBoard`.
 
 Komponent otrzymuje `initialBoard` z tablicami `backlog` i `inProgress`. Każde

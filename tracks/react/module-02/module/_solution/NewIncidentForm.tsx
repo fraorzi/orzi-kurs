@@ -29,16 +29,21 @@ export function NewIncidentForm({
   onCreated,
   onSuccess,
 }: {
-  readonly draft: string;
-  readonly setDraft: Dispatch<SetStateAction<string>>;
-  readonly createIncident: (title: string) => Promise<Incident>;
-  readonly onOptimisticCreated: (incident: Incident) => void;
-  readonly onCreated: (incident: Incident) => void;
-  readonly onSuccess: (message: string) => void;
+  draft: string;
+  setDraft: Dispatch<SetStateAction<string>>;
+  createIncident: (title: string) => Promise<Incident>;
+  onOptimisticCreated: (incident: Incident) => void;
+  onCreated: (incident: Incident) => void;
+  onSuccess: (message: string) => void;
 }) {
-  const [state, submitAction] = useActionState<FormState, FormData>(
+  const [state, submitAction] = useActionState<
+    FormState,
+    FormData
+  >(
     async (_previousState, formData) => {
-      const title = String(formData.get("title") ?? "").trim();
+      const title = String(
+        formData.get("title") ?? "",
+      ).trim();
 
       if (title.length < 3) {
         return {
@@ -61,7 +66,9 @@ export function NewIncidentForm({
 
   return (
     <form action={submitAction}>
-      <label htmlFor="incident-title">Tytuł incydentu</label>
+      <label htmlFor="incident-title">
+        Tytuł incydentu
+      </label>
       <textarea
         id="incident-title"
         name="title"
@@ -69,7 +76,9 @@ export function NewIncidentForm({
         onChange={(event) => setDraft(event.target.value)}
       />
       <SubmitButton />
-      {state.status === "error" && <p role="alert">{state.message}</p>}
+      {state.status === "error" && (
+        <p role="alert">{state.message}</p>
+      )}
     </form>
   );
 }

@@ -1,10 +1,12 @@
 import { useState } from "react";
 
 export interface ToggleDetailsProps {
-  readonly details: string;
+  details: string;
 }
 
-export function ToggleDetails({ details }: ToggleDetailsProps) {
+export function ToggleDetails({
+  details,
+}: ToggleDetailsProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

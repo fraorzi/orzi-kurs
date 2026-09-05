@@ -1,13 +1,11 @@
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 
 export function useDebouncedValue<T>(
   value: T,
   delayMs: number,
 ): T {
-  const [debouncedValue, setDebouncedValue] = useState(value);
+  const [debouncedValue, setDebouncedValue] =
+    useState(value);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -24,9 +22,11 @@ export function DebouncedLabel({
   value,
   delayMs,
 }: {
-  readonly value: string;
-  readonly delayMs: number;
+  value: string;
+  delayMs: number;
 }) {
   const debouncedValue = useDebouncedValue(value, delayMs);
-  return <output aria-label="Wartość">{debouncedValue}</output>;
+  return (
+    <output aria-label="Wartość">{debouncedValue}</output>
+  );
 }

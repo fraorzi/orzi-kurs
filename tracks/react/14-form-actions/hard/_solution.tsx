@@ -4,13 +4,14 @@ export function SeatReservationCounter({
   initialCount,
   saveCount,
 }: {
-  readonly initialCount: number;
-  readonly saveCount: (nextCount: number) => Promise<number>;
+  initialCount: number;
+  saveCount: (nextCount: number) => Promise<number>;
 }) {
-  const [count, incrementAction, isPending] = useActionState(
-    async (previousCount) => saveCount(previousCount + 1),
-    initialCount,
-  );
+  const [count, incrementAction, isPending] =
+    useActionState(
+      async (previousCount) => saveCount(previousCount + 1),
+      initialCount,
+    );
 
   return (
     <form action={incrementAction}>

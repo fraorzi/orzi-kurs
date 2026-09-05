@@ -1,6 +1,8 @@
 # Lokalizacja bez prop drillingu
 
-Zaimplementuj `LocaleProvider` i `Greeting`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `LocaleProvider` i `Greeting`.
 
 `LocaleProvider` otrzymuje `locale: "pl" | "en"` oraz `children` i udostępnia locale
 przez context, używając składni React 19 `<LocaleContext value={...}>`.

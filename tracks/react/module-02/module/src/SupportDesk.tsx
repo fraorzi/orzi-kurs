@@ -10,17 +10,14 @@ import { NewIncidentForm } from "./NewIncidentForm";
 import { Panel } from "./Panel";
 import { ToastPortal } from "./ToastPortal";
 import { createIncidentStore } from "./incident-store";
-import type {
-  DraftStorage,
-  Incident,
-} from "./types";
+import type { DraftStorage, Incident } from "./types";
 import { usePersistentDraft } from "./usePersistentDraft";
 
 interface SupportDeskProps {
-  readonly initialIncidentsPromise: Promise<readonly Incident[]>;
-  readonly createIncident: (title: string) => Promise<Incident>;
-  readonly storage: DraftStorage;
-  readonly toastContainer: HTMLElement;
+  initialIncidentsPromise: Promise<readonly Incident[]>;
+  createIncident: (title: string) => Promise<Incident>;
+  storage: DraftStorage;
+  toastContainer: HTMLElement;
 }
 
 function SupportDeskContent({
@@ -30,19 +27,22 @@ function SupportDeskContent({
   toastContainer,
 }: SupportDeskProps) {
   const initialIncidents = use(initialIncidentsPromise);
-  const [store] = useState(() => createIncidentStore(initialIncidents));
+  const [store] = useState(() =>
+    createIncidentStore(initialIncidents),
+  );
   const incidents = useSyncExternalStore(
     store.subscribe,
     store.getSnapshot,
     store.getServerSnapshot,
   );
-  const [optimisticIncidents, addOptimisticIncident] = useOptimistic(
-    incidents,
-    (currentIncidents, incident: Incident) => [
-      { ...incident, pending: true },
-      ...currentIncidents,
-    ],
-  );
+  const [optimisticIncidents, addOptimisticIncident] =
+    useOptimistic(
+      incidents,
+      (currentIncidents, incident: Incident) => [
+        { ...incident, pending: true },
+        ...currentIncidents,
+      ],
+    );
   const [draft, setDraft] = usePersistentDraft(
     "incident-draft",
     "",
@@ -62,7 +62,10 @@ function SupportDeskContent({
       />
       <IncidentList incidents={optimisticIncidents} />
       {toast && (
-        <ToastPortal message={toast} container={toastContainer} />
+        <ToastPortal
+          message={toast}
+          container={toastContainer}
+        />
       )}
     </Panel>
   );
@@ -70,7 +73,9 @@ function SupportDeskContent({
 
 export function SupportDesk(props: SupportDeskProps) {
   return (
-    <Suspense fallback={<p role="status">Ładowanie incydentów…</p>}>
+    <Suspense
+      fallback={<p role="status">Ładowanie incydentów…</p>}
+    >
       <SupportDeskContent {...props} />
     </Suspense>
   );

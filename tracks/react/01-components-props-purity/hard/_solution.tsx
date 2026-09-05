@@ -5,17 +5,22 @@ export interface Product {
 }
 
 export interface ProductTableProps {
-  readonly products: readonly Product[];
+  products: readonly Product[];
 }
 
-export function ProductTable({ products }: ProductTableProps) {
+export function ProductTable({
+  products,
+}: ProductTableProps) {
   const sortedProducts = [...products].sort(
     (left, right) => left.price - right.price,
   );
-  const total = products.reduce((sum, product) => sum + product.price, 0);
+  const total = products.reduce(
+    (sum, product) => sum + product.price,
+    0,
+  );
 
   return (
-    <section aria-label="Cennik">
+    <section>
       <ul>
         {sortedProducts.map((product) => (
           <li key={product.id}>

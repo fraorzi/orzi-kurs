@@ -1,5 +1,7 @@
 # Przycisk śledzący nadrzędny formularz
 
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
 Napraw `ContactForm`, aby podczas wykonywania `sendMessage` przycisk był wyłączony
 i zmieniał tekst z `Wyślij` na `Wysyłanie…`.
 

@@ -1,6 +1,8 @@
 # Focus lokalny dla instancji komponentu
 
-Zaimplementuj `FocusField`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `FocusField`.
 
 Komponent otrzymuje `label`, renderuje pole o tej nazwie i przycisk
 `Ustaw focus: {label}`. Kliknięcie ma fokusować input należący do tej konkretnej

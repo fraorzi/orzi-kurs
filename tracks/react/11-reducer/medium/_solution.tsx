@@ -1,7 +1,4 @@
-import {
-  useReducer,
-  useState,
-} from "react";
+import { useReducer, useState } from "react";
 
 export interface Task {
   readonly id: string;
@@ -14,25 +11,33 @@ type TaskAction =
   | { readonly type: "toggled"; readonly id: string }
   | { readonly type: "deleted"; readonly id: string };
 
-function tasksReducer(tasks: readonly Task[], action: TaskAction): Task[] {
+function tasksReducer(
+  tasks: readonly Task[],
+  action: TaskAction,
+): Task[] {
   switch (action.type) {
     case "added":
       return [...tasks, action.task];
     case "toggled":
-      return tasks.map((task) => (
-        task.id === action.id ? { ...task, done: !task.done } : task
-      ));
+      return tasks.map((task) =>
+        task.id === action.id
+          ? { ...task, done: !task.done }
+          : task,
+      );
     case "deleted":
       return tasks.filter((task) => task.id !== action.id);
   }
 }
 
 export interface TaskBoardProps {
-  readonly initialTasks: readonly Task[];
-  readonly createId: () => string;
+  initialTasks: readonly Task[];
+  createId: () => string;
 }
 
-export function TaskBoard({ initialTasks, createId }: TaskBoardProps) {
+export function TaskBoard({
+  initialTasks,
+  createId,
+}: TaskBoardProps) {
   const [tasks, dispatch] = useReducer(
     tasksReducer,
     initialTasks,
@@ -47,7 +52,11 @@ export function TaskBoard({ initialTasks, createId }: TaskBoardProps) {
           if (draft.trim()) {
             dispatch({
               type: "added",
-              task: { id: createId(), title: draft.trim(), done: false },
+              task: {
+                id: createId(),
+                title: draft.trim(),
+                done: false,
+              },
             });
             setDraft("");
           }
@@ -57,7 +66,9 @@ export function TaskBoard({ initialTasks, createId }: TaskBoardProps) {
           Nowe zadanie
           <input
             value={draft}
-            onChange={(event) => setDraft(event.currentTarget.value)}
+            onChange={(event) =>
+              setDraft(event.currentTarget.value)
+            }
           />
         </label>
         <button type="submit">Dodaj</button>
@@ -69,13 +80,17 @@ export function TaskBoard({ initialTasks, createId }: TaskBoardProps) {
               <input
                 type="checkbox"
                 checked={task.done}
-                onChange={() => dispatch({ type: "toggled", id: task.id })}
+                onChange={() =>
+                  dispatch({ type: "toggled", id: task.id })
+                }
               />
               {task.title}
             </label>
             <button
               type="button"
-              onClick={() => dispatch({ type: "deleted", id: task.id })}
+              onClick={() =>
+                dispatch({ type: "deleted", id: task.id })
+              }
             >
               Usuń {task.title}
             </button>

@@ -1,8 +1,5 @@
 import { useMemo } from "react";
-import {
-  List,
-  type RowComponentProps,
-} from "react-window";
+import { List, type RowComponentProps } from "react-window";
 
 export interface Customer {
   readonly id: string;
@@ -10,8 +7,8 @@ export interface Customer {
 }
 
 interface CustomerRowProps {
-  readonly customers: readonly Customer[];
-  readonly onOpen: (id: string) => void;
+  customers: readonly Customer[];
+  onOpen: (id: string) => void;
 }
 
 function CustomerRow({
@@ -25,7 +22,10 @@ function CustomerRow({
 
   return (
     <div style={style} {...ariaAttributes}>
-      <button type="button" onClick={() => onOpen(customer.id)}>
+      <button
+        type="button"
+        onClick={() => onOpen(customer.id)}
+      >
         Otwórz {customer.name}
       </button>
     </div>
@@ -36,8 +36,8 @@ export function VirtualCustomerList({
   customers,
   onOpen,
 }: {
-  readonly customers: readonly Customer[];
-  readonly onOpen: (id: string) => void;
+  customers: readonly Customer[];
+  onOpen: (id: string) => void;
 }) {
   const rowProps = useMemo(
     () => ({ customers, onOpen }),

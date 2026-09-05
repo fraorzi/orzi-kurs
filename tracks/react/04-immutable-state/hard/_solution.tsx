@@ -11,21 +11,27 @@ export interface SprintBoardState {
 }
 
 export interface SprintBoardProps {
-  readonly initialBoard: SprintBoardState;
+  initialBoard: SprintBoardState;
 }
 
-export function SprintBoard({ initialBoard }: SprintBoardProps) {
+export function SprintBoard({
+  initialBoard,
+}: SprintBoardProps) {
   const [board, setBoard] = useState(initialBoard);
 
   function startTask(id: string) {
     setBoard((current) => {
-      const task = current.backlog.find((candidate) => candidate.id === id);
+      const task = current.backlog.find(
+        (candidate) => candidate.id === id,
+      );
       if (!task) {
         return current;
       }
 
       return {
-        backlog: current.backlog.filter((candidate) => candidate.id !== id),
+        backlog: current.backlog.filter(
+          (candidate) => candidate.id !== id,
+        ),
         inProgress: [...current.inProgress, task],
       };
     });
@@ -39,7 +45,10 @@ export function SprintBoard({ initialBoard }: SprintBoardProps) {
           {board.backlog.map((task) => (
             <li key={task.id}>
               {task.title}
-              <button type="button" onClick={() => startTask(task.id)}>
+              <button
+                type="button"
+                onClick={() => startTask(task.id)}
+              >
                 Rozpocznij {task.title}
               </button>
             </li>

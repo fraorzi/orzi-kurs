@@ -1,6 +1,8 @@
 # Debounced value z cleanupem
 
-Zaimplementuj generyczny `useDebouncedValue(value, delayMs)` i komponent
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw generyczny `useDebouncedValue(value, delayMs)` i komponent
 `DebouncedLabel`.
 
 Hook ma zwracać ostatnią wartość, która pozostawała niezmienna przez `delayMs`.

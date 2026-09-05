@@ -5,7 +5,10 @@ type QuantityAction =
   | { readonly type: "increased" }
   | { readonly type: "reset"; readonly value: number };
 
-function quantityReducer(state: number, action: QuantityAction): number {
+function quantityReducer(
+  state: number,
+  action: QuantityAction,
+): number {
   switch (action.type) {
     case "decreased":
       return Math.max(1, state - 1);
@@ -19,7 +22,7 @@ function quantityReducer(state: number, action: QuantityAction): number {
 export function QuantityPicker({
   initialQuantity,
 }: {
-  readonly initialQuantity: number;
+  initialQuantity: number;
 }) {
   const [quantity, dispatch] = useReducer(
     quantityReducer,
@@ -29,15 +32,26 @@ export function QuantityPicker({
   return (
     <section>
       <output aria-label="Ilość">{quantity}</output>
-      <button type="button" onClick={() => dispatch({ type: "decreased" })}>
+      <button
+        type="button"
+        onClick={() => dispatch({ type: "decreased" })}
+      >
         Zmniejsz
       </button>
-      <button type="button" onClick={() => dispatch({ type: "increased" })}>
+      <button
+        type="button"
+        onClick={() => dispatch({ type: "increased" })}
+      >
         Zwiększ
       </button>
       <button
         type="button"
-        onClick={() => dispatch({ type: "reset", value: initialQuantity })}
+        onClick={() =>
+          dispatch({
+            type: "reset",
+            value: initialQuantity,
+          })
+        }
       >
         Resetuj
       </button>

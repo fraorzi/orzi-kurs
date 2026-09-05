@@ -13,10 +13,12 @@ function SubmitButton() {
 export function ContactForm({
   sendMessage,
 }: {
-  readonly sendMessage: (message: string) => Promise<void>;
+  sendMessage: (message: string) => Promise<void>;
 }) {
   async function sendAction(formData: FormData) {
-    await sendMessage(String(formData.get("message") ?? ""));
+    await sendMessage(
+      String(formData.get("message") ?? ""),
+    );
   }
 
   return (

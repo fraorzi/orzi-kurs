@@ -7,11 +7,14 @@ export interface Invoice {
 export function ModernInvoiceTable({
   invoices,
 }: {
-  readonly invoices: readonly Invoice[];
+  invoices: readonly Invoice[];
 }) {
   "use memo";
 
-  const total = invoices.reduce((sum, invoice) => sum + invoice.amount, 0);
+  const total = invoices.reduce(
+    (sum, invoice) => sum + invoice.amount,
+    0,
+  );
 
   return (
     <section aria-label="Faktury">
@@ -30,8 +33,7 @@ export function ModernInvoiceTable({
 export function LegacyCounter({
   value,
 }: {
-  readonly value: number;
+  value: number;
 }) {
   return <p>Licznik legacy: {value}</p>;
 }
-

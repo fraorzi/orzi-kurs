@@ -2,22 +2,37 @@ import { useReducer } from "react";
 
 export type CheckoutState =
   | { readonly status: "cart"; readonly itemCount: number }
-  | { readonly status: "review"; readonly itemCount: number }
-  | { readonly status: "submitting"; readonly itemCount: number }
+  | {
+      readonly status: "review";
+      readonly itemCount: number;
+    }
+  | {
+      readonly status: "submitting";
+      readonly itemCount: number;
+    }
   | {
       readonly status: "error";
       readonly itemCount: number;
       readonly message: string;
     }
-  | { readonly status: "success"; readonly orderId: string };
+  | {
+      readonly status: "success";
+      readonly orderId: string;
+    };
 
 export type CheckoutAction =
   | { readonly type: "item_added" }
   | { readonly type: "review_requested" }
   | { readonly type: "edit_requested" }
   | { readonly type: "submit_requested" }
-  | { readonly type: "submit_succeeded"; readonly orderId: string }
-  | { readonly type: "submit_failed"; readonly message: string };
+  | {
+      readonly type: "submit_succeeded";
+      readonly orderId: string;
+    }
+  | {
+      readonly type: "submit_failed";
+      readonly message: string;
+    };
 
 export function checkoutReducer(
   state: CheckoutState,
@@ -33,12 +48,17 @@ export function checkoutReducer(
         ? { status: "review", itemCount: state.itemCount }
         : state;
     case "edit_requested":
-      return state.status === "review" || state.status === "error"
+      return state.status === "review" ||
+        state.status === "error"
         ? { status: "cart", itemCount: state.itemCount }
         : state;
     case "submit_requested":
-      return state.status === "review" || state.status === "error"
-        ? { status: "submitting", itemCount: state.itemCount }
+      return state.status === "review" ||
+        state.status === "error"
+        ? {
+            status: "submitting",
+            itemCount: state.itemCount,
+          }
         : state;
     case "submit_succeeded":
       return state.status === "submitting"
@@ -58,7 +78,7 @@ export function checkoutReducer(
 export function CheckoutFlow({
   submitOrder,
 }: {
-  readonly submitOrder: (itemCount: number) => Promise<string>;
+  submitOrder: (itemCount: number) => Promise<string>;
 }) {
   const [state, dispatch] = useReducer(checkoutReducer, {
     status: "cart",
@@ -66,7 +86,10 @@ export function CheckoutFlow({
   });
 
   async function submit() {
-    if (state.status !== "review" && state.status !== "error") {
+    if (
+      state.status !== "review" &&
+      state.status !== "error"
+    ) {
       return;
     }
     const itemCount = state.itemCount;
@@ -85,14 +108,21 @@ export function CheckoutFlow({
   if (state.status === "cart") {
     return (
       <section>
-        <output aria-label="Produkty">{state.itemCount}</output>
-        <button type="button" onClick={() => dispatch({ type: "item_added" })}>
+        <output aria-label="Produkty">
+          {state.itemCount}
+        </output>
+        <button
+          type="button"
+          onClick={() => dispatch({ type: "item_added" })}
+        >
           Dodaj produkt
         </button>
         <button
           type="button"
           disabled={state.itemCount === 0}
-          onClick={() => dispatch({ type: "review_requested" })}
+          onClick={() =>
+            dispatch({ type: "review_requested" })
+          }
         >
           Przejdź do podsumowania
         </button>
@@ -103,11 +133,20 @@ export function CheckoutFlow({
     return (
       <section>
         <h1>Podsumowanie</h1>
-        <output aria-label="Produkty">{state.itemCount}</output>
-        <button type="button" onClick={() => dispatch({ type: "edit_requested" })}>
+        <output aria-label="Produkty">
+          {state.itemCount}
+        </output>
+        <button
+          type="button"
+          onClick={() =>
+            dispatch({ type: "edit_requested" })
+          }
+        >
           Edytuj koszyk
         </button>
-        <button type="button" onClick={submit}>Złóż zamówienie</button>
+        <button type="button" onClick={submit}>
+          Złóż zamówienie
+        </button>
       </section>
     );
   }
@@ -118,10 +157,17 @@ export function CheckoutFlow({
     return (
       <section>
         <p role="alert">{state.message}</p>
-        <button type="button" onClick={() => dispatch({ type: "edit_requested" })}>
+        <button
+          type="button"
+          onClick={() =>
+            dispatch({ type: "edit_requested" })
+          }
+        >
           Edytuj koszyk
         </button>
-        <button type="button" onClick={submit}>Ponów zamówienie</button>
+        <button type="button" onClick={submit}>
+          Ponów zamówienie
+        </button>
       </section>
     );
   }

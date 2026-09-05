@@ -1,12 +1,9 @@
-import {
-  useState,
-  type ReactNode,
-} from "react";
+import { useState, type ReactNode } from "react";
 
 interface SelectionRenderProps<T> {
-  readonly item: T;
-  readonly isSelected: boolean;
-  readonly onSelect: () => void;
+  item: T;
+  isSelected: boolean;
+  onSelect: () => void;
 }
 
 export function SelectionController<T>({
@@ -14,11 +11,13 @@ export function SelectionController<T>({
   getId,
   children,
 }: {
-  readonly items: readonly T[];
-  readonly getId: (item: T) => string;
-  readonly children: (props: SelectionRenderProps<T>) => ReactNode;
+  items: readonly T[];
+  getId: (item: T) => string;
+  children: (props: SelectionRenderProps<T>) => ReactNode;
 }) {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<
+    string | null
+  >(null);
 
   return (
     <ul>
@@ -47,10 +46,13 @@ export interface Member {
 export function MemberPicker({
   members,
 }: {
-  readonly members: readonly Member[];
+  members: readonly Member[];
 }) {
   return (
-    <SelectionController items={members} getId={(member) => member.id}>
+    <SelectionController
+      items={members}
+      getId={(member) => member.id}
+    >
       {({ item, isSelected, onSelect }) => (
         <button
           type="button"

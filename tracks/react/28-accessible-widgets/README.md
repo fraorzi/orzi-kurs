@@ -1,4 +1,8 @@
-# Dostępne widgety: klawiatura, focus i komunikaty
+# Klawiatura, focus i komunikaty
+
+W zadaniach uzupełniasz obsługę klawiatury, focusu i zapisu. HTML zakładek oraz
+okna potwierdzenia jest gotowy. Opis ARIA poniżej wyjaśnia ten szablon; nie jest
+przedmiotem ćwiczeń ani osobnym warunkiem zaliczenia.
 
 Semantyka ARIA nie dodaje zachowania. Jeśli tworzysz własny widget zamiast użyć
 natywnego elementu, odpowiadasz także za oczekiwane klawisze, kolejność focusu,

@@ -5,25 +5,25 @@ import {
   type Dispatch,
   type ReactNode,
 } from "react";
-import {
-  createInitialState,
-  taskReducer,
-} from "./reducer";
+import { createInitialState, taskReducer } from "./reducer";
 import type {
   TaskAction,
   TaskState,
   TeamTask,
 } from "./types";
 
-const TaskStateContext = createContext<TaskState | null>(null);
-const TaskDispatchContext = createContext<Dispatch<TaskAction> | null>(null);
+const TaskStateContext = createContext<TaskState | null>(
+  null,
+);
+const TaskDispatchContext =
+  createContext<Dispatch<TaskAction> | null>(null);
 
 export function TaskProvider({
   initialTasks,
   children,
 }: {
-  readonly initialTasks: readonly TeamTask[];
-  readonly children: ReactNode;
+  initialTasks: readonly TeamTask[];
+  children: ReactNode;
 }) {
   const [state, dispatch] = useReducer(
     taskReducer,

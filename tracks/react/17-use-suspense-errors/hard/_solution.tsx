@@ -12,9 +12,9 @@ export interface Report {
 }
 
 interface ErrorBoundaryProps {
-  readonly children: ReactNode;
-  readonly onRetry: () => void;
-  readonly resetKey: Promise<Report>;
+  children: ReactNode;
+  onRetry: () => void;
+  resetKey: Promise<Report>;
 }
 
 interface ErrorBoundaryState {
@@ -45,7 +45,10 @@ class ReportErrorBoundary extends Component<
       return (
         <div>
           <p role="alert">Nie udało się wczytać raportu.</p>
-          <button type="button" onClick={this.props.onRetry}>
+          <button
+            type="button"
+            onClick={this.props.onRetry}
+          >
             Spróbuj ponownie
           </button>
         </div>
@@ -59,7 +62,7 @@ class ReportErrorBoundary extends Component<
 function ReportContent({
   reportPromise,
 }: {
-  readonly reportPromise: Promise<Report>;
+  reportPromise: Promise<Report>;
 }) {
   const report = use(reportPromise);
   return <h2>{report.title}</h2>;
@@ -68,9 +71,11 @@ function ReportContent({
 export function ReportPanel({
   loadReport,
 }: {
-  readonly loadReport: () => Promise<Report>;
+  loadReport: () => Promise<Report>;
 }) {
-  const [reportPromise, setReportPromise] = useState(() => loadReport());
+  const [reportPromise, setReportPromise] = useState(() =>
+    loadReport(),
+  );
 
   function retry() {
     startTransition(() => {
@@ -79,8 +84,13 @@ export function ReportPanel({
   }
 
   return (
-    <ReportErrorBoundary resetKey={reportPromise} onRetry={retry}>
-      <Suspense fallback={<p role="status">Ładowanie raportu…</p>}>
+    <ReportErrorBoundary
+      resetKey={reportPromise}
+      onRetry={retry}
+    >
+      <Suspense
+        fallback={<p role="status">Ładowanie raportu…</p>}
+      >
         <ReportContent reportPromise={reportPromise} />
       </Suspense>
     </ReportErrorBoundary>

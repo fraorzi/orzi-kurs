@@ -5,7 +5,7 @@ export interface QueueItem {
   readonly title: string;
 }
 
-function QueueRow({ item }: { readonly item: QueueItem }) {
+function QueueRow({ item }: { item: QueueItem }) {
   const [note, setNote] = useState("");
 
   return (
@@ -25,7 +25,7 @@ function QueueRow({ item }: { readonly item: QueueItem }) {
 export function EditableQueue({
   initialItems,
 }: {
-  readonly initialItems: readonly QueueItem[];
+  initialItems: readonly QueueItem[];
 }) {
   const [items, setItems] = useState(initialItems);
 
@@ -33,7 +33,9 @@ export function EditableQueue({
     <section aria-label="Kolejka">
       <button
         type="button"
-        onClick={() => setItems((current) => [...current].reverse())}
+        onClick={() =>
+          setItems((current) => [...current].reverse())
+        }
       >
         Odwróć kolejność
       </button>

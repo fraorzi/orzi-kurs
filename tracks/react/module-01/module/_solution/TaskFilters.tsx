@@ -1,12 +1,9 @@
-import {
-  useTaskDispatch,
-  useTaskState,
-} from "./context";
+import { useTaskDispatch, useTaskState } from "./context";
 import type { TaskFilter } from "./types";
 
 const FILTERS: readonly {
-  readonly value: TaskFilter;
-  readonly label: string;
+  value: TaskFilter;
+  label: string;
 }[] = [
   { value: "all", label: "Wszystkie" },
   { value: "open", label: "Otwarte" },
@@ -25,7 +22,10 @@ export function TaskFilters() {
           type="button"
           aria-pressed={state.filter === filter.value}
           onClick={() => {
-            dispatch({ type: "filter_changed", filter: filter.value });
+            dispatch({
+              type: "filter_changed",
+              filter: filter.value,
+            });
           }}
         >
           {filter.label}

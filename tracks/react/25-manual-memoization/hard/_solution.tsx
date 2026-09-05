@@ -1,8 +1,4 @@
-import {
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export interface ChartOptions {
   readonly currency: string;
@@ -14,9 +10,9 @@ export function LiveChart({
   series,
   connectChart,
 }: {
-  readonly currency: string;
-  readonly series: readonly number[];
-  readonly connectChart: (options: ChartOptions) => () => void;
+  currency: string;
+  series: readonly number[];
+  connectChart: (options: ChartOptions) => () => void;
 }) {
   const [title, setTitle] = useState("");
   const options = useMemo(
@@ -38,8 +34,9 @@ export function LiveChart({
           onChange={(event) => setTitle(event.target.value)}
         />
       </label>
-      <p>{currency}: {series.join(", ")}</p>
+      <p>
+        {currency}: {series.join(", ")}
+      </p>
     </section>
   );
 }
-

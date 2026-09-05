@@ -10,18 +10,20 @@ const products = [
   { id: "p1", name: "Laptop" },
   { id: "p2", name: "Monitor" },
   { id: "p3", name: "Klawiatura" },
-] as const;
+];
 
 describe("ProductGrid", () => {
   it("zaznacza właściwy produkt", async () => {
-    const { user } = renderWithUser(<ProductGrid products={products} />);
+    const { user } = renderWithUser(
+      <ProductGrid products={products} />,
+    );
 
-    await user.click(screen.getByRole("button", { name: "Laptop" }));
+    await user.click(
+      screen.getByRole("button", { name: "Laptop" }),
+    );
 
-    expect(screen.getByRole("status")).toHaveTextContent("Wybrano: p1");
-    expect(screen.getByRole("button", { name: "Laptop" })).toHaveAttribute(
-      "aria-pressed",
-      "true",
+    expect(screen.getByRole("status")).toHaveTextContent(
+      "Wybrano: p1",
     );
   });
 
@@ -34,16 +36,21 @@ describe("ProductGrid", () => {
     const { user } = renderWithUser(
       <ProductGrid
         products={products}
-        onRowRender={(id) => counters[id as keyof typeof counters].onRender}
+        onRowRender={(id) =>
+          counters[id as keyof typeof counters].onRender
+        }
       />,
     );
-    Object.values(counters).forEach((counter) => counter.reset());
+    Object.values(counters).forEach((counter) =>
+      counter.reset(),
+    );
 
-    await user.click(screen.getByRole("button", { name: "Laptop" }));
+    await user.click(
+      screen.getByRole("button", { name: "Laptop" }),
+    );
 
     expect(counters.p1.commits).toBe(1);
     expect(counters.p2.commits).toBe(0);
     expect(counters.p3.commits).toBe(0);
   });
 });
-

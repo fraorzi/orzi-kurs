@@ -1,7 +1,4 @@
-import {
-  useMemo,
-  useState,
-} from "react";
+import { useMemo, useState } from "react";
 
 export interface PriceLine {
   readonly id: string;
@@ -12,8 +9,8 @@ export function PricingPanel({
   lines,
   calculateTotal,
 }: {
-  readonly lines: readonly PriceLine[];
-  readonly calculateTotal: (lines: readonly PriceLine[]) => number;
+  lines: readonly PriceLine[];
+  calculateTotal: (lines: readonly PriceLine[]) => number;
 }) {
   const [note, setNote] = useState("");
   const total = useMemo(
@@ -34,4 +31,3 @@ export function PricingPanel({
     </section>
   );
 }
-

@@ -9,8 +9,8 @@ export function TaskBoard({
   initialTasks,
   createId,
 }: {
-  readonly initialTasks: readonly TeamTask[];
-  readonly createId: () => string;
+  initialTasks: readonly TeamTask[];
+  createId: () => string;
 }) {
   return (
     <TaskProvider initialTasks={initialTasks}>

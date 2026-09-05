@@ -12,8 +12,8 @@ function SearchResults({
   query,
   resource,
 }: {
-  readonly query: string;
-  readonly resource: CatalogResource;
+  query: string;
+  resource: CatalogResource;
 }) {
   return (
     <ul>
@@ -27,7 +27,7 @@ function SearchResults({
 export function CatalogSearch({
   resource,
 }: {
-  readonly resource: CatalogResource;
+  resource: CatalogResource;
 }) {
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
@@ -43,14 +43,18 @@ export function CatalogSearch({
         />
       </label>
 
-      {isStale && <p role="status">Aktualizowanie wyników…</p>}
+      {isStale && (
+        <p role="status">Aktualizowanie wyników…</p>
+      )}
 
       <Suspense fallback={<p>Ładowanie wyników…</p>}>
         <div aria-busy={isStale}>
-          <SearchResults query={deferredQuery} resource={resource} />
+          <SearchResults
+            query={deferredQuery}
+            resource={resource}
+          />
         </div>
       </Suspense>
     </section>
   );
 }
-

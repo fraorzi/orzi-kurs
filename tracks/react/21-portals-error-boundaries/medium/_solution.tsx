@@ -1,10 +1,9 @@
-import {
-  createContext,
-  use,
-} from "react";
+import { createContext, use } from "react";
 import { createPortal } from "react-dom";
 
-export const WorkspaceContext = createContext("Brak workspace");
+export const WorkspaceContext = createContext(
+  "Brak workspace",
+);
 
 function WorkspaceButton() {
   const workspace = use(WorkspaceContext);
@@ -15,8 +14,8 @@ export function PortalAction({
   container,
   onInteraction,
 }: {
-  readonly container: HTMLElement;
-  readonly onInteraction: () => void;
+  container: HTMLElement;
+  onInteraction: () => void;
 }) {
   return (
     <section onClick={onInteraction}>

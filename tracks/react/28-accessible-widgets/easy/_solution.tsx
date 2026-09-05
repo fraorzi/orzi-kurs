@@ -5,7 +5,7 @@ type SaveState = "idle" | "pending" | "success" | "error";
 export function SaveSettings({
   save,
 }: {
-  readonly save: () => Promise<void>;
+  save: () => Promise<void>;
 }) {
   const [state, setState] = useState<SaveState>("idle");
 
@@ -27,10 +27,16 @@ export function SaveSettings({
         disabled={state === "pending"}
         onClick={handleSave}
       >
-        {state === "pending" ? "Zapisywanie…" : "Zapisz ustawienia"}
+        {state === "pending"
+          ? "Zapisywanie…"
+          : "Zapisz ustawienia"}
       </button>
-      {state === "success" && <p role="status">Ustawienia zapisane</p>}
-      {state === "error" && <p role="alert">Nie udało się zapisać</p>}
+      {state === "success" && (
+        <p role="status">Ustawienia zapisane</p>
+      )}
+      {state === "error" && (
+        <p role="alert">Nie udało się zapisać</p>
+      )}
     </section>
   );
 }

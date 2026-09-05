@@ -1,7 +1,4 @@
-import {
-  Component,
-  type ReactNode,
-} from "react";
+import { Component, type ReactNode } from "react";
 
 export interface Widget {
   readonly id: string;
@@ -11,18 +8,21 @@ export interface Widget {
 }
 
 interface BoundaryProps {
-  readonly children: ReactNode;
-  readonly resetKey: number;
-  readonly title: string;
-  readonly widgetId: string;
-  readonly onError: (id: string, error: unknown) => void;
+  children: ReactNode;
+  resetKey: number;
+  title: string;
+  widgetId: string;
+  onError: (id: string, error: unknown) => void;
 }
 
 interface BoundaryState {
   readonly hasError: boolean;
 }
 
-class WidgetErrorBoundary extends Component<BoundaryProps, BoundaryState> {
+class WidgetErrorBoundary extends Component<
+  BoundaryProps,
+  BoundaryState
+> {
   state: BoundaryState = { hasError: false };
 
   static getDerivedStateFromError(): BoundaryState {
@@ -44,14 +44,18 @@ class WidgetErrorBoundary extends Component<BoundaryProps, BoundaryState> {
 
   render() {
     if (this.state.hasError) {
-      return <p role="alert">Widget {this.props.title} niedostępny</p>;
+      return (
+        <p role="alert">
+          Widget {this.props.title} niedostępny
+        </p>
+      );
     }
 
     return this.props.children;
   }
 }
 
-function WidgetView({ widget }: { readonly widget: Widget }) {
+function WidgetView({ widget }: { widget: Widget }) {
   return (
     <section aria-label={widget.title}>
       <h2>{widget.title}</h2>
@@ -64,8 +68,8 @@ export function Dashboard({
   widgets,
   onWidgetError,
 }: {
-  readonly widgets: readonly Widget[];
-  readonly onWidgetError: (id: string, error: unknown) => void;
+  widgets: readonly Widget[];
+  onWidgetError: (id: string, error: unknown) => void;
 }) {
   return (
     <div>

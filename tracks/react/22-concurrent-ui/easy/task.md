@@ -1,6 +1,8 @@
 # Responsywne wyszukiwanie podczas asynchronicznej akcji
 
-Zaimplementuj `CustomerSearch` korzystający z `useTransition`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `CustomerSearch` korzystający z `useTransition`.
 
 - Pole `Szukaj klientów` ma aktualizować się natychmiast, również podczas requestu.
 - Kliknięcie `Szukaj` wywołuje przekazane `searchCustomers` z aktualnym zapytaniem.
@@ -9,4 +11,3 @@ Zaimplementuj `CustomerSearch` korzystający z `useTransition`.
 - Aktualizację wyników po `await` oznacz jako Transition.
 
 Nie implementuj własnego stanu `loading`. Źródłem statusu ma być `isPending`.
-

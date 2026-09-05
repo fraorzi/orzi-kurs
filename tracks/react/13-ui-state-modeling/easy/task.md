@@ -1,6 +1,8 @@
 # Widok wyniku z rozłącznym kontraktem
 
-Zaimplementuj typ `UserViewState` i komponent `UserResult`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw typ `UserViewState` i komponent `UserResult`.
 
 Stany:
 

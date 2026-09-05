@@ -1,11 +1,14 @@
 import { useId } from "react";
 
 export interface ApiKeyFieldProps {
-  readonly label: string;
-  readonly hint: string;
+  label: string;
+  hint: string;
 }
 
-export function ApiKeyField({ label, hint }: ApiKeyFieldProps) {
+export function ApiKeyField({
+  label,
+  hint,
+}: ApiKeyFieldProps) {
   const id = useId();
 
   return (

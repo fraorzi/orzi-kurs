@@ -1,6 +1,8 @@
 # Kontrolowana wyszukiwarka produktów
 
-Zaimplementuj `ProductSearch`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `ProductSearch`.
 
 Formularz ma zawierać pole `Szukaj produktów`, przycisk `Szukaj` i przycisk
 `Wyczyść`. Pole ma być kontrolowane:

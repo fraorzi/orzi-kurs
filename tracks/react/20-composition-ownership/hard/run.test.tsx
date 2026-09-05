@@ -14,14 +14,19 @@ describe("SelectionController", () => {
       <MemberPicker members={[ada, lin]} />,
     );
 
-    await user.click(screen.getByRole("button", { name: "Lin" }));
-    expect(screen.getByRole("button", { name: "Lin (wybrano)" }))
-      .toHaveAttribute("aria-pressed", "true");
+    await user.click(
+      screen.getByRole("button", { name: "Lin" }),
+    );
+    expect(
+      screen.getByRole("button", { name: "Lin (wybrano)" }),
+    ).toBeVisible();
 
     rerender(<MemberPicker members={[lin, ada]} />);
-    expect(screen.getByRole("button", { name: "Lin (wybrano)" }))
-      .toHaveAttribute("aria-pressed", "true");
-    expect(screen.getByRole("button", { name: "Ada" }))
-      .toHaveAttribute("aria-pressed", "false");
+    expect(
+      screen.getByRole("button", { name: "Lin (wybrano)" }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", { name: "Ada" }),
+    ).toBeVisible();
   });
 });

@@ -13,4 +13,4 @@ CSS może później użyć `height: calc(var(--bar-ratio) * 100%)` oraz
 
 ## Hint 4
 
-`aria-valuenow` przechowuje surową wartość, nie współczynnik.
+Współczynnik słupka to jego wartość podzielona przez maksimum całego zestawu.

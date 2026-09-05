@@ -20,8 +20,7 @@ z providera. Po poprawnym submitcie wykonaj jeden dispatch i `setDraft("")`.
 
 ## Hint 5
 
-`aria-pressed={state.filter === filter}` daje przyciskom filtrów zarówno zachowanie,
-jak i testowalny stan dostępności.
+Kliknięcie filtra wysyła akcję. Reducer zapisuje filtr, a selektor wybiera pasujące zadania.
 
 ## Hint 6
 

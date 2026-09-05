@@ -1,5 +1,7 @@
 # Zaimplementuj optimistic update z rollbackiem
 
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
 Uzupełnij `StockControl`. Kliknięcie zmniejszenia ma natychmiast zmienić ilość w
 cache'u, jeszcze przed odpowiedzią API.
 

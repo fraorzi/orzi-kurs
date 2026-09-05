@@ -1,10 +1,12 @@
 import { useState } from "react";
 
 export interface DelayedCounterProps {
-  readonly wait: () => Promise<void>;
+  wait: () => Promise<void>;
 }
 
-export function DelayedCounter({ wait }: DelayedCounterProps) {
+export function DelayedCounter({
+  wait,
+}: DelayedCounterProps) {
   const [count, setCount] = useState(0);
 
   async function incrementAfterWait() {

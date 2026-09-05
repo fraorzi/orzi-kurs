@@ -1,6 +1,8 @@
 # Elastyczna karta z dwoma slotami JSX
 
-Zaimplementuj `Card`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `Card`.
 
 Komponent otrzymuje `title`, obowiązkowe `children` i opcjonalne `actions`.
 Ma renderować:

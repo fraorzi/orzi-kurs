@@ -1,12 +1,15 @@
-# Modal usuwania konta z pełnym zarządzaniem focusem
+# Focus w oknie potwierdzenia usunięcia
 
-Zaimplementuj `DeleteAccountDialog`.
+Tryb: uzupełnienie. W `starter.tsx` jest gotowy szablon. Zaimplementuj brakującą logikę opisaną poniżej.
 
-Przycisk `Usuń konto` otwiera przez portal modal nazwany `Usuń konto?`.
+`DeleteAccountDialog` ma gotowy HTML, portal i przyciski.
+Uzupełnij efekt zarządzający focusem i funkcję `handleKeyDown`.
 
-- Dialog ma `role="dialog"`, `aria-modal="true"` i nazwę od widocznego nagłówka.
-- Po otwarciu focus trafia na najmniej destrukcyjny przycisk `Anuluj`.
-- Tab z ostatniego elementu zawija do pierwszego, Shift+Tab z pierwszego do ostatniego.
-- Escape i `Anuluj` zamykają dialog.
-- `Potwierdź usunięcie` wywołuje `onConfirm` i zamyka dialog.
-- Po każdym zamknięciu focus wraca do triggera `Usuń konto`.
+- Po otwarciu okna przyciskiem `Usuń konto` focus trafia na `Anuluj`.
+- `Tab` na ostatnim przycisku wraca do pierwszego.
+- `Shift+Tab` na pierwszym przycisku przechodzi do ostatniego.
+- `Escape` zamyka okno.
+- Po zamknięciu focus wraca do przycisku `Usuń konto`.
+
+Zachowaj gotowe działania: `Anuluj` zamyka okno, a `Potwierdź usunięcie`
+wywołuje `onConfirm` i zamyka okno.

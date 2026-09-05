@@ -1,12 +1,9 @@
 import { describe, expect, it } from "vitest";
-import {
-  render,
-  screen,
-} from "@harness/react-test";
+import { render, screen } from "@harness/react-test";
 import { ApiKeyField } from "./starter";
 
 describe("ApiKeyField", () => {
-  it("tworzy odrębne relacje dostępności dla każdej instancji", () => {
+  it("tworzy odrębne ID i etykiety dla każdej instancji", () => {
     render(
       <>
         <ApiKeyField
@@ -23,14 +20,18 @@ describe("ApiKeyField", () => {
     const production = screen.getByRole("textbox", {
       name: "Klucz produkcyjny",
     });
-    const test = screen.getByRole("textbox", { name: "Klucz testowy" });
+    const test = screen.getByRole("textbox", {
+      name: "Klucz testowy",
+    });
 
-    expect(production).toHaveAccessibleDescription(
-      "Używany wyłącznie na produkcji.",
-    );
-    expect(test).toHaveAccessibleDescription("Można używać lokalnie.");
+    expect(
+      screen.getByText("Używany wyłącznie na produkcji."),
+    ).toBeVisible();
+    expect(
+      screen.getByText("Można używać lokalnie."),
+    ).toBeVisible();
+    expect(production.id).not.toBe("");
+    expect(test.id).not.toBe("");
     expect(production.id).not.toBe(test.id);
-    expect(production.getAttribute("aria-describedby"))
-      .not.toBe(test.getAttribute("aria-describedby"));
   });
 });

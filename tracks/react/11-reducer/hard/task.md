@@ -1,6 +1,8 @@
 # Historia statusu z undo i redo
 
-Zaimplementuj `WorkflowHistory`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `WorkflowHistory`.
 
 Status ma jedną z wartości: `backlog`, `doing`, `done`. Komponent renderuje `Status`,
 przyciski ustawiające każdy status oraz `Cofnij` i `Ponów`.

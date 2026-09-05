@@ -1,6 +1,8 @@
 # Powiadomienie bez ponownego łączenia
 
-Zaimplementuj `ChatNotifications`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `ChatNotifications`.
 
 `chat.connect(roomId, onConnected)` łączy pokój i zwraca cleanup. Gdy połączenie
 zgłosi gotowość:

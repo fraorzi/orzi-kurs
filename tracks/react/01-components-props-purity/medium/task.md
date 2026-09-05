@@ -1,11 +1,10 @@
-# Panel kompozycyjny
+# Panel z tytułem i zawartością
 
-Zaimplementuj `Panel`, który przyjmuje:
+Tryb: od zera. Napisz rozwiązanie w `starter.tsx`, korzystając z podanych sygnatur i typów.
 
-- `title: string`,
-- `children: ReactNode`,
-- opcjonalny `tone: "info" | "warning"` z domyślną wartością `"info"`.
-
-Wyrenderuj `section` z `data-tone` i nazwą dostępną równą `title`, nagłówek
-poziomu 2 oraz przekazane `children`.
-Nie zamieniaj `children` na tekst ani własny zestaw propsów.
+Napisz `Panel`, który przyjmuje `title: string`, `children: ReactNode`
+i opcjonalny `tone: "info" | "warning"`.
+Zwróć `section` z atrybutem `data-tone`, nagłówkiem `h2` równym `title`
+i przekazanym `children`. Domyślny `tone` to `"info"`.
+Przekazany przycisk ma nadal być przyciskiem i reagować na kliknięcie.
+Nie zamieniaj `children` na tekst.

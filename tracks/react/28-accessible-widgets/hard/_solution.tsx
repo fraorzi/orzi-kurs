@@ -10,7 +10,7 @@ import { createPortal } from "react-dom";
 export function DeleteAccountDialog({
   onConfirm,
 }: {
-  readonly onConfirm: () => void;
+  onConfirm: () => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const titleId = useId();
@@ -27,7 +27,9 @@ export function DeleteAccountDialog({
     return () => triggerRef.current?.focus();
   }, [isOpen]);
 
-  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+  function handleKeyDown(
+    event: KeyboardEvent<HTMLDivElement>,
+  ) {
     if (event.key === "Escape") {
       event.preventDefault();
       setIsOpen(false);
@@ -38,10 +40,16 @@ export function DeleteAccountDialog({
       return;
     }
 
-    if (event.shiftKey && document.activeElement === cancelRef.current) {
+    if (
+      event.shiftKey &&
+      document.activeElement === cancelRef.current
+    ) {
       event.preventDefault();
       confirmRef.current?.focus();
-    } else if (!event.shiftKey && document.activeElement === confirmRef.current) {
+    } else if (
+      !event.shiftKey &&
+      document.activeElement === confirmRef.current
+    ) {
       event.preventDefault();
       cancelRef.current?.focus();
     }
@@ -56,35 +64,36 @@ export function DeleteAccountDialog({
       >
         Usuń konto
       </button>
-      {isOpen && createPortal(
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby={titleId}
-          onKeyDown={handleKeyDown}
-        >
-          <h2 id={titleId}>Usuń konto?</h2>
-          <p>Tej operacji nie można cofnąć.</p>
-          <button
-            ref={cancelRef}
-            type="button"
-            onClick={() => setIsOpen(false)}
+      {isOpen &&
+        createPortal(
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            onKeyDown={handleKeyDown}
           >
-            Anuluj
-          </button>
-          <button
-            ref={confirmRef}
-            type="button"
-            onClick={() => {
-              onConfirm();
-              setIsOpen(false);
-            }}
-          >
-            Potwierdź usunięcie
-          </button>
-        </div>,
-        document.body,
-      )}
+            <h2 id={titleId}>Usuń konto?</h2>
+            <p>Tej operacji nie można cofnąć.</p>
+            <button
+              ref={cancelRef}
+              type="button"
+              onClick={() => setIsOpen(false)}
+            >
+              Anuluj
+            </button>
+            <button
+              ref={confirmRef}
+              type="button"
+              onClick={() => {
+                onConfirm();
+                setIsOpen(false);
+              }}
+            >
+              Potwierdź usunięcie
+            </button>
+          </div>,
+          document.body,
+        )}
     </section>
   );
 }

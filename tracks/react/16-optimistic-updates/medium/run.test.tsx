@@ -18,28 +18,43 @@ function deferred<T>() {
 describe("FollowCard", () => {
   it("zmienia spójnie status i licznik, a potem przyjmuje wynik serwera", async () => {
     const operation = deferred<{
-      readonly isFollowing: boolean;
-      readonly followerCount: number;
+      isFollowing: boolean;
+      followerCount: number;
     }>();
     const saveFollow = vi.fn(() => operation.promise);
     const { user } = renderWithUser(
       <FollowCard
-        initialState={{ isFollowing: false, followerCount: 10 }}
+        initialState={{
+          isFollowing: false,
+          followerCount: 10,
+        }}
         saveFollow={saveFollow}
       />,
     );
 
-    await user.click(screen.getByRole("button", { name: "Obserwuj" }));
-    expect(screen.getByText("11 obserwujących")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Przestań obserwować" }))
-      .toBeInTheDocument();
+    await user.click(
+      screen.getByRole("button", { name: "Obserwuj" }),
+    );
+    expect(
+      screen.getByText("11 obserwujących"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", {
+        name: "Przestań obserwować",
+      }),
+    ).toBeInTheDocument();
 
     await act(async () => {
-      operation.resolve({ isFollowing: true, followerCount: 12 });
+      operation.resolve({
+        isFollowing: true,
+        followerCount: 12,
+      });
       await operation.promise;
     });
     await waitFor(() => {
-      expect(screen.getByText("12 obserwujących")).toBeInTheDocument();
+      expect(
+        screen.getByText("12 obserwujących"),
+      ).toBeInTheDocument();
     });
   });
 });

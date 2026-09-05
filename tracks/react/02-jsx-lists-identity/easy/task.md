@@ -1,5 +1,7 @@
 # Podsumowanie skrzynki
 
+Tryb: od zera. Napisz rozwiązanie w `starter.tsx`, korzystając z podanych sygnatur i typów.
+
 Zaimplementuj `InboxSummary`.
 
 - Sekcja ma nazwę dostępną `Skrzynka <userName>`.

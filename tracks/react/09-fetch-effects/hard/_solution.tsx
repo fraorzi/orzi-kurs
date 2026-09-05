@@ -1,7 +1,4 @@
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 
 export interface Product {
   readonly id: string;
@@ -9,35 +6,48 @@ export interface Product {
 }
 
 export interface ProductClient {
-  load(productId: string, signal: AbortSignal): Promise<Product>;
+  load(
+    productId: string,
+    signal: AbortSignal,
+  ): Promise<Product>;
 }
 
 export interface ProductDetailsProps {
-  readonly productId: string;
-  readonly client: ProductClient;
+  productId: string;
+  client: ProductClient;
 }
 
 type ProductResult =
   | {
-    readonly productId: string;
-    readonly status: "success";
-    readonly product: Product;
-  }
+      readonly productId: string;
+      readonly status: "success";
+      readonly product: Product;
+    }
   | {
-    readonly productId: string;
-    readonly status: "error";
-  };
+      readonly productId: string;
+      readonly status: "error";
+    };
 
-export function ProductDetails({ productId, client }: ProductDetailsProps) {
-  const [result, setResult] = useState<ProductResult | null>(null);
-  const currentResult = result?.productId === productId ? result : null;
+export function ProductDetails({
+  productId,
+  client,
+}: ProductDetailsProps) {
+  const [result, setResult] =
+    useState<ProductResult | null>(null);
+  const currentResult =
+    result?.productId === productId ? result : null;
 
   useEffect(() => {
     const controller = new AbortController();
-    client.load(productId, controller.signal)
+    client
+      .load(productId, controller.signal)
       .then((product) => {
         if (!controller.signal.aborted) {
-          setResult({ productId, status: "success", product });
+          setResult({
+            productId,
+            status: "success",
+            product,
+          });
         }
       })
       .catch(() => {
@@ -55,7 +65,9 @@ export function ProductDetails({ productId, client }: ProductDetailsProps) {
     return <p>Ładowanie produktu…</p>;
   }
   if (currentResult.status === "error") {
-    return <p role="alert">Nie udało się pobrać produktu.</p>;
+    return (
+      <p role="alert">Nie udało się pobrać produktu.</p>
+    );
   }
   return <h1>{currentResult.product.name}</h1>;
 }

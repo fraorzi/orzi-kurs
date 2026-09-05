@@ -6,8 +6,8 @@ export interface ConfirmedOrder {
 }
 
 export interface OrderCheckoutProps {
-  readonly unitPriceCents: number;
-  readonly onConfirm: (order: ConfirmedOrder) => void;
+  unitPriceCents: number;
+  onConfirm: (order: ConfirmedOrder) => void;
 }
 
 export function OrderCheckout({
@@ -30,7 +30,9 @@ export function OrderCheckout({
           type="number"
           min="0"
           value={quantity}
-          onChange={(event) => setQuantity(Number(event.currentTarget.value))}
+          onChange={(event) =>
+            setQuantity(Number(event.currentTarget.value))
+          }
         />
       </label>
       <output aria-label="Łącznie">{totalCents}</output>

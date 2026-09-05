@@ -8,13 +8,15 @@ export function StatusBadge({
   label,
   accent,
 }: {
-  readonly label: string;
-  readonly accent: string;
+  label: string;
+  accent: string;
 }) {
   return (
     <span
       className="status-badge"
-      style={{ "--badge-accent": accent } as StatusBadgeStyle}
+      style={
+        { "--badge-accent": accent } as StatusBadgeStyle
+      }
     >
       {label}
     </span>

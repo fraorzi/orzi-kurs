@@ -4,7 +4,7 @@ JSX jest składnią opisującą drzewo elementów. Wyrażenia JavaScript trafiaj
 klamerek, a warunki i listy budujesz zwykłymi konstrukcjami języka.
 
 ```tsx
-function Inbox({ unread }: { readonly unread: number }) {
+function Inbox({ unread }: { unread: number }) {
   return (
     <section>
       <h2>Skrzynka</h2>

@@ -1,9 +1,11 @@
 # Polubienie z natychmiastowym UI i rollbackiem
 
-Zaimplementuj `LikeButton`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `LikeButton`.
 
 Komponent startuje od `initialLiked`. Kliknięcie ma natychmiast zmienić
-`aria-pressed` i tekst przycisku, jeszcze zanim zakończy się `saveLike(nextLiked)`.
+tekst przycisku, jeszcze zanim zakończy się `saveLike(nextLiked)`.
 
 Po sukcesie ustaw wartość bazową na wynik zwrócony przez `saveLike`. Po odrzuceniu
 Promise optimistic state ma wrócić do poprzedniej wartości i pokazać alert

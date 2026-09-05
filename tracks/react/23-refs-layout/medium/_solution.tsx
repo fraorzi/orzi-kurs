@@ -13,20 +13,24 @@ export interface EditorHandle {
 export function NoteEditor({
   ref,
 }: {
-  readonly ref?: Ref<EditorHandle>;
+  ref?: Ref<EditorHandle>;
 }) {
   const [value, setValue] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  useImperativeHandle(ref, () => ({
-    focus() {
-      textareaRef.current?.focus();
-    },
-    selectAll() {
-      textareaRef.current?.focus();
-      textareaRef.current?.select();
-    },
-  }), []);
+  useImperativeHandle(
+    ref,
+    () => ({
+      focus() {
+        textareaRef.current?.focus();
+      },
+      selectAll() {
+        textareaRef.current?.focus();
+        textareaRef.current?.select();
+      },
+    }),
+    [],
+  );
 
   return (
     <label>

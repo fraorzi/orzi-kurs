@@ -1,7 +1,7 @@
 export interface ProfileCardProps {
-  readonly name: string;
-  readonly role: string;
-  readonly online: boolean;
+  name: string;
+  role: string;
+  online: boolean;
 }
 
 export function ProfileCard({
@@ -10,7 +10,7 @@ export function ProfileCard({
   online,
 }: ProfileCardProps) {
   return (
-    <article aria-label={`Profil ${name}`}>
+    <article>
       <h2>{name}</h2>
       <p>{role}</p>
       <p>{online ? "Dostępny" : "Offline"}</p>

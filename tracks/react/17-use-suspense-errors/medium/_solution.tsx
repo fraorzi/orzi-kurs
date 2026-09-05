@@ -1,7 +1,4 @@
-import {
-  Suspense,
-  use,
-} from "react";
+import { Suspense, use } from "react";
 
 export interface User {
   readonly name: string;
@@ -11,7 +8,7 @@ export interface User {
 function UserDetails({
   userPromise,
 }: {
-  readonly userPromise: Promise<User>;
+  userPromise: Promise<User>;
 }) {
   const user = use(userPromise);
 
@@ -26,10 +23,12 @@ function UserDetails({
 export function UserPanel({
   userPromise,
 }: {
-  readonly userPromise: Promise<User>;
+  userPromise: Promise<User>;
 }) {
   return (
-    <Suspense fallback={<p role="status">Ładowanie użytkownika…</p>}>
+    <Suspense
+      fallback={<p role="status">Ładowanie użytkownika…</p>}
+    >
       <UserDetails userPromise={userPromise} />
     </Suspense>
   );

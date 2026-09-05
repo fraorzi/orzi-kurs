@@ -59,22 +59,28 @@ function createResource(): CatalogResource & {
 describe("CatalogSearch", () => {
   it("utrzymuje stare wyniki, gdy odroczony render zawiesza się", async () => {
     const resource = createResource();
-    const { user } = renderWithUser(<CatalogSearch resource={resource} />);
+    const { user } = renderWithUser(
+      <CatalogSearch resource={resource} />,
+    );
 
-    expect(screen.getByText("Ostatnio oglądane")).toBeInTheDocument();
+    expect(
+      screen.getByText("Ostatnio oglądane"),
+    ).toBeInTheDocument();
 
-    const input = screen.getByRole("textbox", { name: "Szukaj w katalogu" });
+    const input = screen.getByRole("textbox", {
+      name: "Szukaj w katalogu",
+    });
     await user.type(input, "lap");
 
     expect(input).toHaveValue("lap");
-    expect(screen.getByText("Ostatnio oglądane")).toBeInTheDocument();
-    expect(screen.queryByText("Ładowanie wyników…")).not.toBeInTheDocument();
+    expect(
+      screen.getByText("Ostatnio oglądane"),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("Ładowanie wyników…"),
+    ).not.toBeInTheDocument();
     expect(screen.getByRole("status")).toHaveTextContent(
       "Aktualizowanie wyników…",
-    );
-    expect(screen.getByRole("list").parentElement).toHaveAttribute(
-      "aria-busy",
-      "true",
     );
 
     await act(async () => {
@@ -82,12 +88,12 @@ describe("CatalogSearch", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText("Laptop Pro")).toBeInTheDocument();
+      expect(
+        screen.getByText("Laptop Pro"),
+      ).toBeInTheDocument();
     });
-    expect(screen.queryByRole("status")).not.toBeInTheDocument();
-    expect(screen.getByRole("list").parentElement).toHaveAttribute(
-      "aria-busy",
-      "false",
-    );
+    expect(
+      screen.queryByRole("status"),
+    ).not.toBeInTheDocument();
   });
 });

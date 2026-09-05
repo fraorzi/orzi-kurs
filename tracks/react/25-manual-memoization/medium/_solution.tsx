@@ -12,8 +12,8 @@ const ExportButton = memo(function ExportButton({
   onExport,
   onRender,
 }: {
-  readonly onExport: () => void;
-  readonly onRender: ProfilerOnRenderCallback;
+  onExport: () => void;
+  onRender: ProfilerOnRenderCallback;
 }) {
   return (
     <Profiler id="export-button" onRender={onRender}>
@@ -29,9 +29,9 @@ export function ExportDashboard({
   onExport,
   onExportButtonRender = ignoreRender,
 }: {
-  readonly reportId: string;
-  readonly onExport: (reportId: string) => void;
-  readonly onExportButtonRender?: ProfilerOnRenderCallback;
+  reportId: string;
+  onExport: (reportId: string) => void;
+  onExportButtonRender?: ProfilerOnRenderCallback;
 }) {
   const [compact, setCompact] = useState(false);
   const handleExport = useCallback(
@@ -45,7 +45,9 @@ export function ExportDashboard({
         <input
           type="checkbox"
           checked={compact}
-          onChange={(event) => setCompact(event.target.checked)}
+          onChange={(event) =>
+            setCompact(event.target.checked)
+          }
         />
         Kompaktowy
       </label>

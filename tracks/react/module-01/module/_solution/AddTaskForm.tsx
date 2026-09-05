@@ -4,7 +4,7 @@ import { useTaskDispatch } from "./context";
 export function AddTaskForm({
   createId,
 }: {
-  readonly createId: () => string;
+  createId: () => string;
 }) {
   const [draft, setDraft] = useState("");
   const dispatch = useTaskDispatch();
@@ -28,7 +28,9 @@ export function AddTaskForm({
         Nowe zadanie
         <input
           value={draft}
-          onChange={(event) => setDraft(event.currentTarget.value)}
+          onChange={(event) =>
+            setDraft(event.currentTarget.value)
+          }
         />
       </label>
       <button type="submit">Dodaj</button>

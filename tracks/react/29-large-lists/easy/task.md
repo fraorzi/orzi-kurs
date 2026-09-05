@@ -1,5 +1,7 @@
 # Zachowaj draft rekordu po zmianie kolejności
 
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
 Napraw `EditableQueue`.
 
 Każdy rekord ma lokalne pole `Notatka dla {title}`. Kliknięcie `Odwróć kolejność`

@@ -1,6 +1,8 @@
 # Lista filtrowana z jednego źródła prawdy
 
-Zaimplementuj `ProductFilter`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `ProductFilter`.
 
 Komponent otrzymuje `products` i ma kontrolowane pole `Filtruj produkty`. Lista
 `Produkty` pokazuje rekordy, których nazwa zawiera query bez rozróżniania wielkości

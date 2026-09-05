@@ -1,6 +1,8 @@
 # Custom hook z poprawnym cleanupem subskrypcji
 
-Zaimplementuj generyczny `useExternalValue(store)` i korzystający z niego
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw generyczny `useExternalValue(store)` i korzystający z niego
 `MessageCounter`.
 
 Store udostępnia `subscribe`, `getSnapshot` i `getServerSnapshot`. Komponent ma

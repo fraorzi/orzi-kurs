@@ -1,11 +1,8 @@
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 
 export interface SearchResultsProps {
-  readonly query: string;
-  readonly search: (query: string) => Promise<readonly string[]>;
+  query: string;
+  search: (query: string) => Promise<readonly string[]>;
 }
 
 interface SearchResult {
@@ -13,9 +10,15 @@ interface SearchResult {
   readonly items: readonly string[];
 }
 
-export function SearchResults({ query, search }: SearchResultsProps) {
-  const [result, setResult] = useState<SearchResult | null>(null);
-  const currentResult = result?.query === query ? result : null;
+export function SearchResults({
+  query,
+  search,
+}: SearchResultsProps) {
+  const [result, setResult] = useState<SearchResult | null>(
+    null,
+  );
+  const currentResult =
+    result?.query === query ? result : null;
 
   useEffect(() => {
     let ignore = false;
@@ -35,7 +38,9 @@ export function SearchResults({ query, search }: SearchResultsProps) {
   }
   return (
     <ul aria-label="Wyniki">
-      {currentResult.items.map((item) => <li key={item}>{item}</li>)}
+      {currentResult.items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
     </ul>
   );
 }

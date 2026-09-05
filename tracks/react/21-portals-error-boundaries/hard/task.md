@@ -1,6 +1,8 @@
 # Izolowane widgety z resetowalną granicą błędu
 
-Zaimplementuj `Dashboard` i `WidgetErrorBoundary`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `Dashboard` i `WidgetErrorBoundary`.
 
 Każdy widget ma `id`, `title`, `version` i funkcję `render`. Błąd jednego widgetu:
 

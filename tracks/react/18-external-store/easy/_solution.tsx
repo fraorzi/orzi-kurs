@@ -9,7 +9,7 @@ export interface OnlineSource {
 export function OnlineBadge({
   source,
 }: {
-  readonly source: OnlineSource;
+  source: OnlineSource;
 }) {
   const isOnline = useSyncExternalStore(
     source.subscribe,

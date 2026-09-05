@@ -20,10 +20,10 @@ const ProductRow = memo(function ProductRow({
   product,
   selected,
 }: {
-  readonly onRender: ProfilerOnRenderCallback;
-  readonly onSelect: (id: string) => void;
-  readonly product: Product;
-  readonly selected: boolean;
+  onRender: ProfilerOnRenderCallback;
+  onSelect: (id: string) => void;
+  product: Product;
+  selected: boolean;
 }) {
   return (
     <Profiler id={product.id} onRender={onRender}>
@@ -44,11 +44,16 @@ export function ProductGrid({
   products,
   onRowRender = ignoreRows,
 }: {
-  readonly products: readonly Product[];
-  readonly onRowRender?: (id: string) => ProfilerOnRenderCallback;
+  products: readonly Product[];
+  onRowRender?: (id: string) => ProfilerOnRenderCallback;
 }) {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const handleSelect = useCallback((id: string) => setSelectedId(id), []);
+  const [selectedId, setSelectedId] = useState<
+    string | null
+  >(null);
+  const handleSelect = useCallback(
+    (id: string) => setSelectedId(id),
+    [],
+  );
 
   return (
     <section aria-label="Produkty">
@@ -67,4 +72,3 @@ export function ProductGrid({
     </section>
   );
 }
-

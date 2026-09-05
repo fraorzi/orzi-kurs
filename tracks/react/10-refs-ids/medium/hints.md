@@ -8,4 +8,4 @@ Zbuduj z prefiksu dwa ID, np. `${id}-input` oraz `${id}-hint`.
 
 ## Hint 3
 
-Pierwsze połącz przez `htmlFor`, drugie przekaż do `aria-describedby`.
+To samo ID inputa przypisz do `htmlFor` etykiety. Wskazówkę pokaż jako tekst pod polem.

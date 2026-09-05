@@ -1,7 +1,7 @@
 import { useRef } from "react";
 
 export interface FocusFieldProps {
-  readonly label: string;
+  label: string;
 }
 
 export function FocusField({ label }: FocusFieldProps) {

@@ -9,8 +9,8 @@ type Locale = "pl" | "en";
 const LocaleContext = createContext<Locale>("pl");
 
 export interface LocaleProviderProps {
-  readonly locale: Locale;
-  readonly children: ReactNode;
+  locale: Locale;
+  children: ReactNode;
 }
 
 export function LocaleProvider({
@@ -18,9 +18,7 @@ export function LocaleProvider({
   children,
 }: LocaleProviderProps) {
   return (
-    <LocaleContext value={locale}>
-      {children}
-    </LocaleContext>
+    <LocaleContext value={locale}>{children}</LocaleContext>
   );
 }
 

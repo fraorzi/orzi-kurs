@@ -7,26 +7,40 @@ export interface CartItem {
 }
 
 export interface ShoppingCartProps {
-  readonly initialItems: readonly CartItem[];
+  initialItems: readonly CartItem[];
 }
 
-export function ShoppingCart({ initialItems }: ShoppingCartProps) {
-  const [items, setItems] = useState(() => (
-    initialItems.map((item) => ({ ...item }))
-  ));
+export function increaseQuantity(
+  items: CartItem[],
+  id: string,
+): CartItem[] {
+  return items.map((item) =>
+    item.id === id
+      ? { ...item, quantity: item.quantity + 1 }
+      : item,
+  );
+}
+
+export function removeItem(
+  items: CartItem[],
+  id: string,
+): CartItem[] {
+  return items.filter((item) => item.id !== id);
+}
+
+export function ShoppingCart({
+  initialItems,
+}: ShoppingCartProps) {
+  const [items, setItems] = useState(() =>
+    initialItems.map((item) => ({ ...item })),
+  );
 
   function increase(id: string) {
-    setItems((current) => (
-      current.map((item) => (
-        item.id === id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      ))
-    ));
+    setItems((current) => increaseQuantity(current, id));
   }
 
   function remove(id: string) {
-    setItems((current) => current.filter((item) => item.id !== id));
+    setItems((current) => removeItem(current, id));
   }
 
   return (
@@ -34,7 +48,9 @@ export function ShoppingCart({ initialItems }: ShoppingCartProps) {
       {items.map((item) => (
         <li key={item.id}>
           <span>{item.name}</span>
-          <output aria-label={`Ilość ${item.name}`}>{item.quantity}</output>
+          <output aria-label={`Ilość ${item.name}`}>
+            {item.quantity}
+          </output>
           <button
             type="button"
             onClick={() => increase(item.id)}

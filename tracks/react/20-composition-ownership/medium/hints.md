@@ -4,7 +4,7 @@ Typ obu slotów to `ReactNode`.
 
 ## Hint 2
 
-Wygeneruj ID nagłówka przez `useId` i przypisz je do `aria-labelledby`.
+Powiązanie nagłówka z sekcją jest gotowe. Skup się na przekazaniu zawartości obu slotów.
 
 ## Hint 3
 

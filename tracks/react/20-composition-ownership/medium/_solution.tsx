@@ -1,16 +1,13 @@
-import {
-  useId,
-  type ReactNode,
-} from "react";
+import { useId, type ReactNode } from "react";
 
 export function Card({
   title,
   children,
   actions,
 }: {
-  readonly title: string;
-  readonly children: ReactNode;
-  readonly actions?: ReactNode;
+  title: string;
+  children: ReactNode;
+  actions?: ReactNode;
 }) {
   const titleId = useId();
 

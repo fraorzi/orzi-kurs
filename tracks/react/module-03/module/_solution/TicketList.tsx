@@ -11,10 +11,13 @@ export function TicketList({
   agents,
   onAssign,
 }: {
-  readonly status: TicketStatus;
-  readonly tickets: readonly Ticket[];
-  readonly agents: readonly Agent[];
-  readonly onAssign: (ticket: Ticket, trigger: HTMLButtonElement) => void;
+  status: TicketStatus;
+  tickets: readonly Ticket[];
+  agents: readonly Agent[];
+  onAssign: (
+    ticket: Ticket,
+    trigger: HTMLButtonElement,
+  ) => void;
 }) {
   return (
     <div
@@ -22,14 +25,25 @@ export function TicketList({
       role="tabpanel"
       aria-labelledby={`ticket-tab-${status}`}
     >
-      <ul aria-label={status === "open" ? "Otwarte zgłoszenia" : "Rozwiązane zgłoszenia"}>
+      <ul
+        aria-label={
+          status === "open"
+            ? "Otwarte zgłoszenia"
+            : "Rozwiązane zgłoszenia"
+        }
+      >
         {tickets.map((ticket) => (
           <li
             key={ticket.id}
             className="ticket-row"
-            style={{
-              "--priority-accent": ticket.priority === "urgent" ? "#dc2626" : "#2563eb",
-            } as TicketRowStyle}
+            style={
+              {
+                "--priority-accent":
+                  ticket.priority === "urgent"
+                    ? "#dc2626"
+                    : "#2563eb",
+              } as TicketRowStyle
+            }
           >
             <strong>{ticket.title}</strong>
             <span>
@@ -40,7 +54,9 @@ export function TicketList({
             {status === "open" && (
               <button
                 type="button"
-                onClick={(event) => onAssign(ticket, event.currentTarget)}
+                onClick={(event) =>
+                  onAssign(ticket, event.currentTarget)
+                }
               >
                 Przypisz {ticket.title}
               </button>

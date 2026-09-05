@@ -6,10 +6,12 @@ export interface ProfileData {
 }
 
 export interface ProfileFormProps {
-  readonly onSave: (data: ProfileData) => void;
+  onSave: (data: ProfileData) => void;
 }
 
-type ProfileErrors = Partial<Record<keyof ProfileData, string>>;
+type ProfileErrors = Partial<
+  Record<keyof ProfileData, string>
+>;
 
 export function ProfileForm({ onSave }: ProfileFormProps) {
   const [data, setData] = useState<ProfileData>({
@@ -25,10 +27,12 @@ export function ProfileForm({ onSave }: ProfileFormProps) {
         event.preventDefault();
         const nextErrors: ProfileErrors = {};
         if (!data.displayName.trim()) {
-          nextErrors.displayName = "Podaj nazwę wyświetlaną.";
+          nextErrors.displayName =
+            "Podaj nazwę wyświetlaną.";
         }
         if (data.bio.length > 120) {
-          nextErrors.bio = "Bio może mieć maksymalnie 120 znaków.";
+          nextErrors.bio =
+            "Bio może mieć maksymalnie 120 znaków.";
         }
 
         setErrors(nextErrors);
@@ -46,10 +50,19 @@ export function ProfileForm({ onSave }: ProfileFormProps) {
         Nazwa wyświetlana
         <input
           value={data.displayName}
-          aria-invalid={errors.displayName ? true : undefined}
-          aria-describedby={errors.displayName ? "display-name-error" : undefined}
+          aria-invalid={
+            errors.displayName ? true : undefined
+          }
+          aria-describedby={
+            errors.displayName
+              ? "display-name-error"
+              : undefined
+          }
           onChange={(event) => {
-            setData({ ...data, displayName: event.currentTarget.value });
+            setData({
+              ...data,
+              displayName: event.currentTarget.value,
+            });
           }}
         />
       </label>
@@ -61,13 +74,20 @@ export function ProfileForm({ onSave }: ProfileFormProps) {
         <textarea
           value={data.bio}
           aria-invalid={errors.bio ? true : undefined}
-          aria-describedby={errors.bio ? "bio-error" : undefined}
+          aria-describedby={
+            errors.bio ? "bio-error" : undefined
+          }
           onChange={(event) => {
-            setData({ ...data, bio: event.currentTarget.value });
+            setData({
+              ...data,
+              bio: event.currentTarget.value,
+            });
           }}
         />
       </label>
-      {errors.bio ? <p id="bio-error">{errors.bio}</p> : null}
+      {errors.bio ? (
+        <p id="bio-error">{errors.bio}</p>
+      ) : null}
       <button type="submit">Zapisz</button>
     </form>
   );

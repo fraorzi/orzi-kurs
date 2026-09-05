@@ -2,8 +2,8 @@ export function ToastPortal({
   message,
   container: _container,
 }: {
-  readonly message: string;
-  readonly container: HTMLElement;
+  message: string;
+  container: HTMLElement;
 }) {
   return <p role="status">{message}</p>;
 }

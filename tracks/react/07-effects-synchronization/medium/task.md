@@ -1,6 +1,8 @@
 # Subskrypcja wiadomości zależna od pokoju
 
-Zaimplementuj `RoomMessages`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `RoomMessages`.
 
 `source.subscribe(roomId, listener)` uruchamia subskrypcję i zwraca funkcję
 odpinającą listener. Komponent pokazuje ostatnią wiadomość w elemencie `output`

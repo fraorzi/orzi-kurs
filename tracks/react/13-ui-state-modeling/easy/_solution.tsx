@@ -10,7 +10,11 @@ export type UserViewState =
   | { readonly status: "success"; readonly user: User }
   | { readonly status: "error"; readonly message: string };
 
-export function UserResult({ state }: { readonly state: UserViewState }) {
+export function UserResult({
+  state,
+}: {
+  state: UserViewState;
+}) {
   switch (state.status) {
     case "idle":
       return <p>Wybierz użytkownika.</p>;

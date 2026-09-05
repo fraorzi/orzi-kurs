@@ -14,8 +14,10 @@ export function IssueBoard({
   fetchIssues,
   closeIssue,
 }: {
-  readonly fetchIssues: (signal: AbortSignal) => Promise<readonly Issue[]>;
-  readonly closeIssue: (id: string) => Promise<void>;
+  fetchIssues: (
+    signal: AbortSignal,
+  ) => Promise<readonly Issue[]>;
+  closeIssue: (id: string) => Promise<void>;
 }) {
   const queryClient = useQueryClient();
   const issues = useQuery({
@@ -24,17 +26,28 @@ export function IssueBoard({
   });
   const closeMutation = useMutation({
     mutationFn: closeIssue,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["issues"] }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: ["issues"],
+      }),
   });
 
   if (issues.isPending) return <p>Ładowanie zgłoszeń…</p>;
-  if (issues.isError) return <p role="alert">Nie udało się pobrać zgłoszeń.</p>;
+  if (issues.isError)
+    return (
+      <p role="alert">Nie udało się pobrać zgłoszeń.</p>
+    );
 
   return (
     <ul aria-label="Zgłoszenia">
       {issues.data.map((issue) => (
         <li key={issue.id}>
-          <span>{issue.title}: {issue.status === "open" ? "Otwarte" : "Zamknięte"}</span>
+          <span>
+            {issue.title}:{" "}
+            {issue.status === "open"
+              ? "Otwarte"
+              : "Zamknięte"}
+          </span>
           {issue.status === "open" && (
             <button
               type="button"

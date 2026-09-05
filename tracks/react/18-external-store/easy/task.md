@@ -1,5 +1,7 @@
 # Status połączenia z zewnętrznego źródła
 
+Tryb: uzupełnienie. W `starter.tsx` jest punkt wyjścia. Dopisz brakujące zachowanie opisane poniżej.
+
 Zaimplementuj `OnlineBadge`.
 
 Komponent otrzymuje `source` z funkcjami `subscribe`, `getSnapshot` i

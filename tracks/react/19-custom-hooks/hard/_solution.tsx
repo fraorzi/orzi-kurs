@@ -1,7 +1,4 @@
-import {
-  useDebugValue,
-  useSyncExternalStore,
-} from "react";
+import { useDebugValue, useSyncExternalStore } from "react";
 
 export interface NetworkSource {
   readonly subscribe: (callback: () => void) => () => void;
@@ -9,20 +6,24 @@ export interface NetworkSource {
   readonly getServerSnapshot: () => boolean;
 }
 
-export function useNetworkStatus(source: NetworkSource): boolean {
+export function useNetworkStatus(
+  source: NetworkSource,
+): boolean {
   const online = useSyncExternalStore(
     source.subscribe,
     source.getSnapshot,
     source.getServerSnapshot,
   );
-  useDebugValue(online, (value) => value ? "Online" : "Offline");
+  useDebugValue(online, (value) =>
+    value ? "Online" : "Offline",
+  );
   return online;
 }
 
 export function SaveAvailability({
   source,
 }: {
-  readonly source: NetworkSource;
+  source: NetworkSource;
 }) {
   const online = useNetworkStatus(source);
 

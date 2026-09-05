@@ -1,7 +1,10 @@
 import { useRef, type KeyboardEvent } from "react";
 import type { TicketStatus } from "./types";
 
-const tabs: readonly { readonly status: TicketStatus; readonly label: string }[] = [
+const tabs: readonly {
+  status: TicketStatus;
+  label: string;
+}[] = [
   { status: "open", label: "Otwarte" },
   { status: "resolved", label: "Rozwiązane" },
 ];
@@ -10,17 +13,27 @@ export function TicketTabs({
   value,
   onChange,
 }: {
-  readonly value: TicketStatus;
-  readonly onChange: (status: TicketStatus) => void;
+  value: TicketStatus;
+  onChange: (status: TicketStatus) => void;
 }) {
-  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>(
+    [],
+  );
 
-  function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
-    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+  function handleKeyDown(
+    event: KeyboardEvent<HTMLButtonElement>,
+    index: number,
+  ) {
+    if (
+      event.key !== "ArrowLeft" &&
+      event.key !== "ArrowRight"
+    )
+      return;
     event.preventDefault();
-    const nextIndex = event.key === "ArrowRight"
-      ? (index + 1) % tabs.length
-      : (index - 1 + tabs.length) % tabs.length;
+    const nextIndex =
+      event.key === "ArrowRight"
+        ? (index + 1) % tabs.length
+        : (index - 1 + tabs.length) % tabs.length;
     onChange(tabs[nextIndex].status);
     tabRefs.current[nextIndex]?.focus();
   }

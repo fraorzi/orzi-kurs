@@ -1,5 +1,7 @@
 # Kompozycja zamiast renderowania raportu przez stan wrappera
 
+Tryb: optymalizacja. Popraw istniejący kod w `starter.tsx`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
+
 `AnalyticsPage` jest poprawny, ale Profiler wykazał commit raportu przy każdym
 otwarciu i zamknięciu lokalnych filtrów.
 
@@ -8,4 +10,3 @@ Zmiana stanu wrappera nie może renderować raportu. Nie używaj `memo`, `useMem
 `useCallback`.
 
 Zachowaj przycisk, komunikat `Filtry aktywne` i publiczne propsy komponentu.
-

@@ -15,8 +15,8 @@ function TicketList({
   tickets,
   onRender,
 }: {
-  readonly tickets: readonly Ticket[];
-  readonly onRender: ProfilerOnRenderCallback;
+  tickets: readonly Ticket[];
+  onRender: ProfilerOnRenderCallback;
 }) {
   return (
     <Profiler id="ticket-list" onRender={onRender}>
@@ -47,14 +47,16 @@ export function TicketWorkspace({
   tickets,
   onTicketListRender = ignoreRender,
 }: {
-  readonly tickets: readonly Ticket[];
-  readonly onTicketListRender?: ProfilerOnRenderCallback;
+  tickets: readonly Ticket[];
+  onTicketListRender?: ProfilerOnRenderCallback;
 }) {
   return (
     <section aria-label="Obsługa zgłoszeń">
-      <TicketList tickets={tickets} onRender={onTicketListRender} />
+      <TicketList
+        tickets={tickets}
+        onRender={onTicketListRender}
+      />
       <InternalNote />
     </section>
   );
 }
-

@@ -1,12 +1,16 @@
 # Potwierdzenie zamówienia jest zdarzeniem
 
-Zaimplementuj `OrderCheckout`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `OrderCheckout`.
 
 Komponent otrzymuje `unitPriceCents`, ma kontrolowane pole numeryczne `Ilość`,
 wyświetla `Łącznie` i przy submitcie wywołuje `onConfirm` z:
 
 ```ts
-{ quantity, totalCents }
+{
+  (quantity, totalCents);
+}
 ```
 
 `totalCents` wyliczaj podczas renderu. Potwierdzenie wykonuj bezpośrednio w handlerze

@@ -1,10 +1,12 @@
 import { useState } from "react";
 
 export interface ProductSearchProps {
-  readonly onSearch: (query: string) => void;
+  onSearch: (query: string) => void;
 }
 
-export function ProductSearch({ onSearch }: ProductSearchProps) {
+export function ProductSearch({
+  onSearch,
+}: ProductSearchProps) {
   const [query, setQuery] = useState("");
 
   return (
@@ -21,11 +23,15 @@ export function ProductSearch({ onSearch }: ProductSearchProps) {
         Szukaj produktów
         <input
           value={query}
-          onChange={(event) => setQuery(event.currentTarget.value)}
+          onChange={(event) =>
+            setQuery(event.currentTarget.value)
+          }
         />
       </label>
       <button type="submit">Szukaj</button>
-      <button type="button" onClick={() => setQuery("")}>Wyczyść</button>
+      <button type="button" onClick={() => setQuery("")}>
+        Wyczyść
+      </button>
     </form>
   );
 }

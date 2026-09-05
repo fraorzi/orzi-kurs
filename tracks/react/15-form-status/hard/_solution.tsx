@@ -4,8 +4,8 @@ function ActionSubmitButton({
   idleLabel,
   pendingLabel,
 }: {
-  readonly idleLabel: string;
-  readonly pendingLabel: string;
+  idleLabel: string;
+  pendingLabel: string;
 }) {
   const { pending } = useFormStatus();
 
@@ -20,8 +20,8 @@ export function WorkspaceOperations({
   exportData,
   archiveWorkspace,
 }: {
-  readonly exportData: () => Promise<void>;
-  readonly archiveWorkspace: () => Promise<void>;
+  exportData: () => Promise<void>;
+  archiveWorkspace: () => Promise<void>;
 }) {
   return (
     <section>

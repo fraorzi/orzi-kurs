@@ -18,8 +18,8 @@ const QueueList = memo(function QueueList({
   onRender,
   tickets,
 }: {
-  readonly onRender: ProfilerOnRenderCallback;
-  readonly tickets: readonly QueueTicket[];
+  onRender: ProfilerOnRenderCallback;
+  tickets: readonly QueueTicket[];
 }) {
   return (
     <Profiler id="queue" onRender={onRender}>
@@ -51,14 +51,16 @@ export function OperationsDashboard({
   buildQueue,
   onQueueRender = ignoreRender,
 }: {
-  readonly tickets: readonly QueueTicket[];
-  readonly buildQueue: (
+  tickets: readonly QueueTicket[];
+  buildQueue: (
     tickets: readonly QueueTicket[],
     filter: "all" | QueueTicket["status"],
   ) => readonly QueueTicket[];
-  readonly onQueueRender?: ProfilerOnRenderCallback;
+  onQueueRender?: ProfilerOnRenderCallback;
 }) {
-  const [filter, setFilter] = useState<"all" | QueueTicket["status"]>("all");
+  const [filter, setFilter] = useState<
+    "all" | QueueTicket["status"]
+  >("all");
   const queue = useMemo(
     () => buildQueue(tickets, filter),
     [buildQueue, filter, tickets],
@@ -70,9 +72,12 @@ export function OperationsDashboard({
         Status
         <select
           value={filter}
-          onChange={(event) => setFilter(
-            event.target.value as "all" | QueueTicket["status"],
-          )}
+          onChange={(event) =>
+            setFilter(
+              event.target.value as
+                "all" | QueueTicket["status"],
+            )
+          }
         >
           <option value="all">Wszystkie</option>
           <option value="open">Otwarte</option>
@@ -84,4 +89,3 @@ export function OperationsDashboard({
     </section>
   );
 }
-

@@ -1,6 +1,8 @@
 # Zaproszenie użytkownika bez sprzecznych flag
 
-Zaimplementuj `InviteForm`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `InviteForm`.
 
 Formularz ma pole `E-mail` i przycisk `Wyślij zaproszenie`. Stan jest unią:
 

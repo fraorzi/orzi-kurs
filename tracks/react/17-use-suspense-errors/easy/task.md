@@ -1,6 +1,8 @@
 # Warunkowe czytanie contextu przez `use`
 
-Zaimplementuj `ThemeDetails`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `ThemeDetails`.
 
 Gdy `showDetails` jest `false`, komponent ma pokazać `Szczegóły motywu ukryte`
 bez czytania contextu. Gdy jest `true`, odczytaj `ThemeContext` i pokaż

@@ -1,6 +1,8 @@
 # Dwa zsynchronizowane pola
 
-Zaimplementuj `SyncedFields`.
+Tryb: naprawa. W `starter.tsx` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `SyncedFields`.
 
 Komponent renderuje pola `Nazwa publiczna` i `Podgląd nazwy`. Zmiana dowolnego
 pola ma natychmiast aktualizować oba.

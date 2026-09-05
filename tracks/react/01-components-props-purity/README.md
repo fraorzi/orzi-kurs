@@ -6,8 +6,8 @@ ich zmieniać ani zapisywać efektów ubocznych podczas renderowania.
 
 ```tsx
 interface UserBadgeProps {
-  readonly name: string;
-  readonly role: "admin" | "member";
+  name: string;
+  role: "admin" | "member";
 }
 
 export function UserBadge({ name, role }: UserBadgeProps) {
@@ -27,14 +27,14 @@ element JSX.
 ## Props są tylko do odczytu
 
 Props opisują konkretny render. Zmiana `props.name = ...` łamie jednokierunkowy
-przepływ danych i utrudnia zrozumienie, kto jest właścicielem wartości. W TypeScript
-oznaczaj pola propsów jako `readonly`.
+przepływ danych i utrudnia zrozumienie, kto jest właścicielem wartości.
+W zadaniach używamy zwykłych typów propsów. Zasada niemutowania danych nadal obowiązuje.
 
 Domyślne wartości podawaj podczas destrukturyzacji:
 
 ```tsx
 interface NoticeProps {
-  readonly tone?: "info" | "warning";
+  tone?: "info" | "warning";
 }
 
 function Notice({ tone = "info" }: NoticeProps) {
@@ -49,8 +49,8 @@ i odpowiada za wspólną strukturę:
 
 ```tsx
 interface PanelProps {
-  readonly title: string;
-  readonly children: ReactNode;
+  title: string;
+  children: ReactNode;
 }
 
 function Panel({ title, children }: PanelProps) {

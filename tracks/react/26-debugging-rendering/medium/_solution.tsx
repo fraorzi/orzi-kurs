@@ -5,9 +5,9 @@ export function DocumentTitleSync({
   title,
   saveTitle,
 }: {
-  readonly documentId: string;
-  readonly title: string;
-  readonly saveTitle: (documentId: string, title: string) => void;
+  documentId: string;
+  title: string;
+  saveTitle: (documentId: string, title: string) => void;
 }) {
   useEffect(() => {
     saveTitle(documentId, title);
@@ -15,4 +15,3 @@ export function DocumentTitleSync({
 
   return <h1>{title}</h1>;
 }
-
