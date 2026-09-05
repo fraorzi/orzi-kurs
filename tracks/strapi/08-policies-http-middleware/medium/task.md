@@ -1,4 +1,6 @@
-# Medium — dodaj bezpieczny correlation ID
+# Medium - dodaj bezpieczny correlation ID
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Middleware Strapi ma sygnaturę `(config, { strapi }) => async (ctx, next) => ...`
 i musi wywołać `next()` dokładnie raz. Zbuduj taki middleware korelacji:
@@ -9,7 +11,7 @@ Zaimplementuj `solve(ctx, next, generate)`:
 
 - gdy `ctx.requestId` pasuje do `/^[A-Za-z0-9-]{8,64}$/`, użyj go;
   w przeciwnym razie wygeneruj nowy przez `generate()`;
-- zapisz wynikowe id w `ctx.state.requestId` — dalsze warstwy (kontroler,
+- zapisz wynikowe id w `ctx.state.requestId` - dalsze warstwy (kontroler,
   logger) czytają je stamtąd, nie z surowego nagłówka;
 - ustaw też `ctx.headers["x-request-id"]` na tę samą wartość, żeby klient
   mógł skorelować odpowiedź;

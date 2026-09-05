@@ -1,4 +1,6 @@
-# Medium — nadaj bezpieczną nazwę pliku
+# Medium - nadaj bezpieczną nazwę pliku
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Nazwa pliku z uploadu to niezaufany string: może nieść ścieżkę
 (`../../etc/passwd`), znaki sterujące albo rozszerzenie, którego serwer
@@ -7,7 +9,7 @@ nazwa musi przejść przez normalizację i allow-list rozszerzeń.
 
 Zaimplementuj `solve(name)`:
 
-- odetnij wszystko przed ostatnim separatorem ścieżki (`/` albo `\`) —
+- odetnij wszystko przed ostatnim separatorem ścieżki (`/` albo `\`) -
   interesuje Cię tylko sama nazwa pliku, bez katalogów;
 - rozszerzenie zaakceptuj wyłącznie z listy `jpg`, `jpeg`, `png`, `webp`
   (bez rozróżniania wielkości liter); wszystko inne (np. `.html`, `.svg`,

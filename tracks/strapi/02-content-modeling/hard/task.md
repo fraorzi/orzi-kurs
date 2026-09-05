@@ -1,7 +1,9 @@
-# Hard — renderuj kontrakt dynamic zone
+# Hard - renderuj kontrakt dynamic zone
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Strona ma sekcję złożoną z bloków `page.hero`, `page.quote` i
-`page.gallery` w dowolnej kolejności wybranej przez redakcję — to dynamic
+`page.gallery` w dowolnej kolejności wybranej przez redakcję - to dynamic
 zone. Zaimplementuj `solve(blocks)`, który zamienia każdy blok na jego
 reprezentację tekstową:
 

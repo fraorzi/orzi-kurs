@@ -1,4 +1,6 @@
-# Medium — mapuj błędy domenowe na bezpieczne API
+# Medium - mapuj błędy domenowe na bezpieczne API
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Strapi definiuje rodzinę wbudowanych klas błędów (`ApplicationError`,
 `ValidationError`, `NotFoundError`, `ForbiddenError`...), które API
@@ -16,5 +18,5 @@ Zaimplementuj `solve(error)`, gdzie `error` to `Error` z opcjonalnym
 - `kind: "validation"` → `{ status: 400, code: "VALIDATION_ERROR", message: "Nieprawidłowe dane" }`;
 - brak `kind` albo `kind` spoza tej listy → zawsze
   `{ status: 500, code: "INTERNAL_ERROR", message: "Błąd serwera" }`,
-  **niezależnie** od oryginalnej treści `error.message` — ta treść
+  **niezależnie** od oryginalnej treści `error.message` - ta treść
   (hasła, zapytania SQL, ścieżki plików) nigdy nie może trafić do klienta.

@@ -1,7 +1,9 @@
-# [O] Medium — usuń N+1 przez batching
+# [O] Medium - usuń N+1 przez batching
 
-Widok dogrywa autorów artykułów, pobierając ich pojedynczo w pętli — jedno
-zapytanie na id. Przy 50 artykułach to 50 zapytań (N+1).
+Tryb: optymalizacja. Popraw istniejący kod w `starter.ts`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
+
+Widok dogrywa autorów artykułów, pobierając ich pojedynczo w pętli - jedno
+zapytanie na id. Przy 50 artykułach to 50 zapytań (N+1 (osobne zapytanie dla każdego elementu listy)).
 
 Starter jest funkcjonalnie poprawny. Zaimplementuj `solve(ids, fetchMany)`:
 

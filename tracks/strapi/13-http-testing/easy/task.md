@@ -1,4 +1,6 @@
-# Easy — zwróć kontrakt REST zgodny ze Strapi
+# Easy - zwróć kontrakt REST zgodny ze Strapi
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Endpoint pojedynczego zasobu (`GET /api/articles/:documentId`) ma
 trzymać się stałego kontraktu Strapi: sukces to `{ data: <dokument> }`
@@ -12,6 +14,6 @@ Promise<Response>`:
   <dokument> })` ze statusem `200`;
 - gdy nie istnieje, zwróć `Response.json({ error: { status: 404, name:
   "NotFoundError", message: "Nie znaleziono dokumentu" } })` ze statusem
-  `404` — nie rzucaj, nie zwracaj `undefined` jako body;
+  `404` - nie rzucaj, nie zwracaj `undefined` jako body;
 - każda odpowiedź ma nagłówek `Content-Type: application/json` (domyślny
   efekt `Response.json`, nie nadpisuj go ręcznie).

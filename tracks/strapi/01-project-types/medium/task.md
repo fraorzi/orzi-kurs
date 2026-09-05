@@ -1,4 +1,6 @@
-# Medium — wyprowadź publiczny kontrakt pól
+# Medium - wyprowadź publiczny kontrakt pól
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Warstwa serializacji odpowiedzi (np. dokumentacja API albo eksport OpenAPI)
 potrzebuje listy pól, które wolno pokazać na zewnątrz. Zaimplementuj
@@ -6,7 +8,7 @@ potrzebuje listy pól, które wolno pokazać na zewnątrz. Zaimplementuj
 
 - pole z `private: true` nigdy nie trafia do kontraktu, niezależnie od typu;
 - pole typu `"password"` nigdy nie trafia do kontraktu, nawet gdy nie ma
-  `private: true` — to osobny, niezależny mechanizm ukrywania w Strapi 5;
+  `private: true` - to osobny, niezależny mechanizm ukrywania w Strapi 5;
 - pole bez klucza `private` traktuj jako publiczne (`undefined` ≠ `true`);
 - pozostałe typy (`string`, `richtext`, `relation`, `enumeration`, ...) są
   publiczne bez wyjątków;
