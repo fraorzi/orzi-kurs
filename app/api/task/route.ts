@@ -1,3 +1,4 @@
+import { formatComparison } from "@/app/lib/format-comparison";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import type { NextRequest } from "next/server";
@@ -42,8 +43,10 @@ export async function GET(req: NextRequest) {
   const status = progress?.status;
   const passed = status === "passed" || status === "passed-with-hint";
   const solutionPath = findSolution(taskDir);
-  const solution = passed && solutionPath ? readSolutionText(solutionPath) : null;
-  const starter = passed ? (progress?.verifiedStarter ?? null) : null;
+  const { starter, solution } = await formatComparison({
+    solution: passed && solutionPath ? readSolutionText(solutionPath) : null,
+    starter: passed ? (progress?.verifiedStarter ?? null) : null,
+  }, starterPath ?? solutionPath ?? taskDir);
 
   return Response.json({ readme, taskMd, hintsTotal, starterPath, starter, solution, progress });
 }

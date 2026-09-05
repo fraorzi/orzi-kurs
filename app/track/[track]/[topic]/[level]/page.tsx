@@ -1,3 +1,4 @@
+import { formatComparison } from "@/app/lib/format-comparison";
 import { readFileSync, existsSync } from "node:fs";
 import { join, relative } from "node:path";
 import { notFound } from "next/navigation";
@@ -30,8 +31,10 @@ export default async function LevelPage({
   const progressStatus = taskProgress?.status;
   const passed = progressStatus === "passed" || progressStatus === "passed-with-hint";
   const solutionPath = findSolution(taskDir);
-  const solution = passed && solutionPath ? readArtifactText(solutionPath) : null;
-  const starter = passed ? (taskProgress?.verifiedStarter ?? null) : null;
+  const { starter, solution } = await formatComparison({
+    solution: passed && solutionPath ? readArtifactText(solutionPath) : null,
+    starter: passed ? (taskProgress?.verifiedStarter ?? null) : null,
+  }, starterPath ?? solutionPath ?? taskDir);
   const starterRel = starterPath ? relative(process.cwd(), starterPath) : null;
 
   const catalogTrack = buildCatalog().tracks.find((item) => item.id === track);

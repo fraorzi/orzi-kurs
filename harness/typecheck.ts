@@ -39,7 +39,7 @@ const TSC_BIN = resolve(
 function isExcluded(path: string): boolean {
   return path
     .split(sep)
-    .some((seg) => seg.startsWith("_solution") || seg.endsWith(".verify-backup"));
+    .some((seg) => seg.startsWith("_solution") || seg.startsWith("_starter") || seg.endsWith(".verify-backup"));
 }
 
 function isTypeScriptSource(path: string): boolean {

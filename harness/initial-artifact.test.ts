@@ -1,10 +1,4 @@
-import {
-  existsSync,
-  mkdtempSync,
-  mkdirSync,
-  readFileSync,
-  writeFileSync,
-} from "node:fs";
+import { existsSync, mkdtempSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { spawnSync } from "node:child_process";
@@ -27,6 +21,26 @@ function createRepo(): string {
 }
 
 describe("initial artifact", () => {
+  it("uses the revised curriculum template without changing the student's code", async () => {
+    const repoRoot = createRepo();
+    const starter = join(repoRoot, "tracks/react/topic/easy/starter.tsx");
+    mkdirSync(join(repoRoot, "tracks/react/topic/easy"), { recursive: true });
+    writeFileSync(starter, "student solution");
+    writeFileSync(join(repoRoot, "tracks/react/topic/easy/_starter.tsx"), "revised template");
+    expect(readInitialArtifact(starter, repoRoot)).toEqual({
+      kind: "file",
+      content: "revised template",
+    });
+    await withInitialArtifact(
+      starter,
+      async () => {
+        expect(readFileSync(starter, "utf8")).toBe("revised template");
+      },
+      repoRoot,
+    );
+    expect(readFileSync(starter, "utf8")).toBe("student solution");
+  });
+
   it("odczytuje pierwotną wersję pojedynczego startera z historii Git", () => {
     const repoRoot = createRepo();
     const starter = join(repoRoot, "tracks/js/topic/easy/starter.js");
@@ -57,8 +71,7 @@ describe("initial artifact", () => {
       withInitialArtifact(
         src,
         async () => {
-          expect(readFileSync(join(src, "index.js"), "utf8"))
-            .toBe("export const value = 0;\n");
+          expect(readFileSync(join(src, "index.js"), "utf8")).toBe("export const value = 0;\n");
           throw new Error("kontrolowany błąd");
         },
         repoRoot,
@@ -66,7 +79,6 @@ describe("initial artifact", () => {
     ).rejects.toThrow("kontrolowany błąd");
 
     expect(existsSync(join(src, "index.js"))).toBe(true);
-    expect(readFileSync(join(src, "index.js"), "utf8"))
-      .toBe("export const value = 42;\n");
+    expect(readFileSync(join(src, "index.js"), "utf8")).toBe("export const value = 42;\n");
   });
 });

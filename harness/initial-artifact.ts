@@ -7,9 +7,10 @@ import {
   statSync,
   writeFileSync,
 } from "node:fs";
-import { dirname, join, relative, resolve, sep } from "node:path";
+import { basename, dirname, join, relative, resolve, sep } from "node:path";
 import { spawnSync } from "node:child_process";
 import { REPO_ROOT } from "./progress";
+import { assertPathWithinRoot } from "./paths";
 
 export type ArtifactSnapshot =
   | { kind: "file"; content: string }
@@ -62,6 +63,16 @@ export function readInitialArtifact(
     throw new Error("artefakt znajduje się poza repozytorium");
   }
 
+  // Curriculum templates are independent of the student's editable files and commits.
+  const template = join(
+    dirname(artifactPath),
+    basename(artifactPath) === "src" ? "_starter" : `_${basename(artifactPath)}`,
+  );
+  if (existsSync(template)) {
+    assertPathWithinRoot(template, repoRoot);
+    return readCurrentArtifact(template);
+  }
+
   const additionCommit = git(
     ["log", "--reverse", "--diff-filter=A", "--format=%H", "--", artifactRelative],
     repoRoot,
@@ -81,9 +92,7 @@ export function readInitialArtifact(
     };
   }
 
-  const prefix = artifactRelative.endsWith("/")
-    ? artifactRelative
-    : `${artifactRelative}/`;
+  const prefix = artifactRelative.endsWith("/") ? artifactRelative : `${artifactRelative}/`;
   const trackedFiles = git(
     ["ls-tree", "-r", "--name-only", additionCommit, "--", artifactRelative],
     repoRoot,
@@ -114,10 +123,7 @@ export function writeArtifact(artifactPath: string, snapshot: ArtifactSnapshot):
   mkdirSync(artifactPath, { recursive: true });
   for (const file of snapshot.files) {
     const destination = resolve(artifactPath, file.path);
-    if (
-      destination !== artifactPath &&
-      !destination.startsWith(artifactPath + sep)
-    ) {
+    if (destination !== artifactPath && !destination.startsWith(artifactPath + sep)) {
       throw new Error(`plik artefaktu wychodzi poza katalog: ${file.path}`);
     }
     mkdirSync(dirname(destination), { recursive: true });

@@ -14,7 +14,14 @@ import { REPO_ROOT } from "./progress";
 import { readInitialArtifact, writeArtifact } from "./initial-artifact";
 import type { StarterSnapshot } from "../shared/task-undo";
 
-const STARTER_CANDIDATES = ["starter.ts", "starter.js", "starter.sql", "src"] as const;
+const STARTER_CANDIDATES = [
+  "starter.tsx",
+  "starter.ts",
+  "starter.jsx",
+  "starter.js",
+  "starter.sql",
+  "src",
+] as const;
 
 function toGitPath(path: string): string {
   return path.split(sep).join("/");
@@ -86,7 +93,7 @@ export function captureStarterSnapshotInRepo(
   }
 
   const artifactName = relative(taskDir, starterPath);
-  if (!STARTER_CANDIDATES.includes(artifactName as typeof STARTER_CANDIDATES[number])) {
+  if (!STARTER_CANDIDATES.includes(artifactName as (typeof STARTER_CANDIDATES)[number])) {
     throw new Error(`nieobsługiwany starter: ${artifactName}`);
   }
   assertPathWithinRoot(starterPath, taskDir);
@@ -96,9 +103,7 @@ export function captureStarterSnapshotInRepo(
     kind,
     files: walkFiles(starterPath, taskDir).map((file) => {
       return {
-        path: kind === "directory"
-          ? toGitPath(relative(starterPath, file))
-          : artifactName,
+        path: kind === "directory" ? toGitPath(relative(starterPath, file)) : artifactName,
         contentBase64: readFileSync(file).toString("base64"),
       };
     }),
@@ -148,10 +153,8 @@ export function restoreStarterSnapshotInRepo(
     (snapshot.kind === "directory" && snapshot.artifactName !== "src") ||
     !Array.isArray(snapshot.files) ||
     (snapshot.kind === "missing" && snapshot.files.length !== 0) ||
-    (snapshot.kind === "file" && (
-      snapshot.files.length !== 1 ||
-      snapshot.files[0]?.path !== snapshot.artifactName
-    )) ||
+    (snapshot.kind === "file" &&
+      (snapshot.files.length !== 1 || snapshot.files[0]?.path !== snapshot.artifactName)) ||
     (snapshot.kind === "directory" && snapshot.files.length === 0)
   ) {
     throw new Error("nieprawidłowa kopia startera");
@@ -167,9 +170,8 @@ export function restoreStarterSnapshotInRepo(
     if (!validSnapshotPath(file.path) || typeof file.contentBase64 !== "string") {
       throw new Error("nieprawidłowy plik w kopii startera");
     }
-    const outputPath = snapshot.kind === "directory"
-      ? resolve(destination, file.path)
-      : destination;
+    const outputPath =
+      snapshot.kind === "directory" ? resolve(destination, file.path) : destination;
     const withinDestination =
       outputPath === destination || outputPath.startsWith(destination + sep);
     if (!withinDestination) {
@@ -202,9 +204,6 @@ export function restoreStarterSnapshotInRepo(
   };
 }
 
-export function restoreStarterSnapshot(
-  taskId: string,
-  snapshot: StarterSnapshot,
-): RestoredStarter {
+export function restoreStarterSnapshot(taskId: string, snapshot: StarterSnapshot): RestoredStarter {
   return restoreStarterSnapshotInRepo(taskId, snapshot, REPO_ROOT);
 }

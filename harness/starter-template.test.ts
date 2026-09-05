@@ -52,29 +52,35 @@ afterEach(() => {
 });
 
 describe("starter reset and undo", () => {
+  it("resets TSX from a revised template and undo restores the student's code", () => {
+    const taskId = "react/topic/easy";
+    const repoRoot = createRepo({
+      [`tracks/${taskId}/starter.tsx`]: "student solution",
+      [`tracks/${taskId}/_starter.tsx`]: "revised template",
+    });
+    const snapshot = captureStarterSnapshotInRepo(taskId, repoRoot)!;
+    restoreStarterCodeInRepo(taskId, repoRoot);
+    expect(readFileSync(join(repoRoot, `tracks/${taskId}/starter.tsx`), "utf8")).toBe(
+      "revised template",
+    );
+    restoreStarterSnapshotInRepo(taskId, snapshot, repoRoot);
+    expect(readFileSync(join(repoRoot, `tracks/${taskId}/starter.tsx`), "utf8")).toBe(
+      "student solution",
+    );
+  });
 
   it("restores and snapshots a SQL starter", () => {
     const repoRoot = createRepo({
       "tracks/mysql/01-query-basics-null/easy/starter.sql": "SELECT 0 AS answer;\n",
     });
-    const starterPath = join(
-      repoRoot,
-      "tracks/mysql/01-query-basics-null/easy/starter.sql",
-    );
+    const starterPath = join(repoRoot, "tracks/mysql/01-query-basics-null/easy/starter.sql");
     writeFileSync(starterPath, "SELECT 42 AS answer;\n", "utf8");
 
-    const snapshot = captureStarterSnapshotInRepo(
-      "mysql/01-query-basics-null/easy",
-      repoRoot,
-    );
+    const snapshot = captureStarterSnapshotInRepo("mysql/01-query-basics-null/easy", repoRoot);
     restoreStarterCodeInRepo("mysql/01-query-basics-null/easy", repoRoot);
 
     expect(readFileSync(starterPath, "utf8")).toBe("SELECT 0 AS answer;\n");
-    restoreStarterSnapshotInRepo(
-      "mysql/01-query-basics-null/easy",
-      snapshot!,
-      repoRoot,
-    );
+    restoreStarterSnapshotInRepo("mysql/01-query-basics-null/easy", snapshot!, repoRoot);
     expect(readFileSync(starterPath, "utf8")).toBe("SELECT 42 AS answer;\n");
   });
 
@@ -114,8 +120,7 @@ describe("starter reset and undo", () => {
 
     restoreStarterCodeInRepo("js/01-functions/hard", repoRoot);
 
-    expect(readFileSync(starterPath, "utf8"))
-      .toBe("export function once(fn) {\n  // TODO\n}\n");
+    expect(readFileSync(starterPath, "utf8")).toBe("export function once(fn) {\n  // TODO\n}\n");
   });
 
   it("restores the complete src tree including extra student files", () => {
@@ -124,19 +129,25 @@ describe("starter reset and undo", () => {
       "tracks/js/module-01/module/src/store.js": "export function createStore() {}\n",
     });
     const srcPath = join(repoRoot, "tracks/js/module-01/module/src");
-    writeFileSync(join(srcPath, "store.js"), "export function createStore() { return 42; }\n", "utf8");
+    writeFileSync(
+      join(srcPath, "store.js"),
+      "export function createStore() { return 42; }\n",
+      "utf8",
+    );
     writeFileSync(join(srcPath, "notes.js"), "student notes\n", "utf8");
 
     const snapshot = captureStarterSnapshotInRepo("js/module-01/module", repoRoot);
     restoreStarterCodeInRepo("js/module-01/module", repoRoot);
 
-    expect(readFileSync(join(srcPath, "store.js"), "utf8"))
-      .toBe("export function createStore() {}\n");
+    expect(readFileSync(join(srcPath, "store.js"), "utf8")).toBe(
+      "export function createStore() {}\n",
+    );
     expect(existsSync(join(srcPath, "notes.js"))).toBe(false);
 
     restoreStarterSnapshotInRepo("js/module-01/module", snapshot!, repoRoot);
-    expect(readFileSync(join(srcPath, "store.js"), "utf8"))
-      .toBe("export function createStore() { return 42; }\n");
+    expect(readFileSync(join(srcPath, "store.js"), "utf8")).toBe(
+      "export function createStore() { return 42; }\n",
+    );
     expect(readFileSync(join(srcPath, "notes.js"), "utf8")).toBe("student notes\n");
   });
 
@@ -166,8 +177,7 @@ describe("starter reset and undo", () => {
 
     restoreStarterCodeInRepo("js/01-functions/easy", repoRoot);
 
-    expect(readFileSync(join(taskDir, "starter.js"), "utf8"))
-      .toBe("export const answer = 0;\n");
+    expect(readFileSync(join(taskDir, "starter.js"), "utf8")).toBe("export const answer = 0;\n");
   });
 
   it("rejects snapshot paths outside the starter before changing files", () => {
@@ -176,18 +186,22 @@ describe("starter reset and undo", () => {
     });
     const starterPath = join(repoRoot, "tracks/js/module-01/module/src/index.js");
 
-    expect(() => restoreStarterSnapshotInRepo(
-      "js/module-01/module",
-      {
-        artifactName: "src",
-        kind: "directory",
-        files: [{
-          path: "../outside.js",
-          contentBase64: Buffer.from("malicious\n").toString("base64"),
-        }],
-      },
-      repoRoot,
-    )).toThrow("nieprawidłowy plik w kopii startera");
+    expect(() =>
+      restoreStarterSnapshotInRepo(
+        "js/module-01/module",
+        {
+          artifactName: "src",
+          kind: "directory",
+          files: [
+            {
+              path: "../outside.js",
+              contentBase64: Buffer.from("malicious\n").toString("base64"),
+            },
+          ],
+        },
+        repoRoot,
+      ),
+    ).toThrow("nieprawidłowy plik w kopii startera");
 
     expect(readFileSync(starterPath, "utf8")).toBe("export const answer = 0;\n");
     expect(existsSync(join(repoRoot, "tracks/js/module-01/module/outside.js"))).toBe(false);
@@ -199,18 +213,22 @@ describe("starter reset and undo", () => {
     });
     const starterPath = join(repoRoot, "tracks/js/module-01/module/src/index.js");
 
-    expect(() => restoreStarterSnapshotInRepo(
-      "js/module-01/module",
-      {
-        artifactName: "src",
-        kind: "directory",
-        files: [{
-          path: ".",
-          contentBase64: Buffer.from("invalid\n").toString("base64"),
-        }],
-      },
-      repoRoot,
-    )).toThrow("nieprawidłowy plik w kopii startera");
+    expect(() =>
+      restoreStarterSnapshotInRepo(
+        "js/module-01/module",
+        {
+          artifactName: "src",
+          kind: "directory",
+          files: [
+            {
+              path: ".",
+              contentBase64: Buffer.from("invalid\n").toString("base64"),
+            },
+          ],
+        },
+        repoRoot,
+      ),
+    ).toThrow("nieprawidłowy plik w kopii startera");
 
     expect(readFileSync(starterPath, "utf8")).toBe("export const answer = 0;\n");
   });
@@ -245,8 +263,9 @@ describe("starter reset and undo", () => {
     rmSync(taskDir, { recursive: true });
     symlinkSync(outsideRoot, taskDir);
 
-    expect(() => restoreStarterCodeInRepo("js/01-functions/easy", repoRoot))
-      .toThrow("ścieżka poza dozwolonym katalogiem");
+    expect(() => restoreStarterCodeInRepo("js/01-functions/easy", repoRoot)).toThrow(
+      "ścieżka poza dozwolonym katalogiem",
+    );
     expect(readFileSync(join(outsideRoot, "starter.js"), "utf8")).toBe("outside\n");
   });
 
@@ -259,11 +278,11 @@ describe("starter reset and undo", () => {
     rmSync(taskDir, { recursive: true });
     symlinkSync(join(repoRoot, "tracks/js/02-scope/easy"), taskDir);
 
-    expect(() => restoreStarterCodeInRepo("js/01-functions/easy", repoRoot))
-      .toThrow("taskId prowadzi przez symlink");
-    expect(readFileSync(
-      join(repoRoot, "tracks/js/02-scope/easy/starter.js"),
-      "utf8",
-    )).toBe("export const scope = true;\n");
+    expect(() => restoreStarterCodeInRepo("js/01-functions/easy", repoRoot)).toThrow(
+      "taskId prowadzi przez symlink",
+    );
+    expect(readFileSync(join(repoRoot, "tracks/js/02-scope/easy/starter.js"), "utf8")).toBe(
+      "export const scope = true;\n",
+    );
   });
 });
