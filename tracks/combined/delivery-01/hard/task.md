@@ -1,5 +1,7 @@
 # CI, migracje i bezpieczny rollout
 
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
+
 ## Kontekst
 
 Po incydencie, w którym migracja ruszyła przed backupem, zespół chce bramki
@@ -14,7 +16,7 @@ w ogóle wystartuje.
   `migrate-expand`<`deploy`, `deploy`<`healthcheck`,
   `healthcheck`<`rollback-ready`.
 - Kroki spoza tej siódemki (np. `notify-slack`) mogą występować
-  gdziekolwiek — nie wpływają na wynik.
+  gdziekolwiek - nie wpływają na wynik.
 - Funkcja czysta: bez I/O, bez czasu, deterministyczna.
 
 ## Kryteria akceptacji

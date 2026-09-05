@@ -1,5 +1,7 @@
 # Korelacja, logi i metryki bez PII
 
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
+
 Warstwa obserwowalności usługi HTTP zamienia surowe zdarzenie żądania na
 dwa artefakty: **log** (do korelacji per żądanie) i **metrykę** (do agregacji).
 Oba muszą być bezpieczne i tanie w kardynalności.
@@ -12,7 +14,7 @@ Zaimplementuj `observe(event)` zwracające `{ log, metric }`:
   `{ method, route (= path bez query), statusClass }`, gdzie `statusClass`
   to klasa `"2xx"`/`"5xx"` itd.;
 - **nigdy** nie umieszczaj w wyniku `userId`, treści `error`, ani query stringa
-  URL — to PII i wektory wysokiej kardynalności/wycieku.
+  URL - to PII i wektory wysokiej kardynalności/wycieku.
 
 ## Kryteria akceptacji
 

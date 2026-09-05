@@ -1,4 +1,6 @@
-# ts+react — typowany reducer i Context koszyka
+# ts+react - typowany reducer i Context koszyka
+
+Tryb: od zera. Napisz rozwiązanie w `starter.tsx`, korzystając z podanych sygnatur i typów.
 
 Zbuduj stan koszyka na typowanym reducerze i udostępnij go przez Context
 z bezpiecznym hookiem. Łączy dyskryminowane unie akcji (TypeScript)

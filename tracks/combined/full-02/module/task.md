@@ -1,4 +1,6 @@
-# Capstone — wejdź w obcy kod i bezpiecznie napraw incydent
+# Capstone - wejdź w obcy kod i bezpiecznie napraw incydent
+
+Tryb: naprawa. W `src` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
 
 Zadanie jest **wieloplikowe**. Uzupełnij `src/handler.ts` (naprawa) oraz
 `src/decision.ts` (notatka decyzyjna); `src/types.ts` i `src/index.ts` są
@@ -10,17 +12,17 @@ decyzję.
 
 1. **Utracony retry**: event jest oznaczany jako `seen` **przed** udanym
    `apply`. Gdy `apply` rzuci, event zostaje „przetworzony", a retry jest
-   ignorowany — dane nigdy nie trafiają do systemu.
-2. **N+1 fetch**: każdy dokument pobierany osobnym `fetchMany([id])` w pętli.
+   ignorowany - dane nigdy nie trafiają do systemu.
+2. **N+1 (osobne zapytanie dla każdego elementu listy) fetch**: każdy dokument pobierany osobnym `fetchMany([id])` w pętli.
 3. **Wyciek sekretu**: `log(event)` serializuje cały webhook z polem `secret`.
 
 ## Napraw `handler.ts`
 
-- oznaczaj `seen` **dopiero po** udanym `apply` — retry po błędzie musi
+- oznaczaj `seen` **dopiero po** udanym `apply` - retry po błędzie musi
   przetworzyć zdarzenie;
 - pobierz dokumenty jednym `fetchMany` po unikalnych id, a `apply` dostaje
   wartości w kolejności `documentIds` (z duplikatami);
-- loguj tylko bezpieczne pola (id zdarzenia, liczba dokumentów) — nigdy
+- loguj tylko bezpieczne pola (id zdarzenia, liczba dokumentów) - nigdy
   `secret`;
 - zdarzenie już `seen` zwraca `false` bez efektów.
 

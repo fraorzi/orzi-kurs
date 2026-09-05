@@ -1,5 +1,7 @@
 # CLI z pulą i retry
 
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
+
 ## Kontekst
 
 CLI importuje katalog plików przez zawodny endpoint HTTP. Bez limitu

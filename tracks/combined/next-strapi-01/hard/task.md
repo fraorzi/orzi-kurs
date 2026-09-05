@@ -1,9 +1,11 @@
 # CRUD Next + Strapi z auth
 
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
+
 ## Kontekst
 
 Server Action w Next.js aktualizuje artykuł w Strapi. Przysyłany jest tylko
-`documentId` i nowy `title` — żądanie może pochodzić z DevTools, nie tylko
+`documentId` i nowy `title` - żądanie może pochodzić z DevTools, nie tylko
 z formularza, więc serwer musi sam zweryfikować format danych i uprawnienia,
 zanim cokolwiek zapisze.
 
@@ -13,7 +15,7 @@ zanim cokolwiek zapisze.
   jako 24-znakowy alfanumeryczny identyfikator, zanim wykona zapis.
 - `title` musi być stringiem, który po przycięciu białych znaków ma ≥3
   znaki; zapisywana wartość to wersja przycięta.
-- Zapis wykonuje się tylko, gdy `deps.owner(documentId) === userId` —
+- Zapis wykonuje się tylko, gdy `deps.owner(documentId) === userId` -
   ownership sprawdza serwer, nie UI.
 - Po udanym zapisie rewaliduj dokładnie dwa tagi: `article:<documentId>`
   i `articles`.

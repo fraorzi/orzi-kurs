@@ -1,9 +1,11 @@
 # Upload Strapi i Next Image
 
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
+
 ## Kontekst
 
 Strapi po uploadzie zwraca metadane assetu (`url`, `width`, `height`,
-`alternativeText`) — surowe i częściowo niezaufane: URL bywa względny, alt
+`alternativeText`) - surowe i częściowo niezaufane: URL bywa względny, alt
 bywa `null`. `next/image` wymaga jawnych `width`/`height` i akceptuje
 obrazy tylko z zaufanych originów.
 
@@ -14,7 +16,7 @@ obrazy tylko z zaufanych originów.
 - `width`/`height` muszą być liczbami całkowitymi ≥1; inaczej rzuć błąd,
   zanim cokolwiek zwrócisz.
 - `asset.url` rozwiąż względem `origin`; jeśli wynikowy origin różni się od
-  `origin`, rzuć błąd — obcy origin nie trafia do `src`.
+  `origin`, rzuć błąd - obcy origin nie trafia do `src`.
 - `alt` to `alternativeText` po przycięciu białych znaków; brak lub `null`
   daje pusty string, nigdy `undefined`.
 
