@@ -1,6 +1,8 @@
-# Easy — jednostki UTF-16 vs punkty kodowe
+# Easy - jednostki UTF-16 vs punkty kodowe
 
-`str.length` liczy jednostki UTF-16, a nie znaki Unicode — emoji spoza BMP zajmuje dwie
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+`str.length` liczy jednostki UTF-16, a nie znaki Unicode - emoji spoza BMP zajmuje dwie
 jednostki. Zaimplementuj dwie funkcje operujące na **punktach kodowych**.
 
 ## 1. `codePointCount(str)`
@@ -15,7 +17,7 @@ codePointCount("");      // 0
 
 ## 2. `toCodePoints(str)`
 
-Zwraca tablicę pełnych punktów kodowych jako stringi — pary zastępcze mają zostać w całości.
+Zwraca tablicę pełnych punktów kodowych jako stringi - pary zastępcze mają zostać w całości.
 
 ```js
 toCodePoints("a😀");  // ["a", "😀"]

@@ -1,4 +1,6 @@
-# Medium — dzielenie na zdania
+# Medium - dzielenie na zdania
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Użyj `Intl.Segmenter` z `granularity: "sentence"`. **Uwaga:** segment zdania zawiera
 końcowe białe znaki (np. `"Ala ma. "`), więc rób `.trim()` i pomijaj puste.
@@ -16,7 +18,7 @@ splitSentences("   ", "en"); // []
 
 ## 2. `longestSentence(text, locale)`
 
-Zwraca najdłuższe zdanie (przycięte) — mierzone **liczbą słów**, nie znaków. Do liczenia
+Zwraca najdłuższe zdanie (przycięte) - mierzone **liczbą słów**, nie znaków. Do liczenia
 słów użyj granularności `"word"` i `isWordLike`. Przy remisie zwróć **pierwsze** takie zdanie.
 
 ```js

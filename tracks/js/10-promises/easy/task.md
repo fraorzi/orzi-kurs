@@ -1,4 +1,6 @@
-# Easy — delay i promisify
+# Easy - delay i promisify
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## 1. `delay(ms)`
 
@@ -10,8 +12,8 @@ delay(1000).then(() => console.log("po sekundzie"));
 
 ## 2. `promisify(f)`
 
-Przyjmuje funkcję w stylu node'owym — `f(...args, callback)`, gdzie callback ma
-sygnaturę `(err, result)` — i zwraca jej wersję promisową:
+Przyjmuje funkcję w stylu node'owym - `f(...args, callback)`, gdzie callback ma
+sygnaturę `(err, result)` - i zwraca jej wersję promisową:
 
 - callback dostał `err` → promise odrzucony z `err`,
 - callback dostał `(null, result)` → promise rozwiązany z `result`.

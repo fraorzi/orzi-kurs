@@ -1,6 +1,8 @@
-# Hard — głęboki `observable` (reaktywność)
+# Hard - głęboki `observable` (reaktywność)
 
-Zaimplementuj `observable(target, onChange)` — zwraca `Proxy`, który przy **każdej zmianie**
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj `observable(target, onChange)` - zwraca `Proxy`, który przy **każdej zmianie**
 (zapis, `delete`) woła `onChange(path, value)`. To fundament reaktywności (Vue 3, MobX).
 
 - `path` to ścieżka zmienionego klucza jako string, np. `"count"`, `"user.name"`, `"tags.1"`.

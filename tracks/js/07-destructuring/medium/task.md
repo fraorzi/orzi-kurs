@@ -1,4 +1,6 @@
-# Medium — destrukturyzacja w akcji
+# Medium - destrukturyzacja w akcji
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` trzy funkcje (dwie pierwsze to zadania
 z javascript.info).
@@ -27,7 +29,7 @@ topSalary({});                                   // null
 ## 3. `mergeSettings(defaults, overrides)`
 
 Nowy obiekt: klucze z `overrides` nadpisują `defaults` (spread), **z wyjątkiem**
-pola `flags` (tablica) — ma być konkatenacją `defaults.flags` i `overrides.flags`
+pola `flags` (tablica) - ma być konkatenacją `defaults.flags` i `overrides.flags`
 (każda z nich może nie istnieć). Gdy flag nie ma po żadnej stronie, wynik też
 ich nie ma.
 

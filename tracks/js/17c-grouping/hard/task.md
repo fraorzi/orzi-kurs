@@ -1,10 +1,12 @@
-# Hard [O] — łączenie kolekcji: `.find()` w pętli → indeks `Map`
+# Hard [O] - łączenie kolekcji: `.find()` w pętli → indeks `Map`
+
+Tryb: optymalizacja. Popraw istniejący kod w `starter.js`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
 
 `attachUsers(orders, users)` zwraca **nową** tablicę zamówień, każde wzbogacone o pole
-`user` — obiekt użytkownika o `id` równym `order.userId` (albo `null`, gdy brak).
+`user` - obiekt użytkownika o `id` równym `order.userId` (albo `null`, gdy brak).
 
 Kod jest **poprawny**, ale wolny: dla **każdego** zamówienia robi `users.find(...)`, które
-skanuje całą listę użytkowników — O(zamówienia·użytkownicy). Gdy obie listy rosną, robi się
+skanuje całą listę użytkowników - O(zamówienia·użytkownicy). Gdy obie listy rosną, robi się
 kwadratowo. Przepisz: zbuduj indeks `Map` (`id → user`) **raz** i odpytuj go w O(1).
 
 ```js
@@ -18,4 +20,4 @@ attachUsers(
 attachUsers([{ id: 1, userId: 99 }], []); // [{ id: 1, userId: 99, user: null }]
 ```
 
-Kontrakt bez zmian — te same wyniki, tylko w czasie liniowym (O(n + m)). Nie mutuj wejścia.
+Kontrakt bez zmian - te same wyniki, tylko w czasie liniowym (O(n + m)). Nie mutuj wejścia.

@@ -1,4 +1,6 @@
-# Easy — talia kart
+# Easy - talia kart
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Pomagasz iluzjonistce zarządzać talią kart (tablica liczb). Zaimplementuj funkcje
 w `starter.js`. Te funkcje **mutują** talię i zwracają ją (poza `getItem` i `checkSizeOfStack`).
@@ -25,4 +27,4 @@ checkSizeOfStack(cards, count);
 // czy talia ma dokładnie count kart: checkSizeOfStack([3, 2, 6], 3) → true
 ```
 
-Użyj wbudowanych metod tablic (`push`, `pop`, `splice`, `length`) — bez pętli.
+Użyj wbudowanych metod tablic (`push`, `pop`, `splice`, `length`) - bez pętli.

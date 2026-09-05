@@ -1,4 +1,6 @@
-# Medium — walidacja przy zapisie przez `set`
+# Medium - walidacja przy zapisie przez `set`
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## `withValidation(target, validators)`
 
@@ -16,7 +18,7 @@ const user = withValidation(
 );
 
 user.age = 40;   // OK
-user.name = "x"; // OK — brak reguły dla name
+user.name = "x"; // OK - brak reguły dla name
 user.age = -5;   // TypeError: niepoprawna wartość dla age
 user.age;        // 40  (nieudany zapis nie zmienił wartości)
 ```

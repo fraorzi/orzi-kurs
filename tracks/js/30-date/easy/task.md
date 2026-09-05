@@ -1,4 +1,6 @@
-# Easy — arytmetyka dat na milisekundach
+# Easy - arytmetyka dat na milisekundach
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` dwie funkcje operujące na timestampach (odporne na strefy).
 

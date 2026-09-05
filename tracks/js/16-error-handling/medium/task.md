@@ -1,4 +1,6 @@
-# Medium — własna klasa błędu i walidacja
+# Medium - własna klasa błędu i walidacja
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Rozróżnianie rodzajów błędów robi się przez **klasy dziedziczące po `Error`**, nie przez
 porównywanie tekstu komunikatu. Zaimplementuj w `starter.js`:
@@ -21,12 +23,12 @@ e instanceof Error;             // true
 Waliduje obiekt użytkownika i zwraca go, gdy jest poprawny. W przeciwnym razie rzuca
 `ValidationError` z opisowym komunikatem:
 
-- `name` musi być **niepustym stringiem** — inaczej rzuć
+- `name` musi być **niepustym stringiem** - inaczej rzuć
   `new ValidationError("name musi być niepustym stringiem")`,
-- `age` musi być **liczbą** — inaczej rzuć
+- `age` musi być **liczbą** - inaczej rzuć
   `new ValidationError("age musi być liczbą")`.
 
-Sprawdzaj `name` przed `age`. Gdy oba są OK — zwróć `user`.
+Sprawdzaj `name` przed `age`. Gdy oba są OK - zwróć `user`.
 
 ```js
 validateUser({ name: "Ala", age: 30 }); // { name: "Ala", age: 30 }

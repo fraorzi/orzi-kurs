@@ -1,4 +1,6 @@
-# Easy — kalkulator i drabina
+# Easy - kalkulator i drabina
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Dwa zadania z javascript.info o metodach obiektów i `this`.
 
@@ -6,9 +8,9 @@ Dwa zadania z javascript.info o metodach obiektów i `this`.
 
 Zwraca obiekt kalkulatora z metodami:
 
-- `read(a, b)` — zapisuje dwie wartości na obiekcie (przez `this`),
-- `sum()` — zwraca ich sumę,
-- `mul()` — zwraca ich iloczyn.
+- `read(a, b)` - zapisuje dwie wartości na obiekcie (przez `this`),
+- `sum()` - zwraca ich sumę,
+- `mul()` - zwraca ich iloczyn.
 
 ```js
 const calc = createCalculator();

@@ -1,4 +1,6 @@
-# Hard — bezpieczny loader pluginów
+# Hard - bezpieczny loader pluginów
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Uzupełnij rejestr pluginów ładowanych dopiero na żądanie:
 

@@ -1,11 +1,13 @@
-# Hard [O] — agregacja: filter per kategoria → jedno przejście
+# Hard [O] - agregacja: filter per kategoria → jedno przejście
+
+Tryb: optymalizacja. Popraw istniejący kod w `starter.js`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
 
 `groupSum(transactions)` zwraca obiekt mapujący kategorię na sumę kwot (`amount`)
 transakcji w tej kategorii.
 
 Kod jest **poprawny**, ale wolny: dla **każdej** kategorii filtruje całą tablicę
 transakcji (O(kategorie·n)). Gdy kategorii przybywa razem z danymi, robi się to
-kwadratowe. Testy poprawności przechodzą — obleje benchmark. Przepisz na jedno przejście.
+kwadratowe. Testy poprawności przechodzą - obleje benchmark. Przepisz na jedno przejście.
 
 ```js
 groupSum([

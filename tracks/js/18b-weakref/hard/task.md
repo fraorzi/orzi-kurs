@@ -1,16 +1,18 @@
-# Hard — `WeakValueMap`: mapa o słabo trzymanych wartościach
+# Hard - `WeakValueMap`: mapa o słabo trzymanych wartościach
 
-Zaimplementuj `createWeakValueMap()` — mapę `klucz → obiekt`, w której **wartości** trzymane
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj `createWeakValueMap()` - mapę `klucz → obiekt`, w której **wartości** trzymane
 są słabo (przez `WeakRef`), a wpisy po zebranych obiektach są automatycznie usuwane przez
 `FinalizationRegistry`. To wzorzec „weak value cache": klucz (np. string/id) jest zwykły,
-ale wartość może zniknąć, gdy nikt jej już nie trzyma — bez wycieku wpisów.
+ale wartość może zniknąć, gdy nikt jej już nie trzyma - bez wycieku wpisów.
 
 Zwróć `{ set, get, has }`:
 
-- `set(key, value)` — zapisuje `WeakRef(value)` pod `key` i rejestruje `value` w rejestrze
+- `set(key, value)` - zapisuje `WeakRef(value)` pod `key` i rejestruje `value` w rejestrze
   sprzątającym (held value = `key`),
-- `get(key)` — zwraca obiekt (`deref()`) albo `undefined`, gdy brak wpisu lub zebrany,
-- `has(key)` — `true`, gdy pod `key` jest jeszcze osiągalny obiekt.
+- `get(key)` - zwraca obiekt (`deref()`) albo `undefined`, gdy brak wpisu lub zebrany,
+- `has(key)` - `true`, gdy pod `key` jest jeszcze osiągalny obiekt.
 
 ```js
 const m = createWeakValueMap();

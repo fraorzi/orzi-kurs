@@ -1,9 +1,11 @@
-# Easy — wartości domyślne przez `get`
+# Easy - wartości domyślne przez `get`
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## `withDefault(target, defaultValue)`
 
 Zwróć `Proxy` opakowujący `target`, który dla **brakujących** kluczy zwraca `defaultValue`,
-a dla istniejących — ich prawdziwą wartość. Zapis ma działać normalnie.
+a dla istniejących - ich prawdziwą wartość. Zapis ma działać normalnie.
 
 ```js
 const scores = withDefault({ ala: 5 }, 0);
@@ -14,7 +16,7 @@ scores.ola = 3;
 scores.ola; // 3   (po zapisie zwraca prawdziwą wartość)
 ```
 
-Istniejący klucz o wartości `undefined` ma zwrócić `undefined`, **nie** domyślną — liczy się
+Istniejący klucz o wartości `undefined` ma zwrócić `undefined`, **nie** domyślną - liczy się
 obecność klucza, nie jego wartość.
 
 ```js

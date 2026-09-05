@@ -1,6 +1,8 @@
-# Hard — dobór jednostki dla czasu względnego
+# Hard - dobór jednostki dla czasu względnego
 
-Zaimplementuj `relativeTime(date, now)` zwracające `{ value, unit }` — wartość i jednostkę,
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj `relativeTime(date, now)` zwracające `{ value, unit }` - wartość i jednostkę,
 jaką podałbyś do `Intl.RelativeTimeFormat` (`.format(value, unit)`), by dostać tekst typu
 „2 dni temu" / „za 3 godziny".
 
@@ -21,4 +23,4 @@ relativeTime(new Date(now.getTime() + 90_000), now);          // { value: 1, uni
 relativeTime(new Date(now.getTime() - 30_000), now);          // { value: -30, unit: "second" }
 ```
 
-Formatowanie zostawiasz `Intl.RelativeTimeFormat` — Twoim zadaniem jest sam dobór jednostki.
+Formatowanie zostawiasz `Intl.RelativeTimeFormat` - Twoim zadaniem jest sam dobór jednostki.

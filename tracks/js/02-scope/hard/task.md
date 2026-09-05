@@ -1,4 +1,6 @@
-# Hard — armia funkcji
+# Hard - armia funkcji
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Klasyk z javascript.info („Army of functions"). `starter.js` zawiera kompletny,
 zepsuty kod: `makeArmy()` tworzy tablicę 10 funkcji-strzelców, a strzelec numer
@@ -10,7 +12,7 @@ army[0](); // ma być 0, jest 10
 army[5](); // ma być 5, jest 10
 ```
 
-Napraw kod. Istnieją co najmniej trzy poprawne podejścia — wybierz dowolne,
+Napraw kod. Istnieją co najmniej trzy poprawne podejścia - wybierz dowolne,
 ale zrozum wszystkie (hinty przechodzą przez każde).
 
 Wymagania:

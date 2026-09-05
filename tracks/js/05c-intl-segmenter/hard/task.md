@@ -1,4 +1,6 @@
-# Hard — analiza tekstu (słowa + zdania)
+# Hard - analiza tekstu (słowa + zdania)
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `analyze(text, locale)` zwracające podsumowanie tekstu. Łączysz dwie
 granularności segmentera (`"word"` i `"sentence"`).
@@ -10,11 +12,11 @@ analyze("The cat sat. The cat ran fast.", "en");
 
 Zwróć obiekt o polach:
 
-- `words` — liczba słów (segmenty `isWordLike`).
-- `sentences` — liczba zdań (przyciętych, niepustych).
-- `uniqueWords` — liczba **różnych** słów, **bez rozróżniania wielkości liter**
+- `words` - liczba słów (segmenty `isWordLike`).
+- `sentences` - liczba zdań (przyciętych, niepustych).
+- `uniqueWords` - liczba **różnych** słów, **bez rozróżniania wielkości liter**
   (`"The"` i `"the"` to jedno słowo).
-- `longestWord` — najdłuższe słowo (po `length`); przy remisie **pierwsze** w kolejności
+- `longestWord` - najdłuższe słowo (po `length`); przy remisie **pierwsze** w kolejności
   wystąpienia. Zwracaj oryginalną pisownię.
 
 Dla pustego tekstu zwróć `{ words: 0, sentences: 0, uniqueWords: 0, longestWord: "" }`.

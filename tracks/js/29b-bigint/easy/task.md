@@ -1,4 +1,6 @@
-# Easy — arytmetyka BigInt
+# Easy - arytmetyka BigInt
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## 1. `bigFactorial(n)`
 
@@ -21,5 +23,5 @@ bigPow(2, 10); // 1024n
 bigPow(2, 64); // 18446744073709551616n
 ```
 
-W całej arytmetyce zachowaj jeden typ liczbowy — JavaScript nie pozwala mieszać `bigint`
+W całej arytmetyce zachowaj jeden typ liczbowy - JavaScript nie pozwala mieszać `bigint`
 z `number` w jednym działaniu.

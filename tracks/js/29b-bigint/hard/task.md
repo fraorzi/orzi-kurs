@@ -1,12 +1,14 @@
-# Hard — dokładne sumowanie kwot (BigInt + serializacja)
+# Hard - dokładne sumowanie kwot (BigInt + serializacja)
 
-Kwoty pieniężne trzyma się w najmniejszej jednostce (grosze/centy) jako **liczby całkowite** —
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Kwoty pieniężne trzyma się w najmniejszej jednostce (grosze/centy) jako **liczby całkowite** -
 `number` gubiłby grosze przy dużych sumach (błąd floata powyżej 2⁵³). Zaimplementuj
 `sumAmounts(amounts)`:
 
-- `amounts` — tablica stringów, każdy to (opcjonalnie ujemna) liczba całkowita groszy,
+- `amounts` - tablica stringów, każdy to (opcjonalnie ujemna) liczba całkowita groszy,
   np. `"1050"`, `"-30"`.
-- Zwróć **dokładną** sumę jako **string dziesiętny** (nie BigInt — BigInt nie serializuje się
+- Zwróć **dokładną** sumę jako **string dziesiętny** (nie BigInt - BigInt nie serializuje się
   przez `JSON.stringify`, więc kwoty przekazuje się jako string).
 - Pusta tablica → `"0"`.
 
@@ -16,5 +18,5 @@ sumAmounts(["9007199254740993", "1"]);           // "9007199254740994"  (przez n
 sumAmounts([]);                                  // "0"
 ```
 
-Nie konwertuj kwot przez `Number` — taka konwersja zgubiłaby precyzję, przed którą chroni
+Nie konwertuj kwot przez `Number` - taka konwersja zgubiłaby precyzję, przed którą chroni
 to zadanie.

@@ -1,4 +1,6 @@
-# Hard — przechodzenie drzewa i szukanie ścieżki
+# Hard - przechodzenie drzewa i szukanie ścieżki
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Węzeł drzewa: `{ value, children }` (`children` to tablica węzłów, może być pusta lub
 pominięta). Zaimplementuj dwie funkcje rekurencyjne.

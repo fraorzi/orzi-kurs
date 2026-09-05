@@ -1,14 +1,16 @@
-# Hard — własna iterowalna lista (LinkedList)
+# Hard - własna iterowalna lista (LinkedList)
 
-Zaimplementuj `class LinkedList` — jednokierunkową listę, która jest **iterowalna**:
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj `class LinkedList` - jednokierunkową listę, która jest **iterowalna**:
 `for..of`, spread, `Array.from` i destrukturyzacja mają wydawać wartości w kolejności
 dodawania (od głowy do ogona). Wewnątrz trzymaj węzły `{ value, next }`, nie tablicę.
 
 ## API
 
-- `push(value)` — dopina wartość na koniec, zwraca `this` (łańcuchowanie),
-- getter `size` — liczba elementów,
-- `[Symbol.iterator]()` — przechodzi listę od głowy do ogona.
+- `push(value)` - dopina wartość na koniec, zwraca `this` (łańcuchowanie),
+- getter `size` - liczba elementów,
+- `[Symbol.iterator]()` - przechodzi listę od głowy do ogona.
 
 ```js
 const list = new LinkedList();

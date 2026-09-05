@@ -1,4 +1,6 @@
-# Easy — lookbehind
+# Easy - lookbehind
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Lookbehind sprawdza, co jest **przed** dopasowaniem, nie włączając tego do wyniku.
 

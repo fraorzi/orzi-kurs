@@ -1,6 +1,8 @@
-# Easy [D] — napraw błędy off-by-one
+# Easy [D] - napraw błędy off-by-one
 
-W `starter.js` są **dwie kompletne funkcje z błędami „o jeden"**. Nie pisz ich od nowa —
+Tryb: naprawa. W `starter.js` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+W `starter.js` są **dwie kompletne funkcje z błędami „o jeden"**. Nie pisz ich od nowa -
 znajdź i popraw pomyłkę w indeksowaniu/warunku pętli, aż testy przejdą.
 
 ## 1. `sumTo(n)`
@@ -22,5 +24,5 @@ last([1, 2, 3]); // 3
 last(["a"]);     // "a"
 ```
 
-Obie funkcje „prawie działają" — pomyłka jest w granicy zakresu. Uruchom testy
+Obie funkcje „prawie działają" - pomyłka jest w granicy zakresu. Uruchom testy
 i przeczytaj, które wartości się nie zgadzają.

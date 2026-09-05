@@ -1,4 +1,6 @@
-# Medium — rest i funkcje jako wartości
+# Medium - rest i funkcje jako wartości
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` trzy funkcje.
 
@@ -28,12 +30,12 @@ applyEach([], 1);                    // []
 
 ## 3. `compose2(f, g)`
 
-Zwraca funkcję, która dla argumentu `x` liczy `f(g(x))` — **najpierw** `g`, potem `f`.
+Zwraca funkcję, która dla argumentu `x` liczy `f(g(x))` - **najpierw** `g`, potem `f`.
 
 ```js
 const inc = (n) => n + 1;
 const double = (n) => n * 2;
 
-compose2(inc, double)(5); // 11 — double(5) = 10, potem inc(10) = 11
-compose2(double, inc)(5); // 12 — inc(5) = 6, potem double(6) = 12
+compose2(inc, double)(5); // 11 - double(5) = 10, potem inc(10) = 11
+compose2(double, inc)(5); // 12 - inc(5) = 6, potem double(6) = 12
 ```

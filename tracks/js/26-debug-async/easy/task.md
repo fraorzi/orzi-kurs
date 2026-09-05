@@ -1,4 +1,6 @@
-# Easy [D] — brakujący await
+# Easy [D] - brakujący await
+
+Tryb: naprawa. W `starter.js` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
 
 W `starter.js` są dwie funkcje `async` z **brakującym `await`**. Napraw je (dodaj `await`
 tam, gdzie trzeba), nie zmieniając reszty logiki.
@@ -19,5 +21,5 @@ Ma zwrócić sumę dwóch wartości pobranych async.
 await loadTotal(async () => 2, async () => 3); // 5
 ```
 
-Obie „prawie działają" — bez `await` trzymają obietnicę zamiast wartości. Uruchom testy
+Obie „prawie działają" - bez `await` trzymają obietnicę zamiast wartości. Uruchom testy
 i zobacz, co realnie zwracają.

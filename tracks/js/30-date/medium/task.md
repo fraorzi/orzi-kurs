@@ -1,4 +1,6 @@
-# Medium — dzień tygodnia i format ISO
+# Medium - dzień tygodnia i format ISO
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` dwie funkcje oparte na UTC (odporne na strefę maszyny).
 

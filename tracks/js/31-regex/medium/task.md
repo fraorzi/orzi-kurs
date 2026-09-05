@@ -1,4 +1,6 @@
-# Medium — replace z funkcją i regex budowany z danych
+# Medium - replace z funkcją i regex budowany z danych
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## 1. `capitalizeWords(str)`
 
@@ -20,4 +22,4 @@ censor("Hello hello HELLO world", "hello"); // "***** ***** ***** world"
 censor("abcabc", "bc");                     // "a**a**"
 ```
 
-(Zakładamy, że `word` składa się ze zwykłych znaków — bez metaznaków regexa.)
+(Zakładamy, że `word` składa się ze zwykłych znaków - bez metaznaków regexa.)

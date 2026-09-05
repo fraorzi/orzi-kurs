@@ -1,4 +1,6 @@
-# Hard — timeout i pierwszy sukces
+# Hard - timeout i pierwszy sukces
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## 1. `withTimeout(promise, ms)`
 
@@ -13,10 +15,10 @@ await withTimeout(fetchData(), 5000); // wynik fetchData albo TimeoutError po 5s
 
 ## 2. `firstSuccess(promises)`
 
-Własna implementacja semantyki `Promise.any` — **bez używania** `Promise.any`:
+Własna implementacja semantyki `Promise.any` - **bez używania** `Promise.any`:
 
 - rozwiązuje się wartością **pierwszego sukcesu** (błędy wcześniejszych ignoruje),
-- gdy **wszystkie** odrzucą — odrzuca `AggregateError`, w którym `errors` zawiera
+- gdy **wszystkie** odrzucą - odrzuca `AggregateError`, w którym `errors` zawiera
   powody w kolejności wejścia,
 - pusta tablica → `AggregateError` z pustym `errors`.
 

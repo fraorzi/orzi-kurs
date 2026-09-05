@@ -1,6 +1,8 @@
-# Medium — throttle (leading edge)
+# Medium - throttle (leading edge)
 
-Zaimplementuj `throttle(fn, interval)` — zwraca funkcję, która przepuszcza wywołanie
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj `throttle(fn, interval)` - zwraca funkcję, która przepuszcza wywołanie
 `fn` **najwyżej raz na `interval` ms**. Wariant „leading edge": pierwsze wywołanie odpala
 `fn` natychmiast, kolejne w oknie `interval` są **ignorowane**, a następne przechodzi
 dopiero po upływie interwału.

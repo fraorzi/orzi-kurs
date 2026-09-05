@@ -1,4 +1,6 @@
-# Hard — grupy nazwane i matchAll
+# Hard - grupy nazwane i matchAll
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## 1. `parseDate(str)`
 

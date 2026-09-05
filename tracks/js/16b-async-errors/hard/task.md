@@ -1,10 +1,12 @@
-# Hard — `firstSuccess`: pierwszy sukces lub `AggregateError`
+# Hard - `firstSuccess`: pierwszy sukces lub `AggregateError`
 
-Zaimplementuj `firstSuccess(promises)` — odwzorowanie semantyki `Promise.any`, ale
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj `firstSuccess(promises)` - odwzorowanie semantyki `Promise.any`, ale
 **napisane ręcznie** (bez `Promise.any` i `Promise.race`, żeby zrozumieć mechanikę).
 
 - rozstrzyga się **pierwszym spełnionym** wynikiem, ignorując wcześniejsze odrzucenia,
-- gdy **wszystkie** się odrzucą — odrzuca się `AggregateError`, którego pole `.errors`
+- gdy **wszystkie** się odrzucą - odrzuca się `AggregateError`, którego pole `.errors`
   zawiera wszystkie przyczyny w kolejności wejścia,
 - dla pustej listy odrzuca się `AggregateError` z pustą tablicą `.errors`.
 
@@ -19,6 +21,6 @@ try {
 }
 ```
 
-Ważne: pojedyncze odrzucenie **nie może** przedwcześnie odrzucić całości — dopiero gdy
+Ważne: pojedyncze odrzucenie **nie może** przedwcześnie odrzucić całości - dopiero gdy
 skończą się wszystkie promisy bez sukcesu. Zlicz odrzucenia i dopiero na zerze zbuduj
 `AggregateError`.

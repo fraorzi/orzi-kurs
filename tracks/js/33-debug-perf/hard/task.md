@@ -1,10 +1,12 @@
-# Hard [D] — kwadratowa kolejka przez `shift()`
+# Hard [D] - kwadratowa kolejka przez `shift()`
+
+Tryb: naprawa. W `starter.js` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
 
 `processQueue(items, fn)` przetwarza elementy po kolei i zwraca tablicę wyników `fn(item)`.
 Nie mutuje wejścia.
 
 Kod jest **poprawny, ale kwadratowy**: zdejmuje elementy z **początku** tablicy przez
-`shift()`, a `shift` przesuwa wszystkie pozostałe elementy (O(n)) — w pętli daje O(n²).
+`shift()`, a `shift` przesuwa wszystkie pozostałe elementy (O(n)) - w pętli daje O(n²).
 Testy poprawności przechodzą; obleje **benchmark skalowania**.
 
 Przepisz na czas liniowy, zachowując kontrakt (kolejność wyników, brak mutacji `items`).

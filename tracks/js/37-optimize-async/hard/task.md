@@ -1,4 +1,6 @@
-# Hard [O] — batching: jedno żądanie na id → paczki
+# Hard [O] - batching: jedno żądanie na id → paczki
+
+Tryb: optymalizacja. Popraw istniejący kod w `starter.js`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
 
 `batchFetch(ids, fetchBatch, size)` zwraca wyniki dla wszystkich `ids`, w kolejności.
 `fetchBatch(idsChunk)` przyjmuje **tablicę** id i zwraca tablicę wyników w tej samej
@@ -11,7 +13,7 @@ Przepisz tak, by grupować id w paczki po `size`, zachowując kolejność wynik�
 ```js
 // fetchBatch(chunk) zwraca chunk.map(id => id * 10)
 await batchFetch([1, 2, 3, 4], fetchBatch, 2); // [10, 20, 30, 40]
-// fetchBatch wołane 2 razy: [1,2] i [3,4] — nie 4 razy
+// fetchBatch wołane 2 razy: [1,2] i [3,4] - nie 4 razy
 ```
 
 Podpowiedź kierunkowa: potnij `ids` na kawałki po `size`, pobierz każdy kawałek jednym

@@ -1,4 +1,6 @@
-# Hard — options object, zip i partition
+# Hard - options object, zip i partition
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` trzy funkcje.
 
@@ -33,7 +35,7 @@ zip();                              // []
 
 ## 3. `partition(arr, pred)`
 
-Jak `_.partition`: para tablic `[pass, fail]` — elementy spełniające
+Jak `_.partition`: para tablic `[pass, fail]` - elementy spełniające
 i niespełniające predykatu, w oryginalnej kolejności. Wynik ma się dać
 destrukturyzować: `const [evens, odds] = partition(...)`.
 

@@ -1,6 +1,8 @@
-# Medium — delegacja przez yield*
+# Medium - delegacja przez yield*
 
-`yield*` przekazuje iterację do innego iterable/generatora — wydaje wszystkie jego wartości
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+`yield*` przekazuje iterację do innego iterable/generatora - wydaje wszystkie jego wartości
 po kolei. Zaimplementuj w `starter.js`:
 
 ## 1. `flatten(arr)`
@@ -17,7 +19,7 @@ Użyj rekurencji z `yield*`.
 ## 2. `chain(...iterables)`
 
 Generator łączący kilka iterables w jedną sekwencję (konkatenacja), po kolei. Działa
-na tablicach, stringach, `Set` — na czymkolwiek iterowalnym.
+na tablicach, stringach, `Set` - na czymkolwiek iterowalnym.
 
 ```js
 [...chain([1, 2], [3], [4, 5])];    // [1, 2, 3, 4, 5]

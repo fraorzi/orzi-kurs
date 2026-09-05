@@ -1,4 +1,6 @@
-# Easy — klucze, wartości, nowe obiekty
+# Easy - klucze, wartości, nowe obiekty
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` trzy funkcje (dwie pierwsze to zadania
 z javascript.info).
@@ -25,7 +27,7 @@ sumSalaries({});                                 // 0
 
 **Nowy** obiekt, w którym klucz `from` nazywa się `to` (wartość bez zmian),
 a pozostałe klucze zostają. Wejście nie może być zmutowane. Gdy `from`
-nie istnieje — zwróć kopię obiektu.
+nie istnieje - zwróć kopię obiektu.
 
 ```js
 renameKey({ name: "Ala", age: 30 }, "name", "fullName");

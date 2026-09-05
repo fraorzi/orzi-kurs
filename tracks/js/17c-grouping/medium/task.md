@@ -1,6 +1,8 @@
-# Medium — grupowanie z dowolnym kluczem (`Map.groupBy`)
+# Medium - grupowanie z dowolnym kluczem (`Map.groupBy`)
 
-Zaimplementuj `groupBy(items, keyFn)` — grupuje elementy wg klucza zwracanego przez `keyFn`
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj `groupBy(items, keyFn)` - grupuje elementy wg klucza zwracanego przez `keyFn`
 i zwraca **`Map`**. W przeciwieństwie do `Object.groupBy`, klucze mają **zachować swój typ**
 (liczby zostają liczbami, obiekty obiektami). Użyj `Map.groupBy`.
 

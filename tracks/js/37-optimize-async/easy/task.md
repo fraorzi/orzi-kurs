@@ -1,9 +1,11 @@
-# Easy [O] — loadAll: sekwencyjnie → równolegle
+# Easy [O] - loadAll: sekwencyjnie → równolegle
+
+Tryb: optymalizacja. Popraw istniejący kod w `starter.js`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
 
 `loadAll(ids, loadOne)` zwraca tablicę wyników `loadOne(id)` w kolejności `ids`. Operacje
 są **niezależne**.
 
-Kod jest **poprawny**, ale robi je **sekwencyjnie** (`await` w pętli) — każda czeka na
+Kod jest **poprawny**, ale robi je **sekwencyjnie** (`await` w pętli) - każda czeka na
 poprzednią. Bramka mierzy współbieżność licznikiem (`maxActive`): przy poprawnej wersji
 wiele operacji jest aktywnych naraz. Przepisz na równoległe, zachowując kolejność wyników.
 

@@ -1,6 +1,8 @@
-# Hard — zaimplementuj metody samodzielnie
+# Hard - zaimplementuj metody samodzielnie
 
-Napisz własne implementacje w `starter.js` — **bez używania** `map`/`filter`/`reduce`
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Napisz własne implementacje w `starter.js` - **bez używania** `map`/`filter`/`reduce`
 (pętle są dozwolone i wskazane). Cel: rozumieć, co te metody robią pod spodem,
 łącznie z brzegowymi przypadkami ze specyfikacji.
 
@@ -22,12 +24,12 @@ Jak `reduce`, ze specyfikacyjnym zachowaniem:
 - bez `initialValue`: akumulator = pierwszy element, start od indeksu 1,
 - pusta tablica bez `initialValue` → **rzuć `TypeError`**.
 
-Uwaga: `initialValue` może być `undefined` przekazane jawnie — rozróżnij „brak argumentu"
+Uwaga: `initialValue` może być `undefined` przekazane jawnie - rozróżnij „brak argumentu"
 od „argument undefined" przez `arguments.length` lub rest parameters.
 
 ## 4. `uniqueFast(arr)`
 
-Deduplikacja jak `unique` z poziomu medium, ale **w czasie liniowym** — będzie
+Deduplikacja jak `unique` z poziomu medium, ale **w czasie liniowym** - będzie
 benchmark. `includes`/`indexOf` w pętli dadzą O(n²) i test wydajności obleje.
 
 ```js

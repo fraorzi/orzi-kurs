@@ -1,12 +1,14 @@
-# Medium — paginacja jako strumień
+# Medium - paginacja jako strumień
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj **async generator** `paginate(fetchPage)`, który „wylewa" elementy z
 paginowanego źródła jako jeden strumień.
 
 `fetchPage(cursor)` zwraca `Promise<{ items, next }>`:
 
-- `items` — tablica elementów tej strony,
-- `next` — kursor następnej strony albo `null`/`undefined`, gdy to ostatnia strona.
+- `items` - tablica elementów tej strony,
+- `next` - kursor następnej strony albo `null`/`undefined`, gdy to ostatnia strona.
 
 Pierwsze wywołanie rób z kursorem `undefined`. Yielduj kolejno wszystkie elementy każdej
 strony, potem przechodź do następnej, aż `next` będzie `null`.
@@ -18,6 +20,6 @@ for await (const x of paginate(fetchPage)) out.push(x);
 out; // [1, 2, 3, 4, 5]
 ```
 
-Kluczowe: generator jest **leniwy** — kolejnej strony nie wolno pobierać, zanim konsument
+Kluczowe: generator jest **leniwy** - kolejnej strony nie wolno pobierać, zanim konsument
 nie wyczerpie poprzedniej. Test policzy wywołania `fetchPage`: dla 3 stron ma być
 dokładnie 3 (ani jednego pobrania „w zapas").

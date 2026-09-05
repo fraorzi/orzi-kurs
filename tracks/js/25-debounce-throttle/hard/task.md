@@ -1,4 +1,6 @@
-# Hard — debounce z opcją leading i metodą cancel
+# Hard - debounce z opcją leading i metodą cancel
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `debounce(fn, delay, options)` w wersji produkcyjnej (jak lodash-lite):
 
@@ -19,6 +21,6 @@ d.cancel();              // anuluje zaplanowane wywołanie, fn się nie odpali
 const l = debounce(fn, 30, { leading: true });
 l(1);                    // fn(1) od razu
 l(2);                    // stłumione
-// po ciszy 30 ms — brak wywołania trailing
+// po ciszy 30 ms - brak wywołania trailing
 l(3);                    // fn(3) znów od razu (nowa seria)
 ```

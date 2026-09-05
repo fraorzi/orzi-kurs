@@ -1,4 +1,6 @@
-# Easy — podstawowe operacje
+# Easy - podstawowe operacje
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` trzy funkcje (dwie pierwsze to zadania
 z javascript.info).
@@ -14,7 +16,7 @@ ucFirst("");     // ""
 
 ## 2. `checkSpam(str)`
 
-Czy string zawiera `"viagra"` lub `"XXX"` — niezależnie od wielkości liter?
+Czy string zawiera `"viagra"` lub `"XXX"` - niezależnie od wielkości liter?
 
 ```js
 checkSpam("buy ViAgRA now"); // true

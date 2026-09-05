@@ -1,11 +1,13 @@
-# Hard [D] — napraw złożoność O(n²)
+# Hard [D] - napraw złożoność O(n²)
+
+Tryb: naprawa. W `starter.js` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
 
 `firstDuplicate(arr)` zwraca **pierwszą powtarzającą się** wartość (tę, której drugie
 wystąpienie pada najwcześniej, patrząc od lewej), albo `null`, gdy duplikatów nie ma.
 
-Obecna implementacja jest **poprawna, ale wolna** — działa w O(n²), bo dla każdego
+Obecna implementacja jest **poprawna, ale wolna** - działa w O(n²), bo dla każdego
 elementu przeszukuje całą tablicę. Testy poprawności przejdą; obleje **benchmark
-skalowania**. Przepisz funkcję tak, by działała w czasie liniowym O(n) — bez zmiany
+skalowania**. Przepisz funkcję tak, by działała w czasie liniowym O(n) - bez zmiany
 kontraktu.
 
 ```js

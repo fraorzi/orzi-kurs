@@ -1,4 +1,6 @@
-# Easy — deskryptory danych: stała i ukryte pole
+# Easy - deskryptory danych: stała i ukryte pole
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` dwie funkcje używające `Object.defineProperty`.
 
@@ -21,6 +23,6 @@ i serializacją: `enumerable: false` (ale odczyt `obj[key]` ma działać). Zwró
 ```js
 const o = hide({ visible: 1 }, "secret", 42);
 o.secret;            // 42
-Object.keys(o);      // ["visible"] — secret ukryty
+Object.keys(o);      // ["visible"] - secret ukryty
 JSON.stringify(o);   // '{"visible":1}'
 ```

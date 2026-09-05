@@ -1,9 +1,11 @@
-# Medium — escapowanie danych i grupy nazwane
+# Medium - escapowanie danych i grupy nazwane
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## 1. `highlight(text, query)`
 
 Otocz **każde** dosłowne wystąpienie `query` w `text` znacznikami `[[ ]]`, bez rozróżniania
-wielkości liter. `query` może zawierać metaznaki regex (`.`, `(`, `*`…) — muszą być
+wielkości liter. `query` może zawierać metaznaki regex (`.`, `(`, `*`…) - muszą być
 traktowane **dosłownie**, więc zescapuj je przed zbudowaniem `RegExp`.
 
 ```js

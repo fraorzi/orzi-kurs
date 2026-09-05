@@ -1,8 +1,10 @@
-# Medium — porównanie floatów i toFixed jako liczba
+# Medium - porównanie floatów i toFixed jako liczba
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## 1. `approxEqual(a, b, tolerance = 1e-9)`
 
-Zwróć `true`, gdy `a` i `b` są równe **z dokładnością** do `tolerance` — czyli
+Zwróć `true`, gdy `a` i `b` są równe **z dokładnością** do `tolerance` - czyli
 `|a - b| < tolerance`. To poprawny sposób porównywania liczb zmiennoprzecinkowych
 (bezpośrednie `===` zawodzi przez błędy reprezentacji).
 

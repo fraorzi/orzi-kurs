@@ -1,10 +1,12 @@
-# Easy — ekstrakcja liczb i walidacja hex-koloru
+# Easy - ekstrakcja liczb i walidacja hex-koloru
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` dwie funkcje.
 
 ## 1. `extractNumbers(str)`
 
-Zwróć tablicę **liczb** (typu number) występujących w tekście — ciągi cyfr. Gdy nie ma
+Zwróć tablicę **liczb** (typu number) występujących w tekście - ciągi cyfr. Gdy nie ma
 żadnej, zwróć pustą tablicę.
 
 ```js

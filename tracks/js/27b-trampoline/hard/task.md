@@ -1,6 +1,8 @@
-# Hard — spłaszczanie głębokiej struktury przez jawny stos
+# Hard - spłaszczanie głębokiej struktury przez jawny stos
 
-Zaimplementuj `flattenDeep(input)` — zwraca **płaską** tablicę wszystkich wartości
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj `flattenDeep(input)` - zwraca **płaską** tablicę wszystkich wartości
 nie-tablicowych z dowolnie zagnieżdżonej tablicy, w kolejności wystąpienia (pre-order).
 
 ```js
@@ -14,5 +16,5 @@ Zagnieżdżenie bywa **bardzo głębokie** (dane z zewnątrz). Rozwiązanie reku
 `RangeError: Maximum call stack size exceeded`. Napisz wersję **iteracyjną** z **jawnym
 stosem** (zwykłą tablicą) i pętlą `while`.
 
-Test poda strukturę zagnieżdżoną na dziesiątki tysięcy poziomów — musi przejść, więc
+Test poda strukturę zagnieżdżoną na dziesiątki tysięcy poziomów - musi przejść, więc
 rekurencja odpada.

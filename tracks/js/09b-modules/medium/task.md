@@ -1,4 +1,6 @@
-# Medium — konfiguracja jako żywe wiązanie
+# Medium - konfiguracja jako żywe wiązanie
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Zbuduj moduł konfiguracji środowiska:
 

@@ -1,11 +1,13 @@
-# Medium — transformacje
+# Medium - transformacje
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` trzy funkcje (dwie pierwsze to zadania
 z javascript.info).
 
 ## 1. `truncate(str, maxlength)`
 
-Jeśli `str` jest dłuższy niż `maxlength` — utnij i zakończ znakiem `"…"`
+Jeśli `str` jest dłuższy niż `maxlength` - utnij i zakończ znakiem `"…"`
 (jeden znak Unicode), tak by **całość** miała dokładnie `maxlength` znaków.
 Krótsze stringi bez zmian.
 

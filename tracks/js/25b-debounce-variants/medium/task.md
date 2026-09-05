@@ -1,19 +1,21 @@
-# Medium — debounce z `cancel` i `flush`
+# Medium - debounce z `cancel` i `flush`
 
-Zaimplementuj `debounce(fn, wait)` (wariant trailing — odpala `wait` ms po ostatnim
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj `debounce(fn, wait)` (wariant trailing - odpala `wait` ms po ostatnim
 wywołaniu), a do zwróconej funkcji **dołącz dwie metody**:
 
-- **`cancel()`** — porzuca oczekujące wywołanie (nic się nie odpali).
-- **`flush()`** — jeśli jest oczekujące wywołanie, odpala je **natychmiast** (bez czekania na
-  `wait`) i zwraca wynik `fn`. Jeśli nic nie oczekuje — nie odpala nic, zwraca ostatni wynik.
+- **`cancel()`** - porzuca oczekujące wywołanie (nic się nie odpali).
+- **`flush()`** - jeśli jest oczekujące wywołanie, odpala je **natychmiast** (bez czekania na
+  `wait`) i zwraca wynik `fn`. Jeśli nic nie oczekuje - nie odpala nic, zwraca ostatni wynik.
 
 ```js
 const d = debounce((x) => x * 2, 40);
 
 d(5);
-d.flush(); // 10  — odpala od razu, zwraca wynik
+d.flush(); // 10  - odpala od razu, zwraca wynik
 // (po flush nie ma już podwójnego strzału po 40 ms)
 
 d(7);
-d.cancel(); // oczekujące wywołanie porzucone — fn się nie odpali
+d.cancel(); // oczekujące wywołanie porzucone - fn się nie odpali
 ```

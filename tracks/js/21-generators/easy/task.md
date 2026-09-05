@@ -1,4 +1,6 @@
-# Easy — pierwsze generatory
+# Easy - pierwsze generatory
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` dwa generatory (`function*`).
 
@@ -16,12 +18,12 @@ z poprzedniego zagadnienia, ale teraz w kilku linijkach dzięki `yield`.)
 ## 2. `take(iterable, n)`
 
 Generator wydający **pierwsze `n`** elementów dowolnego iterable, leniwie. Ma działać
-także na nieskończonych generatorach — przerwij po `n` elementach (`return`).
+także na nieskończonych generatorach - przerwij po `n` elementach (`return`).
 
 ```js
 [...take([10, 20, 30], 2)]; // [10, 20]
 [...take("abcdef", 3)];     // ["a", "b", "c"]
 ```
 
-Ponieważ `take` jest generatorem, sam też jest leniwy — nie skonsumuje więcej niż `n`
+Ponieważ `take` jest generatorem, sam też jest leniwy - nie skonsumuje więcej niż `n`
 elementów źródła.

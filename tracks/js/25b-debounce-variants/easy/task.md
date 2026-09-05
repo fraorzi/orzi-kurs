@@ -1,4 +1,6 @@
-# Easy — debounce z opcjami leading/trailing
+# Easy - debounce z opcjami leading/trailing
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `debounce(fn, wait, options)`, gdzie `options = { leading = false, trailing = true }`.
 

@@ -1,4 +1,6 @@
-# Hard — spacer po łańcuchu
+# Hard - spacer po łańcuchu
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Trzy funkcje wymagające ręcznego chodzenia po łańcuchu prototypów.
 
@@ -16,16 +18,16 @@ class Rabbit extends Animal {}
 const r = new Rabbit();
 
 myInstanceOf(r, Rabbit);  // true
-myInstanceOf(r, Animal);  // true — prototypy dziedziczą
+myInstanceOf(r, Animal);  // true - prototypy dziedziczą
 myInstanceOf(r, Date);    // false
-myInstanceOf(42, Number); // false — prymityw
+myInstanceOf(42, Number); // false - prymityw
 myInstanceOf([], Array);  // true
 ```
 
 ## 2. `getDefiningObject(obj, key)`
 
 Pierwszy obiekt w łańcuchu (zaczynając od `obj`), który ma `key` jako **własną**
-właściwość — albo `null`, gdy nikt jej nie ma.
+właściwość - albo `null`, gdy nikt jej nie ma.
 
 ```js
 const base = { x: 1 };
@@ -40,8 +42,8 @@ getDefiningObject(top, "y"); // null
 
 Zwraca `{ own, inherited }`:
 
-- `own` — własne enumerowalne klucze,
-- `inherited` — enumerowalne klucze z łańcucha prototypów **bez**
+- `own` - własne enumerowalne klucze,
+- `inherited` - enumerowalne klucze z łańcucha prototypów **bez**
   `Object.prototype` i bez duplikatów (klucz przesłonięty własnym nie jest
   "inherited").
 

@@ -1,4 +1,6 @@
-# Hard — throttle z leading/trailing
+# Hard - throttle z leading/trailing
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `throttle(fn, wait, options)`, gdzie `options = { leading = true, trailing = true }`.
 Throttle odpala `fn` **nie częściej niż raz na `wait` ms** w trakcie serii wywołań.

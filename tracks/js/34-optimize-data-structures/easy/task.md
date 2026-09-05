@@ -1,8 +1,10 @@
-# Easy [O] — countInBoth: includes → Set
+# Easy [O] - countInBoth: includes → Set
+
+Tryb: optymalizacja. Popraw istniejący kod w `starter.js`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
 
 `countInBoth(a, b)` zwraca liczbę **różnych** wartości występujących w obu tablicach.
 Kod jest **poprawny**, ale kwadratowy: dla każdej wartości z `a` woła `b.includes(...)`
-(O(m)), co daje O(n·m). Testy poprawności przechodzą — obleje benchmark skalowania.
+(O(m)), co daje O(n·m). Testy poprawności przechodzą - obleje benchmark skalowania.
 
 Przepisz na czas liniowy, nie zmieniając kontraktu.
 

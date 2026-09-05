@@ -1,4 +1,6 @@
-# Easy — liczenie słów świadome lokalizacji
+# Easy - liczenie słów świadome lokalizacji
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Użyj `Intl.Segmenter` z `granularity: "word"`. Segment słowa ma `isWordLike === true`;
 spacje i interpunkcja mają `false`.

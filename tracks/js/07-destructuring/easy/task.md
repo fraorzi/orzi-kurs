@@ -1,6 +1,8 @@
-# Easy — rozpakowywanie
+# Easy - rozpakowywanie
 
-Zaimplementuj w `starter.js` trzy funkcje — każda ma używać destrukturyzacji.
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj w `starter.js` trzy funkcje - każda ma używać destrukturyzacji.
 
 ## 1. `firstAndLast(arr)`
 
@@ -23,7 +25,7 @@ swapped(["a", "b"]); // ["b", "a"]
 ## 3. `fullName(person)`
 
 Destrukturyzacja w parametrze: z obiektu `{ first, last }` buduje `"first last"`.
-Gdy brakuje `last` — zwraca samo `first`.
+Gdy brakuje `last` - zwraca samo `first`.
 
 ```js
 fullName({ first: "Jan", last: "Kowalski" }); // "Jan Kowalski"

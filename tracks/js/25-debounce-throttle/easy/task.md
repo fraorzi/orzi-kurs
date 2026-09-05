@@ -1,6 +1,8 @@
-# Easy — debounce (trailing)
+# Easy - debounce (trailing)
 
-Zaimplementuj `debounce(fn, delay)` — zwraca funkcję, która odracza wywołanie `fn` do
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj `debounce(fn, delay)` - zwraca funkcję, która odracza wywołanie `fn` do
 momentu, gdy przez `delay` milisekund nie było kolejnego wywołania. Seria szybkich
 wywołań ma skutkować **jednym** wywołaniem `fn`, z **ostatnimi** argumentami.
 
@@ -11,7 +13,7 @@ const d = debounce((x) => log.push(x), 30);
 d(1);
 d(2);
 d(3);
-// synchronicznie: log === []  (jeszcze nic — czekamy na ciszę)
+// synchronicznie: log === []  (jeszcze nic - czekamy na ciszę)
 // po ~30 ms ciszy: log === [3]  (jedno wywołanie, ostatni argument)
 ```
 

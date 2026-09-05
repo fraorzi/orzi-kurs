@@ -1,9 +1,11 @@
-# Easy [O] — flatten: spread w reduce → jedno przejście
+# Easy [O] - flatten: spread w reduce → jedno przejście
+
+Tryb: optymalizacja. Popraw istniejący kod w `starter.js`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
 
 `flatten(arrays)` skleja tablicę tablic w jedną płaską tablicę (jeden poziom).
 
 Kod jest **poprawny**, ale kwadratowy: `[...acc, ...arr]` w `reduce` kopiuje cały
-akumulator przy każdym kroku (łącznie ~n²/2 kopiowań). Testy poprawności przechodzą —
+akumulator przy każdym kroku (łącznie ~n²/2 kopiowań). Testy poprawności przechodzą -
 obleje benchmark. Przepisz tak, by nie kopiować akumulatora w kółko.
 
 ```js

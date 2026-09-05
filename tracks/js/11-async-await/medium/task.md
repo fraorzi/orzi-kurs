@@ -1,11 +1,13 @@
-# Medium — sekwencyjnie vs równolegle
+# Medium - sekwencyjnie vs równolegle
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 `tasks` to tablica funkcji zwracających promisy. Zaimplementuj obie strategie
-i poczuj różnicę — testy mierzą czas i realną współbieżność.
+i poczuj różnicę - testy mierzą czas i realną współbieżność.
 
 ## 1. `runSequential(tasks)`
 
-Wykonuje zadania **jedno po drugim** — następne startuje dopiero po zakończeniu
+Wykonuje zadania **jedno po drugim** - następne startuje dopiero po zakończeniu
 poprzedniego. Zwraca tablicę wyników w kolejności wejścia.
 
 Użycie: operacje zależne od siebie albo API z limitem „1 request naraz".
@@ -26,5 +28,5 @@ await runSequential(tasks); // ~120ms, w locie zawsze 1
 await runParallel(tasks);   // ~40ms,  w locie 3 naraz
 ```
 
-Uwaga: `runSequential` to jedyne miejsce, gdzie `await` w pętli jest poprawny —
+Uwaga: `runSequential` to jedyne miejsce, gdzie `await` w pętli jest poprawny -
 bo zależność czasowa jest wymaganiem. W `runParallel` pętla z `await` obleje testy.

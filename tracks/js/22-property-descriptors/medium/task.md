@@ -1,4 +1,6 @@
-# Medium — gettery i settery (właściwości obliczane)
+# Medium - gettery i settery (właściwości obliczane)
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` dwie fabryki obiektów z **akcesorami** (get/set).
 

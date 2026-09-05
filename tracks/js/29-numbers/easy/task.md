@@ -1,4 +1,6 @@
-# Easy — zaokrąglanie i sprawdzanie całkowitości
+# Easy - zaokrąglanie i sprawdzanie całkowitości
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` dwie funkcje.
 
@@ -21,6 +23,6 @@ Zwróć `true` tylko wtedy, gdy `value` jest liczbą całkowitą. Dla nie-liczb 
 isInteger(5);    // true
 isInteger(5.0);  // true
 isInteger(5.5);  // false
-isInteger("5");  // false — bez konwersji
+isInteger("5");  // false - bez konwersji
 isInteger(NaN);  // false
 ```

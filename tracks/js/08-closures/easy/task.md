@@ -1,4 +1,6 @@
-# Easy — licznik i suma
+# Easy - licznik i suma
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` dwie funkcje.
 

@@ -1,11 +1,13 @@
-# Medium — transformacje obiektów
+# Medium - transformacje obiektów
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` trzy funkcje. Żadna nie może mutować wejścia.
 
 ## 1. `multiplyNumeric(obj)`
 
 Nowy obiekt: wartości typu `number` pomnożone ×2, pozostałe bez zmian
-(wariacja zadania z javascript.info — tam mutowało, u nas kopiuje).
+(wariacja zadania z javascript.info - tam mutowało, u nas kopiuje).
 
 ```js
 multiplyNumeric({ width: 200, height: 300, title: "Menu" });

@@ -1,10 +1,12 @@
-# Medium — głęboka kopia i niemutowalny zapis w głąb
+# Medium - głęboka kopia i niemutowalny zapis w głąb
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` dwie funkcje.
 
 ## 1. `deepClone(value)`
 
-Zwróć **głęboką** kopię wartości — zagnieżdżone obiekty i tablice mają być niezależne,
+Zwróć **głęboką** kopię wartości - zagnieżdżone obiekty i tablice mają być niezależne,
 a typy takie jak `Date` zachowane. Nie używaj serializacji JSON jako mechanizmu kopiowania.
 
 ```js
@@ -18,12 +20,12 @@ copy.created instanceof Date; // true
 ## 2. `setIn(obj, path, value)`
 
 Zwróć **nowy** obiekt z wartością ustawioną pod zagnieżdżoną ścieżką `path` (tablica
-kluczy). Kopiuj tylko obiekty na ścieżce (structural sharing) — reszta współdzielona,
+kluczy). Kopiuj tylko obiekty na ścieżce (structural sharing) - reszta współdzielona,
 oryginał nietknięty.
 
 ```js
 const state = { user: { name: "Ala", address: { city: "Wwa" } } };
 const next = setIn(state, ["user", "address", "city"], "Kraków");
 next.user.address.city; // "Kraków"
-state.user.address.city; // "Wwa" — oryginał bez zmian
+state.user.address.city; // "Wwa" - oryginał bez zmian
 ```

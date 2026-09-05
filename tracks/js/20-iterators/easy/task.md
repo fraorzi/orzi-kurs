@@ -1,4 +1,6 @@
-# Easy — iterowalny range i konsumpcja iterables
+# Easy - iterowalny range i konsumpcja iterables
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` dwie funkcje.
 
@@ -11,7 +13,7 @@ javascript.info.)
 ```js
 [...range(1, 4)];          // [1, 2, 3, 4]
 Array.from(range(5, 5));   // [5]
-[...range(3, 1)];          // [] — gdy start > end
+[...range(3, 1)];          // [] - gdy start > end
 ```
 
 Iteracja ma być **powtarzalna**: dwa niezależne przejścia po tym samym `range` dają

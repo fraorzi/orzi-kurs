@@ -1,9 +1,11 @@
-# Easy — trampolina i sumowanie bez przepełnienia stosu
+# Easy - trampolina i sumowanie bez przepełnienia stosu
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## 1. `trampoline(fn)`
 
 Zwróć funkcję opakowującą `fn`. Wywołana, ma odpalać `fn`, a dopóki wynik jest **funkcją**
-(thunkiem) — wołać go w pętli, aż wynik przestanie być funkcją. Zwróć końcowy wynik.
+(thunkiem) - wołać go w pętli, aż wynik przestanie być funkcją. Zwróć końcowy wynik.
 
 ```js
 const step = trampoline((n) => (n > 0 ? () => step(n - 1) : "done"));

@@ -1,9 +1,11 @@
-# Hard — armia funkcji i szpieg
+# Hard - armia funkcji i szpieg
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## 1. Napraw `makeArmy()`
 
-W `starter.js` jest gotowy, **zepsuty** kod. Ma tworzyć 10 „shooterów" — funkcji,
-z których każda zwraca swój numer (0–9). Obecnie wszystkie zwracają `10`.
+W `starter.js` jest gotowy, **zepsuty** kod. Ma tworzyć 10 „shooterów" - funkcji,
+z których każda zwraca swój numer (0-9). Obecnie wszystkie zwracają `10`.
 
 ```js
 const army = makeArmy();
@@ -17,7 +19,7 @@ shooter pamiętał własny numer. Nie zmieniaj sygnatury ani liczby shooterów.
 ## 2. `spy(fn)`
 
 Dekorator-szpieg: zwraca wrapper, który działa jak `fn`, ale zapisuje każde wywołanie
-w tablicy `wrapper.calls` — jako obiekt `{ args, result }`.
+w tablicy `wrapper.calls` - jako obiekt `{ args, result }`.
 
 ```js
 const add = (a, b) => a + b;

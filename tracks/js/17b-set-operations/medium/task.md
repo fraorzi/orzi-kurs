@@ -1,6 +1,8 @@
-# Medium — ręczne operacje na zbiorach
+# Medium - ręczne operacje na zbiorach
 
-Tym razem **bez** wbudowanych metod (`intersection`, `union`, `difference`, `isSubsetOf` itd.) —
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Tym razem **bez** wbudowanych metod (`intersection`, `union`, `difference`, `isSubsetOf` itd.) -
 zaimplementuj je samodzielnie, żeby zrozumieć mechanikę i złożoność. Wszystkie funkcje
 przyjmują `Set`-y i **nie mutują** argumentów.
 
@@ -23,4 +25,4 @@ isSubset(new Set([1, 2]), new Set([1, 2, 3]));         // true
 isSubset(new Set([1, 9]), new Set([1, 2, 3]));         // false
 ```
 
-Klucz to `Set.prototype.has()` w O(1) — dzięki niemu każda z tych operacji jest liniowa.
+Klucz to `Set.prototype.has()` w O(1) - dzięki niemu każda z tych operacji jest liniowa.

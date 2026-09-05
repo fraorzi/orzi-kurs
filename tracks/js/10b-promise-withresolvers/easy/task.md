@@ -1,6 +1,8 @@
-# Easy — `createDeferred`
+# Easy - `createDeferred`
 
-Zaimplementuj `createDeferred()` — zwraca obiekt `{ promise, resolve, reject }`, w którym
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj `createDeferred()` - zwraca obiekt `{ promise, resolve, reject }`, w którym
 `promise` da się rozstrzygnąć **z zewnątrz** przez wywołanie `resolve(value)` lub odrzucić
 przez `reject(error)`. Użyj `Promise.withResolvers()`.
 

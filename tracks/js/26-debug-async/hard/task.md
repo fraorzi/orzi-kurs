@@ -1,7 +1,9 @@
-# Hard [D] — sekwencyjny await zamiast równoległego
+# Hard [D] - sekwencyjny await zamiast równoległego
+
+Tryb: naprawa. W `starter.js` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
 
 `fetchAll(ids, fetchOne)` pobiera dane dla każdego `id`. Operacje są **niezależne**, więc
-powinny lecieć **równolegle** — obecny kod robi je **sekwencyjnie** (`await` w pętli czeka
+powinny lecieć **równolegle** - obecny kod robi je **sekwencyjnie** (`await` w pętli czeka
 na każde przed następnym), co jest wielokrotnie wolniejsze. Przepisz na równoległe,
 zachowując kolejność wyników zgodną z `ids`.
 

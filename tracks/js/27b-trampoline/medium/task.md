@@ -1,4 +1,6 @@
-# Medium — rekurencja wzajemna na trampolinie
+# Medium - rekurencja wzajemna na trampolinie
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Klasyczny przykład, którego nie da się łatwo zamienić na pętlę: dwie funkcje wołające się
 nawzajem. `isEven(n)` woła `isOdd(n-1)`, `isOdd(n)` woła `isEven(n-1)`. Dla dużych `n`

@@ -1,20 +1,22 @@
-# Hard — serializacja wywołań
+# Hard - serializacja wywołań
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## `serialize(fn)`
 
 Dekorator, który wymusza wykonywanie async funkcji **jedna operacja naraz**, w kolejności
-zgłoszeń (FIFO) — nawet jeśli wywołania przychodzą gęściej, niż fn nadąża:
+zgłoszeń (FIFO) - nawet jeśli wywołania przychodzą gęściej, niż fn nadąża:
 
 - kolejne wywołanie `fn` startuje dopiero, gdy poprzednie się **zakończy**
   (sukcesem lub błędem),
 - każdy wywołujący dostaje promise z wynikiem **swojego** wywołania,
-- odrzucenie jednego wywołania trafia do jego wywołującego, ale **nie zrywa kolejki** —
+- odrzucenie jednego wywołania trafia do jego wywołującego, ale **nie zrywa kolejki** -
   następne wywołania normalnie się wykonują.
 
 ```js
 const save = serialize(async (data) => writeToFile(data));
 
-// trzy wywołania „naraz" — wykonają się jedno po drugim, w tej kolejności:
+// trzy wywołania „naraz" - wykonają się jedno po drugim, w tej kolejności:
 save("a");
 save("b");
 const result = await save("c"); // czeka aż a i b skończą, potem wykonuje c

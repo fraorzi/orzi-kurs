@@ -1,4 +1,6 @@
-# Medium — transformacje bez mutowania
+# Medium - transformacje bez mutowania
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` cztery funkcje. **Żadna nie może mutować tablicy wejściowej.**
 

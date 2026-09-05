@@ -1,4 +1,6 @@
-# Easy — część wspólna i suma (wbudowane metody Set)
+# Easy - część wspólna i suma (wbudowane metody Set)
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Użyj wbudowanych metod `Set` (ES2025). Obie funkcje dostają dwie tablice **liczb** i zwracają
 tablicę wyników posortowaną rosnąco.

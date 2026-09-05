@@ -1,9 +1,11 @@
-# Easy [O] — memoizacja kosztownej ceny
+# Easy [O] - memoizacja kosztownej ceny
+
+Tryb: optymalizacja. Popraw istniejący kod w `starter.js`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
 
 `totalCost(orders, priceOf)` sumuje koszt zamówień: dla każdego zamówienia `{ productId, qty }`
-mnoży ilość przez cenę produktu (`priceOf(productId)` — funkcja kosztowna).
+mnoży ilość przez cenę produktu (`priceOf(productId)` - funkcja kosztowna).
 
-Kod jest **poprawny**, ale woła `priceOf` dla **każdego** zamówienia — także wtedy, gdy
+Kod jest **poprawny**, ale woła `priceOf` dla **każdego** zamówienia - także wtedy, gdy
 ten sam produkt powtarza się wielokrotnie. Bramka liczy wywołania `priceOf`: ma być
 **jedno na różny produkt**, nie jedno na zamówienie. Dodaj memoizację, nie zmieniając
 wyniku.

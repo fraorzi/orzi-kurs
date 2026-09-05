@@ -1,4 +1,6 @@
-# Medium — wczesne wyjścia i pętle zagnieżdżone
+# Medium - wczesne wyjścia i pętle zagnieżdżone
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` trzy funkcje.
 
@@ -6,7 +8,7 @@ Zaimplementuj w `starter.js` trzy funkcje.
 
 Tablica liczb pierwszych `≤ n` (zadanie „Output prime numbers" z javascript.info).
 Podejście: dla każdego kandydata sprawdź podzielność w wewnętrznej pętli
-z wczesnym wyjściem. Wydziel sprawdzanie do funkcji pomocniczej `isPrime` —
+z wczesnym wyjściem. Wydziel sprawdzanie do funkcji pomocniczej `isPrime` -
 czytelniej niż etykiety.
 
 ```js
@@ -28,7 +30,7 @@ chessboard(4); // " # #\n# # \n # #\n# # \n"
 ## 3. `firstIndexWhere(arr, pred)`
 
 Indeks pierwszego elementu, dla którego `pred(element, index)` zwraca truthy,
-albo `-1`. **Bez `findIndex`** — pętla z wczesnym wyjściem. Po znalezieniu
+albo `-1`. **Bez `findIndex`** - pętla z wczesnym wyjściem. Po znalezieniu
 elementu `pred` nie może być wywoływany ani razu więcej.
 
 ```js

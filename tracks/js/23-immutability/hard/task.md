@@ -1,6 +1,8 @@
-# Hard — deepFreeze (rekurencyjne zamrożenie)
+# Hard - deepFreeze (rekurencyjne zamrożenie)
 
-`Object.freeze` jest **płytki** — zagnieżdżone obiekty pozostają zmienne. Zaimplementuj
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+`Object.freeze` jest **płytki** - zagnieżdżone obiekty pozostają zmienne. Zaimplementuj
 `deepFreeze(obj)`, które zamraża obiekt **i wszystkie** zagnieżdżone obiekty oraz tablice,
 w dowolnej głębokości. Zwróć zamrożony obiekt (ten sam, zamrożony „w miejscu").
 

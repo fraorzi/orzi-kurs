@@ -1,6 +1,8 @@
-# Hard — fetchWithRetry z sensowną polityką ponawiania
+# Hard - fetchWithRetry z sensowną polityką ponawiania
 
-Zaimplementuj `fetchWithRetry(url, retries = 2)` — pobiera JSON, ponawiając próbę tylko
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj `fetchWithRetry(url, retries = 2)` - pobiera JSON, ponawiając próbę tylko
 wtedy, gdy ma to sens.
 
 ## Polityka
@@ -21,5 +23,5 @@ wtedy, gdy ma to sens.
 // błąd sieci, 200 → 2 wywołania, zwraca dane
 ```
 
-Dlaczego tak: 4xx znaczy „Twoje żądanie jest złe" — powtórzenie da ten sam wynik.
+Dlaczego tak: 4xx znaczy „Twoje żądanie jest złe" - powtórzenie da ten sam wynik.
 5xx i błędy sieci bywają przejściowe.

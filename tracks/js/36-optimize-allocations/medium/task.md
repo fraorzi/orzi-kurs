@@ -1,9 +1,11 @@
-# Medium [O] — mergeAll: spread obiektu w reduce → jeden cel
+# Medium [O] - mergeAll: spread obiektu w reduce → jeden cel
 
-`mergeAll(objects)` scala tablicę obiektów w jeden — późniejsze klucze nadpisują wcześniejsze.
+Tryb: optymalizacja. Popraw istniejący kod w `starter.js`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
+
+`mergeAll(objects)` scala tablicę obiektów w jeden - późniejsze klucze nadpisują wcześniejsze.
 
 Kod jest **poprawny**, ale kwadratowy: `{ ...acc, ...o }` w `reduce` kopiuje wszystkie
-dotychczasowe klucze przy każdym kroku. Testy poprawności przechodzą — obleje benchmark.
+dotychczasowe klucze przy każdym kroku. Testy poprawności przechodzą - obleje benchmark.
 Przepisz na scalanie do jednego obiektu.
 
 ```js

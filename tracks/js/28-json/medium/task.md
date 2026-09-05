@@ -1,4 +1,6 @@
-# Medium — replacer (funkcja) i reviver
+# Medium - replacer (funkcja) i reviver
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## 1. `stringifyHidingSecrets(obj)`
 

@@ -1,4 +1,6 @@
-# Easy — podstawy pisania funkcji
+# Easy - podstawy pisania funkcji
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` trzy funkcje.
 
@@ -15,7 +17,7 @@ min(1, 1);  // 1
 ## 2. `pow(x, n)`
 
 Zwraca `x` podniesione do potęgi `n`. `n` to liczba całkowita ≥ 1.
-Policz **pętlą** — bez `Math.pow` i bez operatora `**`.
+Policz **pętlą** - bez `Math.pow` i bez operatora `**`.
 
 ```js
 pow(2, 3);  // 8

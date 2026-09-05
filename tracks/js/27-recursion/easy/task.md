@@ -1,4 +1,6 @@
-# Easy — factorial i pow (rekurencyjnie)
+# Easy - factorial i pow (rekurencyjnie)
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj dwie klasyczne funkcje rekurencyjne (każda z przypadkiem bazowym i krokiem).
 

@@ -1,7 +1,9 @@
-# Hard — serializacja odporna na cykle
+# Hard - serializacja odporna na cykle
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 `JSON.stringify` rzuca `TypeError` na strukturze z cyklem (obiekt referujący sam siebie).
-Zaimplementuj `safeStringify(value)`, które **nie rzuca** — miejsce cyklu zastępuje
+Zaimplementuj `safeStringify(value)`, które **nie rzuca** - miejsce cyklu zastępuje
 stringiem `"[Circular]"`. Zwykłe (acykliczne) dane serializuj normalnie.
 
 ```js

@@ -1,6 +1,8 @@
-# Hard — wzorzec observe (akcesory + defineProperty)
+# Hard - wzorzec observe (akcesory + defineProperty)
 
-Zaimplementuj `observable(target, onChange)` — funkcję, która zwraca **nowy** obiekt
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj `observable(target, onChange)` - funkcję, która zwraca **nowy** obiekt
 o tych samych kluczach co `target`, ale każdy klucz jest parą getter/setter zdefiniowaną
 przez `Object.defineProperty`. Zapis pod klucz, który **zmienia** wartość, wywołuje
 `onChange(key, newValue, oldValue)`. To rdzeń reaktywności (Vue 2, MobX robią podobnie).
@@ -21,7 +23,7 @@ const state = observable({ count: 0, name: "x" }, (key, val, old) => {
 
 state.count;        // 0
 state.count = 1;    // changes: ["count: 0 -> 1"]
-state.count = 1;    // bez zmiany — onChange NIE wywołany
+state.count = 1;    // bez zmiany - onChange NIE wywołany
 state.name = "y";   // changes: ["count: 0 -> 1", "name: x -> y"]
 Object.keys(state); // ["count", "name"]
 ```

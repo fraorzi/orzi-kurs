@@ -1,10 +1,12 @@
-# Hard [O] — firstUnique: podwójne skanowanie → jedno zliczenie
+# Hard [O] - firstUnique: podwójne skanowanie → jedno zliczenie
+
+Tryb: optymalizacja. Popraw istniejący kod w `starter.js`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
 
 `firstUnique(arr)` zwraca **pierwszą** wartość występującą dokładnie raz, albo `undefined`,
 gdy takiej nie ma.
 
 Kod jest **poprawny**, ale kwadratowy: dla każdego elementu woła `indexOf` i `lastIndexOf`
-(oba O(n)) — łącznie O(n²). Testy poprawności przechodzą — obleje benchmark. Przepisz na
+(oba O(n)) - łącznie O(n²). Testy poprawności przechodzą - obleje benchmark. Przepisz na
 czas liniowy: policz częstości **raz**, potem znajdź pierwszą wartość o liczności 1.
 
 ```js

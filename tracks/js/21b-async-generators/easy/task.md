@@ -1,4 +1,6 @@
-# Easy — pierwszy async generator
+# Easy - pierwszy async generator
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## 1. `asyncRange(start, end)`
 

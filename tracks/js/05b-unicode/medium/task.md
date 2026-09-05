@@ -1,9 +1,11 @@
-# Medium — odwracanie i normalizacja
+# Medium - odwracanie i normalizacja
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## 1. `reverse(str)`
 
 Odwraca kolejność znaków, **nie rozrywając** par zastępczych. Klasyczny
-`str.split("").reverse().join("")` psuje emoji — Twoja wersja ma działać.
+`str.split("").reverse().join("")` psuje emoji - Twoja wersja ma działać.
 
 ```js
 reverse("hello");  // "olleh"
@@ -17,7 +19,7 @@ diakrytyczny bywa zapisany jako jeden punkt kodowy albo litera + znak łączący
 są identyczne, ale `===` je rozróżnia.
 
 ```js
-equalIgnoringForm("é", "é"); // true  — obie formy "é"
+equalIgnoringForm("é", "é"); // true  - obie formy "é"
 equalIgnoringForm("abc", "abc");        // true
 equalIgnoringForm("a", "b");            // false
 ```

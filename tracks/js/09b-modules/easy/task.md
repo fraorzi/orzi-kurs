@@ -1,4 +1,6 @@
-# Easy — mały moduł zamówień
+# Easy - mały moduł zamówień
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Uzupełnij trzy pliki w `src/`:
 

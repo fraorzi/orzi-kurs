@@ -1,11 +1,13 @@
-# Easy — klasyka pętli
+# Easy - klasyka pętli
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj w `starter.js` trzy funkcje.
 
 ## 1. `fizzBuzz(n)`
 
 Zwraca tablicę dla liczb `1..n`: wielokrotności 3 zastąpione `"Fizz"`,
-wielokrotności 5 — `"Buzz"`, wielokrotności obu — `"FizzBuzz"`, pozostałe
+wielokrotności 5 - `"Buzz"`, wielokrotności obu - `"FizzBuzz"`, pozostałe
 liczby bez zmian (jako number).
 
 ```js
@@ -15,7 +17,7 @@ fizzBuzz(15); // [..., 14, "FizzBuzz"]
 
 ## 2. `sumRange(a, b)`
 
-Suma liczb całkowitych od `a` do `b` **włącznie**. Gdy `a > b` — zwróć `0`.
+Suma liczb całkowitych od `a` do `b` **włącznie**. Gdy `a > b` - zwróć `0`.
 
 ```js
 sumRange(1, 5);  // 15

@@ -1,6 +1,8 @@
-# Medium — leniwe wyszukiwanie (`firstMatching`)
+# Medium - leniwe wyszukiwanie (`firstMatching`)
 
-Zaimplementuj `firstMatching(iterator, predicate, n)` — zwraca tablicę pierwszych `n`
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj `firstMatching(iterator, predicate, n)` - zwraca tablicę pierwszych `n`
 elementów spełniających `predicate`, **pobierając ze źródła tylko tyle, ile trzeba**.
 Kluczowa jest leniwość: gdy zbierzesz `n` trafień, nie wolno ciągnąć dalej z iteratora.
 
@@ -15,5 +17,5 @@ tablicy by się zawiesiło albo zrobiło zbędną pracę. Zbuduj leniwy pipeline
 `filter(predicate)` → `take(n)` → `toArray()`.
 
 Test policzy pobrania z generatora `1,2,3,…`: dla 3 pierwszych liczb parzystych wolno
-pobrać najwyżej 7 elementów (kanoniczny pipeline pobiera dokładnie 6) — materializacja
+pobrać najwyżej 7 elementów (kanoniczny pipeline pobiera dokładnie 6) - materializacja
 pobierałaby bez końca.

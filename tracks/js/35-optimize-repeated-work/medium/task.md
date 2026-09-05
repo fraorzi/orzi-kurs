@@ -1,9 +1,11 @@
-# Medium [O] — wyciągnij niezmiennik z pętli
+# Medium [O] - wyciągnij niezmiennik z pętli
+
+Tryb: optymalizacja. Popraw istniejący kod w `starter.js`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
 
 `styleItems(items, theme, computeStyle)` zwraca kopie elementów z doklejonym stylem
 policzonym z motywu: `computeStyle(theme)` (funkcja kosztowna, zależna **tylko** od `theme`).
 
-Kod jest **poprawny**, ale liczy `computeStyle(theme)` dla **każdego** elementu — choć
+Kod jest **poprawny**, ale liczy `computeStyle(theme)` dla **każdego** elementu - choć
 `theme` się nie zmienia. Bramka liczy wywołania `computeStyle`: ma być **jedno**, nie
 `items.length`. Wyciągnij obliczenie przed pętlę, nie zmieniając wyniku.
 

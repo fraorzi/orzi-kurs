@@ -1,4 +1,6 @@
-# Medium — retry i allSettledLite
+# Medium - retry i allSettledLite
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## 1. `retry(fn, attempts)`
 
@@ -17,7 +19,7 @@ await retry(() => Promise.reject(new Error("always")), 2); // rzuca "always" po 
 
 ## 2. `allSettledLite(promises)`
 
-Własna implementacja `Promise.allSettled` — **bez używania** `Promise.allSettled`:
+Własna implementacja `Promise.allSettled` - **bez używania** `Promise.allSettled`:
 
 - czeka na ustalenie wszystkich wejść,
 - nigdy nie odrzuca,

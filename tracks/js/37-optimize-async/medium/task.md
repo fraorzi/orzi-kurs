@@ -1,9 +1,11 @@
-# Medium [O] — ograniczona współbieżność (pool)
+# Medium [O] - ograniczona współbieżność (pool)
+
+Tryb: optymalizacja. Popraw istniejący kod w `starter.js`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
 
 `pooledMap(items, worker, limit)` zwraca tablicę wyników `worker(item)` w kolejności
 `items`, przetwarzając **najwyżej `limit`** elementów naraz.
 
-Kod jest **poprawny**, ale sekwencyjny (`await` w pętli) — `maxActive = 1`, `limit` jest
+Kod jest **poprawny**, ale sekwencyjny (`await` w pętli) - `maxActive = 1`, `limit` jest
 ignorowany. Bramka mierzy współbieżność licznikiem: `maxActive` ma **osiągać `limit`**
 (pełne wykorzystanie) i **nigdy go nie przekraczać**. Przepisz na pool, zachowując
 kolejność wyników.

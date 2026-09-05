@@ -1,13 +1,15 @@
-# Medium — sumowanie wartości mieszanych typów
+# Medium - sumowanie wartości mieszanych typów
 
-Zaimplementuj `sumMixed(values)` — sumuje tablicę wartości, gdzie element może być:
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj `sumMixed(values)` - sumuje tablicę wartości, gdzie element może być:
 
 - `bigint` (np. `10n`),
 - całkowity `number` (np. `5`),
 - string z liczbą całkowitą (np. `"3"`).
 
 Zwróć sumę jako **BigInt**. Kluczowa lekcja: **nie wolno** mieszać `bigint` z `number` w
-działaniu (`10n + 5` rzuca `TypeError`) — najpierw skonwertuj każdy element przez `BigInt(...)`.
+działaniu (`10n + 5` rzuca `TypeError`) - najpierw skonwertuj każdy element przez `BigInt(...)`.
 
 ```js
 sumMixed([10n, 5, "3"]);        // 18n

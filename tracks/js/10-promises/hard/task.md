@@ -1,8 +1,10 @@
-# Hard — pool współbieżności
+# Hard - pool współbieżności
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## `promisePool(tasks, limit)`
 
-`tasks` to tablica funkcji zwracających promisy (nie promisów! — wywołanie funkcji
+`tasks` to tablica funkcji zwracających promisy (nie promisów! - wywołanie funkcji
 uruchamia operację). Wykonaj wszystkie z limitem współbieżności:
 
 - w danej chwili **maksymalnie `limit`** operacji w locie,
@@ -19,4 +21,4 @@ const responses = await promisePool(tasks, 4);     // nigdy więcej niż 4 naraz
 To wzorzec z realnego świata: batchowanie requestów do API z rate limitem,
 przetwarzanie plików bez zajechania dysku, crawlery.
 
-Nie używaj gotowych bibliotek — sam mechanizm masz zbudować z promisów.
+Nie używaj gotowych bibliotek - sam mechanizm masz zbudować z promisów.

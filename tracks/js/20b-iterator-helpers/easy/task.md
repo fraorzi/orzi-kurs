@@ -1,4 +1,6 @@
-# Easy — pierwsze elementy z iteratora
+# Easy - pierwsze elementy z iteratora
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Obie funkcje przyjmują dowolny **iterable** (tablica, `Set`, generator) i używają iterator
 helpers. Do owinięcia iterable w iterator z metodami użyj `Iterator.from(iterable)`.

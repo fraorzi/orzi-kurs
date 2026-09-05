@@ -1,22 +1,24 @@
-# Hard — bezpieczny dostęp i grupowanie
+# Hard - bezpieczny dostęp i grupowanie
 
-Zaimplementuj w `starter.js` trzy funkcje z lodasha — jego najczęściej używane
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+Zaimplementuj w `starter.js` trzy funkcje z lodasha - jego najczęściej używane
 narzędzia obiektowe.
 
 ## 1. `getPath(obj, path, fallback)`
 
 Semantyka `_.get`: `path` to string `"a.b.c"`. Idź w głąb obiektu; jeśli po
-drodze trafisz na `null`/`undefined` — przerwij. `fallback` jest zwracany
-**tylko gdy końcowy wynik to `undefined`** — `null` znaleziony na końcu ścieżki
+drodze trafisz na `null`/`undefined` - przerwij. `fallback` jest zwracany
+**tylko gdy końcowy wynik to `undefined`** - `null` znaleziony na końcu ścieżki
 jest zwracany wprost.
 
 ```js
 const user = { address: { street: null, city: "Łódź" } };
 getPath(user, "address.city", "?");   // "Łódź"
-getPath(user, "address.street", "?"); // null — null NIE uruchamia fallbacku
-getPath(user, "address.zip", "?");    // "?" — undefined uruchamia
-getPath({}, "a.b.c", "?");            // "?" — zerwana ścieżka
-getPath({ a: 0 }, "a", 5);            // 0 — falsy to pełnoprawna wartość
+getPath(user, "address.street", "?"); // null - null NIE uruchamia fallbacku
+getPath(user, "address.zip", "?");    // "?" - undefined uruchamia
+getPath({}, "a.b.c", "?");            // "?" - zerwana ścieżka
+getPath({ a: 0 }, "a", 5);            // 0 - falsy to pełnoprawna wartość
 ```
 
 ## 2. `mapValues(obj, fn)`

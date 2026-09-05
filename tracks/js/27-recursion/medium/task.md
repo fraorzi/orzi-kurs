@@ -1,4 +1,6 @@
-# Medium — rekurencja na strukturach zagnieżdżonych
+# Medium - rekurencja na strukturach zagnieżdżonych
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## 1. `sumNested(value)`
 

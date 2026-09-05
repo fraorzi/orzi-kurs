@@ -1,4 +1,6 @@
-# Easy — łańcuch w praktyce
+# Easy - łańcuch w praktyce
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 ## 1. `createWithDefaults(defaults, own)`
 
@@ -10,8 +12,8 @@ ma spadać do `defaults`.
 const defaults = { theme: "dark", lang: "pl" };
 const config = createWithDefaults(defaults, { lang: "en" });
 
-config.lang;                     // "en" — własna
-config.theme;                    // "dark" — z prototypu
+config.lang;                     // "en" - własna
+config.theme;                    // "dark" - z prototypu
 Object.hasOwn(config, "theme");  // false!
 ```
 
@@ -19,9 +21,9 @@ Object.hasOwn(config, "theme");  // false!
 
 Skąd pochodzi właściwość? Zwróć:
 
-- `"own"` — obiekt ma ją jako własną,
-- `"inherited"` — jest w łańcuchu prototypów, ale nie własna,
-- `"missing"` — nie ma jej wcale.
+- `"own"` - obiekt ma ją jako własną,
+- `"inherited"` - jest w łańcuchu prototypów, ale nie własna,
+- `"missing"` - nie ma jej wcale.
 
 ```js
 const animal = { eats: true };
@@ -33,5 +35,5 @@ readSource(rabbit, "eats");  // "inherited"
 readSource(rabbit, "flies"); // "missing"
 
 rabbit.eats = false;         // zapis tworzy własną kopię...
-readSource(rabbit, "eats");  // "own" — ...a prototyp zostaje nietknięty
+readSource(rabbit, "eats");  // "own" - ...a prototyp zostaje nietknięty
 ```

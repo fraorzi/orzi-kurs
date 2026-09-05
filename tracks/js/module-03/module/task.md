@@ -1,4 +1,6 @@
-# Moduł 03 — Paginowany klient listy z cache
+# Moduł 03 - Paginowany klient listy z cache
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Zadanie **wieloplikowe**. Uzupełnij pliki w katalogu `src/`. Testy importują z
 `src/index.js`, więc publiczne API musi zgadzać się co do nazw.
@@ -6,21 +8,21 @@ Zadanie **wieloplikowe**. Uzupełnij pliki w katalogu `src/`. Testy importują z
 Budujesz klienta do listy z wyszukiwarką i „doładuj więcej": strony trzymasz w cache
 (Map), zmiana zapytania anuluje wiszące żądanie, a wpisywanie w pole obsłuży debounce.
 
-## `src/cache.js` — cache stron
+## `src/cache.js` - cache stron
 
 - `createCache()` → `{ has, get, set, size, clear }`. Wpis kluczowany parą
-  `(query, page)` — zbuduj klucz jednakowo w każdej metodzie (np. `\`${query}::${page}\``).
-  - `has(query, page)` / `get(query, page)` — sprawdź / odczytaj.
-  - `set(query, page, value)` — zapisz i **zwróć** `value`.
-  - `size` (getter) — liczba wpisów; `clear()` — wyczyść.
+  `(query, page)` - zbuduj klucz jednakowo w każdej metodzie (np. `\`${query}::${page}\``).
+  - `has(query, page)` / `get(query, page)` - sprawdź / odczytaj.
+  - `set(query, page, value)` - zapisz i **zwróć** `value`.
+  - `size` (getter) - liczba wpisów; `clear()` - wyczyść.
 
-## `src/debounce.js` — dławienie wpisywania
+## `src/debounce.js` - dławienie wpisywania
 
 - `debounce(fn, waitMs)` → nowa funkcja. Każde wywołanie kasuje poprzedni timer
   i ustawia nowy; `fn` odpala się **raz**, z ostatnimi argumentami, po ciszy trwającej
   `waitMs`. Uchwyt timera trzymaj w domknięciu.
 
-## `src/index.js` — klient listy
+## `src/index.js` - klient listy
 
 Re-eksportuj `createCache` i `debounce`. Dodatkowo:
 
@@ -31,10 +33,10 @@ Re-eksportuj `createCache` i `debounce`. Dodatkowo:
     utwórz `AbortController` (zapamiętaj jako `activeController`), zawołaj
     `fetchImpl(\`?q=${encodeURIComponent(query)}&page=${page}\`, { signal })`, sparsuj
     JSON `{ items, hasMore }`, zapisz do cache i zwróć.
-  - `search(query)` — **anuluj** poprzednie żądanie (`activeController.abort()`),
+  - `search(query)` - **anuluj** poprzednie żądanie (`activeController.abort()`),
     ustaw `currentQuery`, `currentPage = 1`, pobierz stronę 1, ustaw
     `items = [...data.items]` i `hasMore`; zwróć `items`.
-  - `next()` — gdy `!hasMore` zwróć `items` bez zmian; inaczej pobierz kolejną stronę,
+  - `next()` - gdy `!hasMore` zwróć `items` bez zmian; inaczej pobierz kolejną stronę,
     **dołącz** jej `items` do zebranych, zaktualizuj `currentPage` i `hasMore`.
   - `getItems()` → zebrane pozycje; `query` / `page` / `hasMore` / `cacheSize` → gettery.
 

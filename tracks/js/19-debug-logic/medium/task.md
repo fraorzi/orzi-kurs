@@ -1,4 +1,6 @@
-# Medium [D] — stale closure i mutacja podczas iteracji
+# Medium [D] - stale closure i mutacja podczas iteracji
+
+Tryb: naprawa. W `starter.js` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
 
 Dwie kompletne funkcje z **subtelnymi** błędami. Działają „na oko", ale dają złe wyniki.
 Znajdź przyczynę i napraw.

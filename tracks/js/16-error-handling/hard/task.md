@@ -1,4 +1,6 @@
-# Hard — hierarchia błędów, zawijanie w `cause`, rethrow
+# Hard - hierarchia błędów, zawijanie w `cause`, rethrow
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Odwzorowanie wzorca `readUser` z javascript.info: warstwa niska rzuca konkretne błędy,
 warstwa wysoka **zawija** je w jeden błąd abstrakcyjny (`ReadError`) z oryginałem w `cause`,
@@ -8,10 +10,10 @@ Zaimplementuj w `starter.js` trzy klasy i funkcję.
 
 ## Klasy błędów
 
-1. `class ValidationError extends Error` — nazwa błędu ma odpowiadać rzeczywistej klasie.
-2. `class PropertyRequiredError extends ValidationError` — konstruktor przyjmuje `property`,
+1. `class ValidationError extends Error` - nazwa błędu ma odpowiadać rzeczywistej klasie.
+2. `class PropertyRequiredError extends ValidationError` - konstruktor przyjmuje `property`,
    zapisuje ją na instancji i tworzy komunikat `Brak właściwości: <property>`.
-3. `class ReadError extends Error` — konstruktor przyjmuje `message` i `cause`; instancja ma
+3. `class ReadError extends Error` - konstruktor przyjmuje `message` i `cause`; instancja ma
    zachować oba oraz nazwę `ReadError`.
 
 ## `readUser(json)`
@@ -27,5 +29,5 @@ Zaimplementuj w `starter.js` trzy klasy i funkcję.
 readUser('{"name":"Ala","age":30}');   // { name: "Ala", age: 30 }
 readUser('{ zły json');                // ReadError, .cause instanceof SyntaxError
 readUser('{"age":30}');                // ReadError, .cause instanceof PropertyRequiredError
-readUser('null');                      // nieznany błąd (TypeError) — przerzucony, NIE ReadError
+readUser('null');                      // nieznany błąd (TypeError) - przerzucony, NIE ReadError
 ```

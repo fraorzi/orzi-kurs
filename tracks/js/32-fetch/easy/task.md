@@ -1,6 +1,8 @@
-# Easy — fetchJson i postJson
+# Easy - fetchJson i postJson
 
-W testach globalny `fetch` jest podmieniany na atrapę — nie ma tu sieci. Używaj po prostu
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
+
+W testach globalny `fetch` jest podmieniany na atrapę - nie ma tu sieci. Używaj po prostu
 globalnego `fetch`.
 
 ## 1. `fetchJson(url)`
@@ -13,7 +15,7 @@ await fetchJson("/api/users"); // { ... }  gdy 200
 await fetchJson("/api/brak");  // rzuca Error("HTTP 404")
 ```
 
-Pamiętaj: `fetch` **nie** odrzuca obietnicy przy 404/500 — musisz sprawdzić `res.ok` sam.
+Pamiętaj: `fetch` **nie** odrzuca obietnicy przy 404/500 - musisz sprawdzić `res.ok` sam.
 
 ## 2. `postJson(url, body)`
 

@@ -1,7 +1,9 @@
-# Hard — leniwe `firstN` na strumieniu async
+# Hard - leniwe `firstN` na strumieniu async
+
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj **async generator** `firstN(asyncIterable, n)`, który yielduje **pierwsze `n`**
-elementów źródła i przestaje — nie ciągnąc z niego ani jednego elementu więcej.
+elementów źródła i przestaje - nie ciągnąc z niego ani jednego elementu więcej.
 
 ```js
 const out = [];

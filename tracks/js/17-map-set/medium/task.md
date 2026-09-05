@@ -1,8 +1,10 @@
-# Medium — anagramy (Map jako indeks) i konwersje Object ↔ Map
+# Medium - anagramy (Map jako indeks) i konwersje Object ↔ Map
 
-## 1. `aclean(arr)` — grupowanie anagramów
+Tryb: od zera. Napisz rozwiązanie w `starter.js`, korzystając z podanych sygnatur i typów.
 
-Zwróć tablicę słów bez anagramów — z każdej grupy anagramów zostaje **jedno** słowo.
+## 1. `aclean(arr)` - grupowanie anagramów
+
+Zwróć tablicę słów bez anagramów - z każdej grupy anagramów zostaje **jedno** słowo.
 Anagramy to słowa z tych samych liter (ignoruj wielkość liter). Wystarczy dowolny
 reprezentant grupy. (Ćwiczenie „Filter anagrams" z javascript.info.)
 
