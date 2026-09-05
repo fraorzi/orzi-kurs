@@ -1,9 +1,11 @@
-# Medium — rozdziel imię i nazwisko etapami
+# Medium - rozdziel imię i nazwisko etapami
+
+Tryb: od zera. Napisz rozwiązanie w `starter.sql`, korzystając z opisanego schematu tabel.
 
 `customers.name` trzyma pełne imię i nazwisko jako jeden ciąg znaków, ale
 nowy formularz rejestracji potrzebuje osobnych pól. Kod aplikacji czytający
 `given_name`/`family_name` wdraża się osobno (i później) niż migracja bazy
-— to typowy podział na expand i contract: migracja dodaje i wypełnia nowe
+- to typowy podział na expand i contract: migracja dodaje i wypełnia nowe
 kolumny teraz, a usunięcie starego `name` to osobny, późniejszy deploy,
 kiedy żaden kod nie będzie go już czytał.
 
@@ -13,9 +15,9 @@ kiedy żaden kod nie będzie go już czytał.
   (pierwsze słowo → `given_name`, reszta po pierwszej spacji →
   `family_name`, żeby wieloczłonowe nazwiska nie ucinały się do ostatniego
   słowa), dopiero potem zaostrz obie kolumny do `NOT NULL`.
-- `name` zostaje w tabeli nietknięte — jego usunięcie to osobna migracja
+- `name` zostaje w tabeli nietknięte - jego usunięcie to osobna migracja
   typu `contract`, po wdrożeniu kodu, który już go nie potrzebuje.
-- Migracja nie może zakładać dokładnie dwóch słów w `name` — nazwisko
+- Migracja nie może zakładać dokładnie dwóch słów w `name` - nazwisko
   wieloczłonowe (`Maria Skłodowska Curie`) ma trafić w całości do
   `family_name`.
 

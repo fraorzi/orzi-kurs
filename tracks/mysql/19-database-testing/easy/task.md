@@ -1,8 +1,10 @@
-# Easy — zbuduj idempotentną fixture
+# Easy - zbuduj idempotentną fixture
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z opisanego schematu tabel.
 
 Zestaw testów integracyjnych ma wspólną fixture `seedUsers`, która
 przygotowuje dwóch kanonicznych użytkowników przed każdym scenariuszem.
-Uruchomiona raz na czystej bazie działa — ale drugie uruchomienie (kolejny
+Uruchomiona raz na czystej bazie działa - ale drugie uruchomienie (kolejny
 test w tym samym pliku, albo ponowny przebieg CI na tej samej bazie
 deweloperskiej) kończy się `ER_DUP_ENTRY`, bo `starter.ts` robi zwykły
 `INSERT`.
@@ -14,10 +16,10 @@ Zaimplementuj `seedUsers(connection)` tak, aby:
 - przy powtórnym wywołaniu **naprawiała** wartości do kanonicznych, jeśli
   ktoś je wcześniej nadpisał (np. wiersz `101` ma dziś `name = 'stale'`),
   zamiast rzucać błąd duplikatu klucza,
-- nie usuwała ani nie modyfikowała wierszy spoza tego zestawu — inny test
+- nie usuwała ani nie modyfikowała wierszy spoza tego zestawu - inny test
   mógł celowo zostawić w tabeli dodatkowego użytkownika,
 - była w pełni idempotentna: N wywołań pod rząd ma dać dokładnie ten sam
   stan co jedno.
 
-Fixture, która działa tylko raz na pustej tabeli, nie jest fixture — jest
+Fixture, która działa tylko raz na pustej tabeli, nie jest fixture - jest
 pułapką na drugi test w kolejności.

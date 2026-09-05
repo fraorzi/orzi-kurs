@@ -1,9 +1,11 @@
-# Easy — przenieś saldo atomowo
+# Easy - przenieś saldo atomowo
+
+Tryb: od zera. Napisz rozwiązanie w `starter.sql`, korzystając z opisanego schematu tabel.
 
 Przelew między dwoma kontami to trzy zmiany naraz: obciążenie nadawcy,
 uznanie odbiorcy i wpis do księgi (`ledger`). Jeżeli proces padnie po
 pierwszej zmianie, a przed drugą, pieniądze znikają z jednego konta i nie
-pojawiają się na drugim — bank traci spójność ksiąg, a support dostaje
+pojawiają się na drugim - bank traci spójność ksiąg, a support dostaje
 zgłoszenie "gdzie są moje pieniądze". Trzy statementy bez wspólnej
 transakcji to trzy niezależne okazje do takiej awarii.
 
@@ -17,5 +19,5 @@ Napisz sekwencję statementów, która w jednej transakcji:
   otwartej, niezakończonej transakcji na tym połączeniu.
 
 Pomiń zmianę salda odbiorcy, a test wykryje to tak samo jak każdy inny
-brakujący krok — sekwencja ma być kompletna, nie tylko "wygląda na
+brakujący krok - sekwencja ma być kompletna, nie tylko "wygląda na
 transfer".

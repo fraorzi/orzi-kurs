@@ -1,7 +1,9 @@
-# Easy — użyj EXISTS bez duplikatów
+# Easy - użyj EXISTS bez duplikatów
+
+Tryb: od zera. Napisz rozwiązanie w `starter.sql`, korzystając z opisanego schematu tabel.
 
 Segment mailingowy ma trafić do każdego klienta z co najmniej jednym
-opłaconym zamówieniem — dokładnie raz. Klient z dwoma opłaconymi
+opłaconym zamówieniem - dokładnie raz. Klient z dwoma opłaconymi
 zamówieniami, który dostanie tę samą wiadomość dwa razy, to zgłoszenie
 do supportu, nie drobiazg.
 
@@ -16,5 +18,5 @@ Napisz zapytanie, które:
 - sortuje wynik rosnąco po `id`.
 
 Starter odpowiada na pytanie "czy istnieje" przez `JOIN` i filtr w
-`WHERE` — to zwielokrotnia wiersz klienta tyle razy, ile ma pasujących
+`WHERE` - to zwielokrotnia wiersz klienta tyle razy, ile ma pasujących
 zamówień, zamiast dać dokładnie jeden wiersz na klienta.
