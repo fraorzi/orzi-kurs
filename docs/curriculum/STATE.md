@@ -1,6 +1,13 @@
 # Stan curriculum intern → mid
 
-Aktualizacja: 2026-07-21.
+Aktualizacja: 2026-09-05.
+
+## Audyt użyteczności 2026-09-05
+
+Wszystkie 606 zadań mają jawny tryb pracy. Ujednolicono formatowanie diffa,
+uproszczono polecenia, usunięto obowiązek implementowania ARIA i modyfikatory pól
+propsów. Poprawione szablony są oddzielone od kodu ucznia. Wszystkie rozwiązania
+i bramki starterów przechodzą. Szczegóły: [USABILITY_AUDIT.md](USABILITY_AUDIT.md).
 
 ## Wynik
 

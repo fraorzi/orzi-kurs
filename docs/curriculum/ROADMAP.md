@@ -2,6 +2,10 @@
 
 Data audytu: 2026-07-17.
 
+Audyt użyteczności z 2026-09-05 objął wszystkie 606 zadań: jawne tryby pracy,
+czytelniejsze polecenia, poprawione szablony i porównanie rozwiązań po wspólnym
+formatowaniu. Zakres technologii pozostaje bez zmian. Wyniki w [USABILITY_AUDIT.md](USABILITY_AUDIT.md).
+
 ## Stan zastany przed realizacją
 
 Poniższa tabela jest historycznym snapshotem wejściowym, nie bieżącym statusem.

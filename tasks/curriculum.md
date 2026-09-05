@@ -1,5 +1,10 @@
 # Kurykulum — pełny zakres do poziomu mid
 
+- [x] 2026-09-05: audyt użyteczności wszystkich 606 zadań, tryby pracy, uproszczenie
+  poleceń, szablony niezależne od kodu ucznia, wspólne formatowanie diffa i testy
+  zachowania bez wymagań ARIA. [Raport](../docs/curriculum/USABILITY_AUDIT.md).
+
+
 Kontrakt treści: każda przyszła sesja tworząca zadania realizuje kolejne pozycje z tej
 listy wg konwencji ze SPEC.md, wzorując się na `tracks/js/01-05`. Każde zagadnienie =
 README (teoria + „kiedy używać / kiedy unikać / pułapki") + easy/medium/hard.

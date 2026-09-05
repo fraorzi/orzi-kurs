@@ -40,6 +40,7 @@ export function readCurrentArtifact(artifactPath: string): ArtifactSnapshot {
   const walk = (directory: string): void => {
     for (const name of readdirSync(directory).sort((a, b) => a.localeCompare(b))) {
       const path = join(directory, name);
+      assertPathWithinRoot(path, artifactPath);
       if (statSync(path).isDirectory()) {
         walk(path);
       } else {

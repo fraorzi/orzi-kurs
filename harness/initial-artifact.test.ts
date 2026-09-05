@@ -1,4 +1,11 @@
-import { existsSync, mkdtempSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  mkdtempSync,
+  mkdirSync,
+  readFileSync,
+  symlinkSync,
+  writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { spawnSync } from "node:child_process";
@@ -21,6 +28,18 @@ function createRepo(): string {
 }
 
 describe("initial artifact", () => {
+  it("rejects a nested template symlink outside the artifact", () => {
+    const repoRoot = createRepo();
+    const task = join(repoRoot, "tracks/react/topic/hard");
+    mkdirSync(join(task, "src"), { recursive: true });
+    mkdirSync(join(task, "_starter"), { recursive: true });
+    writeFileSync(join(repoRoot, "private.txt"), "unrelated data");
+    symlinkSync(join(repoRoot, "private.txt"), join(task, "_starter", "index.tsx"));
+    expect(() => readInitialArtifact(join(task, "src"), repoRoot)).toThrow(
+      "ścieżka poza dozwolonym katalogiem",
+    );
+  });
+
   it("uses the revised curriculum template without changing the student's code", async () => {
     const repoRoot = createRepo();
     const starter = join(repoRoot, "tracks/react/topic/easy/starter.tsx");
