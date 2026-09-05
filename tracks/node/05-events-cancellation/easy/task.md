@@ -1,4 +1,6 @@
-# Easy — zwróć idempotentny cleanup
+# Easy - zwróć idempotentny cleanup
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Moduł wystawia subskrypcję zdarzeń, a konsument dostaje funkcję sprzątającą.
 Zaimplementuj `solve(emitter, event, listener)`:

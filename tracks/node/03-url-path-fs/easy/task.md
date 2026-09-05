@@ -1,4 +1,6 @@
-# Easy — zamień URL modułu na ścieżkę
+# Easy - zamień URL modułu na ścieżkę
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Moduł ESM chce wczytać plik leżący obok siebie. Zaimplementuj
 `solve(moduleUrl, relativeFile)`:
@@ -6,7 +8,7 @@ Moduł ESM chce wczytać plik leżący obok siebie. Zaimplementuj
 - `moduleUrl` to wartość w formacie `import.meta.url`
   (np. `"file:///app/src/index.js"`);
 - zwróć **pathname** pliku rozwiązanego względem modułu przez standardowe API `URL`;
-- względne segmenty (`./`, `../`) mają działać jak w imporcie — bez ręcznego
+- względne segmenty (`./`, `../`) mają działać jak w imporcie - bez ręcznego
   sklejania separatorów.
 
 ```ts

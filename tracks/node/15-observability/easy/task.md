@@ -1,4 +1,6 @@
-# Easy — twórz logi strukturalne
+# Easy - twórz logi strukturalne
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj serializator wpisu logu `solve(input, now)`:
 

@@ -1,4 +1,6 @@
-# Hard — formatuj pomoc i błędy
+# Hard - formatuj pomoc i błędy
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Ostatnia mila CLI: co widzi użytkownik. Zaimplementuj
 `solve(command, error?, debug = false)`:
@@ -8,5 +10,5 @@ Ostatnia mila CLI: co widzi użytkownik. Zaimplementuj
 - z błędem zwróć komunikat `Error: <message>` plus wskazówkę
   `Run '<command> --help' for usage.`;
 - `error.cause` pokazuj **wyłącznie** gdy `debug === true`;
-- wartości nie będące `Error` opisz jako `Unknown error` — nie serializuj
+- wartości nie będące `Error` opisz jako `Unknown error` - nie serializuj
   cudzych struktur do terminala.

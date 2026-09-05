@@ -1,4 +1,6 @@
-# Easy — rozdziel stdout i stderr
+# Easy - rozdziel stdout i stderr
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj mapowanie wyniku komendy na kontrakt procesu:
 `solve(result, json)`:

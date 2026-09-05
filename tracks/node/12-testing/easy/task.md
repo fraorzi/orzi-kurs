@@ -1,4 +1,6 @@
-# Easy — wstrzyknij granicę czasu
+# Easy - wstrzyknij granicę czasu
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Cache z TTL ma być testowalny bez sleepów i fake timers. Zaimplementuj
 `solve(ttlMs, load, now)`:
@@ -8,5 +10,5 @@ Cache z TTL ma być testowalny bez sleepów i fake timers. Zaimplementuj
 - dopóki `now() < expiresAt`, zwracaj wartość z cache bez wołania `load`;
 - od momentu `now() >= expiresAt` (równość włącznie) przeładuj wartość
   i ustaw nowy termin;
-- czas płynie wyłącznie przez wstrzyknięte `now` — w rozwiązaniu nie ma
+- czas płynie wyłącznie przez wstrzyknięte `now` - w rozwiązaniu nie ma
   `Date.now`.

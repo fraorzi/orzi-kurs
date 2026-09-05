@@ -1,4 +1,6 @@
-# Hard — kompresuj przez pipeline
+# Hard - kompresuj przez pipeline
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Eksport danych ma być kompresowany w locie, bez buforowania całości.
 Zaimplementuj `solve(input)`:
@@ -9,5 +11,5 @@ Zaimplementuj `solve(input)`:
 - zwróć skompresowany `Buffer`;
 - błąd źródła ma odrzucić całość (pipeline propaguje błędy i sprząta ogniwa).
 
-Poprawność sprawdza roundtrip (`gunzipSync`), nie bajty gzipa — te zależą
+Poprawność sprawdza roundtrip (`gunzipSync`), nie bajty gzipa - te zależą
 od wersji zlib.

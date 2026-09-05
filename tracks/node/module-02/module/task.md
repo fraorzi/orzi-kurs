@@ -1,7 +1,9 @@
-# Moduł — rdzeń usługi HTTP z idempotencją
+# Moduł - rdzeń usługi HTTP z idempotencją
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Zadanie jest **wieloplikowe**. Uzupełnij pliki w `src/`; testy importują
-wyłącznie z `src/index.ts`. `src/types.ts` to gotowy kontrakt — nie
+wyłącznie z `src/index.ts`. `src/types.ts` to gotowy kontrakt - nie
 zmieniaj go. Całość działa na standardowych `Request`/`Response`, więc
 testuje się bez socketów.
 
@@ -16,10 +18,10 @@ testuje się bez socketów.
 
 ## `src/idempotency.ts`
 
-`createIdempotencyStore()` — pamięć odpowiedzi mutacji:
+`createIdempotencyStore()` - pamięć odpowiedzi mutacji:
 
 - `get(key)` → zapisany snapshot `{ status, body }` albo `undefined`;
-- `remember(key, snapshot)` — zapamiętuje **kopię niezależną od wejścia**
+- `remember(key, snapshot)` - zapamiętuje **kopię niezależną od wejścia**
   (późniejsza mutacja obiektu wywołującego nie może zmienić zapisu).
 
 ## `src/app.ts`
@@ -37,7 +39,7 @@ testuje się bez socketów.
   z nagłówkiem `idempotent-replay: true`; nowa odpowiedź jest zapamiętywana;
 - **Błędy**: handler rzucający `Error` o `name === "ValidationError"` → 400
   z jego komunikatem; wszystko inne → 500 z generycznym `"Internal Server
-  Error"` — bez wycieku szczegółów; envelope błędu:
+  Error"` - bez wycieku szczegółów; envelope błędu:
   `{ error, requestId }`;
 - odpowiedzi sukcesu: `{ status, body }` handlera serializowane do JSON
   z `content-type: application/json`.

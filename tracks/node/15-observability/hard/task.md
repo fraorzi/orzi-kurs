@@ -1,4 +1,6 @@
-# Hard — publikuj przez diagnostics_channel
+# Hard - publikuj przez diagnostics_channel
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Moduł ma emitować zdarzenia telemetryczne bez płacenia za nie, gdy nikt nie
 słucha. Zaimplementuj `solve(name)`:

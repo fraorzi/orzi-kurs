@@ -1,24 +1,26 @@
-# Moduł — strumieniowy analizator logów NDJSON
+# Moduł - strumieniowy analizator logów NDJSON
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Zadanie jest **wieloplikowe**. Uzupełnij pliki w `src/`; testy importują
-wyłącznie z `src/index.ts`. `src/types.ts` jest gotowym kontraktem —
+wyłącznie z `src/index.ts`. `src/types.ts` jest gotowym kontraktem -
 nie zmieniaj go.
 
 Operacje dostają wielogigabajtowe logi NDJSON. Analizator ma policzyć
 rekordy per poziom logu, tolerować ograniczoną liczbę zepsutych linii
-i respektować limity — w stałej pamięci, bez wczytywania całości.
+i respektować limity - w stałej pamięci, bez wczytywania całości.
 
-## `src/lines.ts` — framing linii
+## `src/lines.ts` - framing linii
 
 `lines(chunks: AsyncIterable<Uint8Array>): AsyncGenerator<NumberedLine>`
 
-- dekoduj UTF-8 przez `StringDecoder` — znak przecięty między chunkami nie
+- dekoduj UTF-8 przez `StringDecoder` - znak przecięty między chunkami nie
   może stać się znakiem zastępczym;
 - wydawaj linie z numerem (od 1, licząc **wszystkie** wiersze) bez `\n`
   i bez końcowego `\r`;
 - ostatnia linia bez newline też jest linią; pustej końcówki nie wydawaj.
 
-## `src/records.ts` — walidacja rekordu
+## `src/records.ts` - walidacja rekordu
 
 `parseRecord(text: string): LogRecord`
 
@@ -27,7 +29,7 @@ i respektować limity — w stałej pamięci, bez wczytywania całości.
 - każdy inny kształt (zły JSON, tablica, zły level, brak message) to
   `Error` z czytelnym powodem.
 
-## `src/analyze.ts` — analiza z limitami
+## `src/analyze.ts` - analiza z limitami
 
 `analyzeLog(chunks, options): Promise<AnalyzeResult>`
 
@@ -35,16 +37,16 @@ i respektować limity — w stałej pamięci, bez wczytywania całości.
   błędem **bez dociągania kolejnych chunków**;
 - linie puste/białe pomijaj (numeracja liczy je nadal);
 - linię dłuższą niż `maxLineBytes` (w bajtach) odnotuj jako błąd
-  `"line-too-long"` — zużywa budżet, treści nie parsuj;
+  `"line-too-long"` - zużywa budżet, treści nie parsuj;
 - niepoprawny rekord odnotuj jako błąd z powodem z `parseRecord`;
 - każdy błąd zużywa `maxParseErrors`; przekroczenie budżetu przerywa
   analizę błędem;
-- przed obsłużeniem każdej linii sprawdź `options.signal` — przerwany
+- przed obsłużeniem każdej linii sprawdź `options.signal` - przerwany
   sygnał odrzuca analizę jego `reason`;
 - wynik: `processed` (poprawne rekordy), `counts` per level,
   `parseErrors` (numer linii + powód).
 
-## `src/index.ts` — publiczna granica
+## `src/index.ts` - publiczna granica
 
 Gotowy plik re-eksportuje `analyzeLog`, `lines`, `parseRecord` i typy.
 

@@ -1,4 +1,6 @@
-# Medium — połącz streamy Node i Web
+# Medium - połącz streamy Node i Web
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Legacy moduł daje klasyczny `Readable`, nowe API mówi Web Streams.
 Zaimplementuj `solve(source)`:
@@ -8,5 +10,5 @@ Zaimplementuj `solve(source)`:
   uppercase;
 - skonsumuj wynik readerem i zwróć sklejony string.
 
-Mostek jest jednokierunkowy i lokalny — reszta systemu nie musi wiedzieć,
+Mostek jest jednokierunkowy i lokalny - reszta systemu nie musi wiedzieć,
 że źródłem był klasyczny stream.

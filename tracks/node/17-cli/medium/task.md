@@ -1,4 +1,6 @@
-# Medium — parsuj NDJSON strumieniowo
+# Medium - parsuj NDJSON strumieniowo
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Wejście to linie pliku NDJSON. Zaimplementuj async generator
 `solve(lines)`:
@@ -8,4 +10,4 @@ Wejście to linie pliku NDJSON. Zaimplementuj async generator
 - wiersze puste i złożone z białych znaków pomijaj;
 - niepoprawny JSON przerywa parsowanie `Error` z dokładnym numerem linii
   w komunikacie;
-- generator jest leniwy — rekordy sprzed błędnej linii mają zostać wydane.
+- generator jest leniwy - rekordy sprzed błędnej linii mają zostać wydane.

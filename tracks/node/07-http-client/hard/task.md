@@ -1,4 +1,6 @@
-# Hard — ponawiaj tylko bezpieczne operacje
+# Hard - ponawiaj tylko bezpieczne operacje
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Klient GET ma przetrwać chwilowe przeciążenie API. Zaimplementuj
 `solve(url, attempts, fetcher, sleep)`:
@@ -8,5 +10,5 @@ Klient GET ma przetrwać chwilowe przeciążenie API. Zaimplementuj
   500…) zwróć od razu;
 - przed ponowieniem odczekaj `Retry-After` (sekundy → ms) przez wstrzyknięte
   `sleep`; brak lub niepoprawny nagłówek znaczy `sleep(0)`;
-- po wyczerpaniu prób zwróć ostatnią odpowiedź 429/503 — decyzję podejmie
+- po wyczerpaniu prób zwróć ostatnią odpowiedź 429/503 - decyzję podejmie
   warstwa wyżej.

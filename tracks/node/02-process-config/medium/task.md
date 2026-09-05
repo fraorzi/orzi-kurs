@@ -1,12 +1,14 @@
-# Medium — waliduj env na granicy
+# Medium - waliduj env na granicy
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Usługa czyta konfigurację ze zmiennych środowiskowych. Zaimplementuj
 `solve(env)`, które waliduje wejście i zwraca **zamrożony** config:
 
-- `API_URL` — wymagany, parsowany przez `new URL(...)`; brak → `Error`;
-- `TIMEOUT_MS` — opcjonalny, domyślnie `5000`; liczba całkowita ≥ 100,
+- `API_URL` - wymagany, parsowany przez `new URL(...)`; brak → `Error`;
+- `TIMEOUT_MS` - opcjonalny, domyślnie `5000`; liczba całkowita ≥ 100,
   inaczej `Error`;
-- `APP_SECRET` — gdy `NODE_ENV === "production"`, musi mieć co najmniej
+- `APP_SECRET` - gdy `NODE_ENV === "production"`, musi mieć co najmniej
   32 znaki; poza produkcją może być pusty;
 - wynik ma być niemutowalny (`Object.freeze`).
 

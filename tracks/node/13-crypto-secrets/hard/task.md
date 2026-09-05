@@ -1,4 +1,6 @@
-# Hard — wyprowadź klucz przez scrypt
+# Hard - wyprowadź klucz przez scrypt
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Przechowujesz weryfikator sekretu (np. hasła CLI) odporny na brutforce.
 Zaimplementuj `solve(secret)`:
@@ -8,5 +10,5 @@ Zaimplementuj `solve(secret)`:
 - zwróć `encoded` w formacie `<salt hex>:<klucz hex>` oraz asynchroniczny
   `verify(candidate)`;
 - `verify` wyprowadza klucz z kandydata **tą samą solą** i porównuje przez
-  `timingSafeEqual` — nigdy przez porównanie stringów;
+  `timingSafeEqual` - nigdy przez porównanie stringów;
 - dwa rekordy tego samego sekretu mają różne `encoded` (sól per rekord).

@@ -1,8 +1,10 @@
-# Easy — dopasuj metodę i pathname
+# Easy - dopasuj metodę i pathname
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj serce routera: `solve(routes, method, rawUrl)`:
 
-- porównuj **pathname** wyciągnięty przez API `URL` — query
+- porównuj **pathname** wyciągnięty przez API `URL` - query
   string nie wpływa na dopasowanie;
 - trafienie metody i ścieżki → `{ status: 200 }`;
 - ścieżka istnieje, ale pod innymi metodami → `{ status: 405, allow: [...] }`,

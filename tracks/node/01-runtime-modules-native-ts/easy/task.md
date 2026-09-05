@@ -1,4 +1,6 @@
-# Easy — rozpoznaj format modułu
+# Easy - rozpoznaj format modułu
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Piszesz fragment narzędzia developerskiego, które musi wiedzieć, **jak Node
 zinterpretuje dany plik**, zanim go uruchomi.
@@ -11,6 +13,6 @@ Zaimplementuj `solve(file, packageType)`:
   `"module"` → `"esm"`, `"commonjs"` → `"cjs"`.
 
 ```ts
-solve("worker.mts", "commonjs"); // "esm" — rozszerzenie wygrywa
-solve("index.ts", "commonjs");   // "cjs" — dziedziczy z package.json
+solve("worker.mts", "commonjs"); // "esm" - rozszerzenie wygrywa
+solve("index.ts", "commonjs");   // "cjs" - dziedziczy z package.json
 ```

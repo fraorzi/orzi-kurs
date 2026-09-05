@@ -1,4 +1,6 @@
-# Medium — normalizuj event-loop delay
+# Medium - normalizuj event-loop delay
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Histogram `monitorEventLoopDelay` raportuje **nanosekundy**; dashboard mówi
 w milisekundach. Zaimplementuj `solve(metrics, budgetMs)`:
