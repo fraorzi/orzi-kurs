@@ -347,5 +347,17 @@
     "firstPassedWithoutHintAt": "2026-09-01T22:43:17.365Z",
     "verifiedStarter": "import { useState } from \"react\";\n\nexport function ScoreBoard() {\n  const [score, setScore] = useState({ home: 0, away: 0 });\n\n  return (\n    <section>\n      <output aria-label=\"Gospodarze\">{score.home}</output>\n      <output aria-label=\"Goście\">{score.away}</output>\n      <button\n        type=\"button\"\n        onClick={() => {\n          setScore((current) => ({\n            ...score,\n            home: current.home + 1,\n          }));\n        }}\n      >\n        Punkt dla gospodarzy\n      </button>\n      <button\n        type=\"button\"\n        onClick={() => {\n          setScore((current) => ({\n            ...score,\n            away: current.away + 1,\n          }));\n        }}\n      >\n        Punkt dla gości\n      </button>\n    </section>\n  );\n}\n",
     "lastRunAt": "2026-09-01T22:43:17.365Z"
+  },
+  "react/04-immutable-state/medium": {
+    "status": "passed",
+    "attempts": 2,
+    "masteryScore": 1,
+    "cleanPassStreak": 1,
+    "nextReviewAt": "2026-09-06T00:00:03.762Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-09-05T00:00:03.762Z",
+    "firstPassedWithoutHintAt": "2026-09-05T00:00:03.762Z",
+    "verifiedStarter": "import { useState } from \"react\";\n\nexport interface CartItem {\n  readonly id: string;\n  readonly name: string;\n  quantity: number;\n}\n\nexport interface ShoppingCartProps {\n  readonly initialItems: readonly CartItem[];\n}\n\nexport function ShoppingCart({\n  initialItems,\n}: ShoppingCartProps) {\n  const [items, setItems] = useState(() =>\n    initialItems.map((item) => ({ ...item })),\n  );\n\n  function increase(id: string) {\n    const item = items.find(\n      (candidate) => candidate.id === id,\n    );\n    if (item) {\n      item.quantity += 1;\n      setItems([...items]);\n    }\n  }\n\n  function remove(id: string) {\n    const index = items.findIndex((item) => item.id === id);\n    if (index !== -1) {\n      items.splice(index, 1);\n      setItems([...items]);\n    }\n  }\n\n  return (\n    <ul>\n      {items.map((item) => (\n        <li key={item.id}>\n          <span>{item.name}</span>\n          <output aria-label={`Ilość ${item.name}`}>\n            {item.quantity}\n          </output>\n          <button\n            type=\"button\"\n            onClick={() => increase(item.id)}\n          >\n            Zwiększ {item.name}\n          </button>\n          <button\n            type=\"button\"\n            onClick={() => remove(item.id)}\n          >\n            Usuń {item.name}\n          </button>\n        </li>\n      ))}\n    </ul>\n  );\n}\n",
+    "lastRunAt": "2026-09-05T00:00:03.762Z"
   }
 }
