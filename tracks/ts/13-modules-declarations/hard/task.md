@@ -1,4 +1,6 @@
-# Hard — typowany facade nad legacy store
+# Hard - typowany facade nad legacy store
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 `legacy-store.js` jest istniejącą implementacją key-value. Uzupełnij jej `.d.ts`,
 a następnie wystaw przez `settings.ts` wąski, typowany moduł ustawień.

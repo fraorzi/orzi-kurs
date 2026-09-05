@@ -1,4 +1,6 @@
-# Moduł 02 — odporny, typowany klient API
+# Moduł 02 - odporny, typowany klient API
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Zadanie jest **wieloplikowe**. Uzupełnij pliki w `src/`; testy importują wyłącznie
 z `src/index.ts`, więc ten plik jest publiczną granicą modułu.
@@ -13,7 +15,7 @@ Projekt działa z włączonymi:
 Nie używaj `any` ani non-null assertions. Assertion `as OrderId` jest dozwolone
 wyłącznie wewnątrz parsera, po sprawdzeniu formatu identyfikatora.
 
-## `src/types.ts` — kontrakty
+## `src/types.ts` - kontrakty
 
 Zdefiniuj i eksportuj:
 
@@ -53,7 +55,7 @@ interface Order {
 Dodatkowo zdefiniuj kontrakty `FetchLike`, `RequestOptions`, `OrderClientOptions`
 i `OrderClient` zgodne z API używanym w testach.
 
-## `src/parse.ts` — granica runtime
+## `src/parse.ts` - granica runtime
 
 Eksportuj:
 
@@ -77,9 +79,9 @@ Parser zamówienia:
 `parseOrderList` prefiksuje błędy indeksem, np.
 `"[1].id ma format ord_xxxxxx"`.
 
-Komunikaty są częścią kontraktu — odczytaj ich dokładne brzmienie z testów.
+Komunikaty są częścią kontraktu - odczytaj ich dokładne brzmienie z testów.
 
-## `src/queue.ts` — generyczny limit współbieżności
+## `src/queue.ts` - generyczny limit współbieżności
 
 ```ts
 interface TaskQueue {
@@ -96,7 +98,7 @@ createTaskQueue(concurrency?: number): TaskQueue
 - `add` zachowuje typ wyniku każdego zadania,
 - slot jest zwalniany po resolve, reject i błędzie synchronicznym.
 
-## `src/client.ts` — transport i polityka odporności
+## `src/client.ts` - transport i polityka odporności
 
 ```ts
 createOrderClient(options: OrderClientOptions): OrderClient
@@ -133,7 +135,7 @@ Zasady:
 - oczekiwane porażki są zwracane jako `Result`, a nie rzucane,
 - timer i listener zewnętrznego sygnału są zawsze sprzątane.
 
-## `src/index.ts` — publiczne API
+## `src/index.ts` - publiczne API
 
 Re-eksportuj funkcje runtime oraz wszystkie publiczne typy. Przy
 `verbatimModuleSyntax` typy muszą być eksportowane przez `export type`.

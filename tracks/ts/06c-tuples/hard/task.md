@@ -1,4 +1,6 @@
-# Hard — `zip` zachowujący pozycje
+# Hard - `zip` zachowujący pozycje
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj typ `Zip<Left, Right>` i funkcję `zip`.
 

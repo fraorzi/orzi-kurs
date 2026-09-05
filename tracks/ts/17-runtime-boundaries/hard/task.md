@@ -1,4 +1,6 @@
-# Hard — parser odpowiedzi zamówienia
+# Hard - parser odpowiedzi zamówienia
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `parseOrderResponse(input: unknown)`.
 

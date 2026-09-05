@@ -1,4 +1,6 @@
-# Easy — parser zakresu
+# Easy - parser zakresu
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zdefiniuj etykietowane typy:
 

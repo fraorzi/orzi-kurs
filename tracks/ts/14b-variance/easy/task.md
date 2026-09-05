@@ -1,4 +1,6 @@
-# Easy — producer i consumer
+# Easy - producer i consumer
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zdefiniuj:
 

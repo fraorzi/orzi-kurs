@@ -1,4 +1,6 @@
-# Easy — handlery z unii eventów
+# Easy - handlery z unii eventów
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `EventHandlers<Event>`. Dla każdego elementu unii rozłącznej utwórz
 właściwość o nazwie z pola `type`, której wartością jest handler przyjmujący wyłącznie

@@ -1,4 +1,6 @@
-# Medium [O] — generyczne countBy w jednym przebiegu
+# Medium [O] - generyczne countBy w jednym przebiegu
+
+Tryb: optymalizacja. Popraw istniejący kod w `starter.ts`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
 
 `countBy(items, getKey)` zwraca `Map<K, number>` z liczbą elementów w każdej grupie.
 Starter najpierw wylicza unikalne klucze, a następnie dla każdego klucza ponownie

@@ -1,4 +1,6 @@
-# Hard — wyczerpujący reducer koszyka
+# Hard - wyczerpujący reducer koszyka
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj reducer oparty na unii rozłącznej:
 

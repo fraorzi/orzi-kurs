@@ -1,4 +1,6 @@
-# Easy — standardowy dekorator metody
+# Easy - standardowy dekorator metody
+
+Tryb: naprawa. W `starter.ts` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
 
 Uzupełnij `traced(log)`. Fabryka ma zwracać standardowy dekorator metody, który:
 

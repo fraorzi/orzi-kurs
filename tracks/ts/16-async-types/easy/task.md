@@ -1,4 +1,6 @@
-# Easy — `Promise.all` zachowujący tuple
+# Easy - `Promise.all` zachowujący tuple
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zdefiniuj `AwaitedTuple<Values>` i funkcję `resolveTuple(values)`.
 

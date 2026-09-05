@@ -1,4 +1,6 @@
-# Hard — usunięcie dziury mutowalnej tablicy
+# Hard - usunięcie dziury mutowalnej tablicy
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Starter przyjmuje `Animal[]` i dopisuje element. `Dog[]` jest przypisywalne do
 `Animal[]`, więc funkcja może włożyć kota do tablicy psów.

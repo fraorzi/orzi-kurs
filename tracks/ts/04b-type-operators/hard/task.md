@@ -1,4 +1,6 @@
-# Hard — projekcja rekordów
+# Hard - projekcja rekordów
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `projectRows(rows, keys)`, która tworzy nowe obiekty zawierające tylko
 wybrane pola.

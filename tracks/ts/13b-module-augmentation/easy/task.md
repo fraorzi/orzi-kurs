@@ -1,4 +1,6 @@
-# Easy — scalanie metadanych requestu
+# Easy - scalanie metadanych requestu
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zadeklaruj `RequestMeta` w dwóch osobnych deklaracjach `interface`:
 
@@ -8,4 +10,4 @@ Zadeklaruj `RequestMeta` w dwóch osobnych deklaracjach `interface`:
 Zaimplementuj `requestLabel(meta)`: bez użytkownika zwraca sam requestId, a z userId
 zwraca `"<requestId>:user=<id>"`.
 
-Nie zastępuj interfejsu aliasem ani jedną deklaracją — celem jest declaration merging.
+Nie zastępuj interfejsu aliasem ani jedną deklaracją - celem jest declaration merging.

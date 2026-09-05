@@ -1,4 +1,6 @@
-# Medium — typ rozłączny i wyczerpanie unii
+# Medium - typ rozłączny i wyczerpanie unii
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Modelujemy zdarzenia analityczne. Każde ma inne dane, ale wspólne pole `type`.
 
@@ -28,7 +30,7 @@ describeEvent({ type: "error", message: "boom", fatal: false });
 // "error: boom"
 ```
 
-Użyj `switch (event.type)` — w każdej gałęzi kompilator zna dokładny wariant.
+Użyj `switch (event.type)` - w każdej gałęzi kompilator zna dokładny wariant.
 
 W `default` postaw bramkę wyczerpania:
 
@@ -44,7 +46,7 @@ tutaj. To jest cel, nie efekt uboczny.
 
 ## 3. `countFatal(events: AnalyticsEvent[]): number`
 
-Liczba zdarzeń `error` z `fatal: true`. Pozostałe warianty nie mają pola `fatal` —
+Liczba zdarzeń `error` z `fatal: true`. Pozostałe warianty nie mają pola `fatal` -
 zawężaj po `type`, nie po `"fatal" in event`.
 
 ```ts

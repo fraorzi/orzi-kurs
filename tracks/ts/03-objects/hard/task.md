@@ -1,4 +1,6 @@
-# Hard — znormalizowany magazyn danych (indeksy zamiast szukania w tablicy)
+# Hard - znormalizowany magazyn danych (indeksy zamiast szukania w tablicy)
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Z API dostajesz płaskie listy artykułów i autorów. Budujesz z nich **znormalizowany store**:
 słowniki po `id` (dostęp O(1)) plus indeks „artykuły danego autora”. Cały store jest
@@ -32,7 +34,7 @@ Artykuły autora w kolejności z `byAuthor`. Nieznany autor → pusta tablica.
 
 ## 3. `authorOf(store: Store, articleId: number): Author | null`
 
-Autor artykułu albo `null` — gdy nie ma artykułu **albo** gdy jego autor nie istnieje
+Autor artykułu albo `null` - gdy nie ma artykułu **albo** gdy jego autor nie istnieje
 w store. Bez `!` i bez `as`.
 
 ## 4. `titlesByAuthorName(store: Store): Record<string, readonly string[]>`
@@ -46,5 +48,5 @@ titlesByAuthorName(store); // { "Ala": ["Wstęp", "Koniec"], "Ola": ["Środek"] 
 ## Dlaczego tak
 
 Naiwny wariant (`articles.find(a => a.id === id)` w pętli po autorach) to O(n·m).
-Store buduje indeksy raz i odpytuje je w czasie stałym — to ten sam ruch, co `Map`
+Store buduje indeksy raz i odpytuje je w czasie stałym - to ten sam ruch, co `Map`
 zamiast `Array.includes` w tracku js.

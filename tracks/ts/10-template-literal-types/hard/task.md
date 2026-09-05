@@ -1,7 +1,9 @@
-# Hard — typowany router: parametry ścieżki wyciągnięte z wzorca
+# Hard - typowany router: parametry ścieżki wyciągnięte z wzorca
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Wzorzec trasy to zwykły string: `"/users/:id/posts/:postId"`. Kompilator ma z niego
-**sam** wyprowadzić, jakich parametrów wymaga ta trasa — bez powtarzania ich w drugim
+**sam** wyprowadzić, jakich parametrów wymaga ta trasa - bez powtarzania ich w drugim
 miejscu.
 
 ## 1. `ParamKeys<P>`
@@ -24,7 +26,7 @@ type B = PathParams<"/health">;      // Record<never, string>  (pusty obiekt)
 
 ## 3. `buildPath(pattern, params)`
 
-Podstawia wartości do wzorca. Typ `params` wynika z `pattern` — brakujący albo nadmiarowy
+Podstawia wartości do wzorca. Typ `params` wynika z `pattern` - brakujący albo nadmiarowy
 klucz to błąd typu.
 
 ```ts

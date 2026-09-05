@@ -1,7 +1,9 @@
-# Medium — obiekt stałych zamiast `enum`
+# Medium - obiekt stałych zamiast `enum`
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Poziomy logowania. Zamiast `enum LogLevel { Debug = 10, … }` budujemy obiekt `as const`
-i wyprowadzamy z niego wszystkie typy — łącznie z tym, co `enum` daje „za darmo”
+i wyprowadzamy z niego wszystkie typy - łącznie z tym, co `enum` daje „za darmo”
 (odwrotne mapowanie), tylko bez kodu w runtime.
 
 ## 1. `LOG_LEVEL`
@@ -44,7 +46,7 @@ Walidacja danych z zewnątrz (np. `process.env.LOG_LEVEL`). Nieznana nazwa → `
 
 ```ts
 parseLevel("warn");   // "warn"
-parseLevel("WARN");   // null   — bez normalizacji wielkości liter
+parseLevel("WARN");   // null   - bez normalizacji wielkości liter
 parseLevel("krzyk");  // null
 ```
 

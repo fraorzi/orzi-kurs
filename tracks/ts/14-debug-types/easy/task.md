@@ -1,4 +1,6 @@
-# Easy — odcięcie `any` z SDK
+# Easy - odcięcie `any` z SDK
+
+Tryb: naprawa. W `starter.ts` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
 
 Funkcja `readSdkInvoice` symuluje cudze SDK i zwraca `any`; nie wolno zmieniać jej
 deklaracji. Napraw `invoiceTotal`, aby:

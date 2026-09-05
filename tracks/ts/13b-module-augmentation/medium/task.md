@@ -1,4 +1,6 @@
-# Medium — auth rozszerzające RequestContext
+# Medium - auth rozszerzające RequestContext
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Moduł `request.ts` należy do rdzenia i nie wolno go zmieniać.
 

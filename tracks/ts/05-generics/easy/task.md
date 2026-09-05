@@ -1,6 +1,8 @@
-# Easy — pierwszy parametr typu
+# Easy - pierwszy parametr typu
 
-Wszystko poniżej ma być **generyczne** i działać bez podawania argumentu typu ręcznie —
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
+
+Wszystko poniżej ma być **generyczne** i działać bez podawania argumentu typu ręcznie -
 kompilator wywnioskuje go z argumentów.
 
 ## 1. `identity<T>(value: T): T`
@@ -14,7 +16,7 @@ identity({ id: 1 });    // typ: { id: number }
 
 ## 2. `firstOrNull<T>(items: readonly T[]): T | null`
 
-Pierwszy element albo `null` dla pustej listy. Wejście jest `readonly` — funkcja go nie
+Pierwszy element albo `null` dla pustej listy. Wejście jest `readonly` - funkcja go nie
 mutuje.
 
 ```ts
@@ -24,7 +26,7 @@ firstOrNull([]);         // null
 
 ## 3. `Box<T>`, `box`, `unbox`
 
-Generyczny alias — pudełko na wartość dowolnego typu:
+Generyczny alias - pudełko na wartość dowolnego typu:
 
 ```ts
 type Box<T> = { value: T };
@@ -41,5 +43,5 @@ Dwa **różne** parametry typu i krotka jako wynik.
 pair("a", 1);   // ["a", 1], typ: [string, number]
 ```
 
-Zwróć uwagę: typ to `[string, number]`, a nie `["a", 1]` — nagi parametr typu rozszerza
+Zwróć uwagę: typ to `[string, number]`, a nie `["a", 1]` - nagi parametr typu rozszerza
 literały (jak `let`). Sterowanie tym poznasz w zagadnieniu 06b.

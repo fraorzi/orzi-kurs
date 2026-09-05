@@ -1,4 +1,6 @@
-# Hard — plan dwukompilatorowej migracji
+# Hard - plan dwukompilatorowej migracji
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `buildMigrationPlan(input)`. Plan ma przeprowadzić repo przez okres,
 w którym TypeScript 6 dostarcza Compiler API dla narzędzi, a TypeScript 7 wykonuje

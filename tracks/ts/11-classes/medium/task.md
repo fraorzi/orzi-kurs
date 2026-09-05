@@ -1,4 +1,6 @@
-# Medium — klasa abstrakcyjna i `implements`
+# Medium - klasa abstrakcyjna i `implements`
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 ## 1. `interface Describable`
 
@@ -10,9 +12,9 @@ interface Describable {
 
 ## 2. `abstract class Shape implements Describable`
 
-- `abstract area(): number` — podklasa musi zaimplementować,
-- `abstract readonly kind: string` — nazwa kształtu,
-- `describe(): string` — implementacja wspólna: `"circle: 12.57"` (pole `kind`, dwukropek,
+- `abstract area(): number` - podklasa musi zaimplementować,
+- `abstract readonly kind: string` - nazwa kształtu,
+- `describe(): string` - implementacja wspólna: `"circle: 12.57"` (pole `kind`, dwukropek,
   pole area z dwoma miejscami po przecinku).
 
 `new Shape()` ma być błędem typu.
@@ -54,5 +56,5 @@ totalArea([new Circle(1), new Rectangle(2, 3)]); // 9.14
 
 ## 6. `largest(shapes: readonly Shape[]): Shape | null`
 
-Kształt o największym polu; przy remisie — pierwszy z listy. Pusta lista → `null`.
+Kształt o największym polu; przy remisie - pierwszy z listy. Pusta lista → `null`.
 Nie mutuj wejścia (`sort` mutuje!).

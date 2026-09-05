@@ -1,4 +1,6 @@
-# Medium — bezpieczne ładowanie konfiguracji
+# Medium - bezpieczne ładowanie konfiguracji
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Dane środowiskowe przychodzą jako `unknown`. Zaimplementuj assertion function
 `assertRuntimeConfig`, która po sukcesie zawęża wartość do:

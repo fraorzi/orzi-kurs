@@ -1,4 +1,6 @@
-# Easy — klasa z polami, `readonly` i `private`
+# Easy - klasa z polami, `readonly` i `private`
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 ## `class Account`
 
@@ -7,9 +9,9 @@ Konto bankowe. Użyj **parameter properties** (modyfikatory przy parametrach kon
 ```ts
 const acc = new Account("ACC-1", 100);
 
-acc.id;                // "ACC-1"  — readonly, publiczne
+acc.id;                // "ACC-1"  - readonly, publiczne
 acc.getBalance();      // 100
-acc.deposit(50);       // 150      — zwraca nowe saldo
+acc.deposit(50);       // 150      - zwraca nowe saldo
 acc.withdraw(30);      // 120
 acc.withdraw(1000);    // rzuca Error("brak środków")
 acc.deposit(-1);       // rzuca RangeError("kwota musi być dodatnia")
@@ -18,8 +20,8 @@ acc.withdraw(0);       // rzuca RangeError("kwota musi być dodatnia")
 
 Wymagania:
 
-- `id: string` — `readonly`, publiczne (zapis `acc.id = "X"` ma być błędem typu),
-- saldo — `private` (odczyt `acc.balance` z zewnątrz ma być błędem typu),
+- `id: string` - `readonly`, publiczne (zapis `acc.id = "X"` ma być błędem typu),
+- saldo - `private` (odczyt `acc.balance` z zewnątrz ma być błędem typu),
 - `getBalance(): number`,
 - `deposit(amount: number): number` i `withdraw(amount: number): number` zwracają saldo po
   operacji,

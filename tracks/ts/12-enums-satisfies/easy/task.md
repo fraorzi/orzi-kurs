@@ -1,4 +1,6 @@
-# Easy — `satisfies` zamiast adnotacji i `as`
+# Easy - `satisfies` zamiast adnotacji i `as`
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 ## 1. `ROUTES`
 

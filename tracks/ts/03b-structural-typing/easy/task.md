@@ -1,4 +1,6 @@
-# Easy — publiczny widok profilu i weak patch
+# Easy - publiczny widok profilu i weak patch
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `toProfilePreview`, która przyjmuje dowolny obiekt zgodny z
 `ProfilePreview` i zwraca **nowy** obiekt zawierający tylko `id` i `name`.

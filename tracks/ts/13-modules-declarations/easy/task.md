@@ -1,4 +1,6 @@
-# Easy — publiczne API modułu cen
+# Easy - publiczne API modułu cen
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Zadanie jest wieloplikowe. Uzupełnij implementację i `src/index.ts`.
 

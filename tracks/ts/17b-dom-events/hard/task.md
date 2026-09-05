@@ -1,4 +1,6 @@
-# Hard — delegowany handler akcji
+# Hard - delegowany handler akcji
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `createActionHandler(onAction)`.
 

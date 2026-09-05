@@ -1,8 +1,10 @@
-# Hard — stan formularza wyprowadzony z modelu
+# Hard - stan formularza wyprowadzony z modelu
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zbuduj mały, generyczny stan formularza: dla **dowolnego** obiektu wartości ma powstać
 komplet flag „dotknięte" i mapa błędów. Cała struktura ma być wyprowadzona z `T` przez
-utility types — bez powtarzania nazw pól.
+utility types - bez powtarzania nazw pól.
 
 ## 1. Typy
 
@@ -38,7 +40,7 @@ pick<T extends object, K extends keyof T>(obj: T, keys: readonly K[]): Pick<T, K
 omit<T extends object, K extends keyof T>(obj: T, keys: readonly K[]): Omit<T, K>
 ```
 
-`pick` i `omit` to runtime'owe odpowiedniki utility types o tych samych nazwach —
+`pick` i `omit` to runtime'owe odpowiedniki utility types o tych samych nazwach -
 **typ wyniku ma się zgadzać z tym, co faktycznie zwracasz**.
 
 ## Przykład
@@ -65,7 +67,7 @@ omit({ name: "Ala", age: 30, active: true }, ["age"]);          // typ: { name: 
 
 ## Ograniczenia
 
-- Każda funkcja zwraca **nowy** obiekt — żadnej mutacji argumentów.
+- Każda funkcja zwraca **nowy** obiekt - żadnej mutacji argumentów.
 - `state.values.age = 31` ma być **błędem typu** (pola są `readonly`).
 - `setField(form, "age", "31")` ma być błędem typu (`T[K]` pilnuje typu wartości).
 - `pick(profile, ["nieistnieje"])` ma być błędem typu (`K extends keyof T`).

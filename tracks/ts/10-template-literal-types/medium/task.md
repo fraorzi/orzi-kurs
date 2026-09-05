@@ -1,4 +1,6 @@
-# Medium — key remapping: generowanie kluczy obiektu
+# Medium - key remapping: generowanie kluczy obiektu
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Template literal w klauzuli `as` mapped type'u **przepisuje nazwy kluczy**. Trzy typy
 i trzy funkcje, które je realizują w runtime.
@@ -32,7 +34,7 @@ type FormHandlers = ChangeHandlers<{ name: string; age: number }>;
 `makeChangeHandlers<T extends object>(state: T, onChange: (next: T) => void):
 ChangeHandlers<T>`
 
-Każdy handler woła `onChange` z **nowym** obiektem stanu — z podmienionym jednym polem.
+Każdy handler woła `onChange` z **nowym** obiektem stanu - z podmienionym jednym polem.
 Nie mutuje `state`:
 
 ```ts
@@ -47,7 +49,7 @@ Typ pilnuje wartości: `handlers.onAgeChange("osiem")` to błąd typu.
 
 ## 3. `WithoutInternal<T>` i `stripInternal`
 
-Pola z prefiksem `_` są wewnętrzne — mają zniknąć **z typu i z obiektu**:
+Pola z prefiksem `_` są wewnętrzne - mają zniknąć **z typu i z obiektu**:
 
 ```ts
 type Public = WithoutInternal<{ id: number; _secret: string; name: string }>;
@@ -56,5 +58,5 @@ type Public = WithoutInternal<{ id: number; _secret: string; name: string }>;
 stripInternal({ id: 1, _secret: "x", name: "Ala" });  // { id: 1, name: "Ala" }
 ```
 
-Klucz zwrócony jako `never` w klauzuli `as` **znika** z wynikowego typu — to jedyny sposób
+Klucz zwrócony jako `never` w klauzuli `as` **znika** z wynikowego typu - to jedyny sposób
 filtrowania kluczy w mapped type.

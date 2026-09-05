@@ -1,7 +1,9 @@
-# Easy — DTO wyprowadzone z modelu (`Pick`, `Omit`, `Partial`, `Record`)
+# Easy - DTO wyprowadzone z modelu (`Pick`, `Omit`, `Partial`, `Record`)
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Model `User` jest już w `starter.ts` i **nie wolno go zmieniać**. Wszystkie typy pochodne
-masz z niego wyprowadzić — żadnego przepisywania pól ręcznie.
+masz z niego wyprowadzić - żadnego przepisywania pól ręcznie.
 
 ```ts
 interface User {
@@ -22,11 +24,11 @@ type UserPreview = ...; // { id: number; name: string }
 
 ## 2. `NewUser`
 
-Dane do utworzenia użytkownika — wszystko poza `id` (użyj `Omit`).
+Dane do utworzenia użytkownika - wszystko poza `id` (użyj `Omit`).
 
 ## 3. `UserPatch`
 
-Ciało żądania `PATCH` — każde pole `NewUser` opcjonalne (`Partial` + `Omit`).
+Ciało żądania `PATCH` - każde pole `NewUser` opcjonalne (`Partial` + `Omit`).
 `id` nie może się w nim pojawić.
 
 ## 4. `RoleCounts`

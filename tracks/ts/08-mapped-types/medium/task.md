@@ -1,7 +1,9 @@
-# Medium — wybiórcze modyfikatory i spłaszczanie przecięć
+# Medium - wybiórcze modyfikatory i spłaszczanie przecięć
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Typowy problem konfiguracji: część pól ma sensowne wartości domyślne, więc wywołujący może
-je pominąć — ale w środku modułu chcemy mieć komplet.
+je pominąć - ale w środku modułu chcemy mieć komplet.
 
 ## 1. `Prettify<T>`
 
@@ -34,7 +36,7 @@ type Patch = RequiredOnly<Config, "url">;
 ```
 
 Uwaga: `Patch` i `Input` mają w tym przykładzie ten sam kształt, ale wynikają z innych
-reguł — sprawdź to na typie o trzech różnych polach.
+reguł - sprawdź to na typie o trzech różnych polach.
 
 ## 4. `applyDefaults`
 

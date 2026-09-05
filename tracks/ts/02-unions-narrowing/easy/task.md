@@ -1,13 +1,15 @@
-# Easy — zawężanie unii
+# Easy - zawężanie unii
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Trzy funkcje pracujące na uniach. Zawężaj zwykłym JS-em (`typeof`, `Array.isArray`,
-porównanie z `null`) — bez `as` i bez `any`.
+porównanie z `null`) - bez `as` i bez `any`.
 
 ## 1. `formatValue(value: string | number | boolean): string`
 
 ```ts
 formatValue("abc");  // "abc"
-formatValue(12.5);   // "12.50"      — liczby z dwoma miejscami po przecinku
+formatValue(12.5);   // "12.50"      - liczby z dwoma miejscami po przecinku
 formatValue(true);   // "tak"
 formatValue(false);  // "nie"
 ```
@@ -24,7 +26,7 @@ charCount([]);              // 0
 
 ## 3. `orDefault(value: string | null | undefined, fallback: string): string`
 
-Zwraca `value`, o ile nie jest `null`/`undefined`. **Pusty string to poprawna wartość** —
+Zwraca `value`, o ile nie jest `null`/`undefined`. **Pusty string to poprawna wartość** -
 nie podmieniaj go na `fallback`.
 
 ```ts

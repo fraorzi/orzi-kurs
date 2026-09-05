@@ -1,4 +1,6 @@
-# Medium — parser formularza logowania
+# Medium - parser formularza logowania
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `parseLoginForm(form)`.
 

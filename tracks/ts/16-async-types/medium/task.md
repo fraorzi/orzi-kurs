@@ -1,4 +1,6 @@
-# Medium — bezpieczny wynik operacji async
+# Medium - bezpieczny wynik operacji async
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `captureAsync(operation)`.
 

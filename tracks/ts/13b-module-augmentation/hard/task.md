@@ -1,4 +1,6 @@
-# Hard — plugin rozszerzający mapę zdarzeń
+# Hard - plugin rozszerzający mapę zdarzeń
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Rdzeń `events.ts` definiuje `AppEvents` i generyczny `EventBus`. Plugin płatności
 ma dopisać przez module augmentation zdarzenia:

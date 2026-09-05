@@ -1,4 +1,6 @@
-# Easy — sygnatury, parametry i callbacki
+# Easy - sygnatury, parametry i callbacki
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 ## 1. `greet(name: string, greeting?: string): string`
 
@@ -24,13 +26,13 @@ type Mapper = (value: number, index: number) => number;
 mapNumbers([10, 20], (value, index) => value + index);  // [10, 21]
 ```
 
-`mapNumbers(items: readonly number[], fn: Mapper): number[]` — nie mutuje wejścia.
+`mapNumbers(items: readonly number[], fn: Mapper): number[]` - nie mutuje wejścia.
 
 Callback z **mniejszą** liczbą parametrów też ma działać: `mapNumbers([1, 2], (v) => v * 2)`.
 
 ## 4. `fail(message: string): never`
 
-Rzuca `Error` z podanym komunikatem. Typ zwracany to `never` — kod po wywołaniu jest
+Rzuca `Error` z podanym komunikatem. Typ zwracany to `never` - kod po wywołaniu jest
 nieosiągalny.
 
 ```ts

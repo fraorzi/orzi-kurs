@@ -1,11 +1,13 @@
-# Easy — adnotacje, literały, `as const`
+# Easy - adnotacje, literały, `as const`
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Uzupełnij `starter.ts`. Testy sprawdzają zarówno **zachowanie w runtime**, jak i **typy**
 (bramka `tsc --noEmit` w pipeline).
 
 ## 1. `CURRENCY`
 
-Stała o typie **literalnym** `"PLN"` — nie `string`.
+Stała o typie **literalnym** `"PLN"` - nie `string`.
 
 ```ts
 CURRENCY; // typ: "PLN"
@@ -31,7 +33,7 @@ ROLES; // typ: readonly ["admin", "editor", "viewer"]
 
 ## 4. `Role`
 
-Typ będący unią ról — **wyprowadzony z `ROLES`**, nie przepisany ręcznie.
+Typ będący unią ról - **wyprowadzony z `ROLES`**, nie przepisany ręcznie.
 
 ```ts
 type Role = ...; // "admin" | "editor" | "viewer"

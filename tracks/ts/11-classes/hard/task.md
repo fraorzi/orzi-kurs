@@ -1,4 +1,6 @@
-# Hard — prawdziwa prywatność (`#`), fabryka statyczna i metoda odporna na utratę `this`
+# Hard - prawdziwa prywatność (`#`), fabryka statyczna i metoda odporna na utratę `this`
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 ## `class Cart`
 
@@ -20,11 +22,11 @@ Cart.fromEntries([["mug", 2], ["kbd", 1]]);  // fabryka statyczna
 ### API
 
 ```ts
-cart.add("mug", 2);      // zwraca this — da się łączyć: cart.add("a", 1).add("b", 2)
+cart.add("mug", 2);      // zwraca this - da się łączyć: cart.add("a", 1).add("b", 2)
 cart.remove("mug");      // usuwa pozycję w całości (bez względu na liczbę sztuk)
 cart.size;               // getter: liczba różnych pozycji
 cart.units;              // getter: łączna liczba sztuk
-cart.toJSON();           // { mug: 2, kbd: 1 }  — zwykły obiekt
+cart.toJSON();           // { mug: 2, kbd: 1 }  - zwykły obiekt
 ```
 
 - `add` z liczbą sztuk `<= 0` → `RangeError("liczba sztuk musi być dodatnia")`,
@@ -44,8 +46,8 @@ Zwykła metoda gubi tu `this`. Rozwiąż to polem z funkcją strzałkową
 (`remove = (sku: string): void => { … }`), a nie `.bind` w konstruktorze.
 
 Uwaga: `forEach` przekazuje callbackowi trzy argumenty (element, indeks, tablica). Sygnatura
-`remove(sku: string)` musi to znieść — funkcja o mniejszej arności jest przypisywalna.
+`remove(sku: string)` musi to znieść - funkcja o mniejszej arności jest przypisywalna.
 
 ### `JSON.stringify(cart)`
 
-Ma dać `{"mug":2}` dzięki `toJSON()` — a nie wewnętrzną mapę.
+Ma dać `{"mug":2}` dzięki `toJSON()` - a nie wewnętrzną mapę.

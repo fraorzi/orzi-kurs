@@ -1,4 +1,6 @@
-# Easy — migracja baseUrl i paths
+# Easy - migracja baseUrl i paths
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `migratePathMappings(baseUrl, paths)`. W TS 5.x wartości `paths` były
 często względne wobec `baseUrl`. Po usunięciu `baseUrl` każdy target ma być jawną

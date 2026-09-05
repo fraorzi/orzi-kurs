@@ -1,4 +1,6 @@
-# Hard — ESM, importy typów i `unknown` w catch
+# Hard - ESM, importy typów i `unknown` w catch
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Zadanie jest wieloplikowe i działa z `verbatimModuleSyntax` oraz
 `useUnknownInCatchVariables`.

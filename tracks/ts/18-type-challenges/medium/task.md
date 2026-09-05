@@ -1,4 +1,6 @@
-# Medium — parametry z deklaracji trasy
+# Medium - parametry z deklaracji trasy
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `RouteParams<Path>`, który analizuje segmenty ścieżki:
 

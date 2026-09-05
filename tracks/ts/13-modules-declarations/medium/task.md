@@ -1,4 +1,6 @@
-# Medium — deklaracja dla legacy modułu metryk
+# Medium - deklaracja dla legacy modułu metryk
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Plik `legacy-metrics.js` jest zastanym JavaScriptem i nie wolno go zmieniać.
 Uzupełnij `legacy-metrics.d.ts`, aby dokładnie opisać jego API:

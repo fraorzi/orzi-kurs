@@ -1,4 +1,6 @@
-# Easy [O] — indeks produktów bez zmiany typów
+# Easy [O] - indeks produktów bez zmiany typów
+
+Tryb: optymalizacja. Popraw istniejący kod w `starter.ts`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
 
 `enrichOrderLines` dokleja do każdej pozycji zamówienia produkt o pasującym ID albo
 `null`. Kod jest kompletny i poprawny, ale dla każdej pozycji skanuje całą listę

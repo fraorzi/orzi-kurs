@@ -1,4 +1,6 @@
-# Hard — DeepPick dla selekcji pól API
+# Hard - DeepPick dla selekcji pól API
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `DeepPick<Model, Paths>`. `Paths` jest unią ścieżek z kropkami, a wynik
 ma zawierać wyłącznie wskazane gałęzie modelu.

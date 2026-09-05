@@ -1,8 +1,10 @@
-# Medium — typy wyprowadzone z kodu i operacje na uniach
+# Medium - typy wyprowadzone z kodu i operacje na uniach
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Dwie części. W obu chodzi o to samo: **nie przepisuj typu, który już gdzieś jest**.
 
-## Część 1 — `Parameters`, `ReturnType`, `Awaited`, `NonNullable`
+## Część 1 - `Parameters`, `ReturnType`, `Awaited`, `NonNullable`
 
 Funkcja `findUser` jest już napisana i nie wolno jej zmieniać:
 
@@ -35,10 +37,10 @@ await findUserOrThrow(99, true);
 // rzuca Error("nie znaleziono użytkownika: 99")
 ```
 
-Sygnatura ma być zapisana rest-parametrem (`...args: FindUserArgs`) — dopisanie trzeciego
+Sygnatura ma być zapisana rest-parametrem (`...args: FindUserArgs`) - dopisanie trzeciego
 parametru do `findUser` ma automatycznie zmienić kontrakt opakowania.
 
-## Część 2 — `Extract`, `Exclude`, indeksowany dostęp
+## Część 2 - `Extract`, `Exclude`, indeksowany dostęp
 
 ```ts
 type AppEvent =
@@ -65,7 +67,7 @@ describeActive(event: ActiveEvent): string
 // click  → "click 3,4"
 // key    → "key a"
 // scroll → "scroll 100"
-// (wariantu "close" tu nie ma — switch bez default ma się kompilować)
+// (wariantu "close" tu nie ma - switch bez default ma się kompilować)
 
 filterByKind<K extends EventKind>(
   events: readonly AppEvent[],
@@ -85,5 +87,5 @@ filterByKind(events, "close");  // typ: { kind: "close" }[]
 events.filter(isActive);        // typ: ActiveEvent[]
 ```
 
-Sens `filterByKind`: **typ wyniku zależy od przekazanego literału** — `Extract` liczy się
+Sens `filterByKind`: **typ wyniku zależy od przekazanego literału** - `Extract` liczy się
 dopiero przy wywołaniu.

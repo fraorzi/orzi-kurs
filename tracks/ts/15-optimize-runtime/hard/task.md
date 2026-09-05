@@ -1,4 +1,6 @@
-# Hard [O] — ograniczony cache LRU dla selektora
+# Hard [O] - ograniczony cache LRU dla selektora
+
+Tryb: optymalizacja. Popraw istniejący kod w `starter.ts`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
 
 `createCachedSelector` tworzy funkcję o tej samej liście argumentów co kosztowny
 `select`. `keyOf` wylicza kompletny, stabilny klucz dla wejścia, a `maxEntries`

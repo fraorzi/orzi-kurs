@@ -1,4 +1,6 @@
-# Medium — `infer` na funkcjach i obietnicach
+# Medium - `infer` na funkcjach i obietnicach
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Napisz typy, które wyłuskują fragmenty innych typów, i funkcje, które z nich korzystają.
 Nie używaj wbudowanych `ReturnType`, `Parameters` ani `Awaited`.
@@ -40,6 +42,6 @@ await resolveAll([Promise.resolve(1), "x", Promise.resolve(true)]);
 ## Zasady
 
 - `once` zapamiętuje wynik **pierwszego** wywołania, łącznie z `undefined`.
-- Gdy `fn` rzuci wyjątkiem, `once` **nie** zapamiętuje niczego — kolejne wywołanie próbuje
+- Gdy `fn` rzuci wyjątkiem, `once` **nie** zapamiętuje niczego - kolejne wywołanie próbuje
   ponownie.
 - `resolveAll` zachowuje kolejność i nie mutuje wejścia.

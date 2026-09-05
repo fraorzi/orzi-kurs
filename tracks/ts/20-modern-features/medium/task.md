@@ -1,4 +1,6 @@
-# Medium — bezpieczny scope przez using
+# Medium - bezpieczny scope przez using
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `runScoped(acquire, work)`. `acquire` otwiera zasób implementujący
 `Disposable`, a `work` używa go i zwraca wynik.

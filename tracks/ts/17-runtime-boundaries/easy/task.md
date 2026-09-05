@@ -1,4 +1,6 @@
-# Easy — branded `UserId`
+# Easy - branded `UserId`
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zdefiniuj `UserId` jako branded string. `parseUserId(value)` akceptuje wyłącznie
 format `usr_<dodatnia liczba całkowita>`.

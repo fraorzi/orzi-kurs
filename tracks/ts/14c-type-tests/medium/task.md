@@ -1,4 +1,6 @@
-# Medium — testy zatrzymujące poszerzenie generyka
+# Medium - testy zatrzymujące poszerzenie generyka
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Plik `type-tests.ts` jest gotową specyfikacją. Napraw `src/key-by.ts`, aby:
 

@@ -1,4 +1,6 @@
-# Hard — typowana szyna zdarzeń (EventBus)
+# Hard - typowana szyna zdarzeń (EventBus)
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 `EventEmitter` z js/24 przyjmował dowolną nazwę zdarzenia i dowolny ładunek. Tutaj mapa
 zdarzeń jest **parametrem typu klasy**, więc kompilator pilnuje jednego i drugiego.
@@ -17,7 +19,7 @@ type AppEvents = {
 
 Mapa zdarzeń musi być **aliasem** (`type`), nie `interface`. Interfejs nie dostaje
 niejawnej index signature, więc `interface AppEvents { … }` nie spełnia ograniczenia
-`Record<string, unknown>` — kompilator powie: „Index signature for type 'string' is
+`Record<string, unknown>` - kompilator powie: „Index signature for type 'string' is
 missing”. Alias obiektowy taką sygnaturę dostaje.
 
 ## `class EventBus`
@@ -67,7 +69,7 @@ bus.once("tick", (n) => log.push(`b${n}`));
 bus.on("tick", (n) => log.push(`c${n}`));
 
 bus.emit("tick", 1);  // 3
-bus.emit("tick", 2);  // 2  — handler z once już odpięty
+bus.emit("tick", 2);  // 2  - handler z once już odpięty
 
 log;  // ["a1", "b1", "c1", "a2", "c2"]
 ```

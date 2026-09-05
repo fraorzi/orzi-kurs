@@ -1,4 +1,6 @@
-# Medium — audyt gotowości na TypeScript 7
+# Medium - audyt gotowości na TypeScript 7
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `auditTs7Readiness(options, facts)`. Funkcja analizuje uproszczony
 snapshot repozytorium i zwraca uporządkowaną listę problemów migracyjnych.

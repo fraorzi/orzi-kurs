@@ -1,4 +1,6 @@
-# Hard — typowany pool z anulowaniem
+# Hard - typowany pool z anulowaniem
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `mapConcurrent(items, limit, worker, signal?)`.
 

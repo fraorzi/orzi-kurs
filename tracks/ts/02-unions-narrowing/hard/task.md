@@ -1,6 +1,8 @@
-# Hard — `unknown` z zewnątrz, strażnik typu i wynik jako unia
+# Hard - `unknown` z zewnątrz, strażnik typu i wynik jako unia
 
-Dane przychodzą z sieci, więc mają typ `unknown` — nie `any`. Zadanie: zawęzić je do
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
+
+Dane przychodzą z sieci, więc mają typ `unknown` - nie `any`. Zadanie: zawęzić je do
 konkretnego kształtu i zwrócić wynik jako **unię rozłączną**, która nie dopuszcza stanu
 „sukces i błędy naraz”.
 
@@ -62,4 +64,4 @@ userLabel({ ok: true, user: { id: 1, name: "Ala", email: null } }); // "Ala (#1)
 userLabel({ ok: false, errors: ["a", "b"] });                       // "błędy: a, b"
 ```
 
-Zawężaj po `result.ok` — bez tego pole `user` nie istnieje.
+Zawężaj po `result.ok` - bez tego pole `user` nie istnieje.

@@ -1,4 +1,6 @@
-# Hard — filtrowanie kluczy po typie wartości i naprawa DeepPartial
+# Hard - filtrowanie kluczy po typie wartości i naprawa DeepPartial
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 ## 1. `KeysOfType<T, V>`
 
@@ -31,7 +33,7 @@ const isNumber = (v: unknown): v is number => typeof v === "number";
 pickByType({ id: 1, name: "Ala", score: 9 }, isNumber);  // { id: 1, score: 9 }
 ```
 
-## 4. `DeepPartialSafe<T>` — naprawa pułapki z zagadnienia 08
+## 4. `DeepPartialSafe<T>` - naprawa pułapki z zagadnienia 08
 
 `DeepPartial` z mapped type'u robił opcjonalne **elementy** tablicy (`(string | undefined)[]`).
 Tutaj tablica ma zostać tablicą, a opcjonalne mają być tylko pola obiektów.
@@ -50,5 +52,5 @@ obiektem). Prymityw zwracasz bez zmian.
 ## Ograniczenia
 
 - `pickByType` nie mutuje źródła.
-- Nie używaj wbudowanego `Extract` w `KeysOfType` — chodzi o to, żeby napisać ten typ
+- Nie używaj wbudowanego `Extract` w `KeysOfType` - chodzi o to, żeby napisać ten typ
   samodzielnie.

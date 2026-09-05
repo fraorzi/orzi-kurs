@@ -1,10 +1,12 @@
-# Easy — ograniczenia i domyślne parametry typu
+# Easy - ograniczenia i domyślne parametry typu
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Uzupełnij `starter.ts`.
 
 ## 1. `longest`
 
-Generyczna funkcja zwraca dłuższy z argumentów. Przy remisie — pierwszy. Typ ma odrzucać
+Generyczna funkcja zwraca dłuższy z argumentów. Przy remisie - pierwszy. Typ ma odrzucać
 wartości, dla których nie można odczytać długości, i zachowywać typ argumentów w wyniku.
 
 ```ts

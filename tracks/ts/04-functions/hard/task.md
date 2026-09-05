@@ -1,6 +1,8 @@
-# Hard — funkcje wyższego rzędu i obiekt wywoływalny
+# Hard - funkcje wyższego rzędu i obiekt wywoływalny
 
-Trzy narzędzia, wszystkie operujące na funkcjach. Bez generyków (będą w zagadnieniu 05) —
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
+
+Trzy narzędzia, wszystkie operujące na funkcjach. Bez generyków (będą w zagadnieniu 05) -
 konkretne typy wystarczą.
 
 ## 1. `once(fn: (value: number) => number): (value: number) => number`
@@ -27,7 +29,7 @@ compose(inc, double)(5);  // 11   (najpierw double, potem inc)
 
 ## 3. `memoize(fn: (key: string) => number): Memoized`
 
-`Memoized` to **obiekt wywoływalny** — funkcja z dodatkowymi właściwościami. W TS opisuje
+`Memoized` to **obiekt wywoływalny** - funkcja z dodatkowymi właściwościami. W TS opisuje
 się to sygnaturą wywołania w interfejsie:
 
 ```ts
@@ -45,8 +47,8 @@ Zachowanie:
 const slow = (key: string) => key.length;
 const fast = memoize(slow);
 
-fast("abc");   // 3   — miss
-fast("abc");   // 3   — hit (fn nie wołane)
+fast("abc");   // 3   - miss
+fast("abc");   // 3   - hit (fn nie wołane)
 fast.hits;     // 1
 fast.misses;   // 1
 fast.clear();

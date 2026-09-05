@@ -1,4 +1,6 @@
-# Medium — wybór opcji z `NoInfer`
+# Medium - wybór opcji z `NoInfer`
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `selectOption(options, requested, fallback)`.
 

@@ -1,4 +1,6 @@
-# Easy — własne Exclude, Extract, NonNullable
+# Easy - własne Exclude, Extract, NonNullable
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Napisz cztery typy warunkowe (bez używania wbudowanych odpowiedników) i jedną funkcję.
 
@@ -39,4 +41,4 @@ compact([0, null, false, ""]);   // [0, false, ""]   ← 0, false i "" ZOSTAJĄ
 ## Ograniczenia
 
 - `compact` nie mutuje wejścia i zachowuje kolejność.
-- Odsiewasz wyłącznie `null` i `undefined` — nie „wszystko, co falsy”.
+- Odsiewasz wyłącznie `null` i `undefined` - nie „wszystko, co falsy”.

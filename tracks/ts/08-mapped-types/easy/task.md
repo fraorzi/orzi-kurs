@@ -1,4 +1,6 @@
-# Easy — własne odpowiedniki utility types
+# Easy - własne odpowiedniki utility types
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Napisz cztery mapped types (bez używania wbudowanych `Partial`, `Readonly` itd.) i dwie
 funkcje, które z nich korzystają.
@@ -25,7 +27,7 @@ Nullable<User>;    // { name: string | null; age: number | null }
 
 ```ts
 toDraft<T extends object>(source: MyReadonly<T>): Mutable<T>
-// płytka kopia — wynik wolno mutować
+// płytka kopia - wynik wolno mutować
 
 clearFields<T extends object>(source: T): Nullable<T>
 // ten sam komplet kluczy, każda wartość ustawiona na null
@@ -35,8 +37,8 @@ clearFields<T extends object>(source: T): Nullable<T>
 const frozen: MyReadonly<User> = { name: "Ala", age: 30 };
 
 const draft = toDraft(frozen);
-draft.age = 31;              // OK — kopia jest mutowalna
-frozen.age = 31;             // błąd typu — źródło readonly
+draft.age = 31;              // OK - kopia jest mutowalna
+frozen.age = 31;             // błąd typu - źródło readonly
 
 clearFields({ name: "Ala", age: 30 });  // { name: null, age: null }
 ```

@@ -1,12 +1,14 @@
-# Hard — konfiguracja tylko do odczytu i typy z niej wyprowadzone
+# Hard - konfiguracja tylko do odczytu i typy z niej wyprowadzone
 
-Moduł konfiguracji aplikacji. Wartości podane są w `starter.ts` — Twoim zadaniem jest
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
+
+Moduł konfiguracji aplikacji. Wartości podane są w `starter.ts` - Twoim zadaniem jest
 zrobić z nich **niemutowalną stałą** i wyprowadzić z niej wszystkie typy, a potem napisać
 dwie funkcje operujące na tych typach.
 
 ## 1. `CONFIG`
 
-`as const` na całym obiekcie (zagnieżdżone pola też mają być `readonly`, a `features` —
+`as const` na całym obiekcie (zagnieżdżone pola też mają być `readonly`, a `features` -
 readonly tuple).
 
 ```ts
@@ -30,7 +32,7 @@ Czy flaga jest w `CONFIG.features`.
 hasFeature("search");   // true
 ```
 
-Poza unią `FeatureFlag` nic nie wejdzie — `hasFeature("sms")` ma być błędem typu.
+Poza unią `FeatureFlag` nic nie wejdzie - `hasFeature("sms")` ma być błędem typu.
 
 ## 4. `describeApi(api: ApiConfig): string`
 
@@ -38,12 +40,12 @@ Poza unią `FeatureFlag` nic nie wejdzie — `hasFeature("sms")` ma być błęde
 describeApi(CONFIG.api); // "https://api.example.com (timeout 5000ms, 3 próby)"
 ```
 
-Funkcja przyjmuje `ApiConfig`, więc musi działać na obiekcie `readonly` — nie mutuj wejścia.
+Funkcja przyjmuje `ApiConfig`, więc musi działać na obiekcie `readonly` - nie mutuj wejścia.
 
 ## 5. `withTimeout(api: ApiConfig, timeoutMs: number): { baseUrl: string; timeoutMs: number; retries: number }`
 
 Zwraca **nowy, mutowalny** obiekt konfiguracji z podmienionym `timeoutMs`. Oryginał zostaje
-nietknięty — to jest sedno zadania: `readonly` blokuje zapis, więc jedyna droga to kopia.
+nietknięty - to jest sedno zadania: `readonly` blokuje zapis, więc jedyna droga to kopia.
 
 ```ts
 withTimeout(CONFIG.api, 100); // { baseUrl: "https://api.example.com", timeoutMs: 100, retries: 3 }

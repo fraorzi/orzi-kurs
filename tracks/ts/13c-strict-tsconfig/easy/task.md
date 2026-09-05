@@ -1,4 +1,6 @@
-# Easy — bezpieczne indeksowanie cache
+# Easy - bezpieczne indeksowanie cache
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zadanie działa z `noUncheckedIndexedAccess`.
 

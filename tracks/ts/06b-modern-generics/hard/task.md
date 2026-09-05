@@ -1,4 +1,6 @@
-# Hard — generyczny wrapper retry
+# Hard - generyczny wrapper retry
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `withRetry`, który opakowuje dowolną funkcję asynchroniczną i zachowuje
 jej argumenty oraz wynik.

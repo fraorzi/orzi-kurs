@@ -1,4 +1,6 @@
-# Medium — komendy z różnymi argumentami
+# Medium - komendy z różnymi argumentami
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Z mapy `CommandArguments` wyprowadź unię `AnyCommand`:
 

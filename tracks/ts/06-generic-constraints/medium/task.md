@@ -1,4 +1,6 @@
-# Medium — kolekcje z ograniczeniami
+# Medium - kolekcje z ograniczeniami
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Cztery funkcje operujące na listach obiektów. Wszystkie mają być **dokładnie** typowane:
 klucz spoza obiektu to błąd kompilacji, a typ wyniku wynika z typu pola.

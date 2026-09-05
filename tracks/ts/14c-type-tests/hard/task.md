@@ -1,4 +1,6 @@
-# Hard — regresja typów klienta RPC
+# Hard - regresja typów klienta RPC
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Napraw `src/client.ts` według gotowego `type-tests.ts`.
 

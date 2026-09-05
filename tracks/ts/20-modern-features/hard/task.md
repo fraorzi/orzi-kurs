@@ -1,4 +1,6 @@
-# Hard — przenośny DisposableStack
+# Hard - przenośny DisposableStack
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj `createDisposableStack()`. Jeśli runtime ma globalny konstruktor
 `DisposableStack`, użyj go. W przeciwnym razie zwróć zgodny fallback.

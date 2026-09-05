@@ -1,4 +1,6 @@
-# Easy — `DeepReadonly` i `deepFreeze`
+# Easy - `DeepReadonly` i `deepFreeze`
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj rekurencyjny typ `DeepReadonly<T>` dla:
 

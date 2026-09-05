@@ -1,21 +1,23 @@
-# Easy — kształty obiektów
+# Easy - kształty obiektów
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 ## 1. `interface Product`
 
 - `id: number`
 - `name: string`
 - `price: number`
-- `tags` — opcjonalna tablica stringów
+- `tags` - opcjonalna tablica stringów
 
 ## 2. `interface DiscountedProduct`
 
-Rozszerza `Product` (użyj `extends`) o pole `discount: number` (0–1).
+Rozszerza `Product` (użyj `extends`) o pole `discount: number` (0-1).
 
 ## 3. `label(product: Product): string`
 
 ```ts
-label({ id: 1, name: "Kubek", price: 29.9 });                       // "Kubek — 29.90 zł"
-label({ id: 1, name: "Kubek", price: 29.9, tags: ["kuchnia", "x"] }); // "Kubek — 29.90 zł [kuchnia, x]"
+label({ id: 1, name: "Kubek", price: 29.9 });                       // "Kubek - 29.90 zł"
+label({ id: 1, name: "Kubek", price: 29.9, tags: ["kuchnia", "x"] }); // "Kubek - 29.90 zł [kuchnia, x]"
 ```
 
 Brak `tags` i pusta tablica `tags` dają ten sam wynik (bez nawiasu kwadratowego).

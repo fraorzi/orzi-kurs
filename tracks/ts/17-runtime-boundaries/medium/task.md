@@ -1,4 +1,6 @@
-# Medium — kompozycja parsera tablicy
+# Medium - kompozycja parsera tablicy
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Zaimplementuj generyczne:
 

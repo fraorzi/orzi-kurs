@@ -1,8 +1,10 @@
-# Medium — generyczna klasa i generyczna funkcja wyższego rzędu
+# Medium - generyczna klasa i generyczna funkcja wyższego rzędu
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 ## 1. `class Stack<T>`
 
-Stos LIFO. Parametr typu dotyczy **instancji** — `new Stack<string>()` przyjmuje wyłącznie
+Stos LIFO. Parametr typu dotyczy **instancji** - `new Stack<string>()` przyjmuje wyłącznie
 stringi.
 
 ```ts
@@ -24,14 +26,14 @@ stack.toArray();  // [1, 2]
 ```
 
 Elementy trzymaj w prywatnym polu (`private readonly items: T[] = []`). `toArray` zwraca
-kopię — zmiana zwróconej tablicy nie może ruszyć stosu.
+kopię - zmiana zwróconej tablicy nie może ruszyć stosu.
 
-`from` jest **statyczne**, więc nie widzi `T` z klasy — musi zadeklarować własny parametr
+`from` jest **statyczne**, więc nie widzi `T` z klasy - musi zadeklarować własny parametr
 typu (`U`).
 
 ## 2. `type Transform<T, U> = (value: T) => U`
 
-Alias na funkcję transformującą — dwa parametry typu.
+Alias na funkcję transformującą - dwa parametry typu.
 
 ## 3. `mapStack<T, U>(stack: Stack<T>, transform: Transform<T, U>): Stack<U>`
 
@@ -46,5 +48,5 @@ labels.pop();     // "3.00"
 numbers.size;     // 3  ← źródło nienaruszone
 ```
 
-`U` kompilator wywnioskuje z typu zwracanego callbacku — wewnątrz `(n) => …` parametr `n`
+`U` kompilator wywnioskuje z typu zwracanego callbacku - wewnątrz `(n) => …` parametr `n`
 ma już typ `number` bez adnotacji.

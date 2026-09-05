@@ -1,6 +1,8 @@
-# Medium — słownik `Record`, `readonly` i aktualizacje bez mutacji
+# Medium - słownik `Record`, `readonly` i aktualizacje bez mutacji
 
-Stan magazynu trzymamy w słowniku `sku → liczba sztuk`. Stan jest **tylko do odczytu** —
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
+
+Stan magazynu trzymamy w słowniku `sku → liczba sztuk`. Stan jest **tylko do odczytu** -
 każda zmiana zwraca nowy obiekt.
 
 ## 1. Typ `Stock`

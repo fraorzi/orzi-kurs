@@ -1,4 +1,6 @@
-# Easy — nazwy generowane z nazw
+# Easy - nazwy generowane z nazw
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Cztery drobne narzędzia, każde oparte na template literal type. Wszystkie funkcje są
 generyczne: wołający ma dostać **konkretny literał**, nie `string`.
@@ -38,9 +40,9 @@ envKey("db_host");    // "APP_DB_HOST"
 
 `SIZES` i `TONES` są już w starterze (`as const`). Wyprowadź z nich:
 
-- `Size` — unia wartości `SIZES` (`"sm" | "md" | "lg"`),
-- `Tone` — unia wartości `TONES` (`"primary" | "danger"`),
-- `Variant` — **wszystkie** kombinacje `` `${Size}-${Tone}` `` (6 członów, nie przepisuj
+- `Size` - unia wartości `SIZES` (`"sm" | "md" | "lg"`),
+- `Tone` - unia wartości `TONES` (`"primary" | "danger"`),
+- `Variant` - **wszystkie** kombinacje `` `${Size}-${Tone}` `` (6 członów, nie przepisuj
   ich ręcznie).
 
 ```ts
@@ -48,18 +50,18 @@ const v: Variant = "md-danger";   // OK
 const w: Variant = "md-warning";  // błąd typu
 ```
 
-`isVariant(value: string): value is Variant` — type guard dla stringa **z zewnątrz**
+`isVariant(value: string): value is Variant` - type guard dla stringa **z zewnątrz**
 (np. z `input`). Ma przepuścić dokładnie te 6 wartości:
 
 ```ts
 isVariant("sm-primary");      // true
-isVariant("xl-primary");      // false — nieznany rozmiar
-isVariant("sm");              // false — brak tonu
-isVariant("sm-primary-x");    // false — za dużo członów
+isVariant("xl-primary");      // false - nieznany rozmiar
+isVariant("sm");              // false - brak tonu
+isVariant("sm-primary-x");    // false - za dużo członów
 ```
 
 ## Dlaczego funkcje wymagają `as`
 
-Sklejenie stringów w runtime zawsze daje `string` — kompilator nie policzy
+Sklejenie stringów w runtime zawsze daje `string` - kompilator nie policzy
 `"--" + name` na typ `` `--${Name}` ``. Asercja `as` w **ciele** funkcji jest tu poprawna:
 stoi w jednym miejscu, a każdy wywołujący dostaje precyzyjny typ za darmo.

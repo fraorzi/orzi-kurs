@@ -1,9 +1,11 @@
-# Hard — `satisfies` w konfiguracji: kolumny tabeli i maszyna stanów
+# Hard - `satisfies` w konfiguracji: kolumny tabeli i maszyna stanów
+
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
 
 Dwa realne zastosowania `satisfies`: konfiguracja walidowana kształtem, ale zachowująca
 dokładne typy, z których dalej wyprowadzasz kolejne typy.
 
-## Część 1 — kolumny tabeli
+## Część 1 - kolumny tabeli
 
 ```ts
 interface User {
@@ -24,14 +26,14 @@ interface Column {
 
 | key | label | align |
 |---|---|---|
-| `name` | `"Nazwa"` | — |
-| `email` | `"E-mail"` | — |
+| `name` | `"Nazwa"` | - |
+| `email` | `"E-mail"` | - |
 | `createdAt` | `"Utworzono"` | `"right"` |
 
 Dzięki `satisfies` literały `key` przetrwają, więc:
 
 ```ts
-type ColumnKey = ...;  // "name" | "email" | "createdAt"   — wyprowadzone z COLUMNS
+type ColumnKey = ...;  // "name" | "email" | "createdAt"   - wyprowadzone z COLUMNS
 ```
 
 Klucz spoza `keyof User` (np. `"nick"`) ma być błędem kompilacji przy definicji `COLUMNS`.
@@ -53,9 +55,9 @@ row({ id: 1, name: "Ala", email: "a@x.pl", createdAt: "2024-01-01" });
 
 ### `isColumnKey(key: string): key is ColumnKey`
 
-Strażnik typu — `"id"` nie jest kolumną, mimo że jest polem `User`.
+Strażnik typu - `"id"` nie jest kolumną, mimo że jest polem `User`.
 
-## Część 2 — maszyna stanów
+## Część 2 - maszyna stanów
 
 ```ts
 type State = "idle" | "loading" | "done" | "error";
