@@ -1,5 +1,7 @@
 # Dokończ granice odzyskiwania segmentu produktu
 
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
+
 Popraw dwa pliki konwencji:
 
 - `error.tsx` ma być Client Component, raportować `error` w `useEffect`, pokazywać

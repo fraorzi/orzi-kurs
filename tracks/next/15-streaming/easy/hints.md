@@ -1,6 +1,7 @@
 ## Hint 1
 
-Tekst statusu pozostaw widoczny lub ukryj tylko wizualnie, nie przez `aria-hidden`.
+Kontener stanu ładowania jest gotowy. Dodaj do niego tekst wymagany w poleceniu.
+
 ## Hint 2
 
-Dekoracyjne wiersze umieść w osobnym `aria-hidden="true"` kontenerze z `minHeight`.
+Użyj tablicy trzech elementów i `map` do wyrenderowania powtarzalnych wierszy.

@@ -1,5 +1,7 @@
 # Zbuduj bezpieczny loader produktów
 
+Tryb: naprawa. W `starter.ts` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
 `loadProducts` ufa statusowi HTTP i wynikowi `json()`. Uzupełnij loader tak, aby:
 
 - odrzucał odpowiedź z `ok === false` i podawał status w komunikacie,

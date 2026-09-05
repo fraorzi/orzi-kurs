@@ -1,6 +1,8 @@
-# Dobierz prymityw rewalidacji
+# Dobierz funkcję odświeżania cache
 
-Zaimplementuj `planInvalidation` dla jawnej intencji:
+Tryb: naprawa. W `starter.ts` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `planInvalidation` dla jawnej intencji:
 
 - target `path` → `revalidatePath`; dynamiczny wzorzec z `[...]` wymaga `pathType`,
 - tag + Action + `immediate` → `updateTag`,

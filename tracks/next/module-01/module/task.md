@@ -1,5 +1,7 @@
 # Dokończ panel zgłoszeń projektu
 
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
+
 Pracuj w wieloplikowym katalogu `src/`.
 
 ## Filtry URL
@@ -20,7 +22,7 @@ Pracuj w wieloplikowym katalogu `src/`.
 
 - Odczytaj sesję, `issueId` i docelowy status z FormData.
 - Odrzuć brak sesji, zły payload, brak rekordu, brak membership lub rolę `viewer`.
-- Nie ufaj `projectId` z formularza — użyj projektu rzeczywistego zgłoszenia.
+- Nie ufaj `projectId` z formularza - użyj projektu rzeczywistego zgłoszenia.
 - Po mutacji wywołaj tag `project:{projectId}:issues` i zwróć success.
 
 Zachowaj rozłączne wyniki i wszystkie publiczne typy.

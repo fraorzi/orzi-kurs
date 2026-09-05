@@ -1,10 +1,11 @@
 export default function Loading() {
   return (
-    <div>
-      <p>Ładowanie…</p>
-      <div>
-        <div />
-      </div>
-    </div>
+    <section
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      {/* TODO: dodaj komunikat i trzy wiersze widoku ładowania opisane w poleceniu. */}
+    </section>
   );
 }

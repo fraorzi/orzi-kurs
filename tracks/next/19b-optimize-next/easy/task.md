@@ -1,5 +1,7 @@
 # [O] Zwęź client bundle dashboardu
 
+Tryb: optymalizacja. Popraw istniejący kod w `src`, zachowując wymagane wyniki. Kryterium wydajności podano poniżej.
+
 Dashboard działa, ale dyrektywa `"use client"` na komponencie strony wciąga do
 client graph także ciężki, nieinteraktywny `AnalyticsChart`.
 

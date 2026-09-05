@@ -2,7 +2,11 @@ import { cacheLife } from "next/cache";
 import { cookies } from "next/headers";
 import { readProfile } from "./profile-data";
 
-async function CachedProfile({ sessionId }: { readonly sessionId: string }) {
+async function CachedProfile({
+  sessionId,
+}: {
+  sessionId: string;
+}) {
   "use cache";
   cacheLife("minutes");
   const profile = await readProfile(sessionId);

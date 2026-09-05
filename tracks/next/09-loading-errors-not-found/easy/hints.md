@@ -1,7 +1,7 @@
 ## Hint 1
 
-Stan może być `<section role="status" aria-live="polite" aria-busy="true">`.
+Kontener stanu ładowania jest gotowy. Dodaj do niego tekst wymagany w poleceniu.
 
 ## Hint 2
 
-Nadaj dekoracyjnej liście `aria-hidden="true"`; komunikat pozostanie w nagłówku.
+Użyj tablicy trzech elementów i `map` do wyrenderowania powtarzalnych wierszy.

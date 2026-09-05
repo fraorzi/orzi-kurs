@@ -1,5 +1,7 @@
 # Popraw rewalidację webhooka CMS
 
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
+
 Route Handler odbiera zdarzenie publikacji artykułu. Obecnie wywołuje `updateTag`,
 które jest dozwolone tylko w Server Actions.
 

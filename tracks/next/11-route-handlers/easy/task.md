@@ -1,5 +1,7 @@
 # Zwaliduj paginację GET
 
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
+
 Uzupełnij `GET`. Parametr `page` domyślnie wynosi 1, a `limit` 20. Oba muszą być
 dodatnimi liczbami całkowitymi; limit nie może przekroczyć 100. Dla błędu zwróć
 JSON `{ error: "Invalid pagination" }` ze statusem 400. Dla sukcesu zwróć dane,

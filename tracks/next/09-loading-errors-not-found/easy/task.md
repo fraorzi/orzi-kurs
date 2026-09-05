@@ -1,5 +1,7 @@
-# Zbuduj dostępny fallback segmentu
+# Widok ładowania zamówień
 
-Popraw komponent `Loading`: ma zwracać sekcję z `role="status"`, `aria-live="polite"`
-i `aria-busy="true"`, nagłówek `Ładowanie zamówień` oraz trzy ukryte dla czytnika
-wiersze skeletonu. Nie dodawaj interaktywnych kontrolek.
+Tryb: uzupełnienie. W `starter.tsx` jest gotowy szablon. Zaimplementuj brakującą logikę opisaną poniżej.
+
+Uzupełnij `Loading`: pokaż nagłówek `Ładowanie zamówień` i listę trzech pustych
+wierszy zastępujących dane podczas ładowania. Nie dodawaj przycisków.
+Kontener stanu ładowania jest częścią gotowego szablonu.

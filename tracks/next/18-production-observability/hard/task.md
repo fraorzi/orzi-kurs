@@ -1,7 +1,9 @@
 # Zrób audyt wieloinstancyjnego deploymentu
 
-Zaimplementuj `auditDeployment`. Dla jednej instancji wymagaj reverse proxy i drain
-10–30 s. Dla wielu dodatkowo wymagaj: jednego build ID, `deploymentId`, wspólnego
+Tryb: naprawa. W `starter.ts` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `auditDeployment`. Dla jednej instancji wymagaj reverse proxy i drain
+10-30 s. Dla wielu dodatkowo wymagaj: jednego build ID, `deploymentId`, wspólnego
 klucza Server Actions, shared cache oraz koordynacji tagów.
 
 Jeśli streaming jest włączony, wymagaj wyłączonego buforowania proxy. Jeśli runtime

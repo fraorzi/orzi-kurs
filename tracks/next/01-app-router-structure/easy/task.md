@@ -1,5 +1,7 @@
 # Zbuduj poprawny root layout
 
+Tryb: od zera. Napisz rozwiązanie w `starter.tsx`, korzystając z podanych sygnatur i typów.
+
 Napraw domyślny eksport `RootLayout`.
 
 Root layout ma zwracać `html` z `lang="pl"`, zawierać `body`, dostępny link

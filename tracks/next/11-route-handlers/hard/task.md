@@ -1,5 +1,7 @@
 # Utwardź BFF magazynu
 
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
+
 Zaimplementuj `createInventoryGET`. Handler pobiera `sku` z query i zwraca 400 dla
 pustej wartości. Upstream wywołaj z `Authorization: Bearer ${INVENTORY_API_KEY}` i
 `AbortSignal` anulowanym po `timeoutMs`.

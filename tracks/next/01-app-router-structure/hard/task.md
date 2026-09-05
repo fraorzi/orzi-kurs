@@ -1,4 +1,6 @@
-# Przenieś shell workspace'u do właściwego layoutu
+# Przenieś układ strony workspace'u do właściwego layoutu
+
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
 
 Refaktoruj wieloplikową gałąź `app/`.
 

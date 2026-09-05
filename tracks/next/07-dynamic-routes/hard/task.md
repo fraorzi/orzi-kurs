@@ -1,5 +1,7 @@
 # Zbuduj bezpieczną trasę produktu z próbkami statycznymi
 
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
+
 Trasa `app/[locale]/products/[slug]` ma generować próbki dla wyróżnionych produktów,
 ale obecny kod zwraca klucz `lang` zamiast `locale` i rzutuje dowolną lokalizację.
 

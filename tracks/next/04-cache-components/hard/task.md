@@ -1,5 +1,7 @@
 # Zdiagnozuj graf renderowania trasy
 
+Tryb: naprawa. W `starter.ts` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
 `auditRendering` błędnie uznaje każdą asynchroniczną pracę za dynamiczną. Zaimplementuj
 audyt zgodny z Cache Components:
 

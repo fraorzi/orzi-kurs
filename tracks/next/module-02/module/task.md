@@ -1,5 +1,7 @@
 # Dokończ operacyjny dashboard magazynu
 
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
+
 Pracuj w katalogu `src/`.
 
 ## Cache katalogu
@@ -10,7 +12,7 @@ Pracuj w katalogu `src/`.
 
 ## Mutacja stanu
 
-- Zweryfikuj sesję, product ID i całkowity stock 0–10000.
+- Zweryfikuj sesję, product ID i całkowity stock 0-10000.
 - Odczytaj produkt, a membership sprawdź dla jego prawdziwego tenanta; tylko
   `manager | owner` może mutować.
 - Po zapisie wywołaj `updateTag` dla produktu i katalogu jego tenanta.

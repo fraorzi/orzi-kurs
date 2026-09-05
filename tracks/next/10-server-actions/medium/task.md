@@ -1,10 +1,12 @@
 # Dodaj authz do edycji projektu
 
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
+
 `updateProject` sprawdza logowanie, ale nie uprawnienie do konkretnego projektu.
 Uzupełnij Action tak, aby kolejno:
 
 1. pobrała sesję i zwróciła `forbidden` bez użytkownika,
-2. zwalidowała stringi `projectId` i `title` (title 3–80 po trimie),
+2. zwalidowała stringi `projectId` i `title` (title 3-80 po trimie),
 3. sprawdziła `canEditProject(userId, projectId)`,
 4. dopiero wtedy zapisała projekt,
 5. po sukcesie wywołała `updateTag` dla listy i szczegółu użytkownika.

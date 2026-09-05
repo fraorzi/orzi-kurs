@@ -1,5 +1,7 @@
 # Dodaj idempotencję tworzenia zamówienia
 
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
+
 `submitOrder` ignoruje repozytorium idempotencji. Użyj `beginIdempotent` z kluczem i
 fingerprintem payloadu:
 

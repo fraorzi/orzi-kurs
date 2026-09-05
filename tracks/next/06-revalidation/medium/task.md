@@ -1,5 +1,7 @@
 # Zapewnij read-your-own-writes w Server Action
 
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
+
 `renameProduct` poprawnie zapisuje nazwę, ale używa SWR. Autor mutacji może więc
 zaraz po zapisie zobaczyć starą listę lub stary szczegół.
 

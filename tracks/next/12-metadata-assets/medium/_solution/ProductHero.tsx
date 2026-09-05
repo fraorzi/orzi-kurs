@@ -1,6 +1,12 @@
 import Image from "next/image";
 
-export function ProductHero({ src, alt }: { readonly src: string; readonly alt: string }) {
+export function ProductHero({
+  src,
+  alt,
+}: {
+  src: string;
+  alt: string;
+}) {
   return (
     <Image
       src={src}

@@ -1,5 +1,7 @@
 # Zweryfikuj env przy starcie
 
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
+
 Zaimplementuj `readServerEnv`. Wymagaj `DATABASE_URL` zaczynającego się od
 `postgres://` lub `postgresql://`, `SESSION_SECRET` o długości co najmniej 32 oraz
 niepustego `OTEL_SERVICE_NAME`. Jeśli istnieje `NEXT_PUBLIC_SESSION_SECRET` albo

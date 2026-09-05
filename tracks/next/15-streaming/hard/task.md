@@ -1,6 +1,8 @@
 # Streamuj duży eksport bez buforowania
 
-Zaimplementuj `streamReport`. Najpierw wykonaj `findReport(id)`. Dla braku zwróć
+Tryb: naprawa. W `starter.ts` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
+
+Popraw `streamReport`. Najpierw wykonaj `findReport(id)`. Dla braku zwróć
 404 przed uruchomieniem generatora. Dla istniejącego raportu zwróć CSV jako
 `ReadableStream`: nagłówek `id,total\n`, a potem po jednym wierszu z `openRows(id)`.
 

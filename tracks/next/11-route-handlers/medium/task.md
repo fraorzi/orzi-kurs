@@ -1,5 +1,7 @@
 # Utwardź partnerski endpoint POST
 
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
+
 Endpoint przyjmuje JSON tylko z originu `https://partner.example` i poprawnym
 `x-api-key` równym `PARTNER_API_KEY`. Dodaj również `OPTIONS`.
 

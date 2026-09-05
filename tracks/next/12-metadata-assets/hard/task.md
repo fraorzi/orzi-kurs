@@ -1,5 +1,7 @@
 # Rozmieść font, skrypt i dynamiczny OG
 
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
+
 Napraw wieloplikowy feature:
 
 - root layout używa lokalnego fontu `./InterVariable.woff2` na `<html>`,

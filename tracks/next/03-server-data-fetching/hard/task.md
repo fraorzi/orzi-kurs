@@ -1,5 +1,7 @@
 # Zaplanuj częściowo zależny graf danych
 
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
+
 Strona workspace potrzebuje użytkownika, feature flags i ostatnich zamówień.
 Feature flags są niezależne, ale zamówienia wymagają `user.id`.
 

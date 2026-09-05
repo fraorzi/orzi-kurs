@@ -1,7 +1,9 @@
-# [D] Przenieś uncached data pod Suspense
+# [D] Przenieś dane bez cache pod Suspense
+
+Tryb: naprawa. W `src` jest celowo niepoprawny kod. Znajdź przyczynę błędu i doprowadź go do zachowania opisanego poniżej.
 
 `Page` wykonuje `await getActivity()` przed zwróceniem JSX. Granica Suspense
-otacza już gotową tablicę, więc nie chroni static shell i nie streamuje danych.
+otacza już gotową tablicę, więc nie chroni static układ strony i nie streamuje danych.
 
 Przenieś odczyt do osobnego async `Activity`, renderowanego wewnątrz istniejącej
 granicy. Eksportowana `Page` ma być synchroniczna, aby nagłówek był dostępny od razu.

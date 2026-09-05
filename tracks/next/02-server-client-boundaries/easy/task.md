@@ -1,5 +1,7 @@
 # Wydziel małą interaktywną wyspę
 
+Tryb: projekt. Uzupełnij pliki w `src/`. Gotowe typy i połączenia między plikami są punktem wyjścia.
+
 `ProductCard` został oznaczony `"use client"` tylko dlatego, że zawiera przycisk
 ulubionych. Przenieś stan i handler do istniejącego `FavoriteButton`.
 

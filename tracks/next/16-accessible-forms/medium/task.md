@@ -1,8 +1,9 @@
-# Połącz błędy Action z dostępnym formularzem
+# Błędy i wynik wysłania formularza
 
-Zaimplementuj `ContactForm` z `useActionState`. Pole email po błędzie ma mieć
-`aria-invalid="true"` i `aria-describedby="email-error"`; wiadomość analogicznie.
-Komunikaty renderuj pod stabilnymi ID i z `role="alert"`.
+Tryb: uzupełnienie. W `starter.tsx` jest gotowy szablon. Zaimplementuj brakującą logikę opisaną poniżej.
 
-Przycisk ma być wyłączony w pending i zmieniać tekst na `Wysyłanie…`. Po sukcesie
-pokaż live status `Wysłano zgłoszenie {id}`. Użyj natywnych `required` i typu email.
+Uzupełnij `ContactForm` z `useActionState`. Wyświetl błędy zwrócone przez `action`
+obok odpowiednich pól: email i wiadomości. Treści błędów połącz spacją.
+Podczas wysyłania wyłącz przycisk i pokaż na nim `Wysyłanie…`.
+Po sukcesie pokaż `Wysłano zgłoszenie {id}`.
+Zachowaj natywną walidację `required` i `type="email"` oraz gotowe etykiety formularza.

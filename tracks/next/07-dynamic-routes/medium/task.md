@@ -1,5 +1,7 @@
 # Zabezpiecz optional catch-all katalogu
 
+Tryb: od zera. Napisz rozwiązanie w `starter.ts`, korzystając z podanych sygnatur i typów.
+
 `readCatalogSegments` obsługuje `app/catalog/[[...slug]]`, ale zwraca surowe dane.
 Zaczekaj na params i dla braku `slug` zwróć pustą tablicę. Każdy segment:
 
