@@ -271,6 +271,9 @@
 }
 
 .islandLogo {
+  --node-facet-color: var(--dim);
+  --node-facet-strong-opacity: .6;
+  --node-facet-soft-opacity: .3;
   color: var(--canvas);
 }
 .coursePicker {

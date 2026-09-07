@@ -159,8 +159,8 @@ export const LogoNext = (p: SVGProps<SVGSVGElement>) => (
 export const LogoNode = (p: SVGProps<SVGSVGElement>) => (
   <Glyph {...p}>
     <path d="M11.2.46a1.6 1.6 0 0 1 1.6 0l8.64 4.99a1.6 1.6 0 0 1 .8 1.38v9.98a1.6 1.6 0 0 1-.8 1.39l-8.64 4.98a1.6 1.6 0 0 1-1.6 0L2.56 18.2a1.6 1.6 0 0 1-.8-1.39V6.83a1.6 1.6 0 0 1 .8-1.38L11.2.46Z" />
-    <path d="M1.76 6.83v9.98c0 .57.3 1.1.8 1.39l8.64 4.98L5.66 13.6 1.76 6.83Z" fill="#000" opacity=".2" />
-    <path d="m12 .25 6.53 11.3 3.71-4.72c0-.57-.3-1.1-.8-1.38L12.8.46a1.6 1.6 0 0 0-.8-.21Z" fill="#000" opacity=".08" />
+    <path d="M1.76 6.83v9.98c0 .57.3 1.1.8 1.39l8.64 4.98L5.66 13.6 1.76 6.83Z" fill="var(--node-facet-color, #000)" opacity="var(--node-facet-strong-opacity, .2)" />
+    <path d="m12 .25 6.53 11.3 3.71-4.72c0-.57-.3-1.1-.8-1.38L12.8.46a1.6 1.6 0 0 0-.8-.21Z" fill="var(--node-facet-color, #000)" opacity="var(--node-facet-soft-opacity, .08)" />
   </Glyph>
 );
 
