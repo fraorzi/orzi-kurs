@@ -22,6 +22,8 @@ import {
 import type { CatalogLevel, CatalogTopic, CatalogTrack } from "@/app/lib/types";
 import { sortTracksByLearningOrder } from "@/curriculum/order";
 import styles from "./home.module.css";
+import RoadmapPreview from "@/app/components/roadmap/RoadmapPreview";
+import { buildRoadmap } from "@/app/lib/roadmap";
 
 const POLISH_PLURALS = new Intl.PluralRules("pl-PL");
 
@@ -168,9 +170,10 @@ export default async function Home() {
       </div>
 
       <div className={styles.page}>
+        <RoadmapPreview roadmap={buildRoadmap(catalog)} />
         <section className={styles.today} aria-labelledby="today-title">
           <header className={styles.todayHeader}>
-            <h1 id="today-title">Dzisiaj</h1>
+            <h2 id="today-title">Dzisiaj</h2>
             <p>Jeden konkretny krok, bez przeglądania całego katalogu.</p>
           </header>
 

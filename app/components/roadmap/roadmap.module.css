@@ -1,0 +1,973 @@
+/* Hallmark · macrostructure: Map / Diagram · genre: playful · theme: existing warm-graphite
+   Existing side-rail; SVG islands. Pre-emit critique: P4 H4 E4 S5 R4 V5. */
+.mapPage,
+.previewSection {
+  --map-shadow: oklch(0.1 0.01 70 / 0.45);
+  --map-rock-dark: oklch(0.23 0.025 230);
+  --map-rock-mid: oklch(0.3 0.03 230);
+  --map-rock-light: oklch(0.37 0.03 230);
+  --map-grass: oklch(0.64 0.105 156);
+  --map-grass-edge: oklch(0.77 0.11 155);
+  --map-soil: oklch(0.41 0.075 155);
+  --map-tree-dark: oklch(0.37 0.08 160);
+  --map-tree-light: oklch(0.49 0.1 157);
+  --map-trail: oklch(0.85 0.045 90);
+  --map-building: oklch(0.85 0.035 85);
+  --chapter-color: var(--accent-2);
+}
+
+.previewSection {
+  margin-bottom: 32px;
+}
+.preview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 304px;
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  border: 1px solid var(--line-2);
+  border-radius: 16px;
+  background: var(--panel);
+}
+.previewCopy {
+  padding: 32px 0 28px 32px;
+  z-index: 1;
+  min-width: 0;
+}
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-2);
+}
+.previewCopy h1 {
+  margin: 12px 0;
+  font-size: clamp(25px, 3vw, 36px);
+  font-weight: 650;
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.previewCopy p {
+  margin: 0;
+  max-width: 32ch;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--dim);
+}
+.previewAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 44px;
+  margin-top: 22px;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.previewAction svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s var(--ease);
+}
+.preview:hover .previewAction svg {
+  transform: translateX(5px);
+}
+.previewProgress {
+  display: block;
+  font-size: 11px;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+.previewMap {
+  position: relative;
+  min-width: 0;
+  background-image: radial-gradient(var(--line) 0.7px, transparent 0.7px);
+  background-size: 22px 22px;
+}
+.previewPath {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  stroke: var(--line-2);
+  stroke-width: 3;
+}
+.previewPathDraw {
+  stroke: var(--accent-2);
+  stroke-dasharray: 1;
+  animation: draw-path 1.5s var(--ease) both;
+}
+.previewIsland {
+  position: absolute;
+  width: 142px;
+  transform: translate(-50%, -50%);
+}
+.previewIsland[data-position="0"] {
+  left: 24%;
+  top: 73%;
+}
+.previewIsland[data-position="1"] {
+  left: 54%;
+  top: 48%;
+}
+.previewIsland[data-position="2"] {
+  left: 79%;
+  top: 19%;
+  opacity: 0.65;
+}
+.previewIsland[data-current="true"] {
+  opacity: 1;
+  z-index: 1;
+}
+.previewIslandLabel {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--ink);
+  font: 10px var(--mono);
+}
+.mapCaption {
+  position: absolute;
+  bottom: 14px;
+  right: 16px;
+  color: var(--faint);
+  font-size: 9px;
+}
+
+.islandArt {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.groundShadow {
+  fill: var(--map-shadow);
+}
+.rockDark {
+  fill: var(--map-rock-dark);
+}
+.rockMid {
+  fill: var(--map-rock-mid);
+}
+.rockLight {
+  fill: var(--map-rock-light);
+}
+.soil {
+  fill: var(--map-soil);
+}
+.grass {
+  fill: var(--map-grass);
+}
+.grassEdge {
+  stroke: var(--map-grass-edge);
+  stroke-width: 2;
+}
+.trail {
+  stroke: var(--map-trail);
+  stroke-width: 8;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+.objectShadow {
+  fill: var(--map-shadow);
+}
+.markerSide,
+.buildingSide {
+  fill: color-mix(in oklch, var(--chapter-color) 45%, var(--map-rock-mid));
+}
+.markerFront {
+  fill: var(--chapter-color);
+}
+.markerTop {
+  fill: color-mix(in oklch, var(--chapter-color) 75%, var(--ink));
+}
+.buildingFront {
+  fill: var(--map-building);
+}
+.buildingRoof {
+  fill: var(--chapter-color);
+}
+.window {
+  fill: var(--map-rock-dark);
+}
+.treeTrunk {
+  stroke: var(--map-rock-dark);
+  stroke-width: 3;
+}
+.treeDark {
+  fill: var(--map-tree-dark);
+}
+.treeLight {
+  fill: var(--map-tree-light);
+}
+.pebble {
+  fill: var(--map-trail);
+}
+.grassDetail {
+  stroke: var(--map-tree-light);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.flag {
+  stroke: var(--map-trail);
+  fill: var(--chapter-color);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.mapPage {
+  min-height: 100dvh;
+  position: relative;
+  padding-bottom: 116px;
+}
+.mapToolbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--line);
+  background: var(--canvas);
+}
+.mapHeading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.mapHeading > a {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 44px;
+  font-size: 20px;
+  flex: none;
+}
+.mapHeading h1 {
+  margin: 0;
+  font-size: 17px;
+  letter-spacing: -0.03em;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.mapHeading span {
+  color: var(--faint);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.mapControls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.islandLogo {
+  color: var(--canvas);
+}
+.coursePicker {
+  position: relative;
+  min-width: 0;
+}
+.courseTrigger {
+  min-width: 170px;
+  max-width: 230px;
+  min-height: 44px;
+  color: var(--ink);
+}
+.courseTrigger > span:nth-child(2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pickerChevron {
+  width: 16px;
+  height: 16px;
+  margin-left: auto;
+  flex: none;
+  transition: transform 0.18s var(--ease);
+}
+.courseTrigger[aria-expanded="true"] .pickerChevron {
+  transform: rotate(180deg);
+}
+.courseMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 260px;
+  max-height: min(480px, calc(100dvh - 160px));
+  transform-origin: top right;
+}
+.courseOption {
+  min-height: 48px;
+}
+.courseOption > span:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.courseOption small {
+  font-size: 10px;
+  color: var(--faint);
+}
+.courseOption[aria-checked="true"] {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+.courseOption > svg {
+  width: 14px;
+  height: 14px;
+}
+.returnSlot {
+  position: sticky;
+  bottom: 112px;
+  z-index: 4;
+  height: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 24px;
+}
+.returnButton {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  transform: translateY(-100%);
+  border: 1px solid var(--accent-line);
+  background: var(--raised);
+  color: var(--accent-2);
+  border-radius: 50%;
+  box-shadow: 0 8px 20px var(--map-shadow);
+  cursor: pointer;
+  animation: return-reveal 0.2s var(--ease);
+}
+.returnButton svg {
+  width: 24px;
+  height: 24px;
+}
+.returnButton[data-direction="down"] svg {
+  transform: rotate(180deg);
+}
+.returnButton:hover {
+  background: var(--overlay);
+}
+.returnButton:active {
+  background: var(--accent-soft);
+}
+@keyframes return-reveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.mapLegend {
+  position: sticky;
+  top: 106px;
+  z-index: 3;
+  width: 150px;
+  height: 0;
+  margin-left: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--dim);
+}
+.mapLegend > span {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.mapLegend i {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--line-2);
+}
+.mapLegend i[data-state="complete"] {
+  background: var(--good);
+}
+.mapLegend i[data-state="current"] {
+  background: var(--accent-2);
+  outline: 1px solid var(--accent-line);
+  outline-offset: 3px;
+}
+.mapLegend i[data-state="side"] {
+  background: none;
+  border: 1px dashed var(--dim);
+}
+.mapLegend p {
+  margin: 4px 0 0;
+  color: var(--faint);
+  font-size: 11px;
+  line-height: 1.6;
+  max-width: 130px;
+}
+.mapCanvas {
+  max-width: 1000px;
+  margin-inline: auto;
+  padding-top: 56px;
+  background-image: radial-gradient(var(--line) 0.7px, transparent 0.7px);
+  background-size: 32px 32px;
+}
+.finish {
+  text-align: center;
+  max-width: 340px;
+  margin: 0 auto 48px;
+  padding-inline: 16px;
+}
+.finish > span {
+  font-size: 48px;
+  color: var(--accent-2);
+}
+.finish h2 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  margin: 8px 0;
+}
+.finish p {
+  color: var(--dim);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.chapters,
+.chapter,
+.steps {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.chapter {
+  position: relative;
+}
+.chapterGate {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: min(400px, calc(100% - 40px));
+  min-height: 106px;
+  margin: 16px auto 60px;
+  padding: 20px 24px;
+  background: var(--panel);
+  border: 1px solid color-mix(in oklch, var(--chapter-color) 25%, var(--line));
+  border-radius: 12px;
+  position: relative;
+}
+.gateIncoming,
+.gateOutgoing {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+}
+.gateIncoming {
+  top: 110px;
+  height: 186px;
+}
+.gateOutgoing {
+  top: -60px;
+  height: 170px;
+}
+.chapterGate > div {
+  min-width: 0;
+}
+.chapterGate span:not(:global(.trackbadge)) {
+  font-size: 10px;
+  color: var(--faint);
+}
+.chapterGate h2 {
+  font-size: 20px;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  margin: 2px 0;
+  color: var(--chapter-color);
+}
+.chapterGate p {
+  font-size: 10px;
+  color: var(--dim);
+  margin: 0;
+}
+.chapterGate > a {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  color: var(--dim);
+}
+.chapterGate > a svg {
+  width: 18px;
+  height: 18px;
+}
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.step {
+  height: 280px;
+  position: relative;
+}
+.connector {
+  position: absolute;
+  width: 100%;
+  height: 280px;
+  top: -170px;
+  left: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+.pathBase {
+  stroke: var(--line);
+  stroke-width: 7;
+  vector-effect: non-scaling-stroke;
+}
+.pathDraw {
+  stroke: color-mix(in oklch, var(--chapter-color) 40%, var(--line-2));
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  vector-effect: non-scaling-stroke;
+}
+.step[data-visible="true"] .pathDraw {
+  animation: draw-path 1.2s var(--ease) both;
+}
+.pathDraw[data-complete="true"] {
+  stroke: var(--good);
+  stroke-width: 4;
+}
+.branchConnector {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  pointer-events: none;
+}
+.branchConnector path {
+  stroke: var(--line-2);
+  stroke-width: 2;
+  stroke-dasharray: 5 7;
+  vector-effect: non-scaling-stroke;
+}
+.island {
+  position: absolute;
+  top: 22px;
+  left: var(--island-x);
+  width: 174px;
+  transform: translateX(-50%);
+  text-align: center;
+  border-radius: 16px;
+  z-index: 1;
+  scroll-margin-block: 180px;
+}
+.island[data-project="true"] {
+  width: 194px;
+  top: 8px;
+}
+.island[data-side="true"] {
+  width: 132px;
+  top: 46px;
+}
+.island[data-status="new"] {
+  --map-grass: oklch(0.46 0.055 165);
+  --map-grass-edge: oklch(0.57 0.065 162);
+  --map-soil: oklch(0.33 0.04 163);
+}
+.island[data-current="true"] {
+  --map-grass: oklch(0.68 0.13 153);
+  --map-grass-edge: oklch(0.81 0.12 153);
+  --map-soil: oklch(0.46 0.09 153);
+}
+.island .land {
+  transition: transform 0.25s var(--ease);
+}
+.island:hover .land {
+  transform: translateY(-7px);
+}
+.island:active .land {
+  transform: translateY(-1px);
+}
+.island[data-current="true"] .land {
+  animation: float-island 4s ease-in-out infinite;
+}
+.previewIsland[data-current="true"] .land {
+  animation: float-island 4s ease-in-out infinite;
+}
+.step[data-visible="true"] .branchConnector path {
+  animation: branch-route 1.2s var(--ease) both;
+}
+@keyframes branch-route {
+  from {
+    stroke-dashoffset: 36;
+    opacity: 0;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+.islandLabel {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+  margin: -2px -22px 0;
+  position: relative;
+  background: var(--canvas);
+  border-radius: 8px;
+  padding: 5px 4px;
+}
+.islandNumber {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font: 10px var(--mono);
+  color: var(--faint);
+}
+.islandNumber svg {
+  width: 12px;
+  height: 12px;
+  color: var(--good);
+}
+.islandLabel strong {
+  font-weight: 550;
+  font-size: 13px;
+  line-height: 1.45;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  color: var(--dim);
+}
+.island[data-current="true"] .islandLabel strong,
+.island:hover .islandLabel strong {
+  color: var(--ink);
+}
+.island[data-side="true"] .islandLabel {
+  margin-inline: -10px;
+}
+.island[data-side="true"] .islandLabel strong {
+  font-size: 11px;
+}
+.taskDots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 17px;
+}
+.taskDots i {
+  width: 5px;
+  height: 5px;
+  background: var(--line-2);
+  border-radius: 50%;
+}
+.taskDots i[data-done="true"] {
+  background: var(--good);
+}
+.taskDots small {
+  font: 9px var(--mono);
+  color: var(--faint);
+  margin-left: 3px;
+}
+.youAreHere {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-2);
+  color: var(--accent-ink);
+  padding: 6px 12px;
+  border-radius: 7px;
+  font-size: 10px;
+  line-height: 1.4;
+  font-weight: 700;
+  white-space: nowrap;
+  z-index: 2;
+}
+.youAreHere::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: calc(50% - 4px);
+  border: 4px solid transparent;
+  border-top-color: var(--accent-2);
+}
+.start {
+  text-align: center;
+  color: var(--faint);
+  font-size: 11px;
+  padding: 0 16px 60px;
+}
+.start > span {
+  display: block;
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+.currentDock {
+  position: sticky;
+  bottom: 20px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: min(510px, calc(100% - 32px));
+  margin: -74px auto 0;
+  padding: 14px 16px;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: var(--raised);
+  box-shadow: 0 12px 24px var(--map-shadow);
+}
+.currentDock > div {
+  min-width: 0;
+  flex: 1;
+}
+.currentDock span {
+  display: block;
+  font-size: 10px;
+  color: var(--faint);
+}
+.currentDock strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.currentDock a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+  min-height: 40px;
+  padding: 8px 12px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.currentDock svg {
+  width: 14px;
+  height: 14px;
+}
+.empty {
+  padding: 100px 24px;
+  text-align: center;
+  color: var(--dim);
+}
+.mapPage a:focus-visible,
+.mapPage button:focus-visible,
+.mapPage select:focus-visible,
+.preview:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 5px;
+}
+
+@keyframes float-island {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@keyframes draw-path {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .mapLegend {
+    display: none;
+  }
+  .mapToolbar {
+    padding-inline: 16px;
+  }
+}
+@media (max-width: 900px) {
+  .mapToolbar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .mapControls {
+    flex: 1;
+  }
+  .previewCopy {
+    padding: 24px 0 24px 24px;
+  }
+  .previewIsland {
+    width: 116px;
+  }
+  .mapCaption {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .mapToolbar {
+    padding: 10px 12px 10px 58px;
+  }
+  .mapControls {
+    justify-content: flex-start;
+    gap: 4px;
+  }
+  .mapHeading h1 {
+    font-size: 15px;
+  }
+  .mapHeading > a {
+    width: 28px;
+  }
+  .mapCanvas {
+    padding-top: 36px;
+  }
+}
+@media (max-width: 520px) {
+  .coursePicker {
+    width: 100%;
+  }
+  .courseTrigger {
+    width: 100%;
+    max-width: none;
+  }
+  .courseMenu {
+    width: min(280px, calc(100dvw - 80px));
+  }
+  .returnSlot {
+    padding-right: 16px;
+    bottom: 100px;
+  }
+  .preview {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .previewCopy {
+    padding: 24px;
+  }
+  .previewCopy h1 {
+    font-size: 30px;
+  }
+  .previewCopy p {
+    max-width: none;
+  }
+  .previewAction {
+    margin-top: 12px;
+  }
+  .previewMap {
+    height: 210px;
+    margin-top: -8px;
+  }
+  .previewIsland {
+    width: 132px;
+  }
+  .previewIsland[data-position="0"] {
+    top: 68%;
+  }
+  .previewIsland[data-position="2"] {
+    top: 24%;
+  }
+  .previewIsland .youAreHere {
+    top: 0;
+  }
+  .mapToolbar {
+    gap: 4px;
+  }
+  .mapHeading {
+    width: 100%;
+  }
+  .mapControls {
+    margin-left: 0;
+  }
+  .island {
+    width: 140px;
+    top: 40px;
+  }
+  .island[data-project="true"] {
+    width: 158px;
+    top: 27px;
+  }
+  .island[data-side="true"] {
+    width: 106px;
+    top: 60px;
+  }
+  .islandLabel {
+    margin-inline: -12px;
+  }
+  .islandLabel strong {
+    font-size: 12px;
+  }
+  .island[data-side="true"] .islandLabel {
+    margin-inline: -4px;
+  }
+  .island[data-side="true"] .islandLabel strong {
+    font-size: 10px;
+  }
+  .step[data-branched="true"] > .island:not([data-side="true"]) .islandLabel {
+    margin-inline: 0;
+  }
+  .chapterGate {
+    padding: 16px;
+    gap: 12px;
+  }
+  .chapterGate h2 {
+    font-size: 18px;
+  }
+  .currentDock {
+    padding: 10px 12px;
+    gap: 12px;
+    bottom: 12px;
+  }
+  .currentDock a {
+    min-height: 44px;
+    font-size: 10px;
+    padding-inline: 10px;
+  }
+  .currentDock svg {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .returnButton {
+    animation: none;
+  }
+  .pickerChevron {
+    transition: none;
+  }
+  .branchConnector path {
+    animation: none !important;
+  }
+  .land,
+  .previewPathDraw {
+    animation: none !important;
+  }
+  .island .land,
+  .previewAction svg {
+    transition: none;
+  }
+  .island:hover .land {
+    transform: none;
+  }
+  .pathDraw {
+    animation: none !important;
+    stroke-dasharray: none;
+  }
+}

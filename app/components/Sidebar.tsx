@@ -188,6 +188,23 @@ export default function Sidebar({
       </div>
 
       <div className="rail-scroll">
+        <Link
+          href="/roadmap"
+          className={styles.roadmapLink}
+          aria-current={pathname === "/roadmap" ? "page" : undefined}
+          onClick={onMobileNavigate}
+          title="Roadmapa"
+        >
+          <svg className={styles.roadmapIcon} viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <path className={styles.mapFoldLeft} d="m2 7 8-4v19l-8 4Z" />
+            <path className={styles.mapFoldMiddle} d="m10 3 8 4v19l-8-4Z" />
+            <path className={styles.mapFoldRight} d="m18 7 8-4v19l-8 4Z" />
+            <path className={styles.mapRiver} d="m3 20 7-8 8 5 7-7" />
+            <path className={styles.mapRoute} d="m5 11 5-3 8 5 5-5" />
+            <circle className={styles.mapPin} cx="18" cy="13" r="2.5" />
+          </svg>
+          <span>Roadmapa</span>
+        </Link>
         {meta && track && (
           <div className="trackswitch-wrap" ref={switcherRef}>
             <button
