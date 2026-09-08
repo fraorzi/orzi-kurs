@@ -1,6 +1,6 @@
 import styles from "./roadmap.module.css";
 import { createElement } from "react";
-import { trackIcon } from "@/app/lib/tracks";
+import { trackIcon, trackMeta } from "@/app/lib/tracks";
 
 export default function IslandArt({
   complete = false,
@@ -12,7 +12,7 @@ export default function IslandArt({
   trackId: string;
 }) {
   return (
-    <svg className={styles.islandArt} viewBox="0 0 180 160" fill="none" aria-hidden="true">
+    <svg className={styles.islandArt} data-track={trackId} style={{ color: trackMeta(trackId).color }} viewBox="0 0 180 160" fill="none" aria-hidden="true">
       <ellipse className={styles.groundShadow} cx="90" cy="146" rx="56" ry="10" />
       <g className={styles.land}>
         <path className={styles.rockDark} d="m18 87 21 35 29 8 21 15 25-14 28-10 21-37-72-23Z" />

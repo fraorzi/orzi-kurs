@@ -271,10 +271,22 @@
 }
 
 .islandLogo {
-  --node-facet-color: var(--dim);
-  --node-facet-strong-opacity: .6;
-  --node-facet-soft-opacity: .3;
   color: var(--canvas);
+}
+.islandArt[data-track="node"] .islandLogo {
+  color: inherit;
+}
+.islandArt[data-track="node"] .markerFront,
+.islandArt[data-track="node"] .buildingFront {
+  fill: var(--overlay);
+}
+.islandArt[data-track="node"] .markerSide,
+.islandArt[data-track="node"] .buildingSide {
+  fill: var(--raised);
+}
+.islandArt[data-track="node"] .markerTop,
+.islandArt[data-track="node"] .buildingRoof {
+  fill: var(--line-2);
 }
 .coursePicker {
   position: relative;
