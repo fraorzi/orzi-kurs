@@ -7,21 +7,28 @@ export interface ProductSearchProps {
 export function ProductSearch({
   onSearch,
 }: ProductSearchProps) {
-  const [query] = useState("");
+  const [query, setQuery] = useState("");
 
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        onSearch(query);
+        if (query.trim()) {
+          onSearch(query.trim());
+        }
       }}
     >
       <label>
         Szukaj produktów
-        <input defaultValue={query} />
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
       </label>
       <button type="submit">Szukaj</button>
-      <button type="button">Wyczyść</button>
+      <button type="button" onClick={() => setQuery("")}>
+        Wyczyść
+      </button>
     </form>
   );
 }
