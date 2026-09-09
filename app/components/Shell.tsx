@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import type { Catalog } from "@/app/lib/types";
 import Sidebar from "./Sidebar";
 import CommandPalette from "./CommandPalette";
@@ -29,6 +29,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   const catalogRequestRef = useRef(0);
   const mobileNavTriggerRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
+  const router = useRouter();
   const [previousPathname, setPreviousPathname] = useState(pathname);
   if (pathname !== previousPathname) {
     setPreviousPathname(pathname);
@@ -61,6 +62,11 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       window.removeEventListener("orzi:progress", loadCatalog);
     };
   }, [loadCatalog]);
+
+  // Back/forward navigation may restore a catalog rendered before the last task.
+  useEffect(() => {
+    if (pathname === "/" || pathname === "/roadmap") router.refresh();
+  }, [pathname, router]);
 
   useEffect(() => {
     const query = window.matchMedia("(max-width: 760px)");
