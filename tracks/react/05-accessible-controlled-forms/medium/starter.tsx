@@ -24,8 +24,25 @@ export function ProfileForm({ onSave }: ProfileFormProps) {
     <form
       noValidate
       onSubmit={(event) => {
+        const localErrors: ProfileErrors = {};
+
         event.preventDefault();
-        // TODO: sprawdź dane, ustaw errors i wywołaj callback tylko dla poprawnych danych.
+        if (!data.displayName.trim()) {
+          localErrors.displayName =
+            "Podaj nazwę wyświetlaną.";
+        }
+        if (data.bio.trim().length > 120) {
+          localErrors.bio =
+            "Bio może mieć maksymalnie 120 znaków.";
+        }
+
+        if (Object.keys(localErrors).length === 0) {
+          onSave({
+            displayName: data.displayName.trim(),
+            bio: data.bio.trim(),
+          });
+        }
+        setErrors(localErrors);
       }}
     >
       <label>
