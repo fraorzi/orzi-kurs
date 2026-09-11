@@ -1,13 +1,12 @@
-// TODO
-export const CURRENCY: string = "PLN";
+export const CURRENCY = "PLN";
 
-export function formatPrice(amount: number, currency: string): string {
-  // TODO
-  return "";
+export function formatPrice(
+  amount: number,
+  currency: string,
+): string {
+  return `${amount.toFixed(2)} ${currency}`;
 }
 
-// TODO
-export const ROLES = ["admin", "editor", "viewer"];
+export const ROLES = ["admin", "editor", "viewer"] as const;
 
-// TODO
-export type Role = string;
+export type Role = (typeof ROLES)[number];
