@@ -395,5 +395,17 @@
     "firstPassedWithoutHintAt": "2026-09-11T21:33:24.103Z",
     "verifiedStarter": "type Currency = \"PLN\";\n\nexport const CURRENCY: Currency = \"PLN\";\n\nexport function formatPrice(\n  amount: number,\n  currency: string,\n): string {\n  return `${amount.toFixed(2)} ${currency}`;\n}\n\nexport const ROLES = [\"admin\", \"editor\", \"viewer\"] as const;\n\nexport type Role = (typeof ROLES)[number];\n",
     "lastRunAt": "2026-09-11T21:33:24.103Z"
+  },
+  "ts/01-basic-types/medium": {
+    "status": "passed",
+    "attempts": 3,
+    "masteryScore": 2,
+    "cleanPassStreak": 2,
+    "nextReviewAt": "2026-09-15T22:13:40.894Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-09-12T22:08:40.993Z",
+    "firstPassedWithoutHintAt": "2026-09-12T22:08:40.993Z",
+    "verifiedStarter": "export const STATUS = {\n  draft: \"draft\",\n  review: \"review\",\n  published: \"published\",\n} as const;\n\nexport type Status = (typeof STATUS)[keyof typeof STATUS];\n\nexport const LABELS: Record<Status, string> = {\n  draft: \"Szkic\",\n  review: \"W recenzji\",\n  published: \"Opublikowany\",\n};\n\nexport function nextStatus(current: Status): Status {\n  const keys = Object.keys(\n    STATUS,\n  ) as (keyof typeof STATUS)[];\n  const currentIndex = keys.indexOf(current);\n\n  return currentIndex === keys.length - 1\n    ? current\n    : keys[currentIndex + 1];\n}\n\nexport function describeStatus(current: Status): string {\n  return `${LABELS[current]} (${current})`;\n}\n",
+    "lastRunAt": "2026-09-12T22:13:40.894Z"
   }
 }
