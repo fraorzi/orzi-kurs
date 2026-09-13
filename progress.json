@@ -410,14 +410,14 @@
   },
   "ts/02-unions-narrowing/easy": {
     "status": "passed",
-    "attempts": 2,
-    "masteryScore": 1,
-    "cleanPassStreak": 1,
-    "nextReviewAt": "2026-09-14T15:11:35.332Z",
+    "attempts": 3,
+    "masteryScore": 2,
+    "cleanPassStreak": 2,
+    "nextReviewAt": "2026-09-16T15:17:16.237Z",
     "lastAttemptPassed": true,
     "firstPassedAt": "2026-09-13T15:11:35.332Z",
     "firstPassedWithoutHintAt": "2026-09-13T15:11:35.332Z",
-    "verifiedStarter": "export function formatValue(\n  value: string | number | boolean,\n): string {\n  switch (typeof value) {\n    case \"boolean\":\n      if (value === true) {\n        return \"tak\";\n      }\n      return \"nie\";\n    case \"number\":\n      return `${value.toFixed(2)}`;\n    default:\n      return value;\n  }\n}\n\nexport function charCount(\n  value: string | string[],\n): number {\n  if (Array.isArray(value)) {\n    return value.join(\"\").length;\n  }\n  return value.length;\n}\n\nexport function orDefault(\n  value: string | null | undefined,\n  fallback: string,\n): string {\n  return value ?? fallback;\n}\n",
-    "lastRunAt": "2026-09-13T15:11:35.332Z"
+    "verifiedStarter": "export function formatValue(\n  value: string | number | boolean,\n): string {\n  switch (typeof value) {\n    case \"boolean\":\n      if (value === true) {\n        return \"tak\";\n      }\n      return \"nie\";\n    case \"number\":\n      return `${value.toFixed(2)}`;\n    default:\n      return value;\n  }\n}\n\nexport function charCount(\n  value: string | string[],\n): number {\n  if (Array.isArray(value)) {\n    return value.reduce(\n      (acc, value) => acc + value.length,\n      0,\n    );\n  }\n  return value.length;\n}\n\nexport function orDefault(\n  value: string | null | undefined,\n  fallback: string,\n): string {\n  return value ?? fallback;\n}\n",
+    "lastRunAt": "2026-09-13T15:17:16.237Z"
   }
 }

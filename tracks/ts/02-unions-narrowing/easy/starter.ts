@@ -18,7 +18,10 @@ export function charCount(
   value: string | string[],
 ): number {
   if (Array.isArray(value)) {
-    return value.join("").length;
+    return value.reduce(
+      (sum, item) => sum + item.length,
+      0,
+    );
   }
   return value.length;
 }
