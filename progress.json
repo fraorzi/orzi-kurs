@@ -407,5 +407,17 @@
     "firstPassedWithoutHintAt": "2026-09-12T22:08:40.993Z",
     "verifiedStarter": "export const STATUS = {\n  draft: \"draft\",\n  review: \"review\",\n  published: \"published\",\n} as const;\n\nexport type Status = (typeof STATUS)[keyof typeof STATUS];\n\nexport const LABELS: Record<Status, string> = {\n  draft: \"Szkic\",\n  review: \"W recenzji\",\n  published: \"Opublikowany\",\n};\n\nexport function nextStatus(current: Status): Status {\n  const keys = Object.keys(\n    STATUS,\n  ) as (keyof typeof STATUS)[];\n  const currentIndex = keys.indexOf(current);\n\n  return currentIndex === keys.length - 1\n    ? current\n    : keys[currentIndex + 1];\n}\n\nexport function describeStatus(current: Status): string {\n  return `${LABELS[current]} (${current})`;\n}\n",
     "lastRunAt": "2026-09-12T22:13:40.894Z"
+  },
+  "ts/02-unions-narrowing/easy": {
+    "status": "passed",
+    "attempts": 2,
+    "masteryScore": 1,
+    "cleanPassStreak": 1,
+    "nextReviewAt": "2026-09-14T15:11:35.332Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-09-13T15:11:35.332Z",
+    "firstPassedWithoutHintAt": "2026-09-13T15:11:35.332Z",
+    "verifiedStarter": "export function formatValue(\n  value: string | number | boolean,\n): string {\n  switch (typeof value) {\n    case \"boolean\":\n      if (value === true) {\n        return \"tak\";\n      }\n      return \"nie\";\n    case \"number\":\n      return `${value.toFixed(2)}`;\n    default:\n      return value;\n  }\n}\n\nexport function charCount(\n  value: string | string[],\n): number {\n  if (Array.isArray(value)) {\n    return value.join(\"\").length;\n  }\n  return value.length;\n}\n\nexport function orDefault(\n  value: string | null | undefined,\n  fallback: string,\n): string {\n  return value ?? fallback;\n}\n",
+    "lastRunAt": "2026-09-13T15:11:35.332Z"
   }
 }
