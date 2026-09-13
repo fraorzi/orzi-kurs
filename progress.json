@@ -431,5 +431,18 @@
     "firstPassedWithoutHintAt": "2026-09-13T19:01:25.131Z",
     "verifiedStarter": "export type AnalyticsEvent =\n  | { type: \"pageview\"; path: string }\n  | { type: \"click\"; selector: string; count: number }\n  | { type: \"error\"; message: string; fatal: boolean };\n\nexport function describeEvent(\n  event: AnalyticsEvent,\n): string {\n  switch (event.type) {\n    case \"pageview\":\n      return `${event.type}: ${event.path}`;\n    case \"click\":\n      return `${event.type}: ${event.selector} ×${event.count}`;\n    case \"error\":\n      return (\n        `${event.type}: ${event.message}` +\n        (event.fatal ? \" (krytyczny)\" : \"\")\n      );\n    default: {\n      throw new Error(\n        `nieznane zdarzenie: ${JSON.stringify(event)}`,\n      );\n    }\n  }\n}\n\nexport function countFatal(\n  events: AnalyticsEvent[],\n): number {\n  let count = 0;\n  for (const event of events) {\n    if (event.type === \"error\" && event.fatal) {\n      count++;\n    }\n  }\n  return count;\n}\n",
     "lastRunAt": "2026-09-13T20:42:39.007Z"
+  },
+  "react/06-derived-state-no-effect/easy": {
+    "status": "passed-with-hint",
+    "attempts": 3,
+    "masteryScore": 1,
+    "cleanPassStreak": 0,
+    "nextReviewAt": "2026-09-13T23:49:02.266Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-09-13T23:49:02.266Z",
+    "firstPassedWithHintAt": "2026-09-13T23:49:02.266Z",
+    "revealedHints": 3,
+    "verifiedStarter": "export interface OrderItem {\n  readonly id: string;\n  readonly quantity: number;\n  readonly unitPriceCents: number;\n}\n\nexport interface OrderSummaryProps {\n  items: readonly OrderItem[];\n}\n\nexport function OrderSummary({ items }: OrderSummaryProps) {\n  const totalCents = items.reduce(\n    (sum, item) =>\n      sum + item.quantity * item.unitPriceCents,\n    0,\n  );\n\n  return (\n    <output aria-label=\"Suma\">\n      {(totalCents / 100).toFixed(2)} zł\n    </output>\n  );\n}\n",
+    "lastRunAt": "2026-09-13T23:49:02.266Z"
   }
 }

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export interface OrderItem {
   readonly id: string;
   readonly quantity: number;
@@ -11,12 +9,10 @@ export interface OrderSummaryProps {
 }
 
 export function OrderSummary({ items }: OrderSummaryProps) {
-  const [totalCents] = useState(() =>
-    items.reduce(
-      (sum, item) =>
-        sum + item.quantity * item.unitPriceCents,
-      0,
-    ),
+  const totalCents = items.reduce(
+    (sum, item) =>
+      sum + item.quantity * item.unitPriceCents,
+    0,
   );
 
   return (
