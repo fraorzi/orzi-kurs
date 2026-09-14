@@ -444,5 +444,17 @@
     "revealedHints": 3,
     "verifiedStarter": "export interface OrderItem {\n  readonly id: string;\n  readonly quantity: number;\n  readonly unitPriceCents: number;\n}\n\nexport interface OrderSummaryProps {\n  items: readonly OrderItem[];\n}\n\nexport function OrderSummary({ items }: OrderSummaryProps) {\n  const totalCents = items.reduce(\n    (sum, item) =>\n      sum + item.quantity * item.unitPriceCents,\n    0,\n  );\n\n  return (\n    <output aria-label=\"Suma\">\n      {(totalCents / 100).toFixed(2)} zł\n    </output>\n  );\n}\n",
     "lastRunAt": "2026-09-13T23:49:02.266Z"
+  },
+  "react/06-derived-state-no-effect/medium": {
+    "status": "passed",
+    "attempts": 3,
+    "masteryScore": 1,
+    "cleanPassStreak": 1,
+    "nextReviewAt": "2026-09-15T00:04:37.818Z",
+    "lastAttemptPassed": true,
+    "firstPassedAt": "2026-09-14T00:04:37.818Z",
+    "firstPassedWithoutHintAt": "2026-09-14T00:04:37.818Z",
+    "verifiedStarter": "import { useState } from \"react\";\n\nexport interface Product {\n  readonly id: string;\n  readonly name: string;\n}\n\nexport interface ProductFilterProps {\n  products: readonly Product[];\n}\n\nexport function ProductFilter({\n  products,\n}: ProductFilterProps) {\n  const [query, setQuery] = useState(\"\");\n\n  const visibleProducts = products.filter((product) =>\n    product.name\n      .toLowerCase()\n      .includes(query.toLowerCase()),\n  );\n\n  return (\n    <section>\n      <label>\n        Filtruj produkty\n        <input\n          value={query}\n          onChange={(event) => {\n            const nextQuery = event.currentTarget.value;\n            setQuery(nextQuery);\n          }}\n        />\n      </label>\n      <ul aria-label=\"Produkty\">\n        {visibleProducts.map((product) => (\n          <li key={product.id}>{product.name}</li>\n        ))}\n      </ul>\n    </section>\n  );\n}\n",
+    "lastRunAt": "2026-09-14T00:04:37.818Z"
   }
 }

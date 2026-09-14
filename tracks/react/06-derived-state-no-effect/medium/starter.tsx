@@ -13,8 +13,12 @@ export function ProductFilter({
   products,
 }: ProductFilterProps) {
   const [query, setQuery] = useState("");
-  const [visibleProducts, setVisibleProducts] =
-    useState(products);
+
+  const visibleProducts = products.filter((product) =>
+    product.name
+      .toLowerCase()
+      .includes(query.toLowerCase()),
+  );
 
   return (
     <section>
@@ -25,13 +29,6 @@ export function ProductFilter({
           onChange={(event) => {
             const nextQuery = event.currentTarget.value;
             setQuery(nextQuery);
-            setVisibleProducts(
-              products.filter((product) =>
-                product.name
-                  .toLowerCase()
-                  .includes(nextQuery.toLowerCase()),
-              ),
-            );
           }}
         />
       </label>
