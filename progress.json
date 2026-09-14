@@ -433,17 +433,18 @@
     "lastRunAt": "2026-09-13T20:42:39.007Z"
   },
   "react/06-derived-state-no-effect/easy": {
-    "status": "passed-with-hint",
-    "attempts": 3,
-    "masteryScore": 1,
-    "cleanPassStreak": 0,
-    "nextReviewAt": "2026-09-13T23:49:02.266Z",
+    "status": "passed",
+    "attempts": 5,
+    "masteryScore": 2,
+    "cleanPassStreak": 1,
+    "nextReviewAt": "2026-09-16T23:49:54.765Z",
     "lastAttemptPassed": true,
     "firstPassedAt": "2026-09-13T23:49:02.266Z",
     "firstPassedWithHintAt": "2026-09-13T23:49:02.266Z",
-    "revealedHints": 3,
+    "firstPassedWithoutHintAt": "2026-09-13T23:49:54.765Z",
+    "revealedHints": 0,
     "verifiedStarter": "export interface OrderItem {\n  readonly id: string;\n  readonly quantity: number;\n  readonly unitPriceCents: number;\n}\n\nexport interface OrderSummaryProps {\n  items: readonly OrderItem[];\n}\n\nexport function OrderSummary({ items }: OrderSummaryProps) {\n  const totalCents = items.reduce(\n    (sum, item) =>\n      sum + item.quantity * item.unitPriceCents,\n    0,\n  );\n\n  return (\n    <output aria-label=\"Suma\">\n      {(totalCents / 100).toFixed(2)} zł\n    </output>\n  );\n}\n",
-    "lastRunAt": "2026-09-13T23:49:02.266Z"
+    "lastRunAt": "2026-09-13T23:49:54.765Z"
   },
   "react/06-derived-state-no-effect/medium": {
     "status": "passed",
