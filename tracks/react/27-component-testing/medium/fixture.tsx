@@ -5,13 +5,13 @@ export function UserSearch({
 }: {
   searchUsers: (
     query: string,
-  ) => Promise<readonly string[]>;
+  ) => Promise<string[]>;
 }) {
   const [query, setQuery] = useState("");
   const [state, setState] = useState<
     | { status: "idle" }
     | { status: "pending" }
-    | { status: "success"; users: readonly string[] }
+    | { status: "success"; users: string[] }
     | { status: "error" }
   >({ status: "idle" });
 

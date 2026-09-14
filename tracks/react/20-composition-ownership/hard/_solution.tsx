@@ -11,7 +11,7 @@ export function SelectionController<T>({
   getId,
   children,
 }: {
-  items: readonly T[];
+  items: T[];
   getId: (item: T) => string;
   children: (props: SelectionRenderProps<T>) => ReactNode;
 }) {
@@ -39,14 +39,14 @@ export function SelectionController<T>({
 }
 
 export interface Member {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 }
 
 export function MemberPicker({
   members,
 }: {
-  members: readonly Member[];
+  members: Member[];
 }) {
   return (
     <SelectionController

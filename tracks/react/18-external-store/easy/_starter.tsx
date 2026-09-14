@@ -1,7 +1,7 @@
 export interface OnlineSource {
-  readonly subscribe: (callback: () => void) => () => void;
-  readonly getSnapshot: () => boolean;
-  readonly getServerSnapshot: () => boolean;
+  subscribe: (callback: () => void) => () => void;
+  getSnapshot: () => boolean;
+  getServerSnapshot: () => boolean;
 }
 
 export function OnlineBadge({

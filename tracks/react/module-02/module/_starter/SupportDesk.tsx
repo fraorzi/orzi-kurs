@@ -14,7 +14,7 @@ import type { DraftStorage, Incident } from "./types";
 import { usePersistentDraft } from "./usePersistentDraft";
 
 interface SupportDeskProps {
-  initialIncidentsPromise: Promise<readonly Incident[]>;
+  initialIncidentsPromise: Promise<Incident[]>;
   createIncident: (title: string) => Promise<Incident>;
   storage: DraftStorage;
   toastContainer: HTMLElement;

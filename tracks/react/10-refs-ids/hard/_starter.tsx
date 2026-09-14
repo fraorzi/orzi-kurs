@@ -1,6 +1,6 @@
 export interface FieldDefinition {
-  readonly id: string;
-  readonly label: string;
+  id: string;
+  label: string;
 }
 
 export interface FieldRegistry {
@@ -8,7 +8,7 @@ export interface FieldRegistry {
 }
 
 export interface RegisteredFieldsProps {
-  fields: readonly FieldDefinition[];
+  fields: FieldDefinition[];
   registry: FieldRegistry;
 }
 

@@ -4,8 +4,8 @@ import {
 } from "@tanstack/react-query";
 
 export interface Stock {
-  readonly productId: string;
-  readonly quantity: number;
+  productId: string;
+  quantity: number;
 }
 
 export function StockControl({

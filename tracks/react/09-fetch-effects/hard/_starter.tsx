@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 export interface Product {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 }
 
 export interface ProductClient {
@@ -18,8 +18,8 @@ export interface ProductDetailsProps {
 }
 
 interface ProductResult {
-  readonly productId: string;
-  readonly product: Product;
+  productId: string;
+  product: Product;
 }
 
 export function ProductDetails({

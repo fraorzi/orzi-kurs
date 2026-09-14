@@ -1,11 +1,11 @@
 export interface OrderItem {
-  readonly id: string;
-  readonly quantity: number;
-  readonly unitPriceCents: number;
+  id: string;
+  quantity: number;
+  unitPriceCents: number;
 }
 
 export interface OrderSummaryProps {
-  items: readonly OrderItem[];
+  items: OrderItem[];
 }
 
 export function OrderSummary({ items }: OrderSummaryProps) {

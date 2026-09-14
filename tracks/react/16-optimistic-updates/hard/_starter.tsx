@@ -1,12 +1,12 @@
 import { startTransition, useOptimistic } from "react";
 
 export interface Comment {
-  readonly id: string;
-  readonly text: string;
+  id: string;
+  text: string;
 }
 
 interface CommentView extends Comment {
-  readonly pending?: boolean;
+  pending?: boolean;
 }
 
 export function OptimisticComments({
@@ -14,12 +14,12 @@ export function OptimisticComments({
   saveComment,
   commitComment,
 }: {
-  comments: readonly Comment[];
+  comments: Comment[];
   saveComment: (text: string) => Promise<Comment>;
   commitComment: (comment: Comment) => void;
 }) {
   const [optimisticComments, setOptimisticComments] =
-    useOptimistic<readonly CommentView[]>(comments);
+    useOptimistic<CommentView[]>(comments);
 
   async function addAction(formData: FormData) {
     const text = String(

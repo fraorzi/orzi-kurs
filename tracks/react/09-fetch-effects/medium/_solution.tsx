@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 
 export interface SearchResultsProps {
   query: string;
-  search: (query: string) => Promise<readonly string[]>;
+  search: (query: string) => Promise<string[]>;
 }
 
 interface SearchResult {
-  readonly query: string;
-  readonly items: readonly string[];
+  query: string;
+  items: string[];
 }
 
 export function SearchResults({

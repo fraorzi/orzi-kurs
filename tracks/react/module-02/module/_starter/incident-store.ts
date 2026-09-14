@@ -1,14 +1,14 @@
 import type { Incident } from "./types";
 
 export interface IncidentStore {
-  readonly subscribe: (callback: () => void) => () => void;
-  readonly getSnapshot: () => readonly Incident[];
-  readonly getServerSnapshot: () => readonly Incident[];
-  readonly addIncident: (incident: Incident) => void;
+  subscribe: (callback: () => void) => () => void;
+  getSnapshot: () => Incident[];
+  getServerSnapshot: () => Incident[];
+  addIncident: (incident: Incident) => void;
 }
 
 export function createIncidentStore(
-  initialIncidents: readonly Incident[],
+  initialIncidents: Incident[],
 ): IncidentStore {
   const listeners = new Set<() => void>();
   let snapshot = [...initialIncidents];

@@ -1,7 +1,7 @@
 import { Suspense, useState } from "react";
 
 export interface CatalogResource {
-  read(query: string): readonly string[];
+  read(query: string): string[];
 }
 
 function SearchResults({

@@ -5,19 +5,19 @@ export interface InviteFormProps {
 }
 
 type InviteState =
-  | { readonly status: "editing"; readonly email: string }
+  | { status: "editing"; email: string }
   | {
-      readonly status: "submitting";
-      readonly email: string;
+      status: "submitting";
+      email: string;
     }
   | {
-      readonly status: "error";
-      readonly email: string;
-      readonly message: string;
+      status: "error";
+      email: string;
+      message: string;
     }
   | {
-      readonly status: "success";
-      readonly invitedEmail: string;
+      status: "success";
+      invitedEmail: string;
     };
 
 export function InviteForm({ onInvite }: InviteFormProps) {

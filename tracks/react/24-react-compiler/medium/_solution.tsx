@@ -1,13 +1,13 @@
 export interface Invoice {
-  readonly id: string;
-  readonly customer: string;
-  readonly amount: number;
+  id: string;
+  customer: string;
+  amount: number;
 }
 
 export function ModernInvoiceTable({
   invoices,
 }: {
-  invoices: readonly Invoice[];
+  invoices: Invoice[];
 }) {
   "use memo";
 

@@ -6,7 +6,7 @@ import {
   type ReactNode,
 } from "react";
 
-type CounterAction = { readonly type: "incremented" };
+type CounterAction = { type: "incremented" };
 
 const CounterStateContext = createContext<number | null>(
   null,

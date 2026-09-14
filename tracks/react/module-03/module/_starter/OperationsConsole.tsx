@@ -20,7 +20,7 @@ export function OperationsConsole({
   fetchTickets,
   assignTicket,
 }: {
-  agents: readonly Agent[];
+  agents: Agent[];
   fetchTickets: FetchTickets;
   assignTicket: (input: AssignmentInput) => Promise<void>;
 }) {

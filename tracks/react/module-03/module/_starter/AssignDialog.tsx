@@ -8,7 +8,7 @@ export function AssignDialog({
   onClose,
 }: {
   ticket: Ticket;
-  agents: readonly Agent[];
+  agents: Agent[];
   trigger: HTMLButtonElement;
   onAssign: (agentId: string) => void;
   onClose: () => void;

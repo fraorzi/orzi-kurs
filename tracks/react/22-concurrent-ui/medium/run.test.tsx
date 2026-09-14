@@ -11,13 +11,13 @@ import {
 } from "./starter";
 
 interface PendingResult {
-  readonly promise: Promise<void>;
-  resolve(results: readonly string[]): void;
-  results?: readonly string[];
+  promise: Promise<void>;
+  resolve(results: string[]): void;
+  results?: string[];
 }
 
 function createResource(): CatalogResource & {
-  resolve(query: string, results: readonly string[]): void;
+  resolve(query: string, results: string[]): void;
 } {
   const entries = new Map<string, PendingResult>();
 

@@ -7,7 +7,7 @@ import {
 } from "react";
 
 export interface Report {
-  readonly title: string;
+  title: string;
 }
 
 interface ErrorBoundaryProps {
@@ -17,7 +17,7 @@ interface ErrorBoundaryProps {
 }
 
 interface ErrorBoundaryState {
-  readonly hasError: boolean;
+  hasError: boolean;
 }
 
 class ReportErrorBoundary extends Component<

@@ -13,7 +13,7 @@ describe("LiveChart", () => {
       cleanups.push(cleanup);
       return cleanup;
     });
-    const series = [10, 20] as const;
+    const series = [10, 20];
     const { rerender, user } = renderWithUser(
       <LiveChart
         currency="PLN"

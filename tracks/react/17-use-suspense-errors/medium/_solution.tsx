@@ -1,8 +1,8 @@
 import { Suspense, use } from "react";
 
 export interface User {
-  readonly name: string;
-  readonly role: string;
+  name: string;
+  role: string;
 }
 
 function UserDetails({

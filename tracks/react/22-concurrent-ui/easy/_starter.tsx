@@ -1,18 +1,18 @@
 import { type FormEvent, useState } from "react";
 
 export interface Customer {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 }
 
 export function CustomerSearch({
   initialCustomers,
   searchCustomers,
 }: {
-  initialCustomers: readonly Customer[];
+  initialCustomers: Customer[];
   searchCustomers: (
     query: string,
-  ) => Promise<readonly Customer[]>;
+  ) => Promise<Customer[]>;
 }) {
   const [query, setQuery] = useState("");
   const [customers, setCustomers] = useState(

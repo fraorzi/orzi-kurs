@@ -7,8 +7,8 @@ import {
 const ignoreRender: ProfilerOnRenderCallback = () => {};
 
 export interface ReportData {
-  readonly visits: number;
-  readonly revenue: number;
+  visits: number;
+  revenue: number;
 }
 
 function Report({

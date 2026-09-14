@@ -2,7 +2,7 @@ import type { TaskState, TeamTask } from "./types";
 
 export function selectVisibleTasks(
   state: TaskState,
-): readonly TeamTask[] {
+): TeamTask[] {
   if (state.filter === "open") {
     return state.tasks.filter((task) => !task.done);
   }

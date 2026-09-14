@@ -10,8 +10,8 @@ const ignoreRender: ProfilerOnRenderCallback = () => {};
 const ignoreRows = () => ignoreRender;
 
 export interface Product {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 }
 
 const ProductRow = memo(function ProductRow({
@@ -44,7 +44,7 @@ export function ProductGrid({
   products,
   onRowRender = ignoreRows,
 }: {
-  products: readonly Product[];
+  products: Product[];
   onRowRender?: (id: string) => ProfilerOnRenderCallback;
 }) {
   const [selectedId, setSelectedId] = useState<

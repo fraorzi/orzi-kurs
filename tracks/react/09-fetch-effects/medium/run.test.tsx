@@ -17,8 +17,8 @@ function deferred<T>() {
 
 describe("SearchResults", () => {
   it("ignoruje odpowiedź starszego zapytania", async () => {
-    const react = deferred<readonly string[]>();
-    const compiler = deferred<readonly string[]>();
+    const react = deferred<string[]>();
+    const compiler = deferred<string[]>();
     const search = vi.fn((query: string) => (
       query === "react" ? react.promise : compiler.promise
     ));

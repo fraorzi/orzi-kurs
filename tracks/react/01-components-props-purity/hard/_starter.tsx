@@ -1,11 +1,11 @@
 export interface Product {
-  readonly id: string;
-  readonly name: string;
-  readonly price: number;
+  id: string;
+  name: string;
+  price: number;
 }
 
 export interface ProductTableProps {
-  products: readonly Product[];
+  products: Product[];
 }
 
 export function ProductTable(_props: ProductTableProps) {

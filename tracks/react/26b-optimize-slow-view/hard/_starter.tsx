@@ -7,9 +7,9 @@ import {
 const ignoreRender: ProfilerOnRenderCallback = () => {};
 
 export interface QueueTicket {
-  readonly id: string;
-  readonly status: "open" | "closed";
-  readonly title: string;
+  id: string;
+  status: "open" | "closed";
+  title: string;
 }
 
 function QueueList({
@@ -17,7 +17,7 @@ function QueueList({
   tickets,
 }: {
   onRender: ProfilerOnRenderCallback;
-  tickets: readonly QueueTicket[];
+  tickets: QueueTicket[];
 }) {
   return (
     <Profiler id="queue" onRender={onRender}>
@@ -35,11 +35,11 @@ export function OperationsDashboard({
   buildQueue,
   onQueueRender = ignoreRender,
 }: {
-  tickets: readonly QueueTicket[];
+  tickets: QueueTicket[];
   buildQueue: (
-    tickets: readonly QueueTicket[],
+    tickets: QueueTicket[],
     filter: "all" | QueueTicket["status"],
-  ) => readonly QueueTicket[];
+  ) => QueueTicket[];
   onQueueRender?: ProfilerOnRenderCallback;
 }) {
   const [filter, setFilter] = useState<

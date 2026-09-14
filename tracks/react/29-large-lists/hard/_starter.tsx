@@ -1,13 +1,13 @@
 export interface Customer {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 }
 
 export function VirtualCustomerList({
   customers,
   onOpen,
 }: {
-  customers: readonly Customer[];
+  customers: Customer[];
   onOpen: (id: string) => void;
 }) {
   return (

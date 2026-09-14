@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 export interface User {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 }
 
 export interface UserProfileProps {

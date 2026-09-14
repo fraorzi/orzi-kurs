@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 export interface ConfirmedOrder {
-  readonly quantity: number;
-  readonly totalCents: number;
+  quantity: number;
+  totalCents: number;
 }
 
 export interface OrderCheckoutProps {

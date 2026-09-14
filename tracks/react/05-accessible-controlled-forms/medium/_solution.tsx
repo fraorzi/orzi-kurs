@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 export interface ProfileData {
-  readonly displayName: string;
-  readonly bio: string;
+  displayName: string;
+  bio: string;
 }
 
 export interface ProfileFormProps {

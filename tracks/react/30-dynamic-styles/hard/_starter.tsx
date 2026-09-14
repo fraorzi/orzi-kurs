@@ -1,7 +1,7 @@
 export interface MetricPoint {
-  readonly id: string;
-  readonly label: string;
-  readonly value: number;
+  id: string;
+  label: string;
+  value: number;
 }
 
 export function MetricChart({
@@ -11,12 +11,12 @@ export function MetricChart({
 }: {
   label: string;
   accent: string;
-  points: readonly MetricPoint[];
+  points: MetricPoint[];
 }) {
-  const max = Math.max(
-    ...points.map((point) => point.value),
-    1,
-  );
+  let max = 1;
+  for (const point of points) {
+    max = Math.max(max, point.value);
+  }
 
   return (
     <section className="metric-chart" aria-label={label}>

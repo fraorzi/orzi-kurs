@@ -6,8 +6,8 @@ import {
 } from "react";
 
 interface CounterContextValue {
-  readonly count: number;
-  readonly increment: () => void;
+  count: number;
+  increment: () => void;
 }
 
 const CounterContext =

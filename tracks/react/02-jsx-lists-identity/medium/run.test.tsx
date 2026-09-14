@@ -8,7 +8,7 @@ import {
   type EditableTask,
 } from "./starter";
 
-const TASKS: readonly EditableTask[] = [
+const TASKS: EditableTask[] = [
   { id: "a", title: "Analiza" },
   { id: "b", title: "Testy" },
 ];

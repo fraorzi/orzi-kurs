@@ -1,16 +1,16 @@
 import { useState } from "react";
 
 export interface PriceLine {
-  readonly id: string;
-  readonly amount: number;
+  id: string;
+  amount: number;
 }
 
 export function PricingPanel({
   lines,
   calculateTotal,
 }: {
-  lines: readonly PriceLine[];
-  calculateTotal: (lines: readonly PriceLine[]) => number;
+  lines: PriceLine[];
+  calculateTotal: (lines: PriceLine[]) => number;
 }) {
   const [note, setNote] = useState("");
   const total = calculateTotal(lines);

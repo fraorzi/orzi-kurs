@@ -1,7 +1,7 @@
 export interface Invoice {
-  readonly customer: string;
-  readonly id: string;
-  readonly total: number;
+  customer: string;
+  id: string;
+  total: number;
 }
 
 export function InvoiceList({
@@ -9,7 +9,7 @@ export function InvoiceList({
   layout,
   onOpen,
 }: {
-  invoices: readonly Invoice[];
+  invoices: Invoice[];
   layout: "table" | "cards";
   onOpen: (id: string) => void;
 }) {

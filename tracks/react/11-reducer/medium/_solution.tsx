@@ -1,18 +1,18 @@
 import { useReducer, useState } from "react";
 
 export interface Task {
-  readonly id: string;
-  readonly title: string;
-  readonly done: boolean;
+  id: string;
+  title: string;
+  done: boolean;
 }
 
 type TaskAction =
-  | { readonly type: "added"; readonly task: Task }
-  | { readonly type: "toggled"; readonly id: string }
-  | { readonly type: "deleted"; readonly id: string };
+  | { type: "added"; task: Task }
+  | { type: "toggled"; id: string }
+  | { type: "deleted"; id: string };
 
 function tasksReducer(
-  tasks: readonly Task[],
+  tasks: Task[],
   action: TaskAction,
 ): Task[] {
   switch (action.type) {
@@ -30,7 +30,7 @@ function tasksReducer(
 }
 
 export interface TaskBoardProps {
-  initialTasks: readonly Task[];
+  initialTasks: Task[];
   createId: () => string;
 }
 

@@ -5,8 +5,8 @@ import {
 } from "react";
 
 export interface Session {
-  readonly userId: string;
-  readonly displayName: string;
+  userId: string;
+  displayName: string;
 }
 
 const SessionContext = createContext<Session | null>(null);

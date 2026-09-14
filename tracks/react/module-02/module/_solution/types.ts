@@ -1,10 +1,10 @@
 export interface Incident {
-  readonly id: string;
-  readonly title: string;
-  readonly pending?: boolean;
+  id: string;
+  title: string;
+  pending?: boolean;
 }
 
 export interface DraftStorage {
-  readonly getItem: (key: string) => string | null;
-  readonly setItem: (key: string, value: string) => void;
+  getItem: (key: string) => string | null;
+  setItem: (key: string, value: string) => void;
 }

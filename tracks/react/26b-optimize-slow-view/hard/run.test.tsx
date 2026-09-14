@@ -17,7 +17,7 @@ const tickets = [
 function queueBuilder() {
   return vi.fn(
     (
-      source: readonly QueueTicket[],
+      source: QueueTicket[],
       filter: "all" | "open" | "closed",
     ) =>
       filter === "all"

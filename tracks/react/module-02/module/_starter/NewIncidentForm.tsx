@@ -8,8 +8,8 @@ import { useFormStatus } from "react-dom";
 import type { Incident } from "./types";
 
 type FormState =
-  | { readonly status: "idle" }
-  | { readonly status: "error"; readonly message: string };
+  | { status: "idle" }
+  | { status: "error"; message: string };
 
 function SubmitButton() {
   const { pending } = useFormStatus();

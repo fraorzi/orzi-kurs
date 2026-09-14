@@ -1,14 +1,14 @@
 export interface User {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 }
 
 export type UserViewState =
-  | { readonly status: "idle" }
-  | { readonly status: "pending" }
-  | { readonly status: "empty" }
-  | { readonly status: "success"; readonly user: User }
-  | { readonly status: "error"; readonly message: string };
+  | { status: "idle" }
+  | { status: "pending" }
+  | { status: "empty" }
+  | { status: "success"; user: User }
+  | { status: "error"; message: string };
 
 export function UserResult({
   state,

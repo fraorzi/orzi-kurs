@@ -1,11 +1,14 @@
 ## Hint 1
 
-Każdy render ma już dostęp do aktualnego `items`.
+Sprawdź render po przekazaniu nowych `items`. Która wartość nadal pochodzi
+z pierwszego renderu?
 
 ## Hint 2
 
-Użyj `reduce`, aby zsumować `quantity * unitPriceCents`.
+Inicjalizator `useState` nie przelicza sumy po zmianie propsów. Ta wartość jest
+w całości wyliczana z `items`.
 
 ## Hint 3
 
-Podziel wynik w groszach przez 100 i użyj `toFixed(2)` bezpośrednio przy renderowaniu.
+Usuń stan sumy i import `useState`. Istniejące `items.reduce(...)` przypisz do
+`totalCents` w ciele komponentu. Formatowanie wyniku jest już gotowe.

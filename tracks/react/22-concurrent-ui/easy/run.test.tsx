@@ -9,11 +9,11 @@ import { CustomerSearch } from "./starter";
 describe("CustomerSearch", () => {
   it("utrzymuje pilny input i stare wyniki podczas Transition", async () => {
     let resolveSearch: (
-      customers: readonly { id: string; name: string }[],
+      customers: { id: string; name: string }[],
     ) => void = () => {};
     const searchCustomers = vi.fn(
       () =>
-        new Promise<readonly { id: string; name: string }[]>((resolve) => {
+        new Promise<{ id: string; name: string }[]>((resolve) => {
           resolveSearch = resolve;
         }),
     );

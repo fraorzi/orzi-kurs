@@ -5,7 +5,7 @@ export function VirtualLog({
   scrollTop,
   overscan,
 }: {
-  items: readonly string[];
+  items: string[];
   rowHeight: number;
   viewportHeight: number;
   scrollTop: number;

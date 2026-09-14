@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 export interface User {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 }
 
 export interface UserProfileProps {
@@ -12,13 +12,13 @@ export interface UserProfileProps {
 
 type UserResult =
   | {
-      readonly userId: string;
-      readonly status: "success";
-      readonly user: User;
+      userId: string;
+      status: "success";
+      user: User;
     }
   | {
-      readonly userId: string;
-      readonly status: "error";
+      userId: string;
+      status: "error";
     };
 
 export function UserProfile({

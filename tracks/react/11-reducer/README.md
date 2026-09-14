@@ -4,8 +4,8 @@
 
 ```tsx
 type Action =
-  | { readonly type: "incremented" }
-  | { readonly type: "reset"; readonly value: number };
+  | { type: "incremented" }
+  | { type: "reset"; value: number };
 
 function reducer(state: number, action: Action): number {
   switch (action.type) {
