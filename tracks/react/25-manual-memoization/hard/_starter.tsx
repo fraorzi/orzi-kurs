@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 export interface ChartOptions {
-  readonly currency: string;
-  readonly series: readonly number[];
+  currency: string;
+  series: number[];
 }
 
 export function LiveChart({
@@ -11,7 +11,7 @@ export function LiveChart({
   connectChart,
 }: {
   currency: string;
-  series: readonly number[];
+  series: number[];
   connectChart: (options: ChartOptions) => () => void;
 }) {
   const [title, setTitle] = useState("");

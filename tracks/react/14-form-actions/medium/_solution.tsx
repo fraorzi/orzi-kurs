@@ -1,11 +1,11 @@
 import { useActionState } from "react";
 
 export type ProjectFormState =
-  | { readonly status: "idle" }
-  | { readonly status: "error"; readonly message: string }
+  | { status: "idle" }
+  | { status: "error"; message: string }
   | {
-      readonly status: "success";
-      readonly projectId: string;
+      status: "success";
+      projectId: string;
     };
 
 export function CreateProjectForm({

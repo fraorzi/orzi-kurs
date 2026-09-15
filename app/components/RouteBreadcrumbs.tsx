@@ -92,10 +92,12 @@ export default function RouteBreadcrumbs({
   level,
   topic,
   trackId,
+  contextQuery,
 }: {
   level?: LevelCrumb;
   topic?: TopicCrumb;
   trackId?: string;
+  contextQuery?: string;
 }) {
   const track = trackId ? trackMeta(trackId) : null;
 
@@ -114,7 +116,7 @@ export default function RouteBreadcrumbs({
           <span className="sep" aria-hidden="true">/</span>
           <SharedCrumb
             current={!topic}
-            href={topic ? `/track/${track.id}` : undefined}
+            href={topic ? `/track/${track.id}${contextQuery ? `?${contextQuery}` : ""}` : undefined}
             layoutId={`track-identity-${track.id}`}
             track
           >
@@ -129,7 +131,7 @@ export default function RouteBreadcrumbs({
           <span className="sep" aria-hidden="true">/</span>
           <SharedTopicCrumb
             current={!level}
-            href={level ? `/track/${track.id}/${topic.id}` : undefined}
+            href={level ? `/track/${track.id}/${topic.id}${contextQuery ? `?${contextQuery}` : ""}` : undefined}
             topic={topic}
             trackId={track.id}
           />

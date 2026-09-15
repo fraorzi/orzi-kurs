@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 export interface DraftStorage {
-  readonly getItem: (key: string) => string | null;
-  readonly setItem: (key: string, value: string) => void;
+  getItem: (key: string) => string | null;
+  setItem: (key: string, value: string) => void;
 }
 
 export function usePersistentDraft(

@@ -3,7 +3,7 @@ import type { Incident } from "./types";
 export function IncidentList({
   incidents,
 }: {
-  incidents: readonly Incident[];
+  incidents: Incident[];
 }) {
   return (
     <ul aria-label="Incydenty">

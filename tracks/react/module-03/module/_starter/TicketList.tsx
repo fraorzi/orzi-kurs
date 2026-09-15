@@ -7,13 +7,18 @@ export function TicketList({
   onAssign,
 }: {
   status: TicketStatus;
-  tickets: readonly Ticket[];
-  agents: readonly Agent[];
+  tickets: Ticket[];
+  agents: Agent[];
   onAssign: (
     ticket: Ticket,
     trigger: HTMLButtonElement,
   ) => void;
 }) {
+  const agentNamesById = new Map<string, string>();
+  for (const agent of agents) {
+    agentNamesById.set(agent.id, agent.name);
+  }
+
   return (
     <div
       id="ticket-panel"
@@ -38,7 +43,7 @@ export function TicketList({
             <strong>{ticket.title}</strong>
             <span>
               {ticket.assigneeId
-                ? `Przypisano: ${agents.find((agent) => agent.id === ticket.assigneeId)?.name}`
+                ? `Przypisano: ${agentNamesById.get(ticket.assigneeId)}`
                 : "Nieprzypisane"}
             </span>
             {status === "open" && (

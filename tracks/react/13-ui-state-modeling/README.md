@@ -14,13 +14,13 @@ Zamiast tego nazwij rzeczywiste stany widoku:
 
 ```tsx
 type State =
-  | { readonly status: "editing"; readonly email: string }
-  | { readonly status: "pending"; readonly email: string }
-  | { readonly status: "success"; readonly invitedEmail: string }
+  | { status: "editing"; email: string }
+  | { status: "pending"; email: string }
+  | { status: "success"; invitedEmail: string }
   | {
-      readonly status: "error";
-      readonly email: string;
-      readonly message: string;
+      status: "error";
+      email: string;
+      message: string;
     };
 ```
 

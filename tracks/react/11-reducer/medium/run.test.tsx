@@ -8,7 +8,7 @@ import {
   type Task,
 } from "./starter";
 
-const INITIAL_TASKS: readonly Task[] = [
+const INITIAL_TASKS: Task[] = [
   { id: "test", title: "Dodać testy", done: false },
 ];
 

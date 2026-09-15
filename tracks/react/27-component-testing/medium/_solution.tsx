@@ -8,9 +8,9 @@ import { UserSearch } from "./fixture";
 
 describe("UserSearch", () => {
   it("pokazuje pending, a potem wynik", async () => {
-    let resolveSearch: (users: readonly string[]) => void = () => {};
+    let resolveSearch: (users: string[]) => void = () => {};
     const searchUsers = vi.fn(
-      () => new Promise<readonly string[]>((resolve) => {
+      () => new Promise<string[]>((resolve) => {
         resolveSearch = resolve;
       }),
     );

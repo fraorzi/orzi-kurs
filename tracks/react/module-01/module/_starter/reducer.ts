@@ -5,7 +5,7 @@ import type {
 } from "./types";
 
 export function createInitialState(
-  initialTasks: readonly TeamTask[],
+  initialTasks: TeamTask[],
 ): TaskState {
   return { tasks: initialTasks, filter: "all" };
 }

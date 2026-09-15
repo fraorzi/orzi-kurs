@@ -1,18 +1,18 @@
 export type TaskFilter = "all" | "open" | "done";
 
 export interface TeamTask {
-  readonly id: string;
-  readonly title: string;
-  readonly done: boolean;
+  id: string;
+  title: string;
+  done: boolean;
 }
 
 export interface TaskState {
-  readonly tasks: readonly TeamTask[];
-  readonly filter: TaskFilter;
+  tasks: TeamTask[];
+  filter: TaskFilter;
 }
 
 export type TaskAction =
-  | { readonly type: "task_added"; readonly task: TeamTask }
-  | { readonly type: "task_toggled"; readonly id: string }
-  | { readonly type: "task_deleted"; readonly id: string }
-  | { readonly type: "filter_changed"; readonly filter: TaskFilter };
+  | { type: "task_added"; task: TeamTask }
+  | { type: "task_toggled"; id: string }
+  | { type: "task_deleted"; id: string }
+  | { type: "filter_changed"; filter: TaskFilter };

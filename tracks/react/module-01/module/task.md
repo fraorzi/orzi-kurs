@@ -16,14 +16,14 @@ są lokalne.
 type TaskFilter = "all" | "open" | "done";
 
 interface TeamTask {
-  readonly id: string;
-  readonly title: string;
-  readonly done: boolean;
+  id: string;
+  title: string;
+  done: boolean;
 }
 
 interface TaskState {
-  readonly tasks: readonly TeamTask[];
-  readonly filter: TaskFilter;
+  tasks: TeamTask[];
+  filter: TaskFilter;
 }
 ```
 
@@ -50,8 +50,8 @@ Eksportuj `createInitialState(initialTasks)` i `taskReducer(state, action)`.
 Eksportuj:
 
 ```ts
-selectVisibleTasks(state): readonly TeamTask[]
-selectTaskCounts(state): { readonly open: number; readonly done: number }
+selectVisibleTasks(state): TeamTask[]
+selectTaskCounts(state): { open: number; done: number }
 ```
 
 Widoczna lista wynika z `tasks` i `filter`; nie zapisuj jej w stanie.

@@ -5,9 +5,9 @@ import {
 } from "@tanstack/react-query";
 
 export interface Issue {
-  readonly id: string;
-  readonly title: string;
-  readonly status: "open" | "closed";
+  id: string;
+  title: string;
+  status: "open" | "closed";
 }
 
 export function IssueBoard({
@@ -16,7 +16,7 @@ export function IssueBoard({
 }: {
   fetchIssues: (
     signal: AbortSignal,
-  ) => Promise<readonly Issue[]>;
+  ) => Promise<Issue[]>;
   closeIssue: (id: string) => Promise<void>;
 }) {
   const queryClient = useQueryClient();

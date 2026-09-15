@@ -20,7 +20,8 @@ Nie mierzymy sukcesu liczbą lekcji. Mierzymy go zachowaniami opisanymi w
   da się zagwarantować, praca pozostaje w głównym agencie.
 - Jeden agent zapisujący w danym checkoutcie. Równoległa praca może być tylko
   read-only albo w odseparowanych worktree.
-- Nie uruchamiaj dev servera bez wyraźnej prośby użytkownika.
+- Przed podglądem UI sprawdź, czy dev server już działa na :3000. Jeśli tak, użyj
+  go. Jeśli nie, odpal jeden na :3000.
 - Nie nadpisuj starterów rozwiązanych przez użytkownika ani jego postępu.
 - Operacje Git: osobny branch na track, logiczne commity, push po zielonej bramce.
 - Nie otwieraj ani nie merguj PR-ów; użytkownik robi końcowy review i PR.

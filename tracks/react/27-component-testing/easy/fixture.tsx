@@ -1,8 +1,8 @@
 import { type FormEvent } from "react";
 
 export interface Credentials {
-  readonly email: string;
-  readonly password: string;
+  email: string;
+  password: string;
 }
 
 export function LoginForm({

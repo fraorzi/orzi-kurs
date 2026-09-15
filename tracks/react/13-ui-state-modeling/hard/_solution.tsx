@@ -1,37 +1,37 @@
 import { useReducer } from "react";
 
 export type CheckoutState =
-  | { readonly status: "cart"; readonly itemCount: number }
+  | { status: "cart"; itemCount: number }
   | {
-      readonly status: "review";
-      readonly itemCount: number;
+      status: "review";
+      itemCount: number;
     }
   | {
-      readonly status: "submitting";
-      readonly itemCount: number;
+      status: "submitting";
+      itemCount: number;
     }
   | {
-      readonly status: "error";
-      readonly itemCount: number;
-      readonly message: string;
+      status: "error";
+      itemCount: number;
+      message: string;
     }
   | {
-      readonly status: "success";
-      readonly orderId: string;
+      status: "success";
+      orderId: string;
     };
 
 export type CheckoutAction =
-  | { readonly type: "item_added" }
-  | { readonly type: "review_requested" }
-  | { readonly type: "edit_requested" }
-  | { readonly type: "submit_requested" }
+  | { type: "item_added" }
+  | { type: "review_requested" }
+  | { type: "edit_requested" }
+  | { type: "submit_requested" }
   | {
-      readonly type: "submit_succeeded";
-      readonly orderId: string;
+      type: "submit_succeeded";
+      orderId: string;
     }
   | {
-      readonly type: "submit_failed";
-      readonly message: string;
+      type: "submit_failed";
+      message: string;
     };
 
 export function checkoutReducer(

@@ -2,6 +2,9 @@
 
 import { useEffect, useId, useMemo, useState } from "react";
 import Link from "next/link";
+import ExperimentPanel from "@/app/components/experiments/ExperimentPanel";
+import type { ExperimentDefinition } from "@/shared/experiments";
+import type { CatalogLevel } from "@/app/lib/types";
 import AnimatedDisclosure from "@/app/components/AnimatedDisclosure";
 import Markdown from "@/app/components/Markdown";
 import RouteBreadcrumbs from "@/app/components/RouteBreadcrumbs";
@@ -48,6 +51,11 @@ interface Props {
   initialPassKind: "with-hint" | "without-hint" | null;
   resources: LearningResource[];
   nextTaskHref: string | null;
+  programHref?: string;
+  levels?: CatalogLevel[];
+  contextQuery?: string;
+  experiment?: { definition: ExperimentDefinition; sourceVersion: string } | null;
+  initialSolutionNotes?: string | null;
 }
 
 type CommitAction = "idle" | "checking" | "commit" | "push" | "done" | "error";
@@ -69,7 +77,14 @@ export default function TaskView({
   initialPassKind,
   resources,
   nextTaskHref,
+  programHref,
+  levels = [],
+  contextQuery = "",
+  experiment,
+  initialSolutionNotes = null,
 }: Props) {
+  const [activeTab, setActiveTab] = useState<"task" | "experiment">("task");
+  const [solutionNotes, setSolutionNotes] = useState(initialSolutionNotes);
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<SubmitResult | null>(null);
   const [solution, setSolution] = useState<string | null>(initialSolution);
@@ -197,6 +212,7 @@ export default function TaskView({
             setSubmitError(taskData.error ?? "Zadanie zaliczone, ale nie udało się pobrać porównania. Odśwież stronę.");
           } else {
             setSolution(taskData.solution ?? null);
+            setSolutionNotes(taskData.solutionNotes ?? null);
             setStarter(taskData.starter ?? null);
           }
         } catch {
@@ -527,6 +543,7 @@ export default function TaskView({
     <>
       <div className="topbar">
         <RouteBreadcrumbs
+          contextQuery={contextQuery}
           trackId={track}
           topic={{
             id: topic,
@@ -543,11 +560,20 @@ export default function TaskView({
       </div>
 
       <div className="wrap wrap-task page-task">
-        <div className="page-role task-role">
-          <strong>Praktyka · {level}</strong>
+        <div className="task-course-nav">
+          <Link className="btn-ghost" href={programHref ?? `/track/${track}`}>Program kursu</Link>
+          <div className="task-level-links" aria-label="Poziomy tematu">{levels.map((item) => <Link key={item.id}
+            href={`/track/${track}/${topic}/${item.id}?${contextQuery}`} aria-current={item.id === level ? "page" : undefined}>
+            {item.id === "module" ? "Projekt" : item.id}<span className={`sdot ${item.status}`} aria-hidden="true" />
+          </Link>)}</div>
         </div>
+        {experiment && <div className="task-view-tabs" role="group" aria-label="Widok zadania">
+          <button type="button" aria-pressed={activeTab === "task"} onClick={() => setActiveTab("task")}>Zadanie</button>
+          <button type="button" aria-pressed={activeTab === "experiment"} onClick={() => setActiveTab("experiment")}>Eksperyment</button>
+        </div>}
+        {experiment && <div hidden={activeTab !== "experiment"}><ExperimentPanel key={taskId} taskId={taskId} {...experiment} /></div>}
 
-        <div className="task-layout">
+        <div className="task-layout" hidden={activeTab !== "task"}>
           <article className="task-brief" id="task-brief">
             {taskMd ? (
               <Markdown content={taskMd} />
@@ -679,6 +705,7 @@ export default function TaskView({
                     <span className="pass-kind">zaliczone ze wskazówką</span>
                   )}
                 </div>
+                {solutionNotes && <Markdown content={solutionNotes} />}
                 {starter !== null ? (
                   <SolutionComparison starter={starter} solution={solution} />
                 ) : (

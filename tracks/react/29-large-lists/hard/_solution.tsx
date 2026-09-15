@@ -2,12 +2,12 @@ import { useMemo } from "react";
 import { List, type RowComponentProps } from "react-window";
 
 export interface Customer {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 }
 
 interface CustomerRowProps {
-  customers: readonly Customer[];
+  customers: Customer[];
   onOpen: (id: string) => void;
 }
 
@@ -36,7 +36,7 @@ export function VirtualCustomerList({
   customers,
   onOpen,
 }: {
-  customers: readonly Customer[];
+  customers: Customer[];
   onOpen: (id: string) => void;
 }) {
   const rowProps = useMemo(

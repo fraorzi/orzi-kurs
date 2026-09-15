@@ -7,15 +7,15 @@ import {
 const ignoreRender: ProfilerOnRenderCallback = () => {};
 
 export interface Ticket {
-  readonly id: string;
-  readonly title: string;
+  id: string;
+  title: string;
 }
 
 function TicketList({
   tickets,
   onRender,
 }: {
-  tickets: readonly Ticket[];
+  tickets: Ticket[];
   onRender: ProfilerOnRenderCallback;
 }) {
   return (
@@ -47,7 +47,7 @@ export function TicketWorkspace({
   tickets,
   onTicketListRender = ignoreRender,
 }: {
-  tickets: readonly Ticket[];
+  tickets: Ticket[];
   onTicketListRender?: ProfilerOnRenderCallback;
 }) {
   return (

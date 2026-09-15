@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 export interface QueueItem {
-  readonly id: string;
-  readonly title: string;
+  id: string;
+  title: string;
 }
 
 function QueueRow({ item }: { item: QueueItem }) {
@@ -25,7 +25,7 @@ function QueueRow({ item }: { item: QueueItem }) {
 export function EditableQueue({
   initialItems,
 }: {
-  initialItems: readonly QueueItem[];
+  initialItems: QueueItem[];
 }) {
   const [items, setItems] = useState(initialItems);
 

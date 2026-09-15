@@ -1,7 +1,7 @@
 import { useTaskDispatch, useTaskState } from "./context";
 import type { TaskFilter } from "./types";
 
-const FILTERS: readonly {
+const FILTERS: {
   value: TaskFilter;
   label: string;
 }[] = [

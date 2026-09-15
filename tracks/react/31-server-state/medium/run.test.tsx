@@ -17,7 +17,7 @@ function createTestClient() {
 describe("IssueBoard", () => {
   it("invaliduje listę po mutacji i pokazuje dane z refetchu", async () => {
     let closed = false;
-    const fetchIssues = vi.fn(async (): Promise<readonly Issue[]> => [{
+    const fetchIssues = vi.fn(async (): Promise<Issue[]> => [{
       id: "incident-1",
       title: "Płatność",
       status: closed ? "closed" : "open",
@@ -42,7 +42,7 @@ describe("IssueBoard", () => {
     let requestSignal: AbortSignal | undefined;
     const fetchIssues = vi.fn((signal: AbortSignal) => {
       requestSignal = signal;
-      return new Promise<readonly Issue[]>((_resolve, reject) => {
+      return new Promise<Issue[]>((_resolve, reject) => {
         signal.addEventListener("abort", () => reject(signal.reason));
       });
     });

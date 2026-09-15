@@ -1,6 +1,6 @@
 export interface Contact {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 }
 
 export interface ContactEditorProps {

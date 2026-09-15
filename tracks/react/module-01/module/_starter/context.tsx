@@ -13,8 +13,8 @@ import type {
 } from "./types";
 
 interface TaskContextValue {
-  readonly state: TaskState;
-  readonly dispatch: Dispatch<TaskAction>;
+  state: TaskState;
+  dispatch: Dispatch<TaskAction>;
 }
 
 const TaskContext = createContext<TaskContextValue | null>(
@@ -25,7 +25,7 @@ export function TaskProvider({
   initialTasks,
   children,
 }: {
-  initialTasks: readonly TeamTask[];
+  initialTasks: TeamTask[];
   children: ReactNode;
 }) {
   const [state, dispatch] = useReducer(

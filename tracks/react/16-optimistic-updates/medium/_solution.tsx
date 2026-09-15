@@ -5,8 +5,8 @@ import {
 } from "react";
 
 export interface FollowState {
-  readonly isFollowing: boolean;
-  readonly followerCount: number;
+  isFollowing: boolean;
+  followerCount: number;
 }
 
 export function FollowCard({

@@ -1,9 +1,9 @@
 import { useReducer } from "react";
 
 type QuantityAction =
-  | { readonly type: "decreased" }
-  | { readonly type: "increased" }
-  | { readonly type: "reset"; readonly value: number };
+  | { type: "decreased" }
+  | { type: "increased" }
+  | { type: "reset"; value: number };
 
 function quantityReducer(
   state: number,

@@ -9,7 +9,8 @@ wyświetla `Łącznie` i przy submitcie wywołuje `onConfirm` z:
 
 ```ts
 {
-  (quantity, totalCents);
+  quantity,
+  totalCents,
 }
 ```
 

@@ -1,7 +1,7 @@
 import { useRef, type KeyboardEvent } from "react";
 import type { TicketStatus } from "./types";
 
-const tabs: readonly {
+const tabs: {
   status: TicketStatus;
   label: string;
 }[] = [

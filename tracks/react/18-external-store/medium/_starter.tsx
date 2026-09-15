@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 export interface ExternalStore<T> {
-  readonly subscribe: (callback: () => void) => () => void;
-  readonly getSnapshot: () => T;
-  readonly getServerSnapshot: () => T;
+  subscribe: (callback: () => void) => () => void;
+  getSnapshot: () => T;
+  getServerSnapshot: () => T;
 }
 
 export function useExternalValue<T>(

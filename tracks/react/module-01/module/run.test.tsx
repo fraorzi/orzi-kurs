@@ -9,7 +9,7 @@ import {
 } from "@harness/react-test";
 import { TaskBoard, type TeamTask } from "./src/index";
 
-const INITIAL_TASKS: readonly TeamTask[] = [
+const INITIAL_TASKS: TeamTask[] = [
   { id: "tests", title: "Dodać testy", done: false },
   { id: "docs", title: "Opisać feature", done: true },
 ];

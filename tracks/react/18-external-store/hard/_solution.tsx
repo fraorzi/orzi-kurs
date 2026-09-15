@@ -1,24 +1,24 @@
 import { useSyncExternalStore } from "react";
 
 export interface CartItem {
-  readonly id: string;
-  readonly price: number;
+  id: string;
+  price: number;
 }
 
 export interface CartSnapshot {
-  readonly itemCount: number;
-  readonly total: number;
+  itemCount: number;
+  total: number;
 }
 
 export interface CartStore {
-  readonly subscribe: (callback: () => void) => () => void;
-  readonly getSnapshot: () => CartSnapshot;
-  readonly getServerSnapshot: () => CartSnapshot;
-  readonly addItem: (item: CartItem) => void;
+  subscribe: (callback: () => void) => () => void;
+  getSnapshot: () => CartSnapshot;
+  getServerSnapshot: () => CartSnapshot;
+  addItem: (item: CartItem) => void;
 }
 
 function summarize(
-  items: readonly CartItem[],
+  items: CartItem[],
 ): CartSnapshot {
   return {
     itemCount: items.length,
@@ -27,7 +27,7 @@ function summarize(
 }
 
 export function createCartStore(
-  initialItems: readonly CartItem[],
+  initialItems: CartItem[],
 ): CartStore {
   let items = [...initialItems];
   const listeners = new Set<() => void>();

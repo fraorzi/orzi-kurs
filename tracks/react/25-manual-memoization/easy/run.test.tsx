@@ -8,10 +8,10 @@ import { PricingPanel } from "./starter";
 describe("PricingPanel", () => {
   it("powtarza kosztowną kalkulację tylko po zmianie jej danych", async () => {
     const calculateTotal = vi.fn(
-      (lines: readonly { amount: number }[]) =>
+      (lines: { amount: number }[]) =>
         lines.reduce((sum, line) => sum + line.amount, 0),
     );
-    const lines = [{ id: "1", amount: 120 }] as const;
+    const lines = [{ id: "1", amount: 120 }];
     const { rerender, user } = renderWithUser(
       <PricingPanel lines={lines} calculateTotal={calculateTotal} />,
     );
@@ -32,4 +32,3 @@ describe("PricingPanel", () => {
     expect(calculateTotal).toHaveBeenCalledTimes(2);
   });
 });
-

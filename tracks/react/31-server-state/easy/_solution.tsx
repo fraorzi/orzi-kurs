@@ -3,14 +3,14 @@ import { useQuery } from "@tanstack/react-query";
 export type ProjectStatus = "active" | "archived";
 
 export interface Project {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 }
 
 export type FetchProjects = (
   status: ProjectStatus,
   signal: AbortSignal,
-) => Promise<readonly Project[]>;
+) => Promise<Project[]>;
 
 export function ProjectList({
   status,

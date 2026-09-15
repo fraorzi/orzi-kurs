@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 export interface CartItem {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
   quantity: number;
 }
 
 export interface ShoppingCartProps {
-  initialItems: readonly CartItem[];
+  initialItems: CartItem[];
 }
 
 export function increaseQuantity(

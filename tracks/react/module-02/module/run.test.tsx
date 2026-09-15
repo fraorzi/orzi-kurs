@@ -39,7 +39,7 @@ describe("incident store", () => {
 
 describe("SupportDesk", () => {
   it("prowadzi od draftu przez walidację i pending do listy i toastu", async () => {
-    const initialIncidents = deferred<readonly Incident[]>();
+    const initialIncidents = deferred<Incident[]>();
     const operation = deferred<Incident>();
     const createIncident = vi.fn(() => operation.promise);
     const values = new Map([["incident-draft", "Stary draft"]]);

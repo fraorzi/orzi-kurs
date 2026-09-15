@@ -6,8 +6,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## Długoterminowe rozwijanie curriculum
 
-- Nie odpalaj dev servera do sprawdzania zmian, chyba że użytkownik wprost o to
-  poprosi.
+- Przed podglądem UI sprawdź, czy dev server już działa na :3000. Jeśli tak, użyj
+  go. Jeśli nie, odpal jeden na :3000.
 - Nie uruchamiaj buildu, jeśli środowisko nie ma dostępu do internetu, a build
   wymaga pobrania zewnętrznych zasobów, na przykład Google Fonts.
 - Proste wartości używane jeden raz zapisuj inline. Wyciągaj je do `const` lub

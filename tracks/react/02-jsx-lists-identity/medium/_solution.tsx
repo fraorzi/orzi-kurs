@@ -1,10 +1,10 @@
 export interface EditableTask {
-  readonly id: string;
-  readonly title: string;
+  id: string;
+  title: string;
 }
 
 export interface EditableTaskListProps {
-  tasks: readonly EditableTask[];
+  tasks: EditableTask[];
 }
 
 export function EditableTaskList({

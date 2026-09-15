@@ -20,7 +20,7 @@ export function OperationsConsole({
   fetchTickets,
   assignTicket,
 }: {
-  agents: readonly Agent[];
+  agents: Agent[];
   fetchTickets: FetchTickets;
   assignTicket: (input: AssignmentInput) => Promise<void>;
 }) {
@@ -41,10 +41,10 @@ export function OperationsConsole({
     onMutate: async (input, context) => {
       await context.client.cancelQueries({ queryKey });
       const previousTickets =
-        context.client.getQueryData<readonly Ticket[]>(
+        context.client.getQueryData<Ticket[]>(
           queryKey,
         );
-      context.client.setQueryData<readonly Ticket[]>(
+      context.client.setQueryData<Ticket[]>(
         queryKey,
         (current) =>
           current?.map((ticket) =>

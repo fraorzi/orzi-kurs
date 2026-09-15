@@ -1,0 +1,1316 @@
+{
+  "track": "react",
+  "auditDate": "2026-09-14",
+  "targetVersion": "React 19.2.4",
+  "sources": [
+    "https://react.dev/learn",
+    "https://react.dev/reference/react"
+  ],
+  "tasks": [
+    {
+      "taskId": "react/01-components-props-purity/easy",
+      "templateHash": "sha256:dce9799041244cc2d36e88e4e8da021dc679ef4a092cd930f2075a54a6b64465",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: renderuje semantyczną kartę z danymi użytkownika; pokazuje Offline dla użytkownika niedostępnego."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/01-components-props-purity/hard",
+      "templateHash": "sha256:4178620630c673a2e3441b40c20841e96c5047487d894873b0e6e7564a7306d5",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: sortuje widok po cenie bez mutowania zamrożonych propsów; pokazuje poprawną sumę; dla tych samych propsów daje ten sam wynik po rerenderze."
+      ],
+      "changedFiles": [
+        "tracks/react/01-components-props-purity/hard/_solution.tsx",
+        "tracks/react/01-components-props-purity/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/01-components-props-purity/medium",
+      "templateHash": "sha256:eb81f27f14daeab8ae2a8c634cfbbf758d5ab7b1a42197b7ff82949655d45407",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: renderuje tytuł i dowolne interaktywne children; używa info jako domyślnego tone; przekazuje jawny wariant warning do DOM."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/02-jsx-lists-identity/easy",
+      "templateHash": "sha256:18c0faf466539c2e91d4acc96a6fbd09de05d8989c9579e09ad55bb0573e9d3f",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: pokazuje nazwę użytkownika i pusty stan skrzynki; odmienia komunikat dla jednej wiadomości; pokazuje liczbę dla wielu wiadomości."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/02-jsx-lists-identity/hard",
+      "templateHash": "sha256:73749ea9cd25ff05b1ad4e99ddc4cd94981b2fa7c9124ab60e91333ff844c773",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: pokazuje nazwę wybranego kontaktu; resetuje lokalny draft po zmianie selected.id."
+      ],
+      "changedFiles": [
+        "tracks/react/02-jsx-lists-identity/hard/_solution.tsx",
+        "tracks/react/02-jsx-lists-identity/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/02-jsx-lists-identity/medium",
+      "templateHash": "sha256:3592264d8ca0dc85dde97bcb536beb684dc11e5b3f15b993fe7456a37a0d0864",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: renderuje input dla każdego rekordu; po zmianie kolejności zachowuje edycję przy właściwym id."
+      ],
+      "changedFiles": [
+        "tracks/react/02-jsx-lists-identity/medium/_solution.tsx",
+        "tracks/react/02-jsx-lists-identity/medium/_starter.tsx",
+        "tracks/react/02-jsx-lists-identity/medium/run.test.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/03-state-snapshot-batching/easy",
+      "templateHash": "sha256:1082e05f4164d6deeaf21b1a78b413a8533e403b562d87f49b92de1758b95e64",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: pokazuje i ponownie ukrywa szczegóły."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/03-state-snapshot-batching/hard",
+      "templateHash": "sha256:0978e9167dc77546e3c6779f3a223ebd93cf3f6e3e9c87eb06ccc664742f02d5",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: nie gubi równoległych aktualizacji po await."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/03-state-snapshot-batching/medium",
+      "templateHash": "sha256:a871fb2f8b899d267a0396259ecd8bdbfb036d332389d05aa118358d0d5d5f36",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: dodaje trzy przy każdym kliknięciu."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/04-immutable-state/easy",
+      "templateHash": "sha256:98213301a5a2d4b43b439795dd4236f2e01b800964d6663f4745fa9d45741da7",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: aktualizuje oba pola bez gubienia drugiego wyniku."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/04-immutable-state/hard",
+      "templateHash": "sha256:f9b259c3bfeef993d696013a9f616a5d949e1b9207714e0a06d2180f9863f378",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: przenosi zadanie bez mutowania zamrożonych propsów."
+      ],
+      "changedFiles": [
+        "tracks/react/04-immutable-state/hard/_solution.tsx",
+        "tracks/react/04-immutable-state/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/04-immutable-state/medium",
+      "templateHash": "sha256:4ecf364a4543f3cf29ef3ba6c0ae7ae0af05a19e370392dfd17191586570f3db",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: zwiększa ilość bez mutacji i kopiuje tylko zmieniony produkt; usuwa produkt bez mutacji tablicy i zachowuje obiekty pozostałych produktów; zwiększa wybrany produkt i usuwa inny."
+      ],
+      "changedFiles": [
+        "tracks/react/04-immutable-state/medium/_solution.tsx",
+        "tracks/react/04-immutable-state/medium/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/05-accessible-controlled-forms/easy",
+      "templateHash": "sha256:9296e40a720c2c90ed7106a38c50a14bde93c8487d20247e5a37e2db73fc7a6d",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: czyści kontrolowane pole i wysyła znormalizowane query."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/05-accessible-controlled-forms/hard",
+      "templateHash": "sha256:3a17b4b827e897b9c3ebb3cd56eaeec272660334372a4988fbfd402a14352669",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: opisuje błędy i fokusuje pierwsze niepoprawne pole; wysyła znormalizowane poprawne dane."
+      ],
+      "changedFiles": [
+        "tracks/react/05-accessible-controlled-forms/hard/_solution.tsx",
+        "tracks/react/05-accessible-controlled-forms/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/05-accessible-controlled-forms/medium",
+      "templateHash": "sha256:13af38db81910d014bd9623d1a96ea0193e342eac1baa049960295e2b031aa26",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: wiąże komunikaty błędów z odpowiednimi polami; wysyła przycięte poprawne dane."
+      ],
+      "changedFiles": [
+        "tracks/react/05-accessible-controlled-forms/medium/_solution.tsx",
+        "tracks/react/05-accessible-controlled-forms/medium/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/06-derived-state-no-effect/easy",
+      "templateHash": "sha256:744123caf8a29d31ae5d4acf730a0107d6d3a55b56ea66858f6f8bca3a434804",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Hinty wskazują właściwą przyczynę: suma tkwiła w inicjalizatorze useState mimo gotowych reduce i toFixed. Wzorzec liczy ją podczas renderu."
+      ],
+      "changedFiles": [
+        "tracks/react/06-derived-state-no-effect/easy/_solution.tsx",
+        "tracks/react/06-derived-state-no-effect/easy/_starter.tsx",
+        "tracks/react/06-derived-state-no-effect/easy/hints.md"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/06-derived-state-no-effect/hard",
+      "templateHash": "sha256:16a46e113243aa9b87b94f87ee1bef9de199558ffd87af7bc34ff04a183601c3",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Poprawiono niepoprawny przykład payloadu na { quantity, totalCents }. Hinty, test dwóch submitów i wzorzec są spójne."
+      ],
+      "changedFiles": [
+        "tracks/react/06-derived-state-no-effect/hard/_solution.tsx",
+        "tracks/react/06-derived-state-no-effect/hard/_starter.tsx",
+        "tracks/react/06-derived-state-no-effect/hard/task.md"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/06-derived-state-no-effect/medium",
+      "templateHash": "sha256:4868189c595e7b9cb0a416b1e232a1881bc2c484401c62dbe13a22c74967da66",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: filtruje aktualne propsy bez synchronizowania drugiego stanu."
+      ],
+      "changedFiles": [
+        "tracks/react/06-derived-state-no-effect/medium/_solution.tsx",
+        "tracks/react/06-derived-state-no-effect/medium/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/07-effects-synchronization/easy",
+      "templateHash": "sha256:182819e3b7a1a94ebf691ebbf51b00c349d3dd70c1692f3f1cdffe4cfcf27fa3",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: resynchronizuje i przywraca tytuł dokumentu."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/07-effects-synchronization/hard",
+      "templateHash": "sha256:c885ebb5dada5e13f03d300aadd34c59f3faf4386789a220c4458812ca45534b",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: resynchronizuje wyłącznie proces zależny od zmienionego workspace."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/07-effects-synchronization/medium",
+      "templateHash": "sha256:a5bfffb9800fb79cdd74b8317c12d5ec9beaacc50cf5f3a88949ca8ccc0e6682",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: przenosi subskrypcję między pokojami i sprząta ją; general; general; product."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/08-effect-events/easy",
+      "templateHash": "sha256:99793a8794545547e8c3bc46bd65cc1beaa9064fe0d84b5d70a4f51a650a9a30",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: czyta najnowszy krok bez ponownej subskrypcji."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/08-effect-events/hard",
+      "templateHash": "sha256:c95b6cd6d669ec3b1f54451881be120328313c99f370f04994a21c4a956d2d62",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: restartuje tylko po zmianie konfiguracji procesu."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/08-effect-events/medium",
+      "templateHash": "sha256:62b8c4c6e8a03ebff66444d6ac827c00a9e8f5710a2444a28029d3d0d31c2a28",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: używa najnowszych ustawień bez ponownego łączenia."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/09-fetch-effects/easy",
+      "templateHash": "sha256:bc01d96ffc75edf745db99c0483f4c213efc886d88e39ab2225a1f533b17bafd",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: pokazuje pending, a następnie dane; pokazuje jawny stan błędu."
+      ],
+      "changedFiles": [
+        "tracks/react/09-fetch-effects/easy/_solution.tsx",
+        "tracks/react/09-fetch-effects/easy/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/09-fetch-effects/hard",
+      "templateHash": "sha256:4a28a25cc5484c3e50a8a4109e67f0a309235dcd3c69573e1375c27484dfef0a",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: anuluje stary request i ignoruje jego spóźniony wynik; pokazuje błąd, którego nie spowodował abort."
+      ],
+      "changedFiles": [
+        "tracks/react/09-fetch-effects/hard/_solution.tsx",
+        "tracks/react/09-fetch-effects/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/09-fetch-effects/medium",
+      "templateHash": "sha256:255b23e119a9b62c67f0f45aabe1dcc50e33408da569a6b6e52137499f475994",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: ignoruje odpowiedź starszego zapytania."
+      ],
+      "changedFiles": [
+        "tracks/react/09-fetch-effects/medium/_solution.tsx",
+        "tracks/react/09-fetch-effects/medium/_starter.tsx",
+        "tracks/react/09-fetch-effects/medium/run.test.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/10-refs-ids/easy",
+      "templateHash": "sha256:258157b2e8942156206336a3dae51733544ad5a9895a071873e821189fda7c64",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: fokusuje pole własnej instancji."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/10-refs-ids/hard",
+      "templateHash": "sha256:eb107fa8dc3fd9b17ad2492031ebd6e04e4b5991334473a1e09ae2d7b40e02cb",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: zwraca cleanup zewnętrznego rejestru dla każdego pola."
+      ],
+      "changedFiles": [
+        "tracks/react/10-refs-ids/hard/_solution.tsx",
+        "tracks/react/10-refs-ids/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/10-refs-ids/medium",
+      "templateHash": "sha256:93da8855326813b767145c30f4cfbfcab52bc04f311960d2e9dd522196048e34",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: tworzy odrębne ID i etykiety dla każdej instancji."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/11-reducer/easy",
+      "templateHash": "sha256:9bad73fcdcdf50d185ff850238dbb33ba14437e9355230edd2bf759309dd41ff",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: pilnuje minimum i resetuje do wartości początkowej."
+      ],
+      "changedFiles": [
+        "tracks/react/11-reducer/README.md",
+        "tracks/react/11-reducer/easy/_solution.tsx",
+        "tracks/react/11-reducer/easy/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/11-reducer/hard",
+      "templateHash": "sha256:e5fd587cbc1869b16e751afd8485797528f64d9ba379efe62a7cd10602999ea7",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: obsługuje undo/redo i czyści przyszłość po nowej zmianie."
+      ],
+      "changedFiles": [
+        "tracks/react/11-reducer/README.md",
+        "tracks/react/11-reducer/hard/_solution.tsx",
+        "tracks/react/11-reducer/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/11-reducer/medium",
+      "templateHash": "sha256:e755eb32eb4dd7e0c687690bb75f1098339a985c6c91efc57e166ec3146ce244",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Hinty kierują teraz na mutację w reducerze i nowe referencje. Nie powtarzają gotowego useState draftu ani setDraft po submitcie."
+      ],
+      "changedFiles": [
+        "tracks/react/11-reducer/README.md",
+        "tracks/react/11-reducer/medium/_solution.tsx",
+        "tracks/react/11-reducer/medium/_starter.tsx",
+        "tracks/react/11-reducer/medium/hints.md",
+        "tracks/react/11-reducer/medium/run.test.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/12-context/easy",
+      "templateHash": "sha256:94f49741094d571da227bc5993ca0233af37383b6c1eac203a05bc064b04a240",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: udostępnia i lokalnie nadpisuje wartość contextu."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/12-context/hard",
+      "templateHash": "sha256:1ba6e811e4eb4d7e855011581118c6aeea3a2bb0b2f734fd97f1cc8856e8e3eb",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: utrzymuje osobne granice contextu stanu i dispatchu; nie renderuje konsumenta dispatchu po zmianie samego stanu."
+      ],
+      "changedFiles": [
+        "tracks/react/12-context/hard/_solution.tsx",
+        "tracks/react/12-context/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/12-context/medium",
+      "templateHash": "sha256:ee5a66ed71802ccbf6765bdbb2b871e666339cb5c33dfdef9b853f0651e0392e",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: udostępnia sesję przez bezpieczny custom hook; zgłasza czytelny błąd poza providerem."
+      ],
+      "changedFiles": [
+        "tracks/react/12-context/medium/_solution.tsx",
+        "tracks/react/12-context/medium/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/13-ui-state-modeling/easy",
+      "templateHash": "sha256:3d58e4916dc105949a245bacf26590795c915f8d65489c4302f6afddeed81753",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: renderuje każdy jawny stan widoku; nie dopuszcza sprzecznych kształtów compile-time."
+      ],
+      "changedFiles": [
+        "tracks/react/13-ui-state-modeling/README.md",
+        "tracks/react/13-ui-state-modeling/easy/_solution.tsx",
+        "tracks/react/13-ui-state-modeling/easy/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/13-ui-state-modeling/hard",
+      "templateHash": "sha256:88ea372d66feda47c0a0d2b6fdafa12ac8e800b6df2859ee27cf80a55f17baac",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: prowadzi przez błąd, retry i sukces bez sprzecznych stanów; ignoruje nielegalne przejścia i zachowuje identity stanu."
+      ],
+      "changedFiles": [
+        "tracks/react/13-ui-state-modeling/README.md",
+        "tracks/react/13-ui-state-modeling/hard/_solution.tsx",
+        "tracks/react/13-ui-state-modeling/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/13-ui-state-modeling/medium",
+      "templateHash": "sha256:8abd4c66fd448609b39d88a202bd8b89f28d5ad2934e2d879176d73929bd341d",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: zachowuje dane po błędzie i usuwa błąd po udanym retry."
+      ],
+      "changedFiles": [
+        "tracks/react/13-ui-state-modeling/README.md",
+        "tracks/react/13-ui-state-modeling/medium/_solution.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/14-form-actions/easy",
+      "templateHash": "sha256:fa002a8c3d25bdf2da9c1463a78f7c02d597966d872b465872ed7797ac31e998",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: przekazuje przyciętą frazę i resetuje pole po sukcesie; pomija pustą frazę."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/14-form-actions/hard",
+      "templateHash": "sha256:203ae0ec125363d5cf9157e7a9d4f8a9e723ff7c81ecec28765e8166cc2481ce",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: kolejkuje zależne Actions na poprzednim wyniku."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/14-form-actions/medium",
+      "templateHash": "sha256:03746646d5d35d6db04d698b0990885123611f7c94813baa0a964474f5bab869",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: waliduje, pokazuje pending i renderuje wynik Action."
+      ],
+      "changedFiles": [
+        "tracks/react/14-form-actions/medium/_solution.tsx",
+        "tracks/react/14-form-actions/medium/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/15-form-status/easy",
+      "templateHash": "sha256:b9272c62626a9eb81e5b5dfa94718cefc4d22703696edeb6e2d76a752e6548de",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: pokazuje pending z kontekstu nadrzędnego formularza."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/15-form-status/hard",
+      "templateHash": "sha256:ccb08bc3c5dda188f802f33872113e942234d9392446bc0b132bf1fe2c718364",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: utrzymuje niezależne pending dla dwóch formularzy."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/15-form-status/medium",
+      "templateHash": "sha256:0274328980002e8d7f5c7e9ee58a11834720ccc96bfa18f7346a18616fb51601",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: czyta wysyłany produkt z FormData statusu."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/16-optimistic-updates/easy",
+      "templateHash": "sha256:749b5e16726007ca7c2948b9a70ec16d66c18a1198b79e146b02eb0bdd70c8b9",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: aktualizuje natychmiast i wycofuje zmianę po błędzie."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/16-optimistic-updates/hard",
+      "templateHash": "sha256:87725acedb300beca6b85db6e298d2632d9ae590273d6f5d42f4924168b30acc",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: rebazuje pending komentarz na świeższej liście z propsów."
+      ],
+      "changedFiles": [
+        "tracks/react/16-optimistic-updates/hard/_solution.tsx",
+        "tracks/react/16-optimistic-updates/hard/_starter.tsx",
+        "tracks/react/16-optimistic-updates/hard/run.test.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/16-optimistic-updates/medium",
+      "templateHash": "sha256:791568d36cc053b3ece324debc473485f3907edd86be77b88e871e33bdc2bc32",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: zmienia spójnie status i licznik, a potem przyjmuje wynik serwera."
+      ],
+      "changedFiles": [
+        "tracks/react/16-optimistic-updates/medium/_solution.tsx",
+        "tracks/react/16-optimistic-updates/medium/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/17-use-suspense-errors/easy",
+      "templateHash": "sha256:123fc7ebd9ad0ed76d86d4c5e9386c49fda779b73f93c0ef60aa8c98dcf3bc73",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: czyta context dopiero w aktywnej gałęzi."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/17-use-suspense-errors/hard",
+      "templateHash": "sha256:83514586590359510d50a53ac0676a11dc0b739a5c35b47ac0d07f96108e0536",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: przechodzi z błędu przez retry do nowego raportu."
+      ],
+      "changedFiles": [
+        "tracks/react/17-use-suspense-errors/hard/_solution.tsx",
+        "tracks/react/17-use-suspense-errors/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/17-use-suspense-errors/medium",
+      "templateHash": "sha256:1bb37cf0f700d598bdcc3221e6ff20fba2e24ea2c6221416557d78eb508d4cba",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: pokazuje fallback, a potem dane z Promise."
+      ],
+      "changedFiles": [
+        "tracks/react/17-use-suspense-errors/medium/_solution.tsx",
+        "tracks/react/17-use-suspense-errors/medium/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/18-external-store/easy",
+      "templateHash": "sha256:d58a12e9dcbe23a967f864eec574468cc5eddaffd6ca1a3cbd1712b91d1bff09",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: renderuje zmiany zgłaszane przez external source."
+      ],
+      "changedFiles": [
+        "tracks/react/18-external-store/easy/_solution.tsx",
+        "tracks/react/18-external-store/easy/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/18-external-store/hard",
+      "templateHash": "sha256:c82594690e2d6d848bec001d8e1f22d183073d29aafced8f706853588f63bbaf",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: cache'uje snapshot, aktualizuje go i wspiera server rendering."
+      ],
+      "changedFiles": [
+        "tracks/react/18-external-store/hard/_solution.tsx",
+        "tracks/react/18-external-store/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/18-external-store/medium",
+      "templateHash": "sha256:6bf5f609716cd669c5b0d476abe55a4dcafddf3338e8ff024da748eb2ee64123",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: aktualizuje snapshot i sprząta subskrypcję po unmount."
+      ],
+      "changedFiles": [
+        "tracks/react/18-external-store/medium/_solution.tsx",
+        "tracks/react/18-external-store/medium/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/19-custom-hooks/easy",
+      "templateHash": "sha256:e8c33f3e245d95808919b72c33e7473923f02fb82ddf551e89edc5b7c1958885",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: publikuje wyłącznie wartość stabilną przez całe opóźnienie."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/19-custom-hooks/hard",
+      "templateHash": "sha256:641edee0ab786727b07c9fe1beb4130bdb9285fafe995992e85e2fddea4a9f4d",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: aktualizuje domenowy widok po zmianie źródła; udostępnia odroczony debug label dla współdzielonego hooka."
+      ],
+      "changedFiles": [
+        "tracks/react/19-custom-hooks/hard/_solution.tsx",
+        "tracks/react/19-custom-hooks/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/19-custom-hooks/medium",
+      "templateHash": "sha256:39e788cbd3ac42b4a5283e44da730d90a95812d1da43664c4bef2968070e589d",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: odtwarza istniejący draft i zapisuje zmiany."
+      ],
+      "changedFiles": [
+        "tracks/react/19-custom-hooks/medium/_solution.tsx",
+        "tracks/react/19-custom-hooks/medium/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/20-composition-ownership/easy",
+      "templateHash": "sha256:168141bd7cd2bc23a95365ff304aa9624aba11ed823d78be06d0cc8101b03410",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: utrzymuje jedno źródło prawdy dla obu pól."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/20-composition-ownership/hard",
+      "templateHash": "sha256:5073db22f5f21939f87c764769d70a5cc7fdb2cb451efa9b590ad008a6639ea6",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: zachowuje wybór po reorderze dzięki stabilnemu ID."
+      ],
+      "changedFiles": [
+        "tracks/react/20-composition-ownership/hard/_solution.tsx",
+        "tracks/react/20-composition-ownership/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/20-composition-ownership/medium",
+      "templateHash": "sha256:eb88521b039e248d1759c0b698f0ba52a816e5bfecf3d517d3edbb8a1401def2",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: renderuje niezależne sloty treści i akcji."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/21-portals-error-boundaries/easy",
+      "templateHash": "sha256:7131847fd60ae0c9b3e9facf188a357a8d5ba82a687f2b57541f561e78c6ba17",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: umieszcza komunikat w przekazanej warstwie DOM."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/21-portals-error-boundaries/hard",
+      "templateHash": "sha256:694ea297406a117c5ef318b38917ec7407fd274b7b73545530013926baaed8d6",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: izoluje awarię i resetuje widget po zmianie wersji."
+      ],
+      "changedFiles": [
+        "tracks/react/21-portals-error-boundaries/hard/_solution.tsx",
+        "tracks/react/21-portals-error-boundaries/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/21-portals-error-boundaries/medium",
+      "templateHash": "sha256:a840ba6feced555e49466d287471a47d32bbf1c7974d08acf157d06ba3ab08da",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: zachowuje context i propagację według drzewa React."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/22-concurrent-ui/easy",
+      "templateHash": "sha256:67dcbe91c970ae690b19b57296399569c61944a0d8aa67827a4cb62d8b639823",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: utrzymuje pilny input i stare wyniki podczas Transition."
+      ],
+      "changedFiles": [
+        "tracks/react/22-concurrent-ui/easy/_solution.tsx",
+        "tracks/react/22-concurrent-ui/easy/_starter.tsx",
+        "tracks/react/22-concurrent-ui/easy/run.test.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/22-concurrent-ui/hard",
+      "templateHash": "sha256:8c0fc417c402d6961e812fb550da2c6ef6f27edb8fc02a570eaba84b3b85ea9e",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: zachowuje draft, ale zatrzymuje Effect ukrytego Activity."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/22-concurrent-ui/medium",
+      "templateHash": "sha256:b1196a228274a4ae9581e29ff5657d98dc1fa7477ad9b77ab403c975f65ba62b",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: utrzymuje stare wyniki, gdy odroczony render zawiesza się."
+      ],
+      "changedFiles": [
+        "tracks/react/22-concurrent-ui/medium/_solution.tsx",
+        "tracks/react/22-concurrent-ui/medium/_starter.tsx",
+        "tracks/react/22-concurrent-ui/medium/run.test.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/23-refs-layout/easy",
+      "templateHash": "sha256:e27739eb148368be3d3ccfe304c0599a61a9bc612f8a8f68d07adce02f3db152",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: przekazuje ref jako prop i ustawia focus na wewnętrznym polu."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/23-refs-layout/hard",
+      "templateHash": "sha256:b80174170bde7f29a468c0876547e2c66c8e0e403328b9fcae419905819443e7",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: mierzy layout przed repaintem i reaguje na zmianę treści; używa useLayoutEffect tylko dla pomiaru wpływającego na układ."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/23-refs-layout/medium",
+      "templateHash": "sha256:261c3358b71175b7a89b2623621383f9d010218ee40f37359537b9dd5913fba3",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: wystawia ograniczony uchwyt zamiast elementu DOM; pozwala panelowi zaznaczyć całą treść."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/24-react-compiler/easy",
+      "templateHash": "sha256:f9cb8dcb78608287ca1a09025c1055dcb661c1ca83400f622e1d3cdcb2a648ae",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: zachowuje stabilną kolejność hooków przy zmianie propsa; jest optymalizowany przez prawdziwy React Compiler."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/24-react-compiler/hard",
+      "templateHash": "sha256:2309d86bbe5888c93dd319dc4ea23bfa56473f23a3eba03a592c38c0fb92c38c",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: nie uzależnia poprawności od niepełnego ręcznego cache'u; po naprawie wraca pod kontrolę Compilera."
+      ],
+      "changedFiles": [
+        "tracks/react/24-react-compiler/hard/_solution.tsx",
+        "tracks/react/24-react-compiler/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/24-react-compiler/medium",
+      "templateHash": "sha256:d51e29bef9674d82cd0891c19b9cb38f94711574ff583636f12ec3eed7cf45da",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: zachowuje wynik nowego i starego komponentu; kompiluje tylko jawnie oznaczony komponent."
+      ],
+      "changedFiles": [
+        "tracks/react/24-react-compiler/medium/_solution.tsx",
+        "tracks/react/24-react-compiler/medium/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/25-manual-memoization/easy",
+      "templateHash": "sha256:b6450db7bb65437e1b4e472dfa5c1c06d1fb730df3ea26ecee680608f8244d00",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: powtarza kosztowną kalkulację tylko po zmianie jej danych."
+      ],
+      "changedFiles": [
+        "tracks/react/25-manual-memoization/easy/_solution.tsx",
+        "tracks/react/25-manual-memoization/easy/_starter.tsx",
+        "tracks/react/25-manual-memoization/easy/run.test.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/25-manual-memoization/hard",
+      "templateHash": "sha256:2201ecf41c49592b7f7c2efd529e8c253c62e8eabfe28057700ba3fba69300d9",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: utrzymuje połączenie dla niezwiązanej zmiany i odtwarza je dla opcji."
+      ],
+      "changedFiles": [
+        "tracks/react/25-manual-memoization/hard/_solution.tsx",
+        "tracks/react/25-manual-memoization/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/25-manual-memoization/medium",
+      "templateHash": "sha256:5e2e0013bef329f6f351be4a09dd9d8293b81a7c538d28d97d302b458c102a93",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: pomija render przycisku dla niezwiązanej zmiany i zachowuje świeże ID."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/26-debugging-rendering/easy",
+      "templateHash": "sha256:2ab12f1f2c65861942c9921b8caeb4419733c77741d613c66a5ae9996dde9e54",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: sprząta stare źródło przy zmianie i odmontowaniu."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/26-debugging-rendering/hard",
+      "templateHash": "sha256:b31b211b2e451548a366cc749ab3bb28cee4ad33ea108645302186d2afd576f0",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: lokalizuje draft poza właścicielem drogiej listy."
+      ],
+      "changedFiles": [
+        "tracks/react/26-debugging-rendering/hard/_solution.tsx",
+        "tracks/react/26-debugging-rendering/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/26-debugging-rendering/medium",
+      "templateHash": "sha256:5cfcef411826a2c54716e170e8e022541708856a535439a7a362b507b696ad83",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: synchronizuje aktualny dokument nawet przy niezmienionym tytule."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/26b-optimize-slow-view/easy",
+      "templateHash": "sha256:0584a759d75b3e942221ffc9edeacf5218a318ac5ea7a3776604454b25338343",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: zachowuje zachowanie filtrów i raportu; [quality] nie renderuje raportu przy lokalnej zmianie wrappera."
+      ],
+      "changedFiles": [
+        "tracks/react/26b-optimize-slow-view/easy/_solution.tsx",
+        "tracks/react/26b-optimize-slow-view/easy/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/26b-optimize-slow-view/hard",
+      "templateHash": "sha256:2da6fae3a5be4c02f66f2199075c648c2b537eb509a7965a88a26f93505bb967",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: zachowuje filtrowanie i stan notatki; [quality] nie powtarza pracy dla niezmienionych danych."
+      ],
+      "changedFiles": [
+        "tracks/react/26b-optimize-slow-view/hard/_solution.tsx",
+        "tracks/react/26b-optimize-slow-view/hard/_starter.tsx",
+        "tracks/react/26b-optimize-slow-view/hard/run.test.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/26b-optimize-slow-view/medium",
+      "templateHash": "sha256:cadc7d61e976cb8fac16b2c23a2b51a644b7754a023fe86925362b542f0d40bb",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: zaznacza właściwy produkt; [quality] commituję tylko wiersz ze zmienionym prope'em."
+      ],
+      "changedFiles": [
+        "tracks/react/26b-optimize-slow-view/medium/_solution.tsx",
+        "tracks/react/26b-optimize-slow-view/medium/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/27-component-testing/easy",
+      "templateHash": "sha256:b953d745e2c12075826f1face3f2ce051b916fd113ff76975ad57a84e0af8ca4",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: używa semantycznych zapytań i pełnych interakcji."
+      ],
+      "changedFiles": [
+        "tracks/react/27-component-testing/easy/fixture.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/27-component-testing/hard",
+      "templateHash": "sha256:49c3d9af6cb7fdc20e0e09444f5de7fb3aa7e84b47975e13fd3197cc99a3e8e2",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: testuje oba layouty przez ten sam kontrakt użytkownika."
+      ],
+      "changedFiles": [
+        "tracks/react/27-component-testing/hard/fixture.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/27-component-testing/medium",
+      "templateHash": "sha256:61570db8a1fb8d3a18443dd81f389fe2fb37ce7758c6d1ada659297b26fb4ea3",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: modeluje kontrolowany async UI bez arbitralnych timeoutów."
+      ],
+      "changedFiles": [
+        "tracks/react/27-component-testing/medium/_solution.tsx",
+        "tracks/react/27-component-testing/medium/fixture.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/28-accessible-widgets/easy",
+      "templateHash": "sha256:5be01e6db53c56f8c70be6ecbdef7e3b2c750be8bf52a2c070eee55815bc46a8",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: ogłasza pending i sukces bez przeniesienia focusu; ogłasza błąd jako alert."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/28-accessible-widgets/hard",
+      "templateHash": "sha256:fa6bbab5ac876e7ef092aa8374e0206e856066c990bdb939b1122b9b6631a2e5",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: utrzymuje focus w modalu i przywraca go po Escape; potwierdza operację i przywraca focus do triggera."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/28-accessible-widgets/medium",
+      "templateHash": "sha256:bd50a666153f45d7a8779e72fb8559a2f6b1853cfcbd03b677238a2ba116d52b",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: rozdziela ruch focusu strzałkami od ręcznej aktywacji."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/29-large-lists/easy",
+      "templateHash": "sha256:f371442d0472cd1d83845f54a035c0930628979b3d8044140558d876e2134393",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: wiąże lokalny draft ze stabilnym ID po reorderze."
+      ],
+      "changedFiles": [
+        "tracks/react/29-large-lists/easy/_solution.tsx",
+        "tracks/react/29-large-lists/easy/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/29-large-lists/hard",
+      "templateHash": "sha256:803c64da860a24501485fe67c620e155a531b387b91a66df9820626ed6d467b3",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: renderuje małe okno przez react-window 2 i zachowuje akcję wiersza; używa aktualnego API List zamiast historycznego v1."
+      ],
+      "changedFiles": [
+        "tracks/react/29-large-lists/hard/_solution.tsx",
+        "tracks/react/29-large-lists/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/29-large-lists/medium",
+      "templateHash": "sha256:2eb0aa6ec771f69a109e4bbd1b3cb13dbafa8135102bbc95f9c42b42286bab48",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: renderuje widoczne wiersze i overscan przy zachowaniu pełnej wysokości."
+      ],
+      "changedFiles": [
+        "tracks/react/29-large-lists/medium/_solution.tsx",
+        "tracks/react/29-large-lists/medium/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/30-dynamic-styles/easy",
+      "templateHash": "sha256:37e379c7e9c7abe5c371f0c24c050647ec3b983763369667a5d51791024ceaa0",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Polecenie, kanoniczny starter, hinty i wzorzec są spójne. Test sprawdza: przekazuje wyliczony procent przez dynamiczny style; bezpiecznie obsługuje niedodatnie maksimum."
+      ],
+      "changedFiles": [],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/30-dynamic-styles/hard",
+      "templateHash": "sha256:af338025446d8f7efed595108efa0ede51c418a02335c5825cd6d0fdea4cdbb4",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Wzorzec używa jawnie typowanych stylów i liczy maksimum jednym przebiegiem bez tablicy pośredniej oraz spreadu do Math.max."
+      ],
+      "changedFiles": [
+        "tracks/react/30-dynamic-styles/hard/_solution.tsx",
+        "tracks/react/30-dynamic-styles/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/30-dynamic-styles/medium",
+      "templateHash": "sha256:59e8b7ee03e9550238455ab22d886001a6da4e54a1308cfce3d720dee264fa9a",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Wzorzec przypisuje custom property do jawnie typowanej lokalnej wartości, bez castu ukrywającego błąd typów."
+      ],
+      "changedFiles": [
+        "tracks/react/30-dynamic-styles/medium/_solution.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/31-server-state/easy",
+      "templateHash": "sha256:9deb93d09a9db6d32ed38e16ace6c6d43d55b7a8ece154b9ceb02c916a9f4ccc",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: cache'uje każdy filtr osobno i przekazuje sygnał requestu."
+      ],
+      "changedFiles": [
+        "tracks/react/31-server-state/easy/_solution.tsx",
+        "tracks/react/31-server-state/easy/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/31-server-state/hard",
+      "templateHash": "sha256:bdb42f5903e9d5827b599e61e5afa7fe242741daf4a70a7cc7159749e4d17710",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: pokazuje zmianę optymistycznie i przywraca snapshot po błędzie."
+      ],
+      "changedFiles": [
+        "tracks/react/31-server-state/hard/_solution.tsx",
+        "tracks/react/31-server-state/hard/_starter.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/31-server-state/medium",
+      "templateHash": "sha256:1e6f2ec29c2f0bc4e22c012631d6a362bc16c016edcd276e2e773ec17a52be2b",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: invaliduje listę po mutacji i pokazuje dane z refetchu; anuluje konsumowany signal po utracie obserwatora."
+      ],
+      "changedFiles": [
+        "tracks/react/31-server-state/medium/_solution.tsx",
+        "tracks/react/31-server-state/medium/_starter.tsx",
+        "tracks/react/31-server-state/medium/run.test.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/module-01/module",
+      "templateHash": "sha256:23361775fce3b6b513391e1e2acc75dd94a4ac39bd5ce6a60d14b6712ac54f3a",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: składa feature i pokazuje dane pochodne; dodaje znormalizowane zadanie i nie dodaje pustego; filtruje, przełącza i usuwa bez mutowania danych wejściowych; utrzymuje osobne contexty state i dispatch."
+      ],
+      "changedFiles": [
+        "tracks/react/module-01/module/_solution/TaskBoard.tsx",
+        "tracks/react/module-01/module/_solution/TaskFilters.tsx",
+        "tracks/react/module-01/module/_solution/context.tsx",
+        "tracks/react/module-01/module/_solution/reducer.ts",
+        "tracks/react/module-01/module/_solution/selectors.ts",
+        "tracks/react/module-01/module/_solution/types.ts",
+        "tracks/react/module-01/module/_starter/TaskBoard.tsx",
+        "tracks/react/module-01/module/_starter/context.tsx",
+        "tracks/react/module-01/module/_starter/reducer.ts",
+        "tracks/react/module-01/module/_starter/selectors.ts",
+        "tracks/react/module-01/module/_starter/types.ts",
+        "tracks/react/module-01/module/run.test.tsx",
+        "tracks/react/module-01/module/task.md"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/module-02/module",
+      "templateHash": "sha256:943d64d8892264cdc174049e6df3af083104796dae4f4b446d078eb1e896b839",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Usunięto dekoracyjne readonly z materiału zadania. Polecenie i hinty prowadzą do zachowania sprawdzanego przez test: cache'uje snapshot i zachowuje istniejące incydenty; prowadzi od draftu przez walidację i pending do listy i toastu."
+      ],
+      "changedFiles": [
+        "tracks/react/module-02/module/_solution/IncidentList.tsx",
+        "tracks/react/module-02/module/_solution/NewIncidentForm.tsx",
+        "tracks/react/module-02/module/_solution/SupportDesk.tsx",
+        "tracks/react/module-02/module/_solution/incident-store.ts",
+        "tracks/react/module-02/module/_solution/types.ts",
+        "tracks/react/module-02/module/_starter/IncidentList.tsx",
+        "tracks/react/module-02/module/_starter/NewIncidentForm.tsx",
+        "tracks/react/module-02/module/_starter/SupportDesk.tsx",
+        "tracks/react/module-02/module/_starter/incident-store.ts",
+        "tracks/react/module-02/module/_starter/types.ts",
+        "tracks/react/module-02/module/run.test.tsx"
+      ],
+      "readonlyExceptions": []
+    },
+    {
+      "taskId": "react/module-03/module",
+      "templateHash": "sha256:6802c3a3cd7e27afd7ea5e3562ba2ba15ad39fa5f6f9d1147eaad60df2684d1a",
+      "hintsReviewed": true,
+      "solutionReviewed": true,
+      "findings": [
+        "Kanoniczny starter i wzorzec budują indeks agentów raz, zamiast wykonywać find dla każdego zgłoszenia. Testy obejmują identity, rollback, focus i cache."
+      ],
+      "changedFiles": [
+        "tracks/react/module-03/module/_solution/AssignDialog.tsx",
+        "tracks/react/module-03/module/_solution/OperationsConsole.tsx",
+        "tracks/react/module-03/module/_solution/TicketList.tsx",
+        "tracks/react/module-03/module/_solution/TicketTabs.tsx",
+        "tracks/react/module-03/module/_solution/types.ts",
+        "tracks/react/module-03/module/_starter/AssignDialog.tsx",
+        "tracks/react/module-03/module/_starter/OperationsConsole.tsx",
+        "tracks/react/module-03/module/_starter/TicketList.tsx",
+        "tracks/react/module-03/module/_starter/types.ts",
+        "tracks/react/module-03/module/run.test.tsx"
+      ],
+      "readonlyExceptions": []
+    }
+  ]
+}

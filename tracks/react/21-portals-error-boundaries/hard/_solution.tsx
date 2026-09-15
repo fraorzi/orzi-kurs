@@ -1,10 +1,10 @@
 import { Component, type ReactNode } from "react";
 
 export interface Widget {
-  readonly id: string;
-  readonly title: string;
-  readonly version: number;
-  readonly render: () => ReactNode;
+  id: string;
+  title: string;
+  version: number;
+  render: () => ReactNode;
 }
 
 interface BoundaryProps {
@@ -16,7 +16,7 @@ interface BoundaryProps {
 }
 
 interface BoundaryState {
-  readonly hasError: boolean;
+  hasError: boolean;
 }
 
 class WidgetErrorBoundary extends Component<
@@ -68,7 +68,7 @@ export function Dashboard({
   widgets,
   onWidgetError,
 }: {
-  widgets: readonly Widget[];
+  widgets: Widget[];
   onWidgetError: (id: string, error: unknown) => void;
 }) {
   return (

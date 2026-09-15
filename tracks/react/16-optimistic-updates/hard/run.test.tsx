@@ -25,7 +25,7 @@ describe("OptimisticComments", () => {
     const saveComment = vi.fn(() => operation.promise);
 
     function Fixture() {
-      const [comments, setComments] = useState<readonly Comment[]>([
+      const [comments, setComments] = useState<Comment[]>([
         { id: "c1", text: "Pierwszy" },
       ]);
 

@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 export interface SprintTask {
-  readonly id: string;
-  readonly title: string;
+  id: string;
+  title: string;
 }
 
 export interface SprintBoardState {
-  readonly backlog: SprintTask[];
-  readonly inProgress: SprintTask[];
+  backlog: SprintTask[];
+  inProgress: SprintTask[];
 }
 
 export interface SprintBoardProps {

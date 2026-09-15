@@ -32,7 +32,7 @@ function deferred<T>() {
 const agents = [
   { id: "ola", name: "Agentka Ola" },
   { id: "jan", name: "Agent Jan" },
-] as const;
+];
 
 describe("OperationsConsole", () => {
   it("obsługuje filtry klawiaturą i cache'uje każdą listę osobno", async () => {
@@ -68,7 +68,7 @@ describe("OperationsConsole", () => {
 
   it("przypisuje optymistycznie, przywraca snapshot i fokus po błędzie", async () => {
     const operation = deferred<void>();
-    const fetchTickets = vi.fn<FetchTickets>(async (): Promise<readonly Ticket[]> => [{
+    const fetchTickets = vi.fn<FetchTickets>(async (): Promise<Ticket[]> => [{
       id: "open-1",
       title: "Eksport",
       status: "open",

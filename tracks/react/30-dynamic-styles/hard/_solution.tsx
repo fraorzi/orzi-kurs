@@ -8,10 +8,14 @@ type BarStyle = CSSProperties & {
   "--bar-ratio": string;
 };
 
+function barStyle(ratio: number): BarStyle {
+  return { "--bar-ratio": String(ratio) };
+}
+
 export interface MetricPoint {
-  readonly id: string;
-  readonly label: string;
-  readonly value: number;
+  id: string;
+  label: string;
+  value: number;
 }
 
 export function MetricChart({
@@ -21,18 +25,21 @@ export function MetricChart({
 }: {
   label: string;
   accent: string;
-  points: readonly MetricPoint[];
+  points: MetricPoint[];
 }) {
-  const max = Math.max(
-    ...points.map((point) => point.value),
-    1,
-  );
+  let max = 1;
+  for (const point of points) {
+    max = Math.max(max, point.value);
+  }
+  const chartStyle: ChartStyle = {
+    "--chart-accent": accent,
+  };
 
   return (
     <section
       className="metric-chart"
       aria-label={label}
-      style={{ "--chart-accent": accent } as ChartStyle}
+      style={chartStyle}
     >
       {points.map((point) => (
         <div
@@ -43,11 +50,7 @@ export function MetricChart({
           aria-valuemin={0}
           aria-valuemax={max}
           aria-valuenow={point.value}
-          style={
-            {
-              "--bar-ratio": String(point.value / max),
-            } as BarStyle
-          }
+          style={barStyle(point.value / max)}
         />
       ))}
     </section>

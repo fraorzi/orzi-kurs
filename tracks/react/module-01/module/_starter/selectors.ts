@@ -2,7 +2,7 @@ import type { TaskState, TeamTask } from "./types";
 
 export function selectVisibleTasks(
   state: TaskState,
-): readonly TeamTask[] {
+): TeamTask[] {
   return state.tasks;
 }
 

@@ -9,7 +9,7 @@ export function TaskBoard({
   initialTasks,
   createId,
 }: {
-  initialTasks: readonly TeamTask[];
+  initialTasks: TeamTask[];
   createId: () => string;
 }) {
   return (

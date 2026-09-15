@@ -3,15 +3,15 @@ import { useReducer } from "react";
 type Status = "backlog" | "doing" | "done";
 
 interface HistoryState {
-  readonly past: readonly Status[];
-  readonly present: Status;
-  readonly future: readonly Status[];
+  past: Status[];
+  present: Status;
+  future: Status[];
 }
 
 type HistoryAction =
-  | { readonly type: "changed"; readonly status: Status }
-  | { readonly type: "undone" }
-  | { readonly type: "redone" };
+  | { type: "changed"; status: Status }
+  | { type: "undone" }
+  | { type: "redone" };
 
 function createHistory(
   initialStatus: Status,

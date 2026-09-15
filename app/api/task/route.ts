@@ -48,5 +48,5 @@ export async function GET(req: NextRequest) {
     starter: passed ? (progress?.verifiedStarter ?? null) : null,
   }, starterPath ?? solutionPath ?? taskDir);
 
-  return Response.json({ readme, taskMd, hintsTotal, starterPath, starter, solution, progress });
+  return Response.json({ readme, taskMd, hintsTotal, starterPath, starter, solution, progress, solutionNotes: passed ? readIfExists(join(taskDir, "solution-notes.md")) : null });
 }

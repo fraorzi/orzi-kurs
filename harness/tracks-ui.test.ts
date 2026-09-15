@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 
 import "@testing-library/jest-dom/vitest";
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { createElement } from "react";
 import { describe, expect, it, vi } from "vitest";
 import Sidebar from "../app/components/Sidebar";
@@ -15,6 +15,7 @@ import {
 vi.mock("next/navigation", () => ({
   usePathname: () => "/track/js",
   useRouter: () => ({ push: vi.fn() }),
+  useSearchParams: () => new URLSearchParams(),
 }));
 
 function level(
@@ -124,7 +125,7 @@ describe("track UI learning semantics", () => {
   });
 });
 
-describe("sidebar topic disclosure", () => {
+describe("sidebar stage navigation", () => {
   it("shows available and upcoming tracks in learning order", () => {
     render(
       createElement(Sidebar, {
@@ -168,7 +169,7 @@ describe("sidebar topic disclosure", () => {
     ]);
   });
 
-  it("keeps closed levels inert and toggles them without closing the mobile drawer", () => {
+  it("links directly to the stage and closes the mobile drawer on navigation", () => {
     const onMobileNavigate = vi.fn();
     const { container } = render(
       createElement(Sidebar, {
@@ -193,27 +194,18 @@ describe("sidebar topic disclosure", () => {
       }),
     );
 
-    const toggle = screen.getByRole("button", { name: "Pokaż poziomy: Functions" });
-    const panel = container.querySelector<HTMLElement>("#topic-levels-js-01-functions");
-    const levelLink = within(panel!).getByRole("link", { hidden: true });
-
-    expect(toggle).toHaveAttribute("aria-expanded", "false");
-    expect(panel).toHaveAttribute("aria-labelledby", toggle.id);
-    expect(panel).toHaveAttribute("aria-hidden", "true");
-    expect(panel).toHaveAttribute("inert");
-    expect(levelLink).toHaveAttribute("tabindex", "-1");
-
-    fireEvent.click(toggle);
-
-    expect(onMobileNavigate).not.toHaveBeenCalled();
-    expect(toggle).toHaveAttribute("aria-expanded", "true");
-    expect(panel).not.toHaveAttribute("aria-hidden");
-    expect(panel).not.toHaveAttribute("inert");
-    expect(levelLink).not.toHaveAttribute("tabindex");
-
-    const topicLink = screen.getByRole("link", { name: /Functions/ });
-    topicLink.addEventListener("click", (event) => event.preventDefault());
-    fireEvent.click(topicLink);
+    expect(container.querySelector(".topic-toggle")).toBeNull();
+    expect(container.querySelector(".levels")).toBeNull();
+    const stageLink = screen.getByRole("link", { name: /Fundamenty języka, 0 z 1 zaliczonych/ });
+    expect(stageLink).toHaveAttribute("href", "/track/js?stage=fundamenty&filter=todo");
+    expect(stageLink).toHaveAttribute("aria-current", "step");
+    expect(stageLink.querySelector(".course-stage-mark")).not.toBeNull();
+    expect(stageLink.querySelector(".course-stage-digit")).not.toBeNull();
+    expect(stageLink.querySelector(".course-stage-pencil")).not.toBeNull();
+    expect(stageLink.querySelector(".course-stage-pct")?.textContent).toBe("0% zrobione");
+    expect(stageLink.querySelector(".course-stage-bar i")).toHaveStyle({ width: "0%" });
+    stageLink.addEventListener("click", (event) => event.preventDefault());
+    fireEvent.click(stageLink);
     expect(onMobileNavigate).toHaveBeenCalledOnce();
   });
 });

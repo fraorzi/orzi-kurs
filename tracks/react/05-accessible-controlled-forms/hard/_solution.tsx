@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 export interface CheckoutData {
-  readonly fullName: string;
-  readonly email: string;
-  readonly postalCode: string;
+  fullName: string;
+  email: string;
+  postalCode: string;
 }
 
 export interface CheckoutFormProps {

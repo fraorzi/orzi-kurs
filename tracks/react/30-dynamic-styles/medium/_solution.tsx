@@ -11,12 +11,14 @@ export function StatusBadge({
   label: string;
   accent: string;
 }) {
+  const style: StatusBadgeStyle = {
+    "--badge-accent": accent,
+  };
+
   return (
     <span
       className="status-badge"
-      style={
-        { "--badge-accent": accent } as StatusBadgeStyle
-      }
+      style={style}
     >
       {label}
     </span>

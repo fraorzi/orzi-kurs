@@ -1,21 +1,21 @@
 import { useRef } from "react";
 
 export interface SearchItem {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 }
 
 export function SearchResults({
   items,
   query,
 }: {
-  items: readonly SearchItem[];
+  items: SearchItem[];
   query: string;
 }) {
   "use no memo";
 
   const cache = useRef(
-    new Map<string, readonly SearchItem[]>(),
+    new Map<string, SearchItem[]>(),
   );
   let visibleItems = cache.current.get(query);
 

@@ -57,7 +57,8 @@ Dokładna macierz, źródła i ograniczenia środowiskowe są w `FINAL_AUDIT.md`
 ## Reguły dalszego utrzymania
 
 - Wyłącznie GPT-5.6 Sol; bez subagentów, jeśli modelu nie da się potwierdzić.
-- Bez dev servera, o ile użytkownik nie poprosi.
+- Przed podglądem UI sprawdź, czy dev server już działa na :3000. Jeśli tak, użyj
+  go. Jeśli nie, odpal jeden na :3000.
 - React i Next pozostają TypeScript/TSX-only.
 - Zmiana oficjalnego API wymaga aktualizacji źródła, teorii, startera, rozwiązania
   i testu, a następnie `pnpm audit:curriculum`.

@@ -3,7 +3,7 @@ export function VirtualLog({
   rowHeight,
   viewportHeight,
 }: {
-  items: readonly string[];
+  items: string[];
   rowHeight: number;
   viewportHeight: number;
   scrollTop: number;

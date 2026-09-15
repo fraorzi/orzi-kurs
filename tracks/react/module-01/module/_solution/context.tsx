@@ -22,7 +22,7 @@ export function TaskProvider({
   initialTasks,
   children,
 }: {
-  initialTasks: readonly TeamTask[];
+  initialTasks: TeamTask[];
   children: ReactNode;
 }) {
   const [state, dispatch] = useReducer(

@@ -1,13 +1,13 @@
 export interface SearchItem {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 }
 
 export function SearchResults({
   items,
   query,
 }: {
-  items: readonly SearchItem[];
+  items: SearchItem[];
   query: string;
 }) {
   const normalizedQuery = query.toLocaleLowerCase("pl");

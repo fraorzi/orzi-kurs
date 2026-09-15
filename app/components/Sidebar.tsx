@@ -2,21 +2,18 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { Catalog } from "@/app/lib/types";
 import { sortTracksByLearningOrder } from "@/curriculum/order";
 import {
   learningModules,
-  STATUS_LABEL,
   topicSlug,
-  topicNumber,
-  topicTag,
   trackMeta,
   TRACK_META,
 } from "@/app/lib/tracks";
-import { IconCheck, IconClose } from "./icons";
+import { IconCheck, IconClose, IconStageIndex } from "./icons";
 import TrackBadge from "./TrackBadge";
-import TopicTag from "./TopicTag";
+import { courseFilter, courseQuery, courseStagePercent, selectedCourseStage } from "@/app/lib/course-navigation";
 import styles from "./shell.module.css";
 
 interface Props {
@@ -64,16 +61,7 @@ export default function Sidebar({
   const inTrack = seg[0] === "track";
   const curTrackId = inTrack ? seg[1] : undefined;
   const curTopicSlug = inTrack ? seg[2] : undefined;
-  const curLevel = inTrack ? seg[3] : undefined;
-
-  // Which topic is expanded. Follows the route when you navigate into a topic,
-  // but a click on an already-open topic collapses it in place.
-  const [openSlug, setOpenSlug] = useState<string | undefined>(curTopicSlug);
-  const [prevSlug, setPrevSlug] = useState(curTopicSlug);
-  if (curTopicSlug !== prevSlug) {
-    setPrevSlug(curTopicSlug);
-    setOpenSlug(curTopicSlug);
-  }
+  const searchParams = useSearchParams();
 
   const [switcherPhase, setSwitcherPhase] = useState<SwitcherPhase>("closed");
   const [popPos, setPopPos] = useState<{ top: number; left: number } | null>(null);
@@ -152,10 +140,6 @@ export default function Sidebar({
     orderedTracks.find((t) => t.id === curTrackId) ?? orderedTracks[0] ?? null;
   const meta = track ? trackMeta(track.id) : null;
   const modules = track ? learningModules(track) : [];
-
-  function toggleTopic(slug: string) {
-    setOpenSlug((current) => current === slug ? undefined : slug);
-  }
 
   return (
     <aside
@@ -302,102 +286,27 @@ export default function Sidebar({
               Program · {modules.length} {stageWord(modules.length)}
             </div>
             {modules.map((module, index) => {
-              const routeInModule = module.topics.some(
-                (topic) => topicSlug(topic.id) === curTopicSlug,
-              );
+              const active = curTopicSlug
+                ? module.topics.some((topic) => topicSlug(topic.id) === curTopicSlug)
+                : selectedCourseStage(track, searchParams.get("stage"))?.id === module.id;
               const complete = module.total > 0 && module.passed === module.total;
-              const headingId = `rail-stage-${track.id}-${module.id}`;
-
+              const percent = courseStagePercent(module.passed, module.total);
               return (
-                <section
-                  key={module.id}
-                  className={`rail-stage${routeInModule ? " active" : ""}${module.current ? " current" : ""}${complete ? " complete" : ""}`}
-                  aria-labelledby={headingId}
-                >
-                  <header className="rail-stage-head">
-                    <div>
-                      <span className="rail-stage-step">Etap {index + 1}</span>
-                      <h2 id={headingId}>{module.title}</h2>
-                    </div>
-                    <span
-                      className="rail-stage-progress num"
-                      title={`${module.passed} z ${module.total} poziomów zaliczonych`}
-                      aria-label={`${module.passed} z ${module.total} poziomów zaliczonych`}
-                    >
-                      {module.passed}/{module.total}
+                <Link key={module.id}
+                  className={`course-stage-link${active ? " active" : ""}${complete ? " complete" : ""}`}
+                  href={`/track/${track.id}?${courseQuery(module.id, courseFilter(searchParams.get("filter")))}`}
+                  aria-current={active ? "step" : undefined}
+                  aria-label={`${module.title}, ${module.passed} z ${module.total} zaliczonych`}
+                  onClick={onMobileNavigate}>
+                  <IconStageIndex n={index + 1} />
+                  <span className="course-stage-copy">
+                    <span className="course-stage-name">{module.title}</span>
+                    <span className="course-stage-meter" aria-hidden="true">
+                      <span className="course-stage-bar"><i style={{ width: `${percent}%` }} /></span>
+                      <span className="course-stage-pct num">{percent}% zrobione</span>
                     </span>
-                  </header>
-
-                  <div className="rail-stage-topics">
-                    {module.topics.map((topic) => {
-                      const slug = topicSlug(topic.id);
-                      const open = slug === openSlug;
-                      const tag = topicTag(topic.id);
-                      const topicHref = `/track/${track.id}/${slug}`;
-                      const toggleId = `topic-toggle-${track.id}-${slug}`;
-                      const levelsId = `topic-levels-${track.id}-${slug}`;
-                      return (
-                        <div key={topic.id} className={`topic${open ? " open" : ""}`}>
-                          <div className="topic-row">
-                            <Link
-                              className="topic-link"
-                              href={topicHref}
-                              aria-current={slug === curTopicSlug && !curLevel ? "page" : undefined}
-                              onClick={() => {
-                                setOpenSlug(slug);
-                                onMobileNavigate();
-                              }}
-                            >
-                              <span className="topic-num mono">{topicNumber(topic.id)}</span>
-                              <span className="topic-title">{topic.title}</span>
-                              {tag && <TopicTag tag={tag} />}
-                            </Link>
-                            <button
-                              type="button"
-                              id={toggleId}
-                              className="topic-toggle"
-                              aria-label={`${open ? "Ukryj" : "Pokaż"} poziomy: ${topic.title}`}
-                              aria-expanded={open}
-                              aria-controls={levelsId}
-                              onClick={() => toggleTopic(slug)}
-                            >
-                              <span className="caret" aria-hidden="true">▶</span>
-                            </button>
-                          </div>
-                          <div
-                            className="levels"
-                            id={levelsId}
-                            role="region"
-                            aria-labelledby={toggleId}
-                            aria-hidden={open ? undefined : true}
-                            inert={open ? undefined : true}
-                          >
-                            <div>
-                              {topic.levels.map((level) => {
-                                const active =
-                                  slug === curTopicSlug && level.id === curLevel;
-                                return (
-                                  <Link
-                                    key={level.id}
-                                    className={`lvl${active ? " active" : ""}`}
-                                    href={`${topicHref}/${level.id}`}
-                                    aria-current={active ? "page" : undefined}
-                                    aria-label={`${level.id}: ${STATUS_LABEL[level.status]}`}
-                                    tabIndex={open ? undefined : -1}
-                                    onClick={onMobileNavigate}
-                                  >
-                                    <span className={`sdot ${level.status}`} aria-hidden="true" />
-                                    <span>{level.id}</span>
-                                  </Link>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </section>
+                  </span>
+                </Link>
               );
             })}
           </>

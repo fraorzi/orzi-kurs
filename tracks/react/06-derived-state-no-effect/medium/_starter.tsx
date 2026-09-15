@@ -1,12 +1,12 @@
 import { useState } from "react";
 
 export interface Product {
-  readonly id: string;
-  readonly name: string;
+  id: string;
+  name: string;
 }
 
 export interface ProductFilterProps {
-  products: readonly Product[];
+  products: Product[];
 }
 
 export function ProductFilter({
