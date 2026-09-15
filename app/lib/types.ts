@@ -7,6 +7,7 @@ export interface CatalogLevel {
   attempts: number;
   masteryScore: number;
   nextReviewAt?: string;
+  lastRunAt?: string;
 }
 
 export interface CatalogTopic {
@@ -82,6 +83,7 @@ export interface TaskResponse {
   readme: string;
   taskMd: string;
   hintsTotal: number;
+  solutionNotes?: string | null;
   starterPath: string | null;
   starter: string | null;
   solution: string | null;

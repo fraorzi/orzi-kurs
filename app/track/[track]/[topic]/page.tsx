@@ -2,6 +2,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { courseFilter, courseQuery, courseStageForTopic } from "@/app/lib/course-navigation";
 import { buildCatalog } from "@/harness/catalog";
 import { TRACKS_ROOT } from "@/harness/paths";
 import Markdown from "@/app/components/Markdown";
@@ -17,14 +18,19 @@ import {
 
 export default async function TopicPage({
   params,
+  searchParams = Promise.resolve({}),
 }: {
   params: Promise<{ track: string; topic: string }>;
+  searchParams?: Promise<{ stage?: string; filter?: string }>;
 }) {
   const { track, topic } = await params;
+  const query = await searchParams;
   const trackData = buildCatalog().tracks.find((t) => t.id === track);
   const topicData = trackData?.topics.find((t) => t.id === `${track}/${topic}`);
   if (!trackData || !topicData) notFound();
 
+  const stage = courseStageForTopic(trackData, `${track}/${topic}`);
+  const contextQuery = stage ? courseQuery(stage.id, courseFilter(query.filter)) : "";
   const readmePath = join(TRACKS_ROOT, track, topic, "README.md");
   const readme = existsSync(readmePath) ? readFileSync(readmePath, "utf8") : "";
   const tag = topicTag(topicData.id);
@@ -34,6 +40,7 @@ export default async function TopicPage({
     <>
       <div className="topbar">
         <RouteBreadcrumbs
+          contextQuery={contextQuery}
           trackId={track}
           topic={{
             id: topic,
@@ -46,6 +53,7 @@ export default async function TopicPage({
       </div>
 
       <div className="wrap wrap-read page-theory">
+        <Link className="btn-ghost theory-program-back" href={`/track/${track}?${contextQuery}`}>Program kursu</Link>
         <div className="page-role">
           <strong>Teoria przed praktyką</strong>
           <span>Zrozum mechanizm, a potem sprawdź go na trzech poziomach trudności.</span>
@@ -68,7 +76,7 @@ export default async function TopicPage({
               <Link
                 key={level.id}
                 className={`lcard${target?.level.id === level.id ? " recommended" : ""}`}
-                href={`/track/${track}/${topic}/${level.id}`}
+                href={`/track/${track}/${topic}/${level.id}?${contextQuery}`}
               >
                 <span className={`sdot ${level.status}`} style={{ width: 11, height: 11 }} aria-hidden="true" />
                 <div className="lname">{level.id}</div>

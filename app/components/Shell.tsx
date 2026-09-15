@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { usePathname, useRouter } from "next/navigation";
 import type { Catalog } from "@/app/lib/types";
@@ -173,7 +173,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       >
         <IconMenu />
       </button>
-      <Sidebar
+      <Suspense fallback={<aside className="rail" aria-label="Ładowanie nawigacji" />}><Sidebar
         catalog={catalog}
         catalogStatus={catalogStatus}
         collapsed={collapsed}
@@ -190,7 +190,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
         }}
         onRetryCatalog={() => void loadCatalog()}
         inert={paletteOpen}
-      />
+      /></Suspense>
       {isMobile && mobileNavOpen && (
         <button
           className={styles.backdrop}

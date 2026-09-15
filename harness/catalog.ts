@@ -12,6 +12,7 @@ export interface CatalogLevel {
   attempts: number;
   masteryScore: number;
   nextReviewAt?: string;
+  lastRunAt?: string;
 }
 
 export interface CatalogTopic {
@@ -62,6 +63,7 @@ function levelProgress(
     attempts: taskProgress?.attempts ?? 0,
     masteryScore: masteryScore(taskProgress),
     nextReviewAt: taskProgress?.nextReviewAt,
+    lastRunAt: taskProgress?.lastRunAt,
   };
 }
 

@@ -9,13 +9,18 @@ import { buildCatalog } from "@/harness/catalog";
 import { resourcesForTask } from "@/harness/resources";
 import { nextTaskInTrack } from "@/harness/task-navigation";
 import TaskView from "./TaskView";
+import { experimentForTask } from "@/harness/experiments/run";
+import { courseFilter, courseQuery, courseStageForTopic } from "@/app/lib/course-navigation";
 
 export default async function LevelPage({
   params,
+  searchParams = Promise.resolve({}),
 }: {
   params: Promise<{ track: string; topic: string; level: string }>;
+  searchParams?: Promise<{ stage?: string; filter?: string }>;
 }) {
   const { track, topic, level } = await params;
+  const query = await searchParams;
   const taskId = `${track}/${topic}/${level}`;
   const taskDir = join(TRACKS_ROOT, track, topic, level);
 
@@ -40,6 +45,9 @@ export default async function LevelPage({
   const catalogTrack = buildCatalog().tracks.find((item) => item.id === track);
   const topicTitle = catalogTrack?.topics.find((item) => item.id === `${track}/${topic}`)?.title ?? topic;
   const nextTask = catalogTrack ? nextTaskInTrack(catalogTrack, taskId) : null;
+  const stage = catalogTrack ? courseStageForTopic(catalogTrack, `${track}/${topic}`) : undefined;
+  const contextQuery = stage ? courseQuery(stage.id, courseFilter(query.filter)) : "";
+  const solutionNotes = passed && existsSync(join(taskDir, "solution-notes.md")) ? readFileSync(join(taskDir, "solution-notes.md"), "utf8") : null;
 
   return (
     <TaskView
@@ -58,7 +66,12 @@ export default async function LevelPage({
       initialProgress={taskProgress}
       initialPassKind={progressStatus === "passed-with-hint" ? "with-hint" : passed ? "without-hint" : null}
       resources={resourcesForTask(taskId)}
-      nextTaskHref={nextTask?.href ?? null}
+      nextTaskHref={nextTask ? `${nextTask.href}?${new URLSearchParams({ filter: courseFilter(query.filter) })}` : null}
+      programHref={`/track/${track}?${contextQuery}`}
+      levels={catalogTrack?.topics.find((item) => item.id === `${track}/${topic}`)?.levels ?? []}
+      contextQuery={contextQuery}
+      experiment={experimentForTask(taskId)}
+      initialSolutionNotes={solutionNotes}
     />
   );
 }
